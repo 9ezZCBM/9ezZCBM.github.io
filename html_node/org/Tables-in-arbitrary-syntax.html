@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Tables in arbitrary syntax - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Tables-in-arbitrary-syntax"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Dynamic-blocks.html#Dynamic-blocks">Dynamic blocks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Context_002dsensitive-commands.html#Context_002dsensitive-commands">Context-sensitive commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hacking.html#Hacking">Hacking</a>
+
+</div>
+
+<h3 class="section">A.6 Tables and lists in arbitrary syntax</h3>
+
+<p><a name="index-tables_002c-in-other-modes-2394"></a><a name="index-lists_002c-in-other-modes-2395"></a><a name="index-Orgtbl-mode-2396"></a>
+Because of Org's success in handling tables with Orgtbl, a frequently asked
+feature is to Org's usability functions to other table formats native to
+other modem's, such as LaTeX.  This would be hard to do in a general way
+without complicated customization nightmares.  Moreover, that would take Org
+away from its simplicity roots that Orgtbl has proven.  There is, however, an
+alternate approach to accomplishing the same.
+
+   <p>This approach involves implementing a custom <em>translate</em> function that
+operates on a native Org <em>source table</em> to produce a table in another
+format.  This strategy would keep the excellently working Orgtbl simple and
+isolate complications, if any, confined to the translate function.  To add
+more alien table formats, we just add more translate functions.  Also the
+burden of developing custom translate functions for new table formats will be
+in the hands of those who know those formats best.
+
+   <p>For an example of how this strategy works, see Orgstruct mode.  In that mode,
+Bastien added the ability to use Org's facilities to edit and re-structure
+lists.  He did by turning <code>orgstruct-mode</code> on, and then exporting the
+list locally to another format, such as HTML, LaTeX or Texinfo.
+
+<ul class="menu">
+<li><a accesskey="1" href="Radio-tables.html#Radio-tables">Radio tables</a>:                 Sending and receiving radio tables
+<li><a accesskey="2" href="A-LaTeX-example.html#A-LaTeX-example">A LaTeX example</a>:           Step by step, almost a tutorial
+<li><a accesskey="3" href="Translator-functions.html#Translator-functions">Translator functions</a>:         Copy and modify
+<li><a accesskey="4" href="Radio-lists.html#Radio-lists">Radio lists</a>:                  Sending and receiving lists
+</ul>
+
+   </body></html>
+

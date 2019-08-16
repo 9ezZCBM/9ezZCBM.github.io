@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Features for Automatic Typing</title>
+<!--
+Copyright (C) 1994-1995, 1999, 2001-2019
+Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being "A GNU Manual", and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     "GNU Free Documentation License".
+
+     (a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+     modify this GNU manual."
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div id="content" class="inner">
+
+<h2 class="unnumbered">Autotyping</h2>
+
+<p>Under certain circumstances you will find yourself typing similar things
+over and over again.  This is especially true of form letters and programming
+language constructs.  Project-specific header comments, flow-control
+constructs or magic numbers are essentially the same every time.  Emacs has
+various features for doing tedious and repetitive typing chores for you
+in addition to the Abbrev features (see <a href="../emacs/Abbrevs.html#Abbrevs">Abbrevs</a>).
+
+   <p>One solution is using skeletons, flexible rules that say what to
+insert, and how to do it.  Various programming language modes offer some
+ready-to-use skeletons, and you can adapt them to suit your needs or
+taste, or define new ones.
+
+   <p>Another feature is automatic insertion of what you want into empty files,
+depending on the file-name or the mode as appropriate.  You can have a file or
+a skeleton inserted, or you can call a function.  Then there is the
+possibility to have Un*x interpreter scripts automatically take on a magic
+number and be executable as soon as they are saved.  Or you can have a
+copyright notice's year updated, if necessary, every time you save a
+file.  Similarly for time stamps in the file.
+
+   <p>URLs can be inserted based on a word at point.  Flexible templates can
+be defined for inserting and navigating between text more generally.  A
+sort of meta-expansion facility can be used to try a set of alternative
+completions and expansions of text at point.
+
+
+
+<table style="float:left" width="100%">
+  <tr>
+    <td><a accesskey="1" href="Using-Skeletons.html#Using-Skeletons">Using Skeletons</a></td>
+    <td>How to insert a skeleton into your text.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="2" href="Wrapping-Skeletons.html#Wrapping-Skeletons">Wrapping Skeletons</a></td>
+    <td>Putting existing text within a skeleton.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="3" href="Skeletons-as-Abbrevs.html#Skeletons-as-Abbrevs">Skeletons as Abbrevs</a></td>
+    <td>An alternative for issuing skeleton commands.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="4" href="Skeleton-Language.html#Skeleton-Language">Skeleton Language</a></td>
+    <td>Making skeleton commands insert what you want.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="5" href="Inserting-Pairs.html#Inserting-Pairs">Inserting Pairs</a></td>
+    <td>Typing one character and getting another
+                             after point.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="6" href="Autoinserting.html#Autoinserting">Autoinserting</a></td>
+    <td>Filling up empty files as soon as you visit them.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="7" href="Copyrights.html#Copyrights">Copyrights</a></td>
+    <td>Inserting and updating copyrights.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="8" href="Executables.html#Executables">Executables</a></td>
+    <td>Turning interpreter scripts into executables.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="9" href="Timestamps.html#Timestamps">Timestamps</a></td>
+    <td>Updating dates and times in modified files.</td>
+  </tr>
+  <tr>
+    <td><a href="QuickURL.html#QuickURL">QuickURL</a></td>
+    <td>Inserting URLs based on text at point.</td>
+  </tr>
+  <tr>
+    <td><a href="Tempo.html#Tempo">Tempo</a></td>
+    <td>Flexible template insertion.</td>
+  </tr>
+  <tr>
+    <td><a href="Hippie-Expand.html#Hippie-Expand">Hippie Expand</a></td>
+    <td>Expansion of text trying various methods.</td>
+  </tr>
+  <tr>
+    <td><a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a></td>
+    <td>The license for this documentation.</td>
+  </tr>
+  <tr>
+    <td><a href="Concept-Index.html#Concept-Index">Concept Index</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Command-Index.html#Command-Index">Command Index</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Variable-Index.html#Variable-Index">Variable Index</a></td>
+    <td>
+  </td></tr>
+</table>
+   <p>Copyright &copy; 1994&ndash;1995, 1999, 2001&ndash;2019
+Free Software Foundation, Inc.
+
+   <blockquote>
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being &ldquo;A GNU Manual&rdquo;,
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled &ldquo;GNU Free Documentation License&rdquo;.
+
+   <p>(a) The FSF's Back-Cover Text is: &ldquo;You have the freedom to copy and
+modify this GNU manual.&rdquo;
+</blockquote>
+</div>
+
+   </body></html>
+
+<!--
+
+Local Variables:
+coding: utf-8
+End:
+
+-->

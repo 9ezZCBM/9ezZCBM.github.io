@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>AWK Mode Font Locking - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="AWK-Mode-Font-Locking"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Misc-Font-Locking.html#Misc-Font-Locking">Misc Font Locking</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Font-Locking.html#Font-Locking">Font Locking</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">5.5 AWK Mode Font Locking</h3>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p>The general appearance of font-locking in AWK mode is much like in any
+other programming mode.  See <a href="../elisp/Faces-for-Font-Lock.html#Faces-for-Font-Lock">Faces for Font Lock</a>.
+
+   <p>The following faces are, however, used in a non-standard fashion in
+AWK mode:
+
+     <dl>
+<dt><code>font-lock-variable-name-face</code><dd>This face was intended for variable declarations.  Since variables are
+not declared in AWK, this face is used instead for AWK system
+variables (such as <code>NF</code>) and &ldquo;Special File Names&rdquo; (such as
+<code>"/dev/stderr"</code>).
+
+     <br><dt><code>font-lock-builtin-face</code> (Emacs)/<code>font-lock-preprocessor-face</code> (XEmacs)<dd>This face is normally used for preprocessor directives in CC Mode. 
+There are no such things in AWK, so this face is used instead for
+standard functions (such as <code>match</code>).
+
+     <br><dt><code>font-lock-string-face</code><dd>As well as being used for strings, including localizable strings,
+(delimited by &lsquo;<samp><span class="samp">"</span></samp>&rsquo; and &lsquo;<samp><span class="samp">_"</span></samp>&rsquo;), this face is also used for AWK
+regular expressions (delimited by &lsquo;<samp><span class="samp">/</span></samp>&rsquo;).
+
+     <br><dt><code>font-lock-warning-face</code> (Emacs)/<code>c-invalid-face</code> (XEmacs)<dd>This face highlights the following syntactically invalid AWK
+constructs:
+
+          <ul>
+<li>An unterminated string or regular expression.  Here the opening
+delimiter (&lsquo;<samp><span class="samp">"</span></samp>&rsquo; or &lsquo;<samp><span class="samp">/</span></samp>&rsquo; or &lsquo;<samp><span class="samp">_"</span></samp>&rsquo;) is displayed in
+<code>font-lock-warning-face</code>.  This is most noticeable when typing in a
+new string/regular expression into a buffer, when the warning-face
+serves as a continual reminder to terminate the construct.
+
+          <p>AWK mode fontifies unterminated strings/regular expressions
+differently from other modes: Only the text up to the end of the line
+is fontified as a string (escaped newlines being handled correctly),
+rather than the text up to the next string quote.
+
+          <li>A space between the function name and opening parenthesis when calling
+a user function.  The last character of the function name and the
+opening parenthesis are highlighted.  This font-locking rule will
+spuriously highlight a valid concatenation expression where an
+identifier precedes a parenthesized expression.  Unfortunately.
+
+          <li>Whitespace following the &lsquo;<samp><span class="samp">\</span></samp>&rsquo; in what otherwise looks like an
+escaped newline.  The &lsquo;<samp><span class="samp">\</span></samp>&rsquo; is highlighted. 
+</ul>
+     </dl>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   </body></html>
+

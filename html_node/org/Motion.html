@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Motion - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Motion"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Structure-editing.html#Structure-editing">Structure editing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Visibility-cycling.html#Visibility-cycling">Visibility cycling</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Document-structure.html#Document-structure">Document structure</a>
+
+</div>
+
+<h3 class="section">2.4 Motion</h3>
+
+<p><a name="index-motion_002c-between-headlines-89"></a><a name="index-jumping_002c-to-headlines-90"></a><a name="index-headline-navigation-91"></a>The following commands jump to other headlines in the buffer.
+
+     
+<a name="index-C_002dc-C_002dn-92"></a>
+<a name="index-org_002dnext_002dvisible_002dheading-93"></a>
+<dl><dt><kbd>C-c C-n</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-next-visible-heading</code>)<dd>
+Next heading. 
+<a name="index-C_002dc-C_002dp-94"></a><a name="index-org_002dprevious_002dvisible_002dheading-95"></a><br><dt><kbd>C-c C-p</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-previous-visible-heading</code>)<dd>
+Previous heading. 
+<a name="index-C_002dc-C_002df-96"></a><a name="index-org_002dforward_002dsame_002dlevel-97"></a><br><dt><kbd>C-c C-f</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-forward-same-level</code>)<dd>
+Next heading same level. 
+<a name="index-C_002dc-C_002db-98"></a><a name="index-org_002dbackward_002dsame_002dlevel-99"></a><br><dt><kbd>C-c C-b</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-backward-same-level</code>)<dd>
+Previous heading same level. 
+<a name="index-C_002dc-C_002du-100"></a><a name="index-outline_002dup_002dheading-101"></a><br><dt><kbd>C-c C-u</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>outline-up-heading</code>)<dd>
+Backward to higher level heading. 
+<a name="index-C_002dc-C_002dj-102"></a><a name="index-org_002dgoto-103"></a><br><dt><kbd>C-c C-j</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-goto</code>)<dd>
+Jump to a different place without changing the current outline
+visibility.  Shows the document structure in a temporary buffer, where
+you can use the following keys to find your destination:
+<a name="index-org_002dgoto_002dauto_002disearch-104"></a>
+     <pre class="example">          &lt;TAB&gt;         <span class="roman">Cycle visibility.</span>
+          &lt;DOWN&gt; / &lt;UP&gt;   <span class="roman">Next/previous visible headline.</span>
+          &lt;RET&gt;         <span class="roman">Select this location.</span>
+          <kbd>/</kbd>           <span class="roman">Do a Sparse-tree search</span>
+          <span class="roman">The following keys work if you turn off </span><code>org-goto-auto-isearch</code>
+          n / p        <span class="roman">Next/previous visible headline.</span>
+          f / b        <span class="roman">Next/previous headline same level.</span>
+          u            <span class="roman">One level up.</span>
+          0-9          <span class="roman">Digit argument.</span>
+          q            <span class="roman">Quit</span>
+</pre>
+     <p><a name="index-org_002dgoto_002dinterface-105"></a>See also the option <code>org-goto-interface</code>. 
+</dl>
+
+   </body></html>
+

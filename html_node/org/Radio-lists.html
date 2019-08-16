@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Radio lists - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Radio-lists"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Translator-functions.html#Translator-functions">Translator functions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Tables-in-arbitrary-syntax.html#Tables-in-arbitrary-syntax">Tables in arbitrary syntax</a>
+
+</div>
+
+<h4 class="subsection">A.6.4 Radio lists</h4>
+
+<p><a name="index-radio-lists-2404"></a><a name="index-g_t_0040code_007borg_002dlist_002dinsert_002dradio_002dlist_007d-2405"></a>
+Call the <code>org-list-insert-radio-list</code> function to insert a radio list
+template in HTML, LaTeX, and Texinfo mode documents.  Sending and
+receiving radio lists works is the same as for radio tables (see <a href="Radio-tables.html#Radio-tables">Radio tables</a>) except for these differences:
+
+   <p><a name="index-g_t_0040code_007b_0023_002bORGLST_007d-2406"></a>
+     <ul>
+<li>Orgstruct mode must be active. 
+<li>Use <code>ORGLST</code> keyword instead of <code>ORGTBL</code>. 
+<li><kbd>C-c C-c</kbd> works only on the first list item. 
+</ul>
+
+   <p>Built-in translators functions are: <code>org-list-to-latex</code>,
+<code>org-list-to-html</code> and <code>org-list-to-texinfo</code>.  They use the
+<code>org-list-to-generic</code> translator function.  See its documentation for
+parameters for accurate customizations of lists.  Here is a LaTeX example:
+
+<pre class="example">     % BEGIN RECEIVE ORGLST to-buy
+     % END RECEIVE ORGLST to-buy
+     \begin{comment}
+     #+ORGLST: SEND to-buy org-list-to-latex
+     - a new house
+     - a new computer
+       + a new keyboard
+       + a new mouse
+     - a new life
+     \end{comment}
+</pre>
+   <p><kbd>C-c C-c</kbd> on &lsquo;<samp><span class="samp">a new house</span></samp>&rsquo; inserts the translated LaTeX list
+in-between the BEGIN and END marker lines.
+
+   </body></html>
+

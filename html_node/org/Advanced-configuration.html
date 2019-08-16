@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Advanced configuration - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Advanced-configuration"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Export-in-foreign-buffers.html#Export-in-foreign-buffers">Export in foreign buffers</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Other-built_002din-back_002dends.html#Other-built_002din-back_002dends">Other built-in back-ends</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Exporting.html#Exporting">Exporting</a>
+
+</div>
+
+<h3 class="section">12.17 Advanced configuration</h3>
+
+<h4 class="subheading">Hooks</h4>
+
+<p><a name="index-org_002dexport_002dbefore_002dprocessing_002dhook-2050"></a><a name="index-org_002dexport_002dbefore_002dparsing_002dhook-2051"></a>The export process executes two hooks before the actual exporting begins. 
+The first hook, <code>org-export-before-processing-hook</code>, runs before any
+expansions of macros, Babel code, and include keywords in the buffer.  The
+second hook, <code>org-export-before-parsing-hook</code>, runs before the buffer is
+parsed.  Both hooks are specified as functions, see example below.  Their main
+use is for heavy duty structural modifications of the Org content.  For
+example, removing every headline in the buffer during export:
+
+<pre class="lisp">     (defun my-headline-removal (backend)
+       "Remove all headlines in the current buffer.
+     BACKEND is the export back-end being used, as a symbol."
+       (org-map-entries
+        (lambda () (delete-region (point) (progn (forward-line) (point))))))
+     
+     (add-hook 'org-export-before-parsing-hook 'my-headline-removal)
+</pre>
+   <p>Note that the hook function must have a mandatory argument that is a symbol
+for the back-end.
+
+<h4 class="subheading">Filters</h4>
+
+<p><a name="index-Filters_002c-exporting-2052"></a>The Org export process relies on filters to process specific parts of
+conversion process.  Filters are just lists of functions to be applied to
+certain parts for a given back-end.  The output from the first function in
+the filter is passed on to the next function in the filter.  The final output
+is the output from the final function in the filter.
+
+   <p>The Org export process has many filter sets applicable to different types of
+objects, plain text, parse trees, export options, and final output formats. 
+The filters are named after the element type or object type:
+<code>org-export-filter-TYPE-functions</code>, where <code>TYPE</code> is the type
+targeted by the filter.  Valid types are:
+
+   <p><table summary=""><tr align="left"><td valign="top" width="33%">body
+</td><td valign="top" width="33%">bold
+</td><td valign="top" width="33%">babel-call
+<br></td></tr><tr align="left"><td valign="top" width="33%">center-block
+</td><td valign="top" width="33%">clock
+</td><td valign="top" width="33%">code
+<br></td></tr><tr align="left"><td valign="top" width="33%">diary-sexp
+</td><td valign="top" width="33%">drawer
+</td><td valign="top" width="33%">dynamic-block
+<br></td></tr><tr align="left"><td valign="top" width="33%">entity
+</td><td valign="top" width="33%">example-block
+</td><td valign="top" width="33%">export-block
+<br></td></tr><tr align="left"><td valign="top" width="33%">export-snippet
+</td><td valign="top" width="33%">final-output
+</td><td valign="top" width="33%">fixed-width
+<br></td></tr><tr align="left"><td valign="top" width="33%">footnote-definition
+</td><td valign="top" width="33%">footnote-reference
+</td><td valign="top" width="33%">headline
+<br></td></tr><tr align="left"><td valign="top" width="33%">horizontal-rule
+</td><td valign="top" width="33%">inline-babel-call
+</td><td valign="top" width="33%">inline-src-block
+<br></td></tr><tr align="left"><td valign="top" width="33%">inlinetask
+</td><td valign="top" width="33%">italic
+</td><td valign="top" width="33%">item
+<br></td></tr><tr align="left"><td valign="top" width="33%">keyword
+</td><td valign="top" width="33%">latex-environment
+</td><td valign="top" width="33%">latex-fragment
+<br></td></tr><tr align="left"><td valign="top" width="33%">line-break
+</td><td valign="top" width="33%">link
+</td><td valign="top" width="33%">node-property
+<br></td></tr><tr align="left"><td valign="top" width="33%">options
+</td><td valign="top" width="33%">paragraph
+</td><td valign="top" width="33%">parse-tree
+<br></td></tr><tr align="left"><td valign="top" width="33%">plain-list
+</td><td valign="top" width="33%">plain-text
+</td><td valign="top" width="33%">planning
+<br></td></tr><tr align="left"><td valign="top" width="33%">property-drawer
+</td><td valign="top" width="33%">quote-block
+</td><td valign="top" width="33%">radio-target
+<br></td></tr><tr align="left"><td valign="top" width="33%">section
+</td><td valign="top" width="33%">special-block
+</td><td valign="top" width="33%">src-block
+<br></td></tr><tr align="left"><td valign="top" width="33%">statistics-cookie
+</td><td valign="top" width="33%">strike-through
+</td><td valign="top" width="33%">subscript
+<br></td></tr><tr align="left"><td valign="top" width="33%">superscript
+</td><td valign="top" width="33%">table
+</td><td valign="top" width="33%">table-cell
+<br></td></tr><tr align="left"><td valign="top" width="33%">table-row
+</td><td valign="top" width="33%">target
+</td><td valign="top" width="33%">timestamp
+<br></td></tr><tr align="left"><td valign="top" width="33%">underline
+</td><td valign="top" width="33%">verbatim
+</td><td valign="top" width="33%">verse-block
+   <br></td></tr></table>
+
+   <p>Here is an example filter that replaces non-breaking spaces <code>~</code> in the
+Org buffer with <code>_</code> for the LaTeX back-end.
+
+<pre class="lisp">     (defun my-latex-filter-nobreaks (text backend info)
+       "Ensure \"_\" are properly handled in LaTeX export."
+       (when (org-export-derived-backend-p backend 'latex)
+             (replace-regexp-in-string "_" "~" text)))
+     
+     (add-to-list 'org-export-filter-plain-text-functions
+                  'my-latex-filter-nobreaks)
+</pre>
+   <p>A filter requires three arguments: the code to be transformed, the name of
+the back-end, and some optional information about the export process.  The
+third argument can be safely ignored.  Note the use of
+<code>org-export-derived-backend-p</code> predicate that tests for <code>latex</code>
+back-end or any other back-end, such as <code>beamer</code>, derived from
+<code>latex</code>.
+
+<h4 class="subheading">Defining filters for individual files</h4>
+
+<p>The Org export can filter not just for back-ends, but also for specific files
+through the <code>#+BIND</code> keyword.  Here is an example with two filters; one
+removes brackets from time stamps, and the other removes strike-through text. 
+The filter functions are defined in a &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block in the same Org
+file, which is a handy location for debugging.
+
+<pre class="example">     #+BIND: org-export-filter-timestamp-functions (tmp-f-timestamp)
+     #+BIND: org-export-filter-strike-through-functions (tmp-f-strike-through)
+     #+begin_src emacs-lisp :exports results :results none
+       (defun tmp-f-timestamp (s backend info)
+         (replace-regexp-in-string "&amp;[lg]t;\\|[][]" "" s))
+       (defun tmp-f-strike-through (s backend info) "")
+     #+end_src
+</pre>
+   <h4 class="subheading">Extending an existing back-end</h4>
+
+<p>Some parts of the conversion process can be extended for certain elements so
+as to introduce a new or revised translation.  That is how the HTML export
+back-end was extended to handle Markdown format.  The extensions work
+seamlessly so any aspect of filtering not done by the extended back-end is
+handled by the original back-end.  Of all the export customization in Org,
+extending is very powerful as it operates at the parser level.
+
+   <p>For this example, make the <code>ascii</code> back-end display the language used in
+a source code block.  Also make it display only when some attribute is
+non-<code>nil</code>, like the following:
+
+<pre class="example">     #+ATTR_ASCII: :language t
+</pre>
+   <p>Then extend <code>ascii</code> back-end with a custom <code>my-ascii</code> back-end.
+
+<pre class="lisp">     (defun my-ascii-src-block (src-block contents info)
+       "Transcode a SRC-BLOCK element from Org to ASCII.
+     CONTENTS is nil.  INFO is a plist used as a communication
+     channel."
+       (if (not (org-export-read-attribute :attr_ascii src-block :language))
+         (org-export-with-backend 'ascii src-block contents info)
+       (concat
+        (format ",--[ %s ]--\n%s`----"
+                (org-element-property :language src-block)
+                (replace-regexp-in-string
+                 "^" "| "
+                 (org-element-normalize-string
+                  (org-export-format-code-default src-block info)))))))
+     
+     (org-export-define-derived-backend 'my-ascii 'ascii
+       :translate-alist '((src-block . my-ascii-src-block)))
+</pre>
+   <p>The <code>my-ascii-src-block</code> function looks at the attribute above the
+current element.  If not true, hands over to <code>ascii</code> back-end.  If true,
+which it is in this example, it creates a box around the code and leaves room
+for the inserting a string for language.  The last form creates the new
+back-end that springs to action only when translating <code>src-block</code> type
+elements.
+
+   <p>To use the newly defined back-end, call the following from an Org buffer:
+
+<pre class="smalllisp">     (org-export-to-buffer 'my-ascii "*Org MY-ASCII Export*")
+</pre>
+   <p>Further steps to consider would be an interactive function, self-installing
+an item in the export dispatcher menu, and other user-friendly improvements.
+
+   </body></html>
+

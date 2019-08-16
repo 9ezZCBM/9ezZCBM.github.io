@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Mac / GNUstep Customization - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Mac-%2f-GNUstep-Customization"></a>
+<a name="Mac-_002f-GNUstep-Customization"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Mac-_002f-GNUstep-Events.html#Mac-_002f-GNUstep-Events">Mac / GNUstep Events</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Mac-_002f-GNUstep-Basics.html#Mac-_002f-GNUstep-Basics">Mac / GNUstep Basics</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Mac-OS-_002f-GNUstep.html#Mac-OS-_002f-GNUstep">Mac OS / GNUstep</a>
+
+</div>
+
+<h3 class="section">F.2 Mac / GNUstep Customization</h3>
+
+<p>There are a few customization options that are specific to the
+Nextstep port.  For example, they affect things such as the modifier
+keys and the fullscreen behavior.  To see all such options, use
+<kbd>M-x customize-group &lt;RET&gt; ns &lt;RET&gt;</kbd>.
+
+<h4 class="subsection">F.2.1 Font Panel</h4>
+
+<p><a name="index-ns_002dpopup_002dfont_002dpanel-5191"></a>The standard Mac / GNUstep font panel is accessible with <kbd>M-x
+ns-popup-font-panel</kbd> and will set the default font in the frame most
+recently used or clicked on.
+
+<!-- To make the setting permanent, use @samp{Save Options} in the -->
+<!-- Options menu, or run @code{menu-bar-options-save}. -->
+   <p><a name="index-Core-Text_002c-on-macOS-5192"></a><a name="index-font-backend_002c-on-macOS-5193"></a>In macOS, Emacs uses a Core Text based font backend
+by default.  If you prefer the older font style, enter the following
+at the command-line before starting Emacs:
+
+<pre class="example">     % defaults write org.gnu.Emacs FontBackend ns
+</pre>
+   </body></html>
+

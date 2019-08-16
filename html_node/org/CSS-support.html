@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>CSS support - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="CSS-support"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="JavaScript-support.html#JavaScript-support">JavaScript support</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Text-areas-in-HTML-export.html#Text-areas-in-HTML-export">Text areas in HTML export</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="HTML-export.html#HTML-export">HTML export</a>
+
+</div>
+
+<h4 class="subsection">12.9.11 CSS support</h4>
+
+<p><a name="index-CSS_002c-for-HTML-export-1800"></a><a name="index-HTML-export_002c-CSS-1801"></a>
+<a name="index-org_002dhtml_002dtodo_002dkwd_002dclass_002dprefix-1802"></a><a name="index-org_002dhtml_002dtag_002dclass_002dprefix-1803"></a>You can modify the CSS style definitions for the exported file.  The HTML
+exporter assigns the following special CSS classes<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> to appropriate parts of the document&mdash;your style
+specifications may change these, in addition to any of the standard classes
+like for headlines, tables, etc.
+<pre class="example">     p.author            <span class="roman">author information, including email</span>
+     p.date              <span class="roman">publishing date</span>
+     p.creator           <span class="roman">creator info, about org mode version</span>
+     .title              <span class="roman">document title</span>
+     .subtitle           <span class="roman">document subtitle</span>
+     .todo               <span class="roman">TODO keywords, all not-done states</span>
+     .done               <span class="roman">the DONE keywords, all states that count as done</span>
+     .WAITING            <span class="roman">each TODO keyword also uses a class named after itself</span>
+     .timestamp          <span class="roman">timestamp</span>
+     .timestamp-kwd      <span class="roman">keyword associated with a timestamp, like </span><code>SCHEDULED</code>
+     .timestamp-wrapper  <span class="roman">span around keyword plus timestamp</span>
+     .tag                <span class="roman">tag in a headline</span>
+     ._HOME              <span class="roman">each tag uses itself as a class, "@" replaced by "_"</span>
+     .target             <span class="roman">target for links</span>
+     .linenr             <span class="roman">the line number in a code example</span>
+     .code-highlighted   <span class="roman">for highlighting referenced code lines</span>
+     div.outline-N       <span class="roman">div for outline level N (headline plus text))</span>
+     div.outline-text-N  <span class="roman">extra div for text at outline level N</span>
+     .section-number-N   <span class="roman">section number in headlines, different for each level</span>
+     .figure-number      <span class="roman">label like "Figure 1:"</span>
+     .table-number       <span class="roman">label like "Table 1:"</span>
+     .listing-number     <span class="roman">label like "Listing 1:"</span>
+     div.figure          <span class="roman">how to format an in-lined image</span>
+     pre.src             <span class="roman">formatted source code</span>
+     pre.example         <span class="roman">normal example</span>
+     p.verse             <span class="roman">verse paragraph</span>
+     div.footnotes       <span class="roman">footnote section headline</span>
+     p.footnote          <span class="roman">footnote definition paragraph, containing a footnote</span>
+     .footref            <span class="roman">a footnote reference number (always a &lt;sup&gt;)</span>
+     .footnum            <span class="roman">footnote number in footnote definition (always &lt;sup&gt;)</span>
+     .org-svg            <span class="roman">default class for a linked </span><samp><span class="file">.svg</span></samp><span class="roman"> image</span>
+</pre>
+   <p><a name="index-org_002dhtml_002dstyle_002ddefault-1804"></a><a name="index-org_002dhtml_002dhead_002dinclude_002ddefault_002dstyle-1805"></a><a name="index-org_002dhtml_002dhead-1806"></a><a name="index-org_002dhtml_002dhead_002dextra-1807"></a><a name="index-g_t_0040code_007b_0023_002bHTML_005fINCLUDE_005fSTYLE_007d-1808"></a>The HTML export back-end includes a compact default style in each exported
+HTML file.  To override the default style with another style, use these
+keywords in the Org file.  They will replace the global defaults the HTML
+exporter uses.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bHTML_005fHEAD_007d-1809"></a><a name="index-g_t_0040code_007b_0023_002bHTML_005fHEAD_005fEXTRA_007d-1810"></a>
+<pre class="example">     #+HTML_HEAD: &lt;link rel="stylesheet" type="text/css" href="style1.css" /&gt;
+     #+HTML_HEAD_EXTRA: &lt;link rel="alternate stylesheet" type="text/css" href="style2.css" /&gt;
+</pre>
+   <p>To just turn off the default style, customize
+<code>org-html-head-include-default-style</code> variable, or use this option line in
+the Org file.
+
+<pre class="example">     #+OPTIONS: html-style:nil
+</pre>
+   <p class="noindent">For longer style definitions, either use several <code>#+HTML_HEAD</code> and
+<code>#+HTML_HEAD_EXTRA</code> lines, or use <code>&lt;style&gt;</code> <code>&lt;/style&gt;</code> blocks
+around them.  Both of these approaches can avoid referring to an external
+file.
+
+   <p>In order to add styles to a sub-tree, use the <code>:HTML_CONTAINER_CLASS:</code>
+property to assign a class to the tree.  In order to specify CSS styles for a
+particular headline, you can use the id specified in a <code>:CUSTOM_ID:</code>
+property.
+
+   <p>Never change the <code>org-html-style-default</code> constant.  Instead use other
+simpler ways of customizing as described above.
+
+<!-- FIXME: More about header and footer styles -->
+<!-- FIXME: Talk about links and targets. -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> If the classes on
+TODO keywords and tags lead to conflicts, use the variables
+<code>org-html-todo-kwd-class-prefix</code> and <code>org-html-tag-class-prefix</code> to
+make them unique.</p>
+
+   <hr></div>
+
+   </body></html>
+

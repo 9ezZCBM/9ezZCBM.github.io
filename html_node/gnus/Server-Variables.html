@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Server Variables - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Server-Variables"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Servers-and-Methods.html#Servers-and-Methods">Servers and Methods</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Creating-a-Virtual-Server.html#Creating-a-Virtual-Server">Creating a Virtual Server</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Server-Buffer.html#Server-Buffer">Server Buffer</a>
+
+</div>
+
+<h4 class="subsection">6.1.5 Server Variables</h4>
+
+<p><a name="index-server-variables-1969"></a><a name="index-server-parameters-1970"></a>
+One sticky point when defining variables (both on back ends and in Emacs
+in general) is that some variables are typically initialized from other
+variables when the definition of the variables is being loaded.  If you
+change the &ldquo;base&rdquo; variable after the variables have been loaded, you
+won't change the &ldquo;derived&rdquo; variables.
+
+   <p>This typically affects directory and file variables.  For instance,
+<code>nnml-directory</code> is <samp><span class="file">~/Mail/</span></samp> by default, and all <code>nnml</code>
+directory variables are initialized from that variable, so
+<code>nnml-active-file</code> will be <samp><span class="file">~/Mail/active</span></samp>.  If you define a
+new virtual <code>nnml</code> server, it will <em>not</em> suffice to set just
+<code>nnml-directory</code>&mdash;you have to explicitly set all the file
+variables to be what you want them to be.  For a complete list of
+variables for each back end, see each back end's section later in this
+manual, but here's an example <code>nnml</code> definition:
+
+<pre class="lisp">     (nnml "public"
+           (nnml-directory "~/my-mail/")
+           (nnml-active-file "~/my-mail/active")
+           (nnml-newsgroups-file "~/my-mail/newsgroups"))
+</pre>
+   <p>Server variables are often called <dfn>server parameters</dfn>.
+
+   </body></html>
+

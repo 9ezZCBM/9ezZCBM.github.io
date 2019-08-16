@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Copying and Naming - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Copying-and-Naming"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Misc-File-Ops.html#Misc-File-Ops">Misc File Ops</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Diff-Mode.html#Diff-Mode">Diff Mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Files.html#Files">Files</a>
+
+</div>
+
+<h3 class="section">18.11 Copying, Naming and Renaming Files</h3>
+
+<p>Emacs has several commands for copying, naming, and renaming files. 
+All of them read two file names, <var>old</var> (or <var>target</var>) and
+<var>new</var>, using the minibuffer, and then copy or adjust a file's name
+accordingly; they do not accept wildcard file names.
+
+   <p>In all these commands, if the argument <var>new</var> is just a directory
+name (see <a href="../elisp/Directory-Names.html#Directory-Names">Directory Names</a>), the real new name is in that directory, with the same
+non-directory component as <var>old</var>.  For example, the command
+<kbd>M-x&nbsp;rename-file&nbsp;&lt;RET&gt;&nbsp;~/foo&nbsp;&lt;RET&gt;&nbsp;/tmp/&nbsp;&lt;RET&gt;</kbd><!-- /@w -->
+renames <samp><span class="file">~/foo</span></samp> to <samp><span class="file">/tmp/foo</span></samp>.  On GNU and other POSIX-like
+systems, directory names end in &lsquo;<samp><span class="samp">/</span></samp>&rsquo;.
+
+   <p>All these commands ask for confirmation when the new file name already
+exists.
+
+   <p><a name="index-copy_002dfile-1365"></a><a name="index-copying-files-1366"></a>  <kbd>M-x copy-file</kbd> copies the contents of the file <var>old</var> to the
+file <var>new</var>.
+
+   <p><a name="index-copy_002ddirectory-1367"></a>  <kbd>M-x copy-directory</kbd> copies directories, similar to the
+<samp><span class="command">cp -r</span></samp> shell command.  If <var>new</var> is a directory name, it
+creates a copy of the <var>old</var> directory and puts it in <var>new</var>. 
+Otherwise it copies all the contents of <var>old</var> into a new directory
+named <var>new</var>.
+
+   <p><a name="index-renaming-files-1368"></a><a name="index-rename_002dfile-1369"></a>  <kbd>M-x rename-file</kbd> renames file <var>old</var> as <var>new</var>.  If the
+file name <var>new</var> already exists, you must confirm with <kbd>yes</kbd> or
+renaming is not done; this is because renaming causes the old meaning
+of the name <var>new</var> to be lost.  If <var>old</var> and <var>new</var> are on
+different file systems, the file <var>old</var> is copied and deleted.
+
+   <p>If a file is under version control (see <a href="Version-Control.html#Version-Control">Version Control</a>), you
+should rename it using <kbd>M-x&nbsp;vc-rename-file</kbd><!-- /@w --> instead of
+<kbd>M-x&nbsp;rename-file</kbd><!-- /@w -->.  See <a href="VC-Delete_002fRename.html#VC-Delete_002fRename">VC Delete/Rename</a>.
+
+   <p><a name="index-add_002dname_002dto_002dfile-1370"></a><a name="index-hard-links-_0028creation_0029-1371"></a>  <kbd>M-x add-name-to-file</kbd> adds an additional name to an existing
+file without removing the old name.  The new name is created as a hard
+link to the existing file.  The new name must belong on the same file
+system that the file is on.  On MS-Windows, this command works only if
+the file resides in an NTFS file system.  On MS-DOS, and some remote
+system types, it works by copying the file.
+
+   <p><a name="index-make_002dsymbolic_002dlink-1372"></a><a name="index-symbolic-links-_0028creation_0029-1373"></a>  <kbd>M-x make-symbolic-link</kbd> creates a symbolic link named
+<var>new</var>, which points at <var>target</var>.  The effect is that future
+attempts to open file <var>new</var> will refer to whatever file is named
+<var>target</var> at the time the opening is done, or will get an error if
+the name <var>target</var> is nonexistent at that time.  This command does
+not expand the argument <var>target</var>, so that it allows you to specify
+a relative name as the target of the link.  However, this command
+does expand leading &lsquo;<samp><span class="samp">~</span></samp>&rsquo; in <var>target</var> so that you can easily
+specify home directories, and strips leading &lsquo;<samp><span class="samp">/:</span></samp>&rsquo; so that you can
+specify relative names beginning with literal &lsquo;<samp><span class="samp">~</span></samp>&rsquo; or &lsquo;<samp><span class="samp">/:</span></samp>&rsquo;. 
+See <a href="Quoted-File-Names.html#Quoted-File-Names">Quoted File Names</a>.  On MS-Windows, this command works only on
+MS Windows Vista and later.  When <var>new</var> is remote,
+it works depending on the system type.
+
+   </body></html>
+

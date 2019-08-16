@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Comment lines - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Comment-lines"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ASCII_002fLatin_002d1_002fUTF_002d8-export.html#ASCII_002fLatin_002d1_002fUTF_002d8-export">ASCII/Latin-1/UTF-8 export</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Macro-replacement.html#Macro-replacement">Macro replacement</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Exporting.html#Exporting">Exporting</a>
+
+</div>
+
+<h3 class="section">12.6 Comment lines</h3>
+
+<p><a name="index-exporting_002c-not-1685"></a>
+<a name="index-comment-lines-1686"></a>Lines starting with zero or more whitespace characters followed by one
+&lsquo;<samp><span class="samp">#</span></samp>&rsquo; and a whitespace are treated as comments and, as such, are not
+exported.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bBEGIN_005fCOMMENT_007d-1687"></a>Likewise, regions surrounded by <code>#+BEGIN_COMMENT</code>
+... <code>#+END_COMMENT</code> are not exported.
+
+   <p><a name="index-comment-trees-1688"></a>Finally, a &lsquo;<samp><span class="samp">COMMENT</span></samp>&rsquo; keyword at the beginning of an entry, but after any
+other keyword or priority cookie, comments out the entire subtree.  In this
+case, the subtree is not exported and no code block within it is executed
+either<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.  The command below helps changing the
+comment status of a headline.
+
+     
+<a name="index-C_002dc-_003b-1689"></a>
+<dl><dt><kbd>C-c ;</kbd><dd>Toggle the &lsquo;<samp><span class="samp">COMMENT</span></samp>&rsquo; keyword at the beginning of an entry. 
+</dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> For a less drastic behavior, consider using a select tag
+(see <a href="Export-settings.html#Export-settings">Export settings</a>) instead.</p>
+
+   <hr></div>
+
+   </body></html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Directory Groups - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Directory-Groups"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Anything-Groups.html#Anything-Groups">Anything Groups</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Other-Sources.html#Other-Sources">Other Sources</a>
+
+</div>
+
+<h4 class="subsection">6.6.1 Directory Groups</h4>
+
+<p><a name="index-nndir-2242"></a><a name="index-directory-groups-2243"></a>
+If you have a directory that has lots of articles in separate files in
+it, you might treat it as a newsgroup.  The files have to have numerical
+names, of course.
+
+   <p>This might be an opportune moment to mention <code>ange-ftp</code> (and its
+successor <code>efs</code>), that most wonderful of all wonderful Emacs
+packages.  When I wrote <code>nndir</code>, I didn't think much about it&mdash;a
+back end to read directories.  Big deal.
+
+   <p><code>ange-ftp</code> changes that picture dramatically.  For instance, if you
+enter the <code>ange-ftp</code> file name
+<samp><span class="file">/ftp.hpc.uh.edu:/pub/emacs/ding-list/</span></samp> as the directory name,
+<code>ange-ftp</code> or <code>efs</code> will actually allow you to read this
+directory over at &lsquo;<samp><span class="samp">sina</span></samp>&rsquo; as a newsgroup.  Distributed news ahoy!
+
+   <p><code>nndir</code> will use <acronym>NOV</acronym> files if they are present.
+
+   <p><code>nndir</code> is a &ldquo;read-only&rdquo; back end&mdash;you can't delete or expire
+articles with this method.  You can use <code>nnmh</code> or <code>nnml</code> for
+whatever you use <code>nndir</code> for, so you could switch to any of those
+methods if you feel the need to have a non-read-only <code>nndir</code>.
+
+   </body></html>
+

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>List Functions - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="List-Functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Substitution-of-Expressions.html#Substitution-of-Expressions">Substitution of Expressions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Lists.html#Lists">Lists</a>
+
+</div>
+
+<h3 class="section">10.1 List Functions</h3>
+
+<p class="noindent">This section describes a number of simple operations on lists,
+i.e., chains of cons cells.
+
+<div class="defun">
+&mdash; Function: <b>cl-caddr</b><var> x<a name="index-cl_002dcaddr-149"></a></var><br>
+<blockquote><p>This function is equivalent to <code>(car (cdr (cdr </code><var>x</var><code>)))</code>. 
+Likewise, this package aliases all 24 <code>c</code><var>xxx</var><code>r</code> functions
+where <var>xxx</var> is up to four &lsquo;<samp><span class="samp">a</span></samp>&rsquo;s and/or &lsquo;<samp><span class="samp">d</span></samp>&rsquo;s. 
+All of these functions are <code>setf</code>-able, and calls to them
+are expanded inline by the byte-compiler for maximum efficiency. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-first</b><var> x<a name="index-cl_002dfirst-150"></a></var><br>
+<blockquote><p>This function is a synonym for <code>(car </code><var>x</var><code>)</code>.  Likewise,
+the functions <code>cl-second</code>, <code>cl-third</code>, <small class="dots">...</small>, through
+<code>cl-tenth</code> return the given element of the list <var>x</var>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-rest</b><var> x<a name="index-cl_002drest-151"></a></var><br>
+<blockquote><p>This function is a synonym for <code>(cdr </code><var>x</var><code>)</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-endp</b><var> x<a name="index-cl_002dendp-152"></a></var><br>
+<blockquote><p>This function acts like <code>null</code>, but signals an error if <code>x</code>
+is neither a <code>nil</code> nor a cons cell. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-list-length</b><var> x<a name="index-cl_002dlist_002dlength-153"></a></var><br>
+<blockquote><p>This function returns the length of list <var>x</var>, exactly like
+<code>(length </code><var>x</var><code>)</code>, except that if <var>x</var> is a circular
+list (where the <span class="sc">cdr</span>-chain forms a loop rather than terminating
+with <code>nil</code>), this function returns <code>nil</code>.  (The regular
+<code>length</code> function would get stuck if given a circular list. 
+See also the <code>safe-length</code> function.) 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-list*</b><var> arg &amp;rest others<a name="index-cl_002dlist_002a-154"></a></var><br>
+<blockquote><p>This function constructs a list of its arguments.  The final
+argument becomes the <span class="sc">cdr</span> of the last cell constructed. 
+Thus, <code>(cl-list* </code><var>a</var> <var>b</var> <var>c</var><code>)</code> is equivalent to
+<code>(cons </code><var>a</var><code> (cons </code><var>b</var> <var>c</var><code>))</code>, and
+<code>(cl-list* </code><var>a</var> <var>b</var><code> nil)</code> is equivalent to
+<code>(list </code><var>a</var> <var>b</var><code>)</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-ldiff</b><var> list sublist<a name="index-cl_002dldiff-155"></a></var><br>
+<blockquote><p>If <var>sublist</var> is a sublist of <var>list</var>, i.e., is <code>eq</code> to
+one of the cons cells of <var>list</var>, then this function returns
+a copy of the part of <var>list</var> up to but not including
+<var>sublist</var>.  For example, <code>(cl-ldiff x (cddr x))</code> returns
+the first two elements of the list <code>x</code>.  The result is a
+copy; the original <var>list</var> is not modified.  If <var>sublist</var>
+is not a sublist of <var>list</var>, a copy of the entire <var>list</var>
+is returned. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-copy-list</b><var> list<a name="index-cl_002dcopy_002dlist-156"></a></var><br>
+<blockquote><p>This function returns a copy of the list <var>list</var>.  It copies
+dotted lists like <code>(1 2 . 3)</code> correctly. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-tree-equal</b><var> x y </var><tt>&amp;key :test :test-not :key</tt><var><a name="index-cl_002dtree_002dequal-157"></a></var><br>
+<blockquote><p>This function compares two trees of cons cells.  If <var>x</var> and
+<var>y</var> are both cons cells, their <span class="sc">car</span>s and <span class="sc">cdr</span>s are
+compared recursively.  If neither <var>x</var> nor <var>y</var> is a cons
+cell, they are compared by <code>eql</code>, or according to the
+specified test.  The <code>:key</code> function, if specified, is
+applied to the elements of both trees.  See <a href="Sequences.html#Sequences">Sequences</a>. 
+</p></blockquote></div>
+
+   </body></html>
+

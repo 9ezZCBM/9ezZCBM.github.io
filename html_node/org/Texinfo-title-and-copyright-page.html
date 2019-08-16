@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Texinfo title and copyright page - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Texinfo-title-and-copyright-page"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Info-directory-file.html#Info-directory-file">Info directory file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Texinfo-file-header.html#Texinfo-file-header">Texinfo file header</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Texinfo-export.html#Texinfo-export">Texinfo export</a>
+
+</div>
+
+<h4 class="subsection">12.14.4 Texinfo title and copyright page</h4>
+
+<p><a name="index-g_t_0040code_007b_0023_002bTEXINFO_005fPRINTED_005fTITLE_007d-1976"></a>The default template for hard copy output has a title page with
+<code>#+TITLE</code> and <code>#+AUTHOR</code> (see <a href="Export-settings.html#Export-settings">Export settings</a>).  To replace the
+regular <code>#+TITLE</code> with something different for the printed version, use
+the <code>#+TEXINFO_PRINTED_TITLE</code> and <code>#+SUBTITLE</code> keywords.  Both
+expect raw Texinfo code for setting their values.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bSUBAUTHOR_007d-1977"></a>If one <code>#+AUTHOR</code> is not sufficient, add multiple <code>#+SUBAUTHOR</code>
+keywords.  They have to be set in raw Texinfo code.
+
+<pre class="example">     #+AUTHOR: Jane Smith
+     #+SUBAUTHOR: John Doe
+     #+TEXINFO_PRINTED_TITLE: This Long Title@inlinefmt{tex,@*} Is Broken in @TeX{}
+</pre>
+   <p><a name="index-property_002c-_0040code_007bCOPYING_007d-1978"></a>Copying material is defined in a dedicated headline with a non-<code>nil</code>
+<code>:COPYING:</code> property.  The back-end inserts the contents within a
+<code>@copying</code> command at the beginning of the document.  The heading
+itself does not appear in the structure of the document.
+
+   <p>Copyright information is printed on the back of the title page.
+
+<pre class="example">     * Legalese
+       :PROPERTIES:
+       :COPYING: t
+       :END:
+     
+       This is a short example of a complete Texinfo file, version 1.0.
+     
+       Copyright \copy 2019 Free Software Foundation, Inc.
+</pre>
+   </body></html>
+

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>cache - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="cache"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="sep.html#sep">sep</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="noweb_002dsep.html#noweb_002dsep">noweb-sep</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Specific-header-arguments.html#Specific-header-arguments">Specific header arguments</a>
+
+</div>
+
+<h5 class="subsubsection">14.8.2.18 <code>:cache</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003acache_007d_002c-src-header-argument-2145"></a>
+The <code>:cache</code> header argument is for caching results of evaluating code
+blocks.  Caching results can avoid re-evaluating &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks that
+have not changed since the previous run.  To benefit from the cache and avoid
+redundant evaluations, the source block must have a result already present in
+the buffer, and neither the header arguments (including the value of
+<code>:var</code> references) nor the text of the block itself has changed since
+the result was last computed.  This feature greatly helps avoid long-running
+calculations.  For some edge cases, however, the cached results may not be
+reliable.
+
+   <p>The caching feature is best for when &lsquo;<samp><span class="samp">src</span></samp>&rsquo; blocks are pure functions,
+that is functions that return the same value for the same input arguments
+(see <a href="var.html#var">var</a>), and that do not have side effects, and do not rely on external
+variables other than the input arguments.  Functions that depend on a timer,
+file system objects, and random number generators are clearly unsuitable for
+caching.
+
+   <p>A note of warning: when <code>:cache</code> is used for a <code>:session</code>, caching
+may cause unexpected results.
+
+   <p>When the caching mechanism tests for any source code changes, it will not
+expand Noweb style references (see <a href="Noweb-reference-syntax.html#Noweb-reference-syntax">Noweb reference syntax</a>).  For reasons
+why, see <a href="http://thread.gmane.org/gmane.emacs.orgmode/79046">http://thread.gmane.org/gmane.emacs.orgmode/79046</a>.
+
+   <p>The <code>:cache</code> header argument can have one of two values: <code>yes</code> or
+<code>no</code>.
+
+     <ul>
+<li><code>no</code>
+Default.  No caching of results; &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block evaluated every time. 
+<li><code>yes</code>
+Whether to run the code or return the cached results is determined by
+comparing the SHA1 hash value of the combined &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block and
+arguments passed to it.  This hash value is packed on the <code>#+RESULTS:</code>
+line from previous evaluation.  When hash values match, Org does not evaluate
+the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block.  When hash values mismatch, Org evaluates the
+&lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block, inserts the results, recalculates the hash value, and
+updates <code>#+RESULTS:</code> line. 
+</ul>
+
+   <p>In this example, both functions are cached.  But <code>caller</code> runs only if
+the result from <code>random</code> has changed since the last run.
+
+<pre class="example">      #+NAME: random
+      #+BEGIN_SRC R :cache yes
+      runif(1)
+      #+END_SRC
+     
+      #+RESULTS[a2a72cd647ad44515fab62e144796432793d68e1]: random
+      0.4659510825295
+     
+      #+NAME: caller
+      #+BEGIN_SRC emacs-lisp :var x=random :cache yes
+      x
+      #+END_SRC
+     
+      #+RESULTS[bec9c8724e397d5df3b696502df3ed7892fc4f5f]: caller
+      0.254227238707244
+</pre>
+   </body></html>
+

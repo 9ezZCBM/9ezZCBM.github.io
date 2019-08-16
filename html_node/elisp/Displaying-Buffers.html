@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Displaying Buffers - GNU Emacs Lisp Reference Manual</title>
+<!--
+This is the `GNU Emacs Lisp Reference Manual'
+corresponding to Emacs version 26.2.
+
+Copyright (C) 1990--1996, 1998--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``GNU General Public
+     License,'' with the Front-Cover Texts being ``A GNU Manual,'' and
+     with the Back-Cover Texts as in (a) below.  A copy of the license
+     is included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Displaying-Buffers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Window-History.html#Window-History">Window History</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Windows.html#Windows">Windows</a>
+
+</div>
+
+<h3 class="section">28.13 Displaying a Buffer in a Suitable Window</h3>
+
+<p><a name="index-buffer-display-2784"></a><a name="index-displaying-a-buffer-2785"></a>
+This section describes lower-level functions Emacs uses to find or
+create a window for displaying a specified buffer.  The common
+workhorse of these functions is <code>display-buffer</code> which eventually
+handles all incoming requests for buffer display (see <a href="Choosing-Window.html#Choosing-Window">Choosing Window</a>).
+
+   <p><code>display-buffer</code> delegates the task of finding a suitable
+window to so-called action functions (see <a href="Buffer-Display-Action-Functions.html#Buffer-Display-Action-Functions">Buffer Display Action Functions</a>).  First, <code>display-buffer</code> compiles a so-called action
+alist&mdash;a special association list that action functions can use to
+fine-tune their behavior.  Then it passes that alist on to each action
+function it calls (see <a href="Buffer-Display-Action-Alists.html#Buffer-Display-Action-Alists">Buffer Display Action Alists</a>).
+
+   <p>The behavior of <code>display-buffer</code> is highly customizable.  To
+understand how customizations are used in practice, you may wish to
+study examples illustrating the order of precedence which
+<code>display-buffer</code> uses to call action functions (see <a href="Precedence-of-Action-Functions.html#Precedence-of-Action-Functions">Precedence of Action Functions</a>).  To avoid conflicts between Lisp programs
+calling <code>display-buffer</code> and user customizations of its behavior,
+it may make sense to follow a number of guidelines which are sketched
+in the final part of this section (see <a href="The-Zen-of-Buffer-Display.html#The-Zen-of-Buffer-Display">The Zen of Buffer Display</a>).
+
+<ul class="menu">
+<li><a accesskey="1" href="Choosing-Window.html#Choosing-Window">Choosing Window</a>:          How to choose a window for displaying a buffer. 
+<li><a accesskey="2" href="Buffer-Display-Action-Functions.html#Buffer-Display-Action-Functions">Buffer Display Action Functions</a>:  Support functions for buffer display. 
+<li><a accesskey="3" href="Buffer-Display-Action-Alists.html#Buffer-Display-Action-Alists">Buffer Display Action Alists</a>:  Alists for fine-tuning buffer display. 
+<li><a accesskey="4" href="Choosing-Window-Options.html#Choosing-Window-Options">Choosing Window Options</a>:  Extra options affecting how buffers are displayed. 
+<li><a accesskey="5" href="Precedence-of-Action-Functions.html#Precedence-of-Action-Functions">Precedence of Action Functions</a>:  Examples to explain the precedence of
+                              action functions. 
+<li><a accesskey="6" href="The-Zen-of-Buffer-Display.html#The-Zen-of-Buffer-Display">The Zen of Buffer Display</a>:  How to avoid that buffers get lost in between
+                              windows. 
+</ul>
+
+   </body></html>
+

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Help for users - Emacs auth-source Library {No value for `VERSION'}</title>
+<!--
+This file describes the Emacs auth-source library.
+
+Copyright (C) 2008--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Help-for-users"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Multiple-GMail-accounts-with-Gnus.html#Multiple-GMail-accounts-with-Gnus">Multiple GMail accounts with Gnus</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Overview.html#Overview">Overview</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Help for users</h2>
+
+<p>&ldquo;Netrc&rdquo; files are a de facto standard.  They look like this:
+<pre class="example">     machine <var>mymachine</var> login <var>myloginname</var> password <var>mypassword</var> port <var>myport</var>
+</pre>
+   <p>The <code>machine</code> is the server (either a DNS name or an IP address). 
+It's known as <var>:host</var> in <code>auth-source-search</code> queries.  You
+can also use <code>host</code>.
+
+   <p>The <code>port</code> is the connection port or protocol.  It's known as
+<var>:port</var> in <code>auth-source-search</code> queries.
+
+   <p>The <code>user</code> is the user name.  It's known as <var>:user</var> in
+<code>auth-source-search</code> queries.  You can also use <code>login</code> and
+<code>account</code>.
+
+   <p>You can use spaces inside a password or other token by surrounding the
+token with either single or double quotes.
+
+   <p>You can use apostrophes inside a password or other token by
+surrounding it with double quotes, e.g., <code>"he'llo"</code>. Similarly you
+can use double quotes inside a password or other token by surrounding
+it with apostrophes, e.g., <code>'he"llo'</code>. You can't mix both (so a
+password or other token can't have both apostrophes and double quotes).
+
+   <p>All this is optional. You could just say (but we don't recommend it,
+we're just showing that it's possible)
+
+<pre class="example">     password <var>mypassword</var>
+</pre>
+   <p>to use the same password everywhere.  Again, <em>DO NOT DO THIS</em> or
+you will be pwned as the kids say.
+
+   <p>&ldquo;Netrc&rdquo; files are usually called <samp><span class="file">.authinfo</span></samp> or <samp><span class="file">.netrc</span></samp>;
+nowadays <samp><span class="file">.authinfo</span></samp> seems to be more popular and the auth-source
+library encourages this confusion by accepting both, as you'll see
+later.
+
+   <p>If you have problems with the search, set <code>auth-source-debug</code> to
+<code>'trivia</code> and see what host, port, and user the library is
+checking in the <samp><span class="file">*Messages*</span></samp> buffer.  Ditto for any other
+problems, your first step is always to see what's being checked.  The
+second step, of course, is to write a blog entry about it and wait for
+the answer in the comments.
+
+   <p>You can customize the variable <code>auth-sources</code>.  The following may
+be needed if you are using an older version of Emacs or if the
+auth-source library is not loaded for some other reason.
+
+<pre class="lisp">     (require 'auth-source)             ;; probably not necessary
+     (customize-variable 'auth-sources) ;; optional, do it once
+</pre>
+   <div class="defun">
+&mdash; Variable: <b>auth-sources</b><var><a name="index-auth_002dsources-1"></a></var><br>
+<blockquote>
+        <p>The <code>auth-sources</code> variable tells the auth-source library where
+your netrc files, Secret Service API collection items, or your
+password store live for a particular host and protocol.  While you can
+get fancy, the default and simplest configuration is:
+
+     <pre class="lisp">          ;;; old default: required :host and :port, not needed anymore
+          (setq auth-sources '((:source "~/.authinfo.gpg" :host t :port t)))
+          ;;; mostly equivalent (see below about fallbacks) but shorter:
+          (setq auth-sources '((:source "~/.authinfo.gpg")))
+          ;;; even shorter and the <em>default</em>:
+          (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
+          ;;; use the Secrets API <var>Login</var> collection
+          ;;; (see <a href="Secret-Service-API.html#Secret-Service-API">Secret Service API</a>)
+          (setq auth-sources '("secrets:Login"))
+          ;;; use pass (<samp><span class="file">~/.password-store</span></samp>)
+          ;;; (see <a href="The-Unix-password-store.html#The-Unix-password-store">The Unix password store</a>)
+          (setq auth-sources '(password-store))
+</pre>
+        <p>By adding multiple entries to <code>auth-sources</code> with a particular
+host or protocol, you can have specific netrc files for that host or
+protocol.  Usually this is unnecessary but may make sense if you have
+shared netrc files or some other unusual setup (90% of Emacs users
+have unusual setups and the remaining 10% are <em>really</em> unusual).
+
+        <p>Here's a mixed example using two sources:
+
+     <pre class="lisp">          (setq auth-sources '((:source (:secrets default)
+                                :host "myserver" :user "joe")
+                               "~/.authinfo.gpg"))
+</pre>
+        </blockquote></div>
+
+   <p>If you don't customize <code>auth-sources</code>, you'll have to live with
+the defaults: the unencrypted netrc file <samp><span class="file">~/.authinfo</span></samp> will be
+used for any host and any port.
+
+   <p>If that fails, any host and any port are looked up in the netrc file
+<samp><span class="file">~/.authinfo.gpg</span></samp>, which is a GnuPG encrypted file (see <a href="GnuPG-and-EasyPG-Assistant-Configuration.html#GnuPG-and-EasyPG-Assistant-Configuration">GnuPG and EasyPG Assistant Configuration</a>).
+
+   <p>Finally, the unencrypted netrc file <samp><span class="file">~/.netrc</span></samp> will be used for
+any host and any port.
+
+   <p>The typical netrc line example is without a port.
+
+<pre class="example">     machine YOURMACHINE login YOU password YOURPASSWORD
+</pre>
+   <p>This will match any authentication port.  Simple, right?  But what if
+there's a SMTP server on port 433 of that machine that needs a
+different password from the IMAP server?
+
+<pre class="example">     machine YOURMACHINE login YOU password SMTPPASSWORD port 433
+     machine YOURMACHINE login YOU password GENERALPASSWORD
+</pre>
+   <p>For url-auth authentication (HTTP/HTTPS), you need to put this in your
+netrc file:
+
+<pre class="example">     machine yourmachine.com:80 port http login testuser password testpass
+</pre>
+   <p>This will match any realm and authentication method (basic or digest)
+over HTTP.  HTTPS is set up similarly.  If you want finer controls,
+explore the url-auth source code and variables.
+
+   <p>For Tramp authentication, use:
+
+<pre class="example">     machine yourmachine.com port scp login testuser password testpass
+</pre>
+   <p>Note that the port denotes the Tramp connection method.  When you
+don't use a port entry, you match any Tramp method, as explained
+earlier.  Since Tramp has about 88 connection methods, this may be
+necessary if you have an unusual (see earlier comment on those) setup.
+
+   </body></html>
+

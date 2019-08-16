@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Index - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Index"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="About-the-Author.html#About-the-Author">About the Author</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="unnumbered">Index</h2>
+
+<ul class="index-cp" compact>
+<li><a href="Compute-a-Remainder.html#index-g_t_0025-_0040r_007b_0028remainder-function_0029_007d-379"><code>% </code><span class="roman">(remainder function)</span></a>: <a href="Compute-a-Remainder.html#Compute-a-Remainder">Compute a Remainder</a></li>
+<li><a href="Run-a-Program.html#index-g_t_0040code_007b_0027_007d-for-quoting-20"><code>'</code> for quoting</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="debug_002don_002dquit.html#index-g_t_0040code_007b_0028debug_0029_007d-in-code-357"><code>(debug)</code> in code</a>: <a href="debug_002don_002dquit.html#debug_002don_002dquit">debug-on-quit</a></li>
+<li><a href="defun.html#index-g_t_002a-_0040r_007b_0028multiplication_0029_007d-98"><code>* </code><span class="roman">(multiplication)</span></a>: <a href="defun.html#defun">defun</a></li>
+<li><a href="Read_002donly-buffer.html#index-g_t_002a-_0040r_007bfor-read_002donly-buffer_007d-157"><code>* </code><span class="roman">for read-only buffer</span></a>: <a href="Read_002donly-buffer.html#Read_002donly-buffer">Read-only buffer</a></li>
+<li><a href="print_002delements_002dof_002dlist.html#index-g_t_0040file_007b_002ascratch_002a_007d-buffer-231"><samp><span class="file">*scratch*</span></samp> buffer</a>: <a href="print_002delements_002dof_002dlist.html#print_002delements_002dof_002dlist">print-elements-of-list</a></li>
+<li><a href="Emacs-Initialization.html#index-g_t_0040file_007b_002eemacs_007d-file-304"><samp><span class="file">.emacs</span></samp> file</a>: <a href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a></li>
+<li><a href="Beginning-init-File.html#index-g_t_0040file_007b_002eemacs_007d-file_002c-beginning-of-313"><samp><span class="file">.emacs</span></samp> file, beginning of</a>: <a href="Beginning-init-File.html#Beginning-init-File">Beginning init File</a></li>
+<li><a href="Large-buffer-case.html#index-g_t_002f-_0040r_007b_0028division_0029_007d-165"><code>/ </code><span class="roman">(division)</span></a>: <a href="Large-buffer-case.html#Large-buffer-case">Large buffer case</a></li>
+<li><a href="Inc-Example-parts.html#index-g_t_003c_003d-_0040r_007b_0028less-than-or-equal_0029_007d-232"><code>&lt;= </code><span class="roman">(less than or equal)</span></a>: <a href="Inc-Example-parts.html#Inc-Example-parts">Inc Example parts</a></li>
+<li><a href="if-in-more-detail.html#index-g_t_003e-_0040r_007b_0028greater-than_0029_007d-127"><code>&gt; </code><span class="roman">(greater than)</span></a>: <a href="if-in-more-detail.html#if-in-more-detail">if in more detail</a></li>
+<li><a href="Accumulate.html#index-Accumulate_002c-type-of-recursive-pattern-247">Accumulate, type of recursive pattern</a>: <a href="Accumulate.html#Accumulate">Accumulate</a></li>
+<li><a href="Text-and-Auto_002dfill.html#index-add_002dhook-320"><code>add-hook</code></a>: <a href="Text-and-Auto_002dfill.html#Text-and-Auto_002dfill">Text and Auto-fill</a></li>
+<li><a href="fwd_002dpara-let.html#index-and-266"><code>and</code></a>: <a href="fwd_002dpara-let.html#fwd_002dpara-let">fwd-para let</a></li>
+<li><a href="kill_002dnew-function.html#index-and-206"><code>and</code></a>: <a href="kill_002dnew-function.html#kill_002dnew-function">kill-new function</a></li>
+<li><a href="lambda.html#index-Anonymous-function-401">Anonymous function</a>: <a href="lambda.html#lambda">lambda</a></li>
+<li><a href="Run-a-Program.html#index-apostrophe-for-quoting-22">apostrophe for quoting</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="append_002dto_002dbuffer.html#index-append_002dto_002dbuffer-148"><code>append-to-buffer</code></a>: <a href="append_002dto_002dbuffer.html#append_002dto_002dbuffer">append-to-buffer</a></li>
+<li><a href="Columns-of-a-graph.html#index-apply-301"><code>apply</code></a>: <a href="Columns-of-a-graph.html#Columns-of-a-graph">Columns of a graph</a></li>
+<li><a href="Columns-of-a-graph.html#index-apropos-298"><code>apropos</code></a>: <a href="Columns-of-a-graph.html#Columns-of-a-graph">Columns of a graph</a></li>
+<li><a href="Dec-Example-altogether.html#index-Argument-as-local-variable-233">Argument as local variable</a>: <a href="Dec-Example-altogether.html#Dec-Example-altogether">Dec Example altogether</a></li>
+<li><a href="Arguments.html#index-g_t_0040samp_007bargument_007d-defined-49">&lsquo;<samp><span class="samp">argument</span></samp>&rsquo; defined</a>: <a href="Arguments.html#Arguments">Arguments</a></li>
+<li><a href="defun.html#index-g_t_0040samp_007bargument-list_007d-defined-97">&lsquo;<samp><span class="samp">argument list</span></samp>&rsquo; defined</a>: <a href="defun.html#defun">defun</a></li>
+<li><a href="Wrong-Type-of-Argument.html#index-Argument_002c-wrong-type-of-58">Argument, wrong type of</a>: <a href="Wrong-Type-of-Argument.html#Wrong-Type-of-Argument">Wrong Type of Argument</a></li>
+<li><a href="Arguments.html#index-Arguments-47">Arguments</a>: <a href="Arguments.html#Arguments">Arguments</a></li>
+<li><a href="Data-types.html#index-Arguments_0027-data-types-52">Arguments' data types</a>: <a href="Data-types.html#Data-types">Data types</a></li>
+<li><a href="Variable-Number-of-Arguments.html#index-Arguments_002c-variable-number-of-56">Arguments, variable number of</a>: <a href="Variable-Number-of-Arguments.html#Variable-Number-of-Arguments">Variable Number of Arguments</a></li>
+<li><a href="Read_002donly-buffer.html#index-Asterisk-for-read_002donly-buffer-156">Asterisk for read-only buffer</a>: <a href="Read_002donly-buffer.html#Read_002donly-buffer">Read-only buffer</a></li>
+<li><a href="Text-and-Auto_002dfill.html#index-Auto-Fill-mode-turned-on-319">Auto Fill mode turned on</a>: <a href="Text-and-Auto_002dfill.html#Text-and-Auto_002dfill">Text and Auto-fill</a></li>
+<li><a href="Autoload.html#index-autoload-340"><code>autoload</code></a>: <a href="Autoload.html#Autoload">Autoload</a></li>
+<li><a href="Text-and-Auto_002dfill.html#index-Automatic-mode-selection-316">Automatic mode selection</a>: <a href="Text-and-Auto_002dfill.html#Text-and-Auto_002dfill">Text and Auto-fill</a></li>
+<li><a href="print_002dX_002daxis.html#index-Axis_002c-print-horizontal-387">Axis, print horizontal</a>: <a href="print_002dX_002daxis.html#print_002dX_002daxis">print-X-axis</a></li>
+<li><a href="print_002dY_002daxis.html#index-Axis_002c-print-vertical-375">Axis, print vertical</a>: <a href="print_002dY_002daxis.html#print_002dY_002daxis">print-Y-axis</a></li>
+<li><a href="beginning_002dof_002dbuffer.html#index-beginning_002dof_002dbuffer-161"><code>beginning-of-buffer</code></a>: <a href="beginning_002dof_002dbuffer.html#beginning_002dof_002dbuffer">beginning-of-buffer</a></li>
+<li><a href="set-_0026-setq.html#index-g_t_0040samp_007bbind_007d-defined-62">&lsquo;<samp><span class="samp">bind</span></samp>&rsquo; defined</a>: <a href="set-_0026-setq.html#set-_0026-setq">set &amp; setq</a></li>
+<li><a href="Miscellaneous.html#index-Bindings_002c-key_002c-fixing-unpleasant-347">Bindings, key, fixing unpleasant</a>: <a href="Miscellaneous.html#Miscellaneous">Miscellaneous</a></li>
+<li><a href="defun.html#index-g_t_0040samp_007bbody_007d-defined-96">&lsquo;<samp><span class="samp">body</span></samp>&rsquo; defined</a>: <a href="defun.html#defun">defun</a></li>
+<li><a href="Readying-a-Graph.html#index-Body-of-graph-297">Body of graph</a>: <a href="Readying-a-Graph.html#Readying-a-Graph">Readying a Graph</a></li>
+<li><a href="Buffer-Size-_0026-Locations.html#index-Buffer-size-82">Buffer size</a>: <a href="Buffer-Size-_0026-Locations.html#Buffer-Size-_0026-Locations">Buffer Size &amp; Locations</a></li>
+<li><a href="Buffer-Names.html#index-Buffer_002c-history-of-word-73">Buffer, history of word</a>: <a href="Buffer-Names.html#Buffer-Names">Buffer Names</a></li>
+<li><a href="Buffer-Names.html#index-buffer_002dfile_002dname-71"><code>buffer-file-name</code></a>: <a href="Buffer-Names.html#Buffer-Names">Buffer Names</a></li>
+<li><a href="Keybindings.html#index-buffer_002dmenu_0040r_007b_002c-bound-to-key_007d-334"><code>buffer-menu</code><span class="roman">, bound to key</span></a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Buffer-Names.html#index-buffer_002dname-70"><code>buffer-name</code></a>: <a href="Buffer-Names.html#Buffer-Names">Buffer Names</a></li>
+<li><a href="Another-Bug.html#index-Bug_002c-most-insidious-type-404">Bug, most insidious type</a>: <a href="Another-Bug.html#Another-Bug">Another Bug</a></li>
+<li><a href="Building-Robots.html#index-Building-robots-237">Building robots</a>: <a href="Building-Robots.html#Building-Robots">Building Robots</a></li>
+<li><a href="Byte-Compiling.html#index-Byte-compiling-33">Byte compiling</a>: <a href="Byte-Compiling.html#Byte-Compiling">Byte Compiling</a></li>
+<li><a href="Primitive-Functions.html#index-C-language-primitives-92">C language primitives</a>: <a href="Primitive-Functions.html#Primitive-Functions">Primitive Functions</a></li>
+<li><a href="Digression-into-C.html#index-C_002c-a-digression-into-208">C, a digression into</a>: <a href="Digression-into-C.html#Digression-into-C">Digression into C</a></li>
+<li><a href="Switching-Buffers.html#index-g_t_0040samp_007bcall_007d-defined-80">&lsquo;<samp><span class="samp">call</span></samp>&rsquo; defined</a>: <a href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a></li>
+<li><a href="debug_002don_002dentry.html#index-cancel_002ddebug_002don_002dentry-355"><code>cancel-debug-on-entry</code></a>: <a href="debug_002don_002dentry.html#debug_002don_002dentry">debug-on-entry</a></li>
+<li><a href="car-cdr-_0026-cons.html#index-car_0040r_007b_002c-introduced_007d-174"><code>car</code><span class="roman">, introduced</span></a>: <a href="car-cdr-_0026-cons.html#car-cdr-_0026-cons">car cdr &amp; cons</a></li>
+<li><a href="car-cdr-_0026-cons.html#index-cdr_0040r_007b_002c-introduced_007d-175"><code>cdr</code><span class="roman">, introduced</span></a>: <a href="car-cdr-_0026-cons.html#car-cdr-_0026-cons">car cdr &amp; cons</a></li>
+<li><a href="Change-a-defun.html#index-Changing-a-function-definition-102">Changing a function definition</a>: <a href="Change-a-defun.html#Change-a-defun">Change a defun</a></li>
+<li><a href="Symbols-as-Chest.html#index-Chest-of-Drawers_002c-metaphor-for-a-symbol-218">Chest of Drawers, metaphor for a symbol</a>: <a href="Symbols-as-Chest.html#Symbols-as-Chest">Symbols as Chest</a></li>
+<li><a href="Cutting-_0026-Storing-Text.html#index-Clipping-text-185">Clipping text</a>: <a href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a></li>
+<li><a href="Permanent-Installation.html#index-Code-installation-112">Code installation</a>: <a href="Permanent-Installation.html#Permanent-Installation">Permanent Installation</a></li>
+<li><a href="How-to-Evaluate.html#index-g_t_0040samp_007bcommand_007d-defined-69">&lsquo;<samp><span class="samp">command</span></samp>&rsquo; defined</a>: <a href="How-to-Evaluate.html#How-to-Evaluate">How to Evaluate</a></li>
+<li><a href="Change-a-defun.html#index-Comments-in-Lisp-code-105">Comments in Lisp code</a>: <a href="Change-a-defun.html#Change-a-defun">Change a defun</a></li>
+<li><a href="Lisp-History.html#index-Common-Lisp-3">Common Lisp</a>: <a href="Lisp-History.html#Lisp-History">Lisp History</a></li>
+<li><a href="Keybindings.html#index-compare_002dwindows-324"><code>compare-windows</code></a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Data-types.html#index-concat-53"><code>concat</code></a>: <a href="Data-types.html#Data-types">Data types</a></li>
+<li><a href="Recursion-with-cond.html#index-cond-243"><code>cond</code></a>: <a href="Recursion-with-cond.html#Recursion-with-cond">Recursion with cond</a></li>
+<li><a href="condition_002dcase.html#index-condition_002dcase-194"><code>condition-case</code></a>: <a href="condition_002dcase.html#condition_002dcase">condition-case</a></li>
+<li><a href="Simple-Extension.html#index-Conditional-_0027twixt-two-versions-of-Emacs-343">Conditional 'twixt two versions of Emacs</a>: <a href="Simple-Extension.html#Simple-Extension">Simple Extension</a></li>
+<li><a href="if.html#index-Conditional-with-_0040code_007bif_007d-124">Conditional with <code>if</code></a>: <a href="if.html#if">if</a></li>
+<li><a href="cons.html#index-cons_0040r_007b_002c-introduced_007d-176"><code>cons</code><span class="roman">, introduced</span></a>: <a href="cons.html#cons">cons</a></li>
+<li><a href="copy_002dregion_002das_002dkill.html#index-copy_002dregion_002das_002dkill-197"><code>copy-region-as-kill</code></a>: <a href="copy_002dregion_002das_002dkill.html#copy_002dregion_002das_002dkill">copy-region-as-kill</a></li>
+<li><a href="copy_002dto_002dbuffer.html#index-copy_002dto_002dbuffer-152"><code>copy-to-buffer</code></a>: <a href="copy_002dto_002dbuffer.html#copy_002dto_002dbuffer">copy-to-buffer</a></li>
+<li><a href="recursive_002dcount_002dwords.html#index-Count-words-recursively-274">Count words recursively</a>: <a href="recursive_002dcount_002dwords.html#recursive_002dcount_002dwords">recursive-count-words</a></li>
+<li><a href="count_002dwords_002dexample.html#index-g_t_0040value_007bCOUNT_002dWORDS_007d-273"><code>count-words-example</code></a>: <a href="count_002dwords_002dexample.html#count_002dwords_002dexample">count-words-example</a></li>
+<li><a href="count_002dwords_002din_002ddefun.html#index-count_002dwords_002din_002ddefun-283"><code>count-words-in-defun</code></a>: <a href="count_002dwords_002din_002ddefun.html#count_002dwords_002din_002ddefun">count-words-in-defun</a></li>
+<li><a href="Counting.html#index-Counting-65">Counting</a>: <a href="Counting.html#Counting">Counting</a></li>
+<li><a href="count_002dwords_002din_002ddefun.html#index-Counting-words-in-a-_0040code_007bdefun_007d-282">Counting words in a <code>defun</code></a>: <a href="count_002dwords_002din_002ddefun.html#count_002dwords_002din_002ddefun">count-words-in-defun</a></li>
+<li><a href="Words-in-a-defun.html#index-Counting-words-in-a-_0040code_007bdefun_007d-278">Counting words in a <code>defun</code></a>: <a href="Words-in-a-defun.html#Words-in-a-defun">Words in a defun</a></li>
+<li><a href="Complete-zap_002dto_002dchar.html#index-curly-quotes-190">curly quotes</a>: <a href="Complete-zap_002dto_002dchar.html#Complete-zap_002dto_002dchar">Complete zap-to-char</a></li>
+<li><a href="Getting-Buffers.html#index-current_002dbuffer-74"><code>current-buffer</code></a>: <a href="Getting-Buffers.html#Getting-Buffers">Getting Buffers</a></li>
+<li><a href="current_002dkill.html#index-current_002dkill-366"><code>current-kill</code></a>: <a href="current_002dkill.html#current_002dkill">current-kill</a></li>
+<li><a href="Complete-zap_002dto_002dchar.html#index-curved-quotes-189">curved quotes</a>: <a href="Complete-zap_002dto_002dchar.html#Complete-zap_002dto_002dchar">Complete zap-to-char</a></li>
+<li><a href="Emacs-Initialization.html#index-Customizing-your-_0040file_007b_002eemacs_007d-file-305">Customizing your <samp><span class="file">.emacs</span></samp> file</a>: <a href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a></li>
+<li><a href="Cutting-_0026-Storing-Text.html#index-Cutting-and-storing-text-182">Cutting and storing text</a>: <a href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a></li>
+<li><a href="Data-types.html#index-Data-types-50">Data types</a>: <a href="Data-types.html#Data-types">Data types</a></li>
+<li><a href="debug.html#index-debug-352"><code>debug</code></a>: <a href="debug.html#debug">debug</a></li>
+<li><a href="debug_002don_002dentry.html#index-debug_002don_002dentry-354"><code>debug-on-entry</code></a>: <a href="debug_002don_002dentry.html#debug_002don_002dentry">debug-on-entry</a></li>
+<li><a href="debug_002don_002dquit.html#index-debug_002don_002dquit-356"><code>debug-on-quit</code></a>: <a href="debug_002don_002dquit.html#debug_002don_002dquit">debug-on-quit</a></li>
+<li><a href="Debugging.html#index-debugging-351">debugging</a>: <a href="Debugging.html#Debugging">Debugging</a></li>
+<li><a href="Site_002dwide-Init.html#index-g_t_0040file_007bdefault_002eel_007d-init-file-307"><samp><span class="file">default.el</span></samp> init file</a>: <a href="Site_002dwide-Init.html#Site_002dwide-Init">Site-wide Init</a></li>
+<li><a href="defcustom.html#index-defconst-312"><code>defconst</code></a>: <a href="defcustom.html#defcustom">defcustom</a></li>
+<li><a href="defcustom.html#index-defcustom-310"><code>defcustom</code></a>: <a href="defcustom.html#defcustom">defcustom</a></li>
+<li><a href="No-Deferment.html#index-Deferment-in-recursion-251">Deferment in recursion</a>: <a href="No-Deferment.html#No-Deferment">No Deferment</a></li>
+<li><a href="Install.html#index-Definition-installation-100">Definition installation</a>: <a href="Install.html#Install">Install</a></li>
+<li><a href="Writing-Defuns.html#index-Definition-writing-87">Definition writing</a>: <a href="Writing-Defuns.html#Writing-Defuns">Writing Defuns</a></li>
+<li><a href="Change-a-defun.html#index-Definition_002c-how-to-change-104">Definition, how to change</a>: <a href="Change-a-defun.html#Change-a-defun">Change a defun</a></li>
+<li><a href="defcustom.html#index-defsubst-311"><code>defsubst</code></a>: <a href="defcustom.html#defcustom">defcustom</a></li>
+<li><a href="defun.html#index-defun-94"><code>defun</code></a>: <a href="defun.html#defun">defun</a></li>
+<li><a href="defvar.html#index-defvar-210"><code>defvar</code></a>: <a href="defvar.html#defvar">defvar</a></li>
+<li><a href="defvar-and-asterisk.html#index-defvar-_0040r_007bfor-a-user-customizable-variable_007d-213"><code>defvar </code><span class="roman">for a user customizable variable</span></a>: <a href="defvar-and-asterisk.html#defvar-and-asterisk">defvar and asterisk</a></li>
+<li><a href="defvar-and-asterisk.html#index-defvar-_0040r_007bwith-an-asterisk_007d-214"><code>defvar </code><span class="roman">with an asterisk</span></a>: <a href="defvar-and-asterisk.html#defvar-and-asterisk">defvar and asterisk</a></li>
+<li><a href="Digression-into-C.html#index-delete_002dand_002dextract_002dregion-207"><code>delete-and-extract-region</code></a>: <a href="Digression-into-C.html#Digression-into-C">Digression into C</a></li>
+<li><a href="Cutting-_0026-Storing-Text.html#index-Deleting-text-187">Deleting text</a>: <a href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a></li>
+<li><a href="simplified_002dbeginning_002dof_002dbuffer.html#index-describe_002dfunction-146"><code>describe-function</code></a>: <a href="simplified_002dbeginning_002dof_002dbuffer.html#simplified_002dbeginning_002dof_002dbuffer">simplified-beginning-of-buffer</a></li>
+<li><a href="Finding-More.html#index-describe_002dfunction_0040r_007b_002c-introduced_007d-141"><code>describe-function</code><span class="roman">, introduced</span></a>: <a href="Finding-More.html#Finding-More">Finding More</a></li>
+<li><a href="Digression-into-C.html#index-Digression-into-C-209">Digression into C</a>: <a href="Digression-into-C.html#Digression-into-C">Digression into C</a></li>
+<li><a href="Files-List.html#index-directory_002dfiles-289"><code>directory-files</code></a>: <a href="Files-List.html#Files-List">Files List</a></li>
+<li><a href="Large-buffer-case.html#index-Division-166">Division</a>: <a href="Large-buffer-case.html#Large-buffer-case">Large buffer case</a></li>
+<li><a href="dolist.html#index-dolist-234"><code>dolist</code></a>: <a href="dolist.html#dolist">dolist</a></li>
+<li><a href="dotimes.html#index-dotimes-235"><code>dotimes</code></a>: <a href="dotimes.html#dotimes">dotimes</a></li>
+<li><a href="Symbols-as-Chest.html#index-Drawers_002c-Chest-of_002c-metaphor-for-a-symbol-219">Drawers, Chest of, metaphor for a symbol</a>: <a href="Symbols-as-Chest.html#Symbols-as-Chest">Symbols as Chest</a></li>
+<li><a href="the_002dthe.html#index-Duplicated-words-function-361">Duplicated words function</a>: <a href="the_002dthe.html#the_002dthe">the-the</a></li>
+<li><a href="edebug.html#index-edebug-359"><code>edebug</code></a>: <a href="edebug.html#edebug">edebug</a></li>
+<li><a href="else.html#index-Else-128">Else</a>: <a href="else.html#else">else</a></li>
+<li><a href="Simple-Extension.html#index-Emacs-version_002c-choosing-345">Emacs version, choosing</a>: <a href="Simple-Extension.html#Simple-Extension">Simple Extension</a></li>
+<li><a href="Lisp-Atoms.html#index-g_t_0040samp_007bempty-list_007d-defined-7">&lsquo;<samp><span class="samp">empty list</span></samp>&rsquo; defined</a>: <a href="Lisp-Atoms.html#Lisp-Atoms">Lisp Atoms</a></li>
+<li><a href="Review.html#index-g_t_0040samp_007bempty-string_007d-defined-140">&lsquo;<samp><span class="samp">empty string</span></samp>&rsquo; defined</a>: <a href="Review.html#Review">Review</a></li>
+<li><a href="fwd_002dpara-while.html#index-eobp-268"><code>eobp</code></a>: <a href="fwd_002dpara-while.html#fwd_002dpara-while">fwd-para while</a></li>
+<li><a href="Review.html#index-eq-139"><code>eq</code></a>: <a href="Review.html#Review">Review</a></li>
+<li><a href="last_002dcommand-_0026-this_002dcommand.html#index-eq-_0040r_007b_0028example-of-use_0029_007d-200"><code>eq </code><span class="roman">(example of use)</span></a>: <a href="last_002dcommand-_0026-this_002dcommand.html#last_002dcommand-_0026-this_002dcommand">last-command &amp; this-command</a></li>
+<li><a href="Review.html#index-equal-138"><code>equal</code></a>: <a href="Review.html#Review">Review</a></li>
+<li><a href="Cutting-_0026-Storing-Text.html#index-Erasing-text-186">Erasing text</a>: <a href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a></li>
+<li><a href="Body-of-current_002dkill.html#index-error-368"><code>error</code></a>: <a href="Body-of-current_002dkill.html#Body-of-current_002dkill">Body of current-kill</a></li>
+<li><a href="Void-Function.html#index-Error-for-symbol-without-function-44">Error for symbol without function</a>: <a href="Void-Function.html#Void-Function">Void Function</a></li>
+<li><a href="Void-Variable.html#index-Error-for-symbol-without-value-46">Error for symbol without value</a>: <a href="Void-Variable.html#Void-Variable">Void Variable</a></li>
+<li><a href="Making-Errors.html#index-Error-message-generation-26">Error message generation</a>: <a href="Making-Errors.html#Making-Errors">Making Errors</a></li>
+<li><a href="Run-a-Program.html#index-g_t_0040samp_007bevaluate_007d-defined-18">&lsquo;<samp><span class="samp">evaluate</span></samp>&rsquo; defined</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="Evaluating-Inner-Lists.html#index-Evaluating-inner-lists-38">Evaluating inner lists</a>: <a href="Evaluating-Inner-Lists.html#Evaluating-Inner-Lists">Evaluating Inner Lists</a></li>
+<li><a href="Evaluation.html#index-Evaluation-34">Evaluation</a>: <a href="Evaluation.html#Evaluation">Evaluation</a></li>
+<li><a href="Practicing-Evaluation.html#index-Evaluation-practice-67">Evaluation practice</a>: <a href="Practicing-Evaluation.html#Practicing-Evaluation">Practicing Evaluation</a></li>
+<li><a href="Every.html#index-Every_002c-type-of-recursive-pattern-245">Every, type of recursive pattern</a>: <a href="Every.html#Every">Every</a></li>
+<li><a href="fill_002dcolumn-Example.html#index-Example-variable_002c-_0040code_007bfill_002dcolumn_007d-41">Example variable, <code>fill-column</code></a>: <a href="fill_002dcolumn-Example.html#fill_002dcolumn-Example">fill-column Example</a></li>
+<li><a href="Lisp-Atoms.html#index-g_t_0040samp_007bexpression_007d-defined-9">&lsquo;<samp><span class="samp">expression</span></samp>&rsquo; defined</a>: <a href="Lisp-Atoms.html#Lisp-Atoms">Lisp Atoms</a></li>
+<li><a href="Truth-_0026-Falsehood.html#index-Falsehood-and-truth-in-Emacs-Lisp-130">Falsehood and truth in Emacs Lisp</a>: <a href="Truth-_0026-Falsehood.html#Truth-_0026-Falsehood">Truth &amp; Falsehood</a></li>
+<li><a href="GNU-Free-Documentation-License.html#index-FDL_002c-GNU-Free-Documentation-License-406">FDL, GNU Free Documentation License</a>: <a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a></li>
+<li><a href="Files-List.html#index-files_002din_002dbelow_002ddirectory-290"><code>files-in-below-directory</code></a>: <a href="Files-List.html#Files-List">Files List</a></li>
+<li><a href="fill_002dcolumn-Example.html#index-fill_002dcolumn_0040r_007b_002c-an-example-variable_007d-40"><code>fill-column</code><span class="roman">, an example variable</span></a>: <a href="fill_002dcolumn-Example.html#fill_002dcolumn-Example">fill-column Example</a></li>
+<li><a href="last_002dcommand-_0026-this_002dcommand.html#index-filter_002dbuffer_002dsubstring-199"><code>filter-buffer-substring</code></a>: <a href="last_002dcommand-_0026-this_002dcommand.html#last_002dcommand-_0026-this_002dcommand">last-command &amp; this-command</a></li>
+<li><a href="Find-a-File.html#index-Find-a-File-284">Find a File</a>: <a href="Find-a-File.html#Find-a-File">Find a File</a></li>
+<li><a href="Finding-More.html#index-Find-function-documentation-142">Find function documentation</a>: <a href="Finding-More.html#Finding-More">Finding More</a></li>
+<li><a href="Finding-More.html#index-Find-source-of-function-143">Find source of function</a>: <a href="Finding-More.html#Finding-More">Finding More</a></li>
+<li><a href="Lisp-Lists.html#index-Flowers-in-a-field-5">Flowers in a field</a>: <a href="Lisp-Lists.html#Lisp-Lists">Lisp Lists</a></li>
+<li><a href="Narrowing-_0026-Widening.html#index-Focusing-attention-_0028narrowing_0029-167">Focusing attention (narrowing)</a>: <a href="Narrowing-_0026-Widening.html#Narrowing-_0026-Widening">Narrowing &amp; Widening</a></li>
+<li><a href="Lisp-Atoms.html#index-g_t_0040samp_007bform_007d-defined-10">&lsquo;<samp><span class="samp">form</span></samp>&rsquo; defined</a>: <a href="Lisp-Atoms.html#Lisp-Atoms">Lisp Atoms</a></li>
+<li><a href="append-save_002dexcursion.html#index-Formatting-convention-151">Formatting convention</a>: <a href="append-save_002dexcursion.html#append-save_002dexcursion">append save-excursion</a></li>
+<li><a href="Typing-Lists.html#index-Formatting-help-15">Formatting help</a>: <a href="Typing-Lists.html#Typing-Lists">Typing Lists</a></li>
+<li><a href="forward_002dparagraph.html#index-forward_002dparagraph-264"><code>forward-paragraph</code></a>: <a href="forward_002dparagraph.html#forward_002dparagraph">forward-paragraph</a></li>
+<li><a href="forward_002dsentence.html#index-forward_002dsentence-263"><code>forward-sentence</code></a>: <a href="forward_002dsentence.html#forward_002dsentence">forward-sentence</a></li>
+<li><a href="Making-Errors.html#index-g_t_0040samp_007bfunction_007d-defined-27">&lsquo;<samp><span class="samp">function</span></samp>&rsquo; defined</a>: <a href="Making-Errors.html#Making-Errors">Making Errors</a></li>
+<li><a href="defun.html#index-g_t_0040samp_007bfunction-definition_007d-defined-95">&lsquo;<samp><span class="samp">function definition</span></samp>&rsquo; defined</a>: <a href="defun.html#defun">defun</a></li>
+<li><a href="Install.html#index-Function-definition-installation-101">Function definition installation</a>: <a href="Install.html#Install">Install</a></li>
+<li><a href="Writing-Defuns.html#index-Function-definition-writing-88">Function definition writing</a>: <a href="Writing-Defuns.html#Writing-Defuns">Writing Defuns</a></li>
+<li><a href="Change-a-defun.html#index-Function-definition_002c-how-to-change-103">Function definition, how to change</a>: <a href="Change-a-defun.html#Change-a-defun">Change a defun</a></li>
+<li><a href="Primitive-Functions.html#index-Functions_002c-primitive-91">Functions, primitive</a>: <a href="Primitive-Functions.html#Primitive-Functions">Primitive Functions</a></li>
+<li><a href="Making-Errors.html#index-Generate-an-error-message-25">Generate an error message</a>: <a href="Making-Errors.html#Making-Errors">Making Errors</a></li>
+<li><a href="Getting-Buffers.html#index-Getting-a-buffer-76">Getting a buffer</a>: <a href="Getting-Buffers.html#Getting-Buffers">Getting Buffers</a></li>
+<li><a href="Keybindings.html#index-Global-set-key-326">Global set key</a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Determining-the-Element.html#index-g_t_0040samp_007bglobal-variable_007d-defined-369">&lsquo;<samp><span class="samp">global variable</span></samp>&rsquo; defined</a>: <a href="Determining-the-Element.html#Determining-the-Element">Determining the Element</a></li>
+<li><a href="Keybindings.html#index-global_002dset_002dkey-328"><code>global-set-key</code></a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Keybindings.html#index-global_002dunset_002dkey-330"><code>global-unset-key</code></a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Readying-a-Graph.html#index-Graph-prototype-295">Graph prototype</a>: <a href="Readying-a-Graph.html#Readying-a-Graph">Readying a Graph</a></li>
+<li><a href="Print-Whole-Graph.html#index-Graph_002c-printing-all-397">Graph, printing all</a>: <a href="Print-Whole-Graph.html#Print-Whole-Graph">Print Whole Graph</a></li>
+<li><a href="graph_002dbody_002dprint.html#index-graph_002dbody_002dprint-302"><code>graph-body-print</code></a>: <a href="graph_002dbody_002dprint.html#graph_002dbody_002dprint">graph-body-print</a></li>
+<li><a href="The-final-version.html#index-graph_002dbody_002dprint-_0040r_007bFinal-version_002e_007d-399"><code>graph-body-print </code><span class="roman">Final version.</span></a>: <a href="The-final-version.html#The-final-version">The final version</a></li>
+<li><a href="Kill-Ring.html#index-Handling-the-kill-ring-364">Handling the kill ring</a>: <a href="Kill-Ring.html#Kill-Ring">Kill Ring</a></li>
+<li><a href="Typing-Lists.html#index-Help-typing-lists-14">Help typing lists</a>: <a href="Typing-Lists.html#Typing-Lists">Typing Lists</a></li>
+<li><a href="print_002dX_002daxis.html#index-Horizontal-axis-printing-390">Horizontal axis printing</a>: <a href="print_002dX_002daxis.html#print_002dX_002daxis">print-X-axis</a></li>
+<li><a href="if.html#index-if-123"><code>if</code></a>: <a href="if.html#if">if</a></li>
+<li><a href="if-in-more-detail.html#index-g_t_0040samp_007bif_002dpart_007d-defined-125">&lsquo;<samp><span class="samp">if-part</span></samp>&rsquo; defined</a>: <a href="if-in-more-detail.html#if-in-more-detail">if in more detail</a></li>
+<li><a href="Indent-Tabs-Mode.html#index-indent_002dtabs_002dmode-323"><code>indent-tabs-mode</code></a>: <a href="Indent-Tabs-Mode.html#Indent-Tabs-Mode">Indent Tabs Mode</a></li>
+<li><a href="append-save_002dexcursion.html#index-Indentation-for-formatting-150">Indentation for formatting</a>: <a href="append-save_002dexcursion.html#append-save_002dexcursion">append save-excursion</a></li>
+<li><a href="Emacs-Initialization.html#index-Initialization-file-306">Initialization file</a>: <a href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a></li>
+<li><a href="defvar.html#index-Initializing-a-variable-211">Initializing a variable</a>: <a href="defvar.html#defvar">defvar</a></li>
+<li><a href="Evaluating-Inner-Lists.html#index-Inner-list-evaluation-37">Inner list evaluation</a>: <a href="Evaluating-Inner-Lists.html#Evaluating-Inner-Lists">Evaluating Inner Lists</a></li>
+<li><a href="insert_002dbuffer.html#index-insert_002dbuffer-153"><code>insert-buffer</code></a>: <a href="insert_002dbuffer.html#insert_002dbuffer">insert-buffer</a></li>
+<li><a href="New-insert_002dbuffer.html#index-insert_002dbuffer_0040r_007b_002c-new-version-body_007d-159"><code>insert-buffer</code><span class="roman">, new version body</span></a>: <a href="New-insert_002dbuffer.html#New-insert_002dbuffer">New insert-buffer</a></li>
+<li><a href="append_002dto_002dbuffer-overview.html#index-insert_002dbuffer_002dsubstring-149"><code>insert-buffer-substring</code></a>: <a href="append_002dto_002dbuffer-overview.html#append_002dto_002dbuffer-overview">append-to-buffer overview</a></li>
+<li><a href="Another-Bug.html#index-Insidious-type-of-bug-405">Insidious type of bug</a>: <a href="Another-Bug.html#Another-Bug">Another Bug</a></li>
+<li><a href="Install.html#index-Install-a-Function-Definition-99">Install a Function Definition</a>: <a href="Install.html#Install">Install</a></li>
+<li><a href="Permanent-Installation.html#index-Install-code-permanently-110">Install code permanently</a>: <a href="Permanent-Installation.html#Permanent-Installation">Permanent Installation</a></li>
+<li><a href="Interactive.html#index-interactive-107"><code>interactive</code></a>: <a href="Interactive.html#Interactive">Interactive</a></li>
+<li><a href="How-to-Evaluate.html#index-g_t_0040samp_007binteractive-function_007d-defined-68">&lsquo;<samp><span class="samp">interactive function</span></samp>&rsquo; defined</a>: <a href="How-to-Evaluate.html#How-to-Evaluate">How to Evaluate</a></li>
+<li><a href="Interactive.html#index-Interactive-functions-106">Interactive functions</a>: <a href="Interactive.html#Interactive">Interactive</a></li>
+<li><a href="Interactive-Options.html#index-Interactive-options-109">Interactive options</a>: <a href="Interactive-Options.html#Interactive-Options">Interactive Options</a></li>
+<li><a href="insert_002dbuffer-interactive.html#index-interactive_0040r_007b_002c-example-use-of_007d-154"><code>interactive</code><span class="roman">, example use of</span></a>: <a href="insert_002dbuffer-interactive.html#insert_002dbuffer-interactive">insert-buffer interactive</a></li>
+<li><a href="Run-a-Program.html#index-Interpreter_002c-Lisp_002c-explained-24">Interpreter, Lisp, explained</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="Lisp-Interpreter.html#index-Interpreter_002c-what-it-does-31">Interpreter, what it does</a>: <a href="Lisp-Interpreter.html#Lisp-Interpreter">Lisp Interpreter</a></li>
+<li><a href="Keep.html#index-Keep_002c-type-of-recursive-pattern-249">Keep, type of recursive pattern</a>: <a href="Keep.html#Keep">Keep</a></li>
+<li><a href="Miscellaneous.html#index-Key-bindings_002c-fixing-346">Key bindings, fixing</a>: <a href="Miscellaneous.html#Miscellaneous">Miscellaneous</a></li>
+<li><a href="Keybindings.html#index-Key-setting-globally-327">Key setting globally</a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Keybindings.html#index-Key-unbinding-332">Key unbinding</a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Keymaps.html#index-Keymaps-335">Keymaps</a>: <a href="Keymaps.html#Keymaps">Keymaps</a></li>
+<li><a href="Optional-Arguments.html#index-Keyword-163">Keyword</a>: <a href="Optional-Arguments.html#Optional-Arguments">Optional Arguments</a></li>
+<li><a href="Kill-Ring.html#index-Kill-ring-handling-363">Kill ring handling</a>: <a href="Kill-Ring.html#Kill-Ring">Kill Ring</a></li>
+<li><a href="Kill-Ring-Overview.html#index-Kill-ring-overview-224">Kill ring overview</a>: <a href="Kill-Ring-Overview.html#Kill-Ring-Overview">Kill Ring Overview</a></li>
+<li><a href="kill_002dappend-function.html#index-kill_002dappend-201"><code>kill-append</code></a>: <a href="kill_002dappend-function.html#kill_002dappend-function">kill-append function</a></li>
+<li><a href="kill_002dnew-function.html#index-kill_002dnew-202"><code>kill-new</code></a>: <a href="kill_002dnew-function.html#kill_002dnew-function">kill-new function</a></li>
+<li><a href="kill_002dregion.html#index-kill_002dregion-193"><code>kill-region</code></a>: <a href="kill_002dregion.html#kill_002dregion">kill-region</a></li>
+<li><a href="Cutting-_0026-Storing-Text.html#index-Killing-text-184">Killing text</a>: <a href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a></li>
+<li><a href="lambda.html#index-lambda-402"><code>lambda</code></a>: <a href="lambda.html#lambda">lambda</a></li>
+<li><a href="length.html#index-length-177"><code>length</code></a>: <a href="length.html#length">length</a></li>
+<li><a href="lengths_002dlist_002dfile.html#index-lengths_002dlist_002dfile-285"><code>lengths-list-file</code></a>: <a href="lengths_002dlist_002dfile.html#lengths_002dlist_002dfile">lengths-list-file</a></li>
+<li><a href="lengths_002dlist_002dmany_002dfiles.html#index-lengths_002dlist_002dmany_002dfiles-286"><code>lengths-list-many-files</code></a>: <a href="lengths_002dlist_002dmany_002dfiles.html#lengths_002dlist_002dmany_002dfiles">lengths-list-many-files</a></li>
+<li><a href="let.html#index-let-113"><code>let</code></a>: <a href="let.html#let">let</a></li>
+<li><a href="Sample-let-Expression.html#index-g_t_0040code_007blet_007d-expression-sample-120"><code>let</code> expression sample</a>: <a href="Sample-let-Expression.html#Sample-let-Expression">Sample let Expression</a></li>
+<li><a href="Parts-of-let-Expression.html#index-g_t_0040code_007blet_007d-expression_002c-parts-of-116"><code>let</code> expression, parts of</a>: <a href="Parts-of-let-Expression.html#Parts-of-let-Expression">Parts of let Expression</a></li>
+<li><a href="Uninitialized-let-Variables.html#index-g_t_0040code_007blet_007d-variables-uninitialized-122"><code>let</code> variables uninitialized</a>: <a href="Uninitialized-let-Variables.html#Uninitialized-let-Variables">Uninitialized let Variables</a></li>
+<li><a href="fwd_002dpara-let.html#index-let_002a-265"><code>let*</code></a>: <a href="fwd_002dpara-let.html#fwd_002dpara-let">fwd-para let</a></li>
+<li><a href="Finding-More.html#index-Library_002c-as-term-for-_0060_0060file_0027_0027-144">Library, as term for &ldquo;file&rdquo;</a>: <a href="Finding-More.html#Finding-More">Finding More</a></li>
+<li><a href="Simple-Extension.html#index-line_002dto_002dtop_002dof_002dwindow-341"><code>line-to-top-of-window</code></a>: <a href="Simple-Extension.html#Simple-Extension">Simple Extension</a></li>
+<li><a href="Lisp-Atoms.html#index-Lisp-Atoms-6">Lisp Atoms</a>: <a href="Lisp-Atoms.html#Lisp-Atoms">Lisp Atoms</a></li>
+<li><a href="Lisp-History.html#index-Lisp-history-1">Lisp history</a>: <a href="Lisp-History.html#Lisp-History">Lisp History</a></li>
+<li><a href="Run-a-Program.html#index-Lisp-interpreter_002c-explained-23">Lisp interpreter, explained</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="Lisp-Interpreter.html#index-Lisp-interpreter_002c-what-it-does-30">Lisp interpreter, what it does</a>: <a href="Lisp-Interpreter.html#Lisp-Interpreter">Lisp Interpreter</a></li>
+<li><a href="Lisp-Lists.html#index-Lisp-Lists-4">Lisp Lists</a>: <a href="Lisp-Lists.html#Lisp-Lists">Lisp Lists</a></li>
+<li><a href="Lisp-macro.html#index-Lisp-macro-196">Lisp macro</a>: <a href="Lisp-macro.html#Lisp-macro">Lisp macro</a></li>
+<li><a href="Keybindings.html#index-list_002dbuffers_0040r_007b_002c-rebound_007d-333"><code>list-buffers</code><span class="roman">, rebound</span></a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="List-Implementation.html#index-Lists-in-a-computer-216">Lists in a computer</a>: <a href="List-Implementation.html#List-Implementation">List Implementation</a></li>
+<li><a href="Loading-Files.html#index-load_002dlibrary-339"><code>load-library</code></a>: <a href="Loading-Files.html#Loading-Files">Loading Files</a></li>
+<li><a href="Loading-Files.html#index-load_002dpath-338"><code>load-path</code></a>: <a href="Loading-Files.html#Loading-Files">Loading Files</a></li>
+<li><a href="Loading-Files.html#index-Loading-files-337">Loading files</a>: <a href="Loading-Files.html#Loading-Files">Loading Files</a></li>
+<li><a href="Prevent-confusion.html#index-g_t_0040samp_007blocal-variable_007d-defined-114">&lsquo;<samp><span class="samp">local variable</span></samp>&rsquo; defined</a>: <a href="Prevent-confusion.html#Prevent-confusion">Prevent confusion</a></li>
+<li><a href="Text-and-Auto_002dfill.html#index-Local-variables-list_002c-per_002dbuffer_002c-315">Local variables list, per-buffer,</a>: <a href="Text-and-Auto_002dfill.html#Text-and-Auto_002dfill">Text and Auto-fill</a></li>
+<li><a href="Buffer-Size-_0026-Locations.html#index-Location-of-point-84">Location of point</a>: <a href="Buffer-Size-_0026-Locations.html#Buffer-Size-_0026-Locations">Buffer Size &amp; Locations</a></li>
+<li><a href="fwd_002dpara-while.html#index-looking_002dat-269"><code>looking-at</code></a>: <a href="fwd_002dpara-while.html#fwd_002dpara-while">fwd-para while</a></li>
+<li><a href="while.html#index-Loops-228">Loops</a>: <a href="while.html#while">while</a></li>
+<li><a href="Loops-_0026-Recursion.html#index-Loops-and-recursion-225">Loops and recursion</a>: <a href="Loops-_0026-Recursion.html#Loops-_0026-Recursion">Loops &amp; Recursion</a></li>
+<li><a href="Lisp-History.html#index-Maclisp-2">Maclisp</a>: <a href="Lisp-History.html#Lisp-History">Lisp History</a></li>
+<li><a href="Lisp-macro.html#index-Macro_002c-lisp-195">Macro, lisp</a>: <a href="Lisp-macro.html#Lisp-macro">Lisp macro</a></li>
+<li><a href="Mail-Aliases.html#index-Mail-aliases-321">Mail aliases</a>: <a href="Mail-Aliases.html#Mail-Aliases">Mail Aliases</a></li>
+<li><a href="Y-Axis-Element.html#index-make_002dstring-384"><code>make-string</code></a>: <a href="Y-Axis-Element.html#Y-Axis-Element">Y Axis Element</a></li>
+<li><a href="mapcar.html#index-mapcar-403"><code>mapcar</code></a>: <a href="mapcar.html#mapcar">mapcar</a></li>
+<li><a href="save_002dexcursion.html#index-mark-137"><code>mark</code></a>: <a href="save_002dexcursion.html#save_002dexcursion">save-excursion</a></li>
+<li><a href="mark_002dwhole_002dbuffer.html#index-mark_002dwhole_002dbuffer-147"><code>mark-whole-buffer</code></a>: <a href="mark_002dwhole_002dbuffer.html#mark_002dwhole_002dbuffer">mark-whole-buffer</a></li>
+<li><a href="fwd_002dpara-while.html#index-match_002dbeginning-270"><code>match-beginning</code></a>: <a href="fwd_002dpara-while.html#fwd_002dpara-while">fwd-para while</a></li>
+<li><a href="Columns-of-a-graph.html#index-max-299"><code>max</code></a>: <a href="Columns-of-a-graph.html#Columns-of-a-graph">Columns of a graph</a></li>
+<li><a href="message.html#index-message-59"><code>message</code></a>: <a href="message.html#message">message</a></li>
+<li><a href="Columns-of-a-graph.html#index-min-300"><code>min</code></a>: <a href="Columns-of-a-graph.html#Columns-of-a-graph">Columns of a graph</a></li>
+<li><a href="Mode-Line.html#index-Mode-line-format-349">Mode line format</a>: <a href="Mode-Line.html#Mode-Line">Mode Line</a></li>
+<li><a href="Text-and-Auto_002dfill.html#index-Mode-selection_002c-automatic-317">Mode selection, automatic</a>: <a href="Text-and-Auto_002dfill.html#Text-and-Auto_002dfill">Text and Auto-fill</a></li>
+<li><a href="Mode-Line.html#index-mode_002dline_002dformat-348"><code>mode-line-format</code></a>: <a href="Mode-Line.html#Mode-Line">Mode Line</a></li>
+<li><a href="Regexp-Search.html#index-Motion-by-sentence-and-paragraph-258">Motion by sentence and paragraph</a>: <a href="Regexp-Search.html#Regexp-Search">Regexp Search</a></li>
+<li><a href="Narrowing-_0026-Widening.html#index-Narrowing-168">Narrowing</a>: <a href="Narrowing-_0026-Widening.html#Narrowing-_0026-Widening">Narrowing &amp; Widening</a></li>
+<li><a href="Buffer-Size-_0026-Locations.html#index-g_t_0040samp_007bnarrowing_007d-defined-86">&lsquo;<samp><span class="samp">narrowing</span></samp>&rsquo; defined</a>: <a href="Buffer-Size-_0026-Locations.html#Buffer-Size-_0026-Locations">Buffer Size &amp; Locations</a></li>
+<li><a href="New-insert_002dbuffer.html#index-new-version-body-for-_0040code_007binsert_002dbuffer_007d-160">new version body for <code>insert-buffer</code></a>: <a href="New-insert_002dbuffer.html#New-insert_002dbuffer">New insert-buffer</a></li>
+<li><a href="Truth-_0026-Falsehood.html#index-nil-131"><code>nil</code></a>: <a href="Truth-_0026-Falsehood.html#Truth-_0026-Falsehood">Truth &amp; Falsehood</a></li>
+<li><a href="Buffer-Names.html#index-g_t_0040code_007bnil_007d_002c-history-of-word-72"><code>nil</code>, history of word</a>: <a href="Buffer-Names.html#Buffer-Names">Buffer Names</a></li>
+<li><a href="No-deferment-solution.html#index-No-deferment-solution-253">No deferment solution</a>: <a href="No-deferment-solution.html#No-deferment-solution">No deferment solution</a></li>
+<li><a href="Counting-function-definitions.html#index-nreverse-292"><code>nreverse</code></a>: <a href="Counting-function-definitions.html#Counting-function-definitions">Counting function definitions</a></li>
+<li><a href="nth.html#index-nth-179"><code>nth</code></a>: <a href="nth.html#nth">nth</a></li>
+<li><a href="copy_002dregion_002das_002dkill.html#index-nthcdr-198"><code>nthcdr</code></a>: <a href="copy_002dregion_002das_002dkill.html#copy_002dregion_002das_002dkill">copy-region-as-kill</a></li>
+<li><a href="nthcdr.html#index-nthcdr-178"><code>nthcdr</code></a>: <a href="nthcdr.html#nthcdr">nthcdr</a></li>
+<li><a href="kill_002dnew-function.html#index-nthcdr_0040r_007b_002c-example_007d-204"><code>nthcdr</code><span class="roman">, example</span></a>: <a href="kill_002dnew-function.html#kill_002dnew-function">kill-new function</a></li>
+<li><a href="Y-Axis-Element.html#index-number_002dto_002dstring-382"><code>number-to-string</code></a>: <a href="Y-Axis-Element.html#Y-Axis-Element">Y Axis Element</a></li>
+<li><a href="Keybindings.html#index-occur-329"><code>occur</code></a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Optional-Arguments.html#index-optional-164"><code>optional</code></a>: <a href="Optional-Arguments.html#Optional-Arguments">Optional Arguments</a></li>
+<li><a href="Optional-Arguments.html#index-Optional-arguments-162">Optional arguments</a>: <a href="Optional-Arguments.html#Optional-Arguments">Optional Arguments</a></li>
+<li><a href="Interactive-Options.html#index-Options-for-_0040code_007binteractive_007d-108">Options for <code>interactive</code></a>: <a href="Interactive-Options.html#Interactive-Options">Interactive Options</a></li>
+<li><a href="Insert-or.html#index-or-158"><code>or</code></a>: <a href="Insert-or.html#Insert-or">Insert or</a></li>
+<li><a href="Getting-Buffers.html#index-other_002dbuffer-75"><code>other-buffer</code></a>: <a href="Getting-Buffers.html#Getting-Buffers">Getting Buffers</a></li>
+<li><a href="Regexp-Search.html#index-Paragraphs_002c-movement-by-260">Paragraphs, movement by</a>: <a href="Regexp-Search.html#Regexp-Search">Regexp Search</a></li>
+<li><a href="Recursive-Definition-Parts.html#index-Parts-of-a-Recursive-Definition-239">Parts of a Recursive Definition</a>: <a href="Recursive-Definition-Parts.html#Recursive-Definition-Parts">Recursive Definition Parts</a></li>
+<li><a href="Parts-of-let-Expression.html#index-Parts-of-_0040code_007blet_007d-expression-117">Parts of <code>let</code> expression</a>: <a href="Parts-of-let-Expression.html#Parts-of-let-Expression">Parts of let Expression</a></li>
+<li><a href="Arguments.html#index-Passing-information-to-functions-48">Passing information to functions</a>: <a href="Arguments.html#Arguments">Arguments</a></li>
+<li><a href="Yanking.html#index-Pasting-text-223">Pasting text</a>: <a href="Yanking.html#Yanking">Yanking</a></li>
+<li><a href="Regexp-Search.html#index-Patterns_002c-searching-for-257">Patterns, searching for</a>: <a href="Regexp-Search.html#Regexp-Search">Regexp Search</a></li>
+<li><a href="Text-and-Auto_002dfill.html#index-Per_002dbuffer_002c-local-variables-list-314">Per-buffer, local variables list</a>: <a href="Text-and-Auto_002dfill.html#Text-and-Auto_002dfill">Text and Auto-fill</a></li>
+<li><a href="Permanent-Installation.html#index-Permanent-code-installation-111">Permanent code installation</a>: <a href="Permanent-Installation.html#Permanent-Installation">Permanent Installation</a></li>
+<li><a href="save_002dexcursion.html#index-point-136"><code>point</code></a>: <a href="save_002dexcursion.html#save_002dexcursion">save-excursion</a></li>
+<li><a href="save_002dexcursion.html#index-Point-and-buffer-preservation-135">Point and buffer preservation</a>: <a href="save_002dexcursion.html#save_002dexcursion">save-excursion</a></li>
+<li><a href="Buffer-Size-_0026-Locations.html#index-g_t_0040samp_007bpoint_007d-defined-85">&lsquo;<samp><span class="samp">point</span></samp>&rsquo; defined</a>: <a href="Buffer-Size-_0026-Locations.html#Buffer-Size-_0026-Locations">Buffer Size &amp; Locations</a></li>
+<li><a href="Buffer-Size-_0026-Locations.html#index-Point-location-83">Point location</a>: <a href="Buffer-Size-_0026-Locations.html#Buffer-Size-_0026-Locations">Buffer Size &amp; Locations</a></li>
+<li><a href="Practicing-Evaluation.html#index-Practicing-evaluation-66">Practicing evaluation</a>: <a href="Practicing-Evaluation.html#Practicing-Evaluation">Practicing Evaluation</a></li>
+<li><a href="save_002dexcursion.html#index-Preserving-point-and-buffer-134">Preserving point and buffer</a>: <a href="save_002dexcursion.html#save_002dexcursion">save-excursion</a></li>
+<li><a href="Primitive-Functions.html#index-Primitive-functions-90">Primitive functions</a>: <a href="Primitive-Functions.html#Primitive-Functions">Primitive Functions</a></li>
+<li><a href="Primitive-Functions.html#index-Primitives-written-in-C-93">Primitives written in C</a>: <a href="Primitive-Functions.html#Primitive-Functions">Primitive Functions</a></li>
+<li><a href="print_002dX_002daxis.html#index-Print-horizontal-axis-389">Print horizontal axis</a>: <a href="print_002dX_002daxis.html#print_002dX_002daxis">print-X-axis</a></li>
+<li><a href="print_002dY_002daxis.html#index-Print-vertical-axis-378">Print vertical axis</a>: <a href="print_002dY_002daxis.html#print_002dY_002daxis">print-Y-axis</a></li>
+<li><a href="print_002delements_002dof_002dlist.html#index-print_002delements_002dof_002dlist-230"><code>print-elements-of-list</code></a>: <a href="print_002delements_002dof_002dlist.html#print_002delements_002dof_002dlist">print-elements-of-list</a></li>
+<li><a href="Recursion-with-list.html#index-print_002delements_002drecursively-241"><code>print-elements-recursively</code></a>: <a href="Recursion-with-list.html#Recursion-with-list">Recursion with list</a></li>
+<li><a href="The-final-version.html#index-print_002dgraph-_0040r_007bFinal-version_002e_007d-400"><code>print-graph </code><span class="roman">Final version.</span></a>: <a href="The-final-version.html#The-final-version">The final version</a></li>
+<li><a href="print_002dgraph-Varlist.html#index-g_t_0040code_007bprint_002dgraph_007d-varlist-374"><code>print-graph</code> varlist</a>: <a href="print_002dgraph-Varlist.html#print_002dgraph-Varlist">print-graph Varlist</a></li>
+<li><a href="X-Axis-Tic-Marks.html#index-print_002dX_002daxis-394"><code>print-X-axis</code></a>: <a href="X-Axis-Tic-Marks.html#X-Axis-Tic-Marks">X Axis Tic Marks</a></li>
+<li><a href="X-Axis-Tic-Marks.html#index-print_002dX_002daxis_002dnumbered_002dline-393"><code>print-X-axis-numbered-line</code></a>: <a href="X-Axis-Tic-Marks.html#X-Axis-Tic-Marks">X Axis Tic Marks</a></li>
+<li><a href="X-Axis-Tic-Marks.html#index-print_002dX_002daxis_002dtic_002dline-391"><code>print-X-axis-tic-line</code></a>: <a href="X-Axis-Tic-Marks.html#X-Axis-Tic-Marks">X Axis Tic Marks</a></li>
+<li><a href="print_002dY_002daxis-Penultimate.html#index-print_002dY_002daxis-386"><code>print-Y-axis</code></a>: <a href="print_002dY_002daxis-Penultimate.html#print_002dY_002daxis-Penultimate">print-Y-axis Penultimate</a></li>
+<li><a href="Print-Whole-Graph.html#index-Printing-the-whole-graph-395">Printing the whole graph</a>: <a href="Print-Whole-Graph.html#Print-Whole-Graph">Print Whole Graph</a></li>
+<li><a href="progn.html#index-progn-192"><code>progn</code></a>: <a href="progn.html#progn">progn</a></li>
+<li><a href="Run-a-Program.html#index-Program_002c-running-one-17">Program, running one</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="Mode-Line.html#index-Properties_002c-in-mode-line-example-350">Properties, in mode line example</a>: <a href="Mode-Line.html#Mode-Line">Mode Line</a></li>
+<li><a href="narrow-Exercise.html#index-Properties_002c-mention-of-_0040code_007bbuffer_002dsubstring_002dno_002dproperties_007d-173">Properties, mention of <code>buffer-substring-no-properties</code></a>: <a href="narrow-Exercise.html#narrow-Exercise">narrow Exercise</a></li>
+<li><a href="Readying-a-Graph.html#index-Prototype-graph-296">Prototype graph</a>: <a href="Readying-a-Graph.html#Readying-a-Graph">Readying a Graph</a></li>
+<li><a href="kill_002dnew-function.html#index-push_0040r_007b_002c-example_007d-203"><code>push</code><span class="roman">, example</span></a>: <a href="kill_002dnew-function.html#kill_002dnew-function">kill-new function</a></li>
+<li><a href="Run-a-Program.html#index-quote-19"><code>quote</code></a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="Run-a-Program.html#index-quoting-using-apostrophe-21">quoting using apostrophe</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="re_002dsearch_002dforward.html#index-re_002dsearch_002dforward-262"><code>re-search-forward</code></a>: <a href="re_002dsearch_002dforward.html#re_002dsearch_002dforward">re-search-forward</a></li>
+<li><a href="Read_002donly-buffer.html#index-Read_002donly-buffer-155">Read-only buffer</a>: <a href="Read_002donly-buffer.html#Read_002donly-buffer">Read-only buffer</a></li>
+<li><a href="Readying-a-Graph.html#index-Readying-a-graph-294">Readying a graph</a>: <a href="Readying-a-Graph.html#Readying-a-Graph">Readying a Graph</a></li>
+<li><a href="Keymaps.html#index-Rebinding-keys-336">Rebinding keys</a>: <a href="Keymaps.html#Keymaps">Keymaps</a></li>
+<li><a href="Recursion.html#index-Recursion-236">Recursion</a>: <a href="Recursion.html#Recursion">Recursion</a></li>
+<li><a href="Loops-_0026-Recursion.html#index-Recursion-and-loops-226">Recursion and loops</a>: <a href="Loops-_0026-Recursion.html#Loops-_0026-Recursion">Loops &amp; Recursion</a></li>
+<li><a href="No-Deferment.html#index-Recursion-without-Deferments-252">Recursion without Deferments</a>: <a href="No-Deferment.html#No-Deferment">No Deferment</a></li>
+<li><a href="Recursive-Definition-Parts.html#index-Recursive-Definition-Parts-240">Recursive Definition Parts</a>: <a href="Recursive-Definition-Parts.html#Recursive-Definition-Parts">Recursive Definition Parts</a></li>
+<li><a href="Accumulate.html#index-Recursive-pattern-_002d-accumulate-248">Recursive pattern - accumulate</a>: <a href="Accumulate.html#Accumulate">Accumulate</a></li>
+<li><a href="Every.html#index-Recursive-pattern-_002d-every-246">Recursive pattern - every</a>: <a href="Every.html#Every">Every</a></li>
+<li><a href="Keep.html#index-Recursive-pattern-_002d-keep-250">Recursive pattern - keep</a>: <a href="Keep.html#Keep">Keep</a></li>
+<li><a href="Recursive-Patterns.html#index-Recursive-Patterns-244">Recursive Patterns</a>: <a href="Recursive-Patterns.html#Recursive-Patterns">Recursive Patterns</a></li>
+<li><a href="recursive_002dcount_002dwords.html#index-recursive_002dcount_002dwords-277"><code>recursive-count-words</code></a>: <a href="recursive_002dcount_002dwords.html#recursive_002dcount_002dwords">recursive-count-words</a></li>
+<li><a href="recursive_002dgraph_002dbody_002dprint.html#index-recursive_002dgraph_002dbody_002dprint-303"><code>recursive-graph-body-print</code></a>: <a href="recursive_002dgraph_002dbody_002dprint.html#recursive_002dgraph_002dbody_002dprint">recursive-graph-body-print</a></li>
+<li><a href="Several-files-recursively.html#index-recursive_002dlengths_002dlist_002dmany_002dfiles-287"><code>recursive-lengths-list-many-files</code></a>: <a href="Several-files-recursively.html#Several-files-recursively">Several files recursively</a></li>
+<li><a href="recursive_002dcount_002dwords.html#index-Recursively-counting-words-275">Recursively counting words</a>: <a href="recursive_002dcount_002dwords.html#recursive_002dcount_002dwords">recursive-count-words</a></li>
+<li><a href="fwd_002dpara-let.html#index-regexp_002dquote-267"><code>regexp-quote</code></a>: <a href="fwd_002dpara-let.html#fwd_002dpara-let">fwd-para let</a></li>
+<li><a href="save_002dexcursion.html#index-Region_002c-what-it-is-133">Region, what it is</a>: <a href="save_002dexcursion.html#save_002dexcursion">save-excursion</a></li>
+<li><a href="Regexp-Search.html#index-Regular-expression-searches-256">Regular expression searches</a>: <a href="Regexp-Search.html#Regexp-Search">Regexp Search</a></li>
+<li><a href="Counting-Words.html#index-Regular-expressions-for-word-counting-272">Regular expressions for word counting</a>: <a href="Counting-Words.html#Counting-Words">Counting Words</a></li>
+<li><a href="Compute-a-Remainder.html#index-Remainder-function_002c-_0040code_007b_0025_007d-380">Remainder function, <code>%</code></a>: <a href="Compute-a-Remainder.html#Compute-a-Remainder">Compute a Remainder</a></li>
+<li><a href="Loops-_0026-Recursion.html#index-Repetition-_0028loops_0029-227">Repetition (loops)</a>: <a href="Loops-_0026-Recursion.html#Loops-_0026-Recursion">Loops &amp; Recursion</a></li>
+<li><a href="Counting-Words.html#index-Repetition-for-word-counting-271">Repetition for word counting</a>: <a href="Counting-Words.html#Counting-Words">Counting Words</a></li>
+<li><a href="Yanking.html#index-Retrieving-text-222">Retrieving text</a>: <a href="Yanking.html#Yanking">Yanking</a></li>
+<li><a href="How-the-Interpreter-Acts.html#index-g_t_0040samp_007breturned-value_007d-explained-35">&lsquo;<samp><span class="samp">returned value</span></samp>&rsquo; explained</a>: <a href="How-the-Interpreter-Acts.html#How-the-Interpreter-Acts">How the Interpreter Acts</a></li>
+<li><a href="Counting-function-definitions.html#index-reverse-293"><code>reverse</code></a>: <a href="Counting-function-definitions.html#Counting-function-definitions">Counting function definitions</a></li>
+<li><a href="Kill-Ring.html#index-Ring_002c-making-a-list-like-a-365">Ring, making a list like a</a>: <a href="Kill-Ring.html#Kill-Ring">Kill Ring</a></li>
+<li><a href="ring-file.html#index-g_t_0040file_007bring_002eel_007d-file-373"><samp><span class="file">ring.el</span></samp> file</a>: <a href="ring-file.html#ring-file">ring file</a></li>
+<li><a href="Building-Robots.html#index-Robots_002c-building-238">Robots, building</a>: <a href="Building-Robots.html#Building-Robots">Building Robots</a></li>
+<li><a href="Run-a-Program.html#index-Run-a-program-16">Run a program</a>: <a href="Run-a-Program.html#Run-a-Program">Run a Program</a></li>
+<li><a href="Sample-let-Expression.html#index-Sample-_0040code_007blet_007d-expression-119">Sample <code>let</code> expression</a>: <a href="Sample-let-Expression.html#Sample-let-Expression">Sample let Expression</a></li>
+<li><a href="save_002dexcursion.html#index-save_002dexcursion-132"><code>save-excursion</code></a>: <a href="save_002dexcursion.html#save_002dexcursion">save-excursion</a></li>
+<li><a href="save_002drestriction.html#index-save_002drestriction-170"><code>save-restriction</code></a>: <a href="save_002drestriction.html#save_002drestriction">save-restriction</a></li>
+<li><a href="search_002dforward.html#index-search_002dforward-191"><code>search-forward</code></a>: <a href="search_002dforward.html#search_002dforward">search-forward</a></li>
+<li><a href="Regexp-Search.html#index-Searches_002c-illustrating-255">Searches, illustrating</a>: <a href="Regexp-Search.html#Regexp-Search">Regexp Search</a></li>
+<li><a href="sentence_002dend.html#index-sentence_002dend-261"><code>sentence-end</code></a>: <a href="sentence_002dend.html#sentence_002dend">sentence-end</a></li>
+<li><a href="Regexp-Search.html#index-Sentences_002c-movement-by-259">Sentences, movement by</a>: <a href="Regexp-Search.html#Regexp-Search">Regexp Search</a></li>
+<li><a href="Using-set.html#index-set-63"><code>set</code></a>: <a href="Using-set.html#Using-set">Using set</a></li>
+<li><a href="Switching-Buffers.html#index-set_002dbuffer-78"><code>set-buffer</code></a>: <a href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a></li>
+<li><a href="defvar-and-asterisk.html#index-set_002dvariable-215"><code>set-variable</code></a>: <a href="defvar-and-asterisk.html#defvar-and-asterisk">defvar and asterisk</a></li>
+<li><a href="setcar.html#index-setcar-180"><code>setcar</code></a>: <a href="setcar.html#setcar">setcar</a></li>
+<li><a href="setcdr.html#index-setcdr-181"><code>setcdr</code></a>: <a href="setcdr.html#setcdr">setcdr</a></li>
+<li><a href="kill_002dnew-function.html#index-setcdr_0040r_007b_002c-example_007d-205"><code>setcdr</code><span class="roman">, example</span></a>: <a href="kill_002dnew-function.html#kill_002dnew-function">kill-new function</a></li>
+<li><a href="Using-setq.html#index-setq-64"><code>setq</code></a>: <a href="Using-setq.html#Using-setq">Using setq</a></li>
+<li><a href="Keybindings.html#index-Setting-a-key-globally-325">Setting a key globally</a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="set-_0026-setq.html#index-Setting-value-of-variable-61">Setting value of variable</a>: <a href="set-_0026-setq.html#set-_0026-setq">set &amp; setq</a></li>
+<li><a href="How-the-Interpreter-Acts.html#index-g_t_0040samp_007bside-effect_007d-defined-36">&lsquo;<samp><span class="samp">side effect</span></samp>&rsquo; defined</a>: <a href="How-the-Interpreter-Acts.html#How-the-Interpreter-Acts">How the Interpreter Acts</a></li>
+<li><a href="Simple-Extension.html#index-Simple-extension-in-_0040file_007b_002eemacs_007d-file-342">Simple extension in <samp><span class="file">.emacs</span></samp> file</a>: <a href="Simple-Extension.html#Simple-Extension">Simple Extension</a></li>
+<li><a href="simplified_002dbeginning_002dof_002dbuffer.html#index-simplified_002dbeginning_002dof_002dbuffer-145"><code>simplified-beginning-of-buffer</code></a>: <a href="simplified_002dbeginning_002dof_002dbuffer.html#simplified_002dbeginning_002dof_002dbuffer">simplified-beginning-of-buffer</a></li>
+<li><a href="Site_002dwide-Init.html#index-g_t_0040file_007bsite_002dinit_002eel_007d-init-file-308"><samp><span class="file">site-init.el</span></samp> init file</a>: <a href="Site_002dwide-Init.html#Site_002dwide-Init">Site-wide Init</a></li>
+<li><a href="Site_002dwide-Init.html#index-g_t_0040file_007bsite_002dload_002eel_007d-init-file-309"><samp><span class="file">site-load.el</span></samp> init file</a>: <a href="Site_002dwide-Init.html#Site_002dwide-Init">Site-wide Init</a></li>
+<li><a href="Buffer-Size-_0026-Locations.html#index-Size-of-buffer-81">Size of buffer</a>: <a href="Buffer-Size-_0026-Locations.html#Buffer-Size-_0026-Locations">Buffer Size &amp; Locations</a></li>
+<li><a href="No-deferment-solution.html#index-Solution-without-deferment-254">Solution without deferment</a>: <a href="No-deferment-solution.html#No-deferment-solution">No deferment solution</a></li>
+<li><a href="Sorting.html#index-sort-288"><code>sort</code></a>: <a href="Sorting.html#Sorting">Sorting</a></li>
+<li><a href="edebug.html#index-Source-level-debugger-358">Source level debugger</a>: <a href="edebug.html#edebug">edebug</a></li>
+<li><a href="Complications.html#index-Special-form-32">Special form</a>: <a href="Complications.html#Complications">Complications</a></li>
+<li><a href="Cutting-_0026-Storing-Text.html#index-Storing-and-cutting-text-183">Storing and cutting text</a>: <a href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a></li>
+<li><a href="Lisp-Atoms.html#index-g_t_0040samp_007bstring_007d-defined-12">&lsquo;<samp><span class="samp">string</span></samp>&rsquo; defined</a>: <a href="Lisp-Atoms.html#Lisp-Atoms">Lisp Atoms</a></li>
+<li><a href="Data-types.html#index-substring-54">substring</a>: <a href="Data-types.html#Data-types">Data types</a></li>
+<li><a href="Switching-Buffers.html#index-switch_002dto_002dbuffer-77"><code>switch-to-buffer</code></a>: <a href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a></li>
+<li><a href="Switching-Buffers.html#index-Switching-to-a-buffer-79">Switching to a buffer</a>: <a href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a></li>
+<li><a href="Names-_0026-Definitions.html#index-Symbol-names-29">Symbol names</a>: <a href="Names-_0026-Definitions.html#Names-_0026-Definitions">Names &amp; Definitions</a></li>
+<li><a href="Void-Function.html#index-Symbol-without-function-error-43">Symbol without function error</a>: <a href="Void-Function.html#Void-Function">Void Function</a></li>
+<li><a href="Void-Variable.html#index-Symbol-without-value-error-45">Symbol without value error</a>: <a href="Void-Variable.html#Void-Variable">Void Variable</a></li>
+<li><a href="Lisp-Atoms.html#index-Symbolic-expressions_002c-introduced-8">Symbolic expressions, introduced</a>: <a href="Lisp-Atoms.html#Lisp-Atoms">Lisp Atoms</a></li>
+<li><a href="Symbols-as-Chest.html#index-Symbols-as-a-Chest-of-Drawers-217">Symbols as a Chest of Drawers</a>: <a href="Symbols-as-Chest.html#Symbols-as-Chest">Symbols as Chest</a></li>
+<li><a href="Syntax.html#index-Syntax-categories-and-tables-281">Syntax categories and tables</a>: <a href="Syntax.html#Syntax">Syntax</a></li>
+<li><a href="Indent-Tabs-Mode.html#index-Tabs_002c-preventing-322">Tabs, preventing</a>: <a href="Indent-Tabs-Mode.html#Indent-Tabs-Mode">Indent Tabs Mode</a></li>
+<li><a href="Lisp-Atoms.html#index-Text-between-double-quotation-marks-11">Text between double quotation marks</a>: <a href="Lisp-Atoms.html#Lisp-Atoms">Lisp Atoms</a></li>
+<li><a href="Text-and-Auto_002dfill.html#index-Text-Mode-turned-on-318">Text Mode turned on</a>: <a href="Text-and-Auto_002dfill.html#Text-and-Auto_002dfill">Text and Auto-fill</a></li>
+<li><a href="Yanking.html#index-Text-retrieval-221">Text retrieval</a>: <a href="Yanking.html#Yanking">Yanking</a></li>
+<li><a href="the_002dthe.html#index-the_002dthe-360"><code>the-the</code></a>: <a href="the_002dthe.html#the_002dthe">the-the</a></li>
+<li><a href="if-in-more-detail.html#index-g_t_0040samp_007bthen_002dpart_007d-defined-126">&lsquo;<samp><span class="samp">then-part</span></samp>&rsquo; defined</a>: <a href="if-in-more-detail.html#if-in-more-detail">if in more detail</a></li>
+<li><a href="Counting-function-definitions.html#index-top_002dof_002dranges-291"><code>top-of-ranges</code></a>: <a href="Counting-function-definitions.html#Counting-function-definitions">Counting function definitions</a></li>
+<li><a href="debug.html#index-triangle_002dbugged-353"><code>triangle-bugged</code></a>: <a href="debug.html#debug">debug</a></li>
+<li><a href="Recursive-triangle-function.html#index-triangle_002drecursively-242"><code>triangle-recursively</code></a>: <a href="Recursive-triangle-function.html#Recursive-triangle-function">Recursive triangle function</a></li>
+<li><a href="Truth-_0026-Falsehood.html#index-Truth-and-falsehood-in-Emacs-Lisp-129">Truth and falsehood in Emacs Lisp</a>: <a href="Truth-_0026-Falsehood.html#Truth-_0026-Falsehood">Truth &amp; Falsehood</a></li>
+<li><a href="Data-types.html#index-Types-of-data-51">Types of data</a>: <a href="Data-types.html#Data-types">Data types</a></li>
+<li><a href="Keybindings.html#index-Unbinding-key-331">Unbinding key</a>: <a href="Keybindings.html#Keybindings">Keybindings</a></li>
+<li><a href="Uninitialized-let-Variables.html#index-Uninitialized-_0040code_007blet_007d-variables-121">Uninitialized <code>let</code> variables</a>: <a href="Uninitialized-let-Variables.html#Uninitialized-let-Variables">Uninitialized let Variables</a></li>
+<li><a href="defvar.html#index-Variable-initialization-212">Variable initialization</a>: <a href="defvar.html#defvar">defvar</a></li>
+<li><a href="Variable-Number-of-Arguments.html#index-Variable-number-of-arguments-55">Variable number of arguments</a>: <a href="Variable-Number-of-Arguments.html#Variable-Number-of-Arguments">Variable Number of Arguments</a></li>
+<li><a href="fill_002dcolumn-Example.html#index-Variable_002c-example-of_002c-_0040code_007bfill_002dcolumn_007d-42">Variable, example of, <code>fill-column</code></a>: <a href="fill_002dcolumn-Example.html#fill_002dcolumn-Example">fill-column Example</a></li>
+<li><a href="Determining-the-Element.html#index-g_t_0040samp_007bvariable_002c-global_007d_002c-defined-370">&lsquo;<samp><span class="samp">variable, global</span></samp>&rsquo;, defined</a>: <a href="Determining-the-Element.html#Determining-the-Element">Determining the Element</a></li>
+<li><a href="Prevent-confusion.html#index-g_t_0040samp_007bvariable_002c-local_007d_002c-defined-115">&lsquo;<samp><span class="samp">variable, local</span></samp>&rsquo;, defined</a>: <a href="Prevent-confusion.html#Prevent-confusion">Prevent confusion</a></li>
+<li><a href="set-_0026-setq.html#index-Variable_002c-setting-value-60">Variable, setting value</a>: <a href="set-_0026-setq.html#set-_0026-setq">set &amp; setq</a></li>
+<li><a href="Variables.html#index-Variables-39">Variables</a>: <a href="Variables.html#Variables">Variables</a></li>
+<li><a href="Parts-of-let-Expression.html#index-g_t_0040samp_007bvarlist_007d-defined-118">&lsquo;<samp><span class="samp">varlist</span></samp>&rsquo; defined</a>: <a href="Parts-of-let-Expression.html#Parts-of-let-Expression">Parts of let Expression</a></li>
+<li><a href="Simple-Extension.html#index-Version-of-Emacs_002c-choosing-344">Version of Emacs, choosing</a>: <a href="Simple-Extension.html#Simple-Extension">Simple Extension</a></li>
+<li><a href="print_002dY_002daxis.html#index-Vertical-axis-printing-377">Vertical axis printing</a>: <a href="print_002dY_002daxis.html#print_002dY_002daxis">print-Y-axis</a></li>
+<li><a href="what_002dline.html#index-what_002dline-171"><code>what-line</code></a>: <a href="what_002dline.html#what_002dline">what-line</a></li>
+<li><a href="while.html#index-while-229"><code>while</code></a>: <a href="while.html#while">while</a></li>
+<li><a href="Whitespace-in-Lists.html#index-Whitespace-in-lists-13">Whitespace in lists</a>: <a href="Whitespace-in-Lists.html#Whitespace-in-Lists">Whitespace in Lists</a></li>
+<li><a href="Print-Whole-Graph.html#index-Whole-graph-printing-396">Whole graph printing</a>: <a href="Print-Whole-Graph.html#Print-Whole-Graph">Print Whole Graph</a></li>
+<li><a href="Narrowing-_0026-Widening.html#index-Widening-169">Widening</a>: <a href="Narrowing-_0026-Widening.html#Narrowing-_0026-Widening">Narrowing &amp; Widening</a></li>
+<li><a href="what_002dline.html#index-Widening_002c-example-of-172">Widening, example of</a>: <a href="what_002dline.html#what_002dline">what-line</a></li>
+<li><a href="Words-in-a-defun.html#index-Word-counting-in-a-_0040code_007bdefun_007d-279">Word counting in a <code>defun</code></a>: <a href="Words-in-a-defun.html#Words-in-a-defun">Words in a defun</a></li>
+<li><a href="Words-and-Symbols.html#index-Words-and-symbols-in-defun-280">Words and symbols in defun</a>: <a href="Words-and-Symbols.html#Words-and-Symbols">Words and Symbols</a></li>
+<li><a href="recursive_002dcount_002dwords.html#index-Words_002c-counted-recursively-276">Words, counted recursively</a>: <a href="recursive_002dcount_002dwords.html#recursive_002dcount_002dwords">recursive-count-words</a></li>
+<li><a href="the_002dthe.html#index-Words_002c-duplicated-362">Words, duplicated</a>: <a href="the_002dthe.html#the_002dthe">the-the</a></li>
+<li><a href="Writing-Defuns.html#index-Writing-a-function-definition-89">Writing a function definition</a>: <a href="Writing-Defuns.html#Writing-Defuns">Writing Defuns</a></li>
+<li><a href="Wrong-Type-of-Argument.html#index-Wrong-type-of-argument-57">Wrong type of argument</a>: <a href="Wrong-Type-of-Argument.html#Wrong-Type-of-Argument">Wrong Type of Argument</a></li>
+<li><a href="print_002dX_002daxis.html#index-X-axis-printing-388">X axis printing</a>: <a href="print_002dX_002daxis.html#print_002dX_002daxis">print-X-axis</a></li>
+<li><a href="X-Axis-Tic-Marks.html#index-X_002daxis_002delement-392"><code>X-axis-element</code></a>: <a href="X-Axis-Tic-Marks.html#X-Axis-Tic-Marks">X Axis Tic Marks</a></li>
+<li><a href="print_002dY_002daxis.html#index-Y-axis-printing-376">Y axis printing</a>: <a href="print_002dY_002daxis.html#print_002dY_002daxis">print-Y-axis</a></li>
+<li><a href="Y_002daxis_002dcolumn.html#index-Y_002daxis_002dcolumn-385"><code>Y-axis-column</code></a>: <a href="Y_002daxis_002dcolumn.html#Y_002daxis_002dcolumn">Y-axis-column</a></li>
+<li><a href="The-final-version.html#index-Y_002daxis_002dcolumn-_0040r_007bFinal-version_002e_007d-398"><code>Y-axis-column </code><span class="roman">Final version.</span></a>: <a href="The-final-version.html#The-final-version">The final version</a></li>
+<li><a href="Compute-a-Remainder.html#index-Y_002daxis_002dlabel_002dspacing-381"><code>Y-axis-label-spacing</code></a>: <a href="Compute-a-Remainder.html#Compute-a-Remainder">Compute a Remainder</a></li>
+<li><a href="Y-Axis-Element.html#index-Y_002daxis_002dtic-383"><code>Y-axis-tic</code></a>: <a href="Y-Axis-Element.html#Y-Axis-Element">Y Axis Element</a></li>
+<li><a href="yank.html#index-yank-371"><code>yank</code></a>: <a href="yank.html#yank">yank</a></li>
+<li><a href="Yanking.html#index-yank-220"><code>yank</code></a>: <a href="Yanking.html#Yanking">Yanking</a></li>
+<li><a href="yank_002dpop.html#index-yank_002dpop-372"><code>yank-pop</code></a>: <a href="yank_002dpop.html#yank_002dpop">yank-pop</a></li>
+<li><a href="zap_002dto_002dchar.html#index-zap_002dto_002dchar-188"><code>zap-to-char</code></a>: <a href="zap_002dto_002dchar.html#zap_002dto_002dchar">zap-to-char</a></li>
+<li><a href="Body-of-current_002dkill.html#index-zerop-367"><code>zerop</code></a>: <a href="Body-of-current_002dkill.html#Body-of-current_002dkill">Body of current-kill</a></li>
+   </ul></body></html>
+

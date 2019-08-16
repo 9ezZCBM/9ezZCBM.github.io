@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Setting flags - PCL-CVS--Emacs Front-End to CVS</title>
+<!--
+Copyright (C) 1991--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Setting-flags"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Updating-the-buffer.html#Updating-the-buffer">Updating the buffer</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Entering-PCL_002dCVS.html#Entering-PCL_002dCVS">Entering PCL-CVS</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Commands.html#Commands">Commands</a>
+
+</div>
+
+<h3 class="section">5.2 Setting flags for CVS commands</h3>
+
+<p><a name="index-Optional-switches-to-CVS-24"></a><a name="index-Command_002dline-options-to-CVS-25"></a>
+This section describes the convention used by nearly all PCL-CVS
+commands for setting optional flags sent to CVS.  A single <kbd>C-u</kbd>
+prefix argument is used to cause the command to prompt for flags to be
+used for the current invocation of the command only.  Two <kbd>C-u</kbd> prefix
+arguments are used to prompt for flags which will be set permanently, for the
+current invocation and all that follow, until the flags are changed, or
+unless temporary flags are set which override them.
+
+   <p>Perhaps an example or two is in order.  Say you are about to add a
+binary file to the repository, and want to specify the flags &lsquo;<samp><span class="samp">-kb</span></samp>&rsquo;
+to &lsquo;<samp><span class="samp">cvs add</span></samp>&rsquo;.  You can type <kbd>C-u a -kb &lt;RET&gt;</kbd>,
+and the file will be added.  Subsequent &lsquo;<samp><span class="samp">cvs add</span></samp>&rsquo;
+commands will use the previously prevailing flags.
+
+   <p>As a second example, say you are about to perform a diff and want to see
+the result in unified diff format, i.e., you'd like to pass the flag
+&lsquo;<samp><span class="samp">-u</span></samp>&rsquo; to both &lsquo;<samp><span class="samp">cvs diff</span></samp>&rsquo; and &lsquo;<samp><span class="samp">diff</span></samp>&rsquo;.  You'd also like all
+subsequent diffs to use this flag.  You can type <kbd>C-u C-u = -u &lt;RET&gt;</kbd>
+and the diff will be performed, and the default flags will be set to
+<code>("-u")</code>.  You can of course override this flag for a single diff
+by using a single <kbd>C-u</kbd> prefix argument.
+
+   <p><a name="index-Special-prefix-26"></a>In addition to this, some commands can take <dfn>special prefix</dfn> arguments. 
+These work as follows: When called with a <kbd>C-u</kbd> prefix, the user is
+prompted for a new value of the special prefix and the special prefix is
+activated for the next command.  When called without the <kbd>C-u</kbd>
+prefix, the special prefix is re-activated (with the same value as last
+time) for the next command.  Calling the prefix command again when it's
+already activated deactivates it.  Calling it with the <kbd>C-u C-u</kbd>
+prefix activates it for all subsequent commands until you deactivate it
+explicitly.  The special prefixes are:
+
+     <dl>
+<dt><kbd>T</kbd><dd>Toggles whether or not marks will be active in the next command.
+
+     <br><dt><kbd>b</kbd><dd>Provide the next command with a branch (can be any version
+specifier) to work on.
+
+     <br><dt><kbd>B</kbd><dd>Secondary branch argument.  Only meaningful if <kbd>b</kbd> is also used. 
+It can be used to provide a second branch argument to
+<code>cvs-mode-diff</code> or to <code>cvs-mode-update</code>.
+
+     <br><dt><kbd>M-f</kbd><dd>Forces the next command to apply to every selected file rather than only
+to the ones PCL-CVS thinks are relevant. 
+</dl>
+
+   </body></html>
+

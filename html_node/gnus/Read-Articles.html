@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Read Articles - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Read-Articles"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Other-Marks.html#Other-Marks">Other Marks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Unread-Articles.html#Unread-Articles">Unread Articles</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Marking-Articles.html#Marking-Articles">Marking Articles</a>
+
+</div>
+
+<h4 class="subsection">3.7.2 Read Articles</h4>
+
+<p><a name="index-expirable-mark-766"></a>
+All the following marks mark articles as read.
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">r</span></samp>&rsquo;<dd><a name="index-gnus_002ddel_002dmark-767"></a>These are articles that the user has marked as read with the <kbd>d</kbd>
+command manually, more or less (<code>gnus-del-mark</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">R</span></samp>&rsquo;<dd><a name="index-gnus_002dread_002dmark-768"></a>Articles that have actually been read (<code>gnus-read-mark</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">O</span></samp>&rsquo;<dd><a name="index-gnus_002dancient_002dmark-769"></a>Articles that were marked as read in previous sessions and are now
+<dfn>old</dfn> (<code>gnus-ancient-mark</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">K</span></samp>&rsquo;<dd><a name="index-gnus_002dkilled_002dmark-770"></a>Marked as killed (<code>gnus-killed-mark</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">X</span></samp>&rsquo;<dd><a name="index-gnus_002dkill_002dfile_002dmark-771"></a>Marked as killed by kill files (<code>gnus-kill-file-mark</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">Y</span></samp>&rsquo;<dd><a name="index-gnus_002dlow_002dscore_002dmark-772"></a>Marked as read by having too low a score (<code>gnus-low-score-mark</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">C</span></samp>&rsquo;<dd><a name="index-gnus_002dcatchup_002dmark-773"></a>Marked as read by a catchup (<code>gnus-catchup-mark</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">G</span></samp>&rsquo;<dd><a name="index-gnus_002dcanceled_002dmark-774"></a>Canceled article (<code>gnus-canceled-mark</code>)
+
+     <br><dt>&lsquo;<samp><span class="samp">Q</span></samp>&rsquo;<dd><a name="index-gnus_002dsparse_002dmark-775"></a>Sparsely reffed article (<code>gnus-sparse-mark</code>).  See <a href="Customizing-Threading.html#Customizing-Threading">Customizing Threading</a>.
+
+     <br><dt>&lsquo;<samp><span class="samp">M</span></samp>&rsquo;<dd><a name="index-gnus_002dduplicate_002dmark-776"></a>Article marked as read by duplicate suppression
+(<code>gnus-duplicate-mark</code>).  See <a href="Duplicate-Suppression.html#Duplicate-Suppression">Duplicate Suppression</a>.
+
+   </dl>
+
+   <p>All these marks just mean that the article is marked as read, really. 
+They are interpreted differently when doing adaptive scoring, though.
+
+   <p>One more special mark, though:
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">E</span></samp>&rsquo;<dd><a name="index-gnus_002dexpirable_002dmark-777"></a>Marked as expirable (<code>gnus-expirable-mark</code>).
+
+     <p>Marking articles as <dfn>expirable</dfn> (or have them marked as such
+automatically) doesn't make much sense in normal groups&mdash;a user doesn't
+control expiring of news articles, but in mail groups, for instance,
+articles marked as <dfn>expirable</dfn> can be deleted by Gnus at
+any time. 
+</dl>
+
+   </body></html>
+

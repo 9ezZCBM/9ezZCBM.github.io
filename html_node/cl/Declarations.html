@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Declarations - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Declarations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Symbols.html#Symbols">Symbols</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Macros.html#Macros">Macros</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">6 Declarations</h2>
+
+<p class="noindent">Common Lisp includes a complex and powerful &ldquo;declaration&rdquo;
+mechanism that allows you to give the compiler special hints
+about the types of data that will be stored in particular variables,
+and about the ways those variables and functions will be used.  This
+package defines versions of all the Common Lisp declaration forms:
+<code>declare</code>, <code>locally</code>, <code>proclaim</code>, <code>declaim</code>,
+and <code>the</code>.
+
+   <p>Most of the Common Lisp declarations are not currently useful in Emacs
+Lisp.  For example, the byte-code system provides little
+opportunity to benefit from type information. 
+A few declarations are meaningful when byte compiler optimizations
+are enabled, as they are by the default.  Otherwise these
+declarations will effectively be ignored.
+
+<div class="defun">
+&mdash; Function: <b>cl-proclaim</b><var> decl-spec<a name="index-cl_002dproclaim-67"></a></var><br>
+<blockquote><p>This function records a &ldquo;global&rdquo; declaration specified by
+<var>decl-spec</var>.  Since <code>cl-proclaim</code> is a function, <var>decl-spec</var>
+is evaluated and thus should normally be quoted. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-declaim</b><var> decl-specs<small class="dots">...</small><a name="index-cl_002ddeclaim-68"></a></var><br>
+<blockquote><p>This macro is like <code>cl-proclaim</code>, except that it takes any number
+of <var>decl-spec</var> arguments, and the arguments are unevaluated and
+unquoted.  The <code>cl-declaim</code> macro also puts <code>(cl-eval-when
+(compile load eval) ...)</code> around the declarations so that they will
+be registered at compile-time as well as at run-time.  (This is vital,
+since normally the declarations are meant to influence the way the
+compiler treats the rest of the file that contains the <code>cl-declaim</code>
+form.) 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-declare</b><var> decl-specs<small class="dots">...</small><a name="index-cl_002ddeclare-69"></a></var><br>
+<blockquote><p>This macro is used to make declarations within functions and other
+code.  Common Lisp allows declarations in various locations, generally
+at the beginning of any of the many &ldquo;implicit <code>progn</code>s&rdquo;
+throughout Lisp syntax, such as function bodies, <code>let</code> bodies,
+etc.  Currently the only declaration understood by <code>cl-declare</code>
+is <code>special</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-locally</b><var> declarations<small class="dots">...</small> forms<small class="dots">...</small><a name="index-cl_002dlocally-70"></a></var><br>
+<blockquote><p>In this package, <code>cl-locally</code> is no different from <code>progn</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-the</b><var> type form<a name="index-cl_002dthe-71"></a></var><br>
+<blockquote><p><code>cl-the</code> returns the value of <code>form</code>, first checking (if
+optimization settings permit) that it is of type <code>type</code>.  Future
+byte-compiler optimizations may also make use of this information to
+improve runtime efficiency.
+
+        <p>For example, <code>mapcar</code> can map over both lists and arrays.  It is
+hard for the compiler to expand <code>mapcar</code> into an in-line loop
+unless it knows whether the sequence will be a list or an array ahead
+of time.  With <code>(mapcar 'car (cl-the vector foo))</code>, a future
+compiler would have enough information to expand the loop in-line. 
+For now, Emacs Lisp will treat the above code as exactly equivalent
+to <code>(mapcar 'car foo)</code>. 
+</p></blockquote></div>
+
+   <p>Each <var>decl-spec</var> in a <code>cl-proclaim</code>, <code>cl-declaim</code>, or
+<code>cl-declare</code> should be a list beginning with a symbol that says
+what kind of declaration it is.  This package currently understands
+<code>special</code>, <code>inline</code>, <code>notinline</code>, <code>optimize</code>,
+and <code>warn</code> declarations.  (The <code>warn</code> declaration is an
+extension of standard Common Lisp.)  Other Common Lisp declarations,
+such as <code>type</code> and <code>ftype</code>, are silently ignored.
+
+     <dl>
+<dt><code>special</code><dd><!-- FIXME ? -->
+Since all variables in Emacs Lisp are &ldquo;special&rdquo; (in the Common
+Lisp sense), <code>special</code> declarations are only advisory.  They
+simply tell the byte compiler that the specified
+variables are intentionally being referred to without being
+bound in the body of the function.  The compiler normally emits
+warnings for such references, since they could be typographical
+errors for references to local variables.
+
+     <p>The declaration <code>(cl-declare (special </code><var>var1</var> <var>var2</var><code>))</code> is
+equivalent to <code>(defvar </code><var>var1</var><code>) (defvar </code><var>var2</var><code>)</code>.
+
+     <p>In top-level contexts, it is generally better to write
+<code>(defvar </code><var>var</var><code>)</code> than <code>(cl-declaim (special </code><var>var</var><code>))</code>,
+since <code>defvar</code> makes your intentions clearer.
+
+     <br><dt><code>inline</code><dd>The <code>inline</code> <var>decl-spec</var> lists one or more functions
+whose bodies should be expanded &ldquo;in-line&rdquo; into calling functions
+whenever the compiler is able to arrange for it.  For example,
+the function <code>cl-acons</code> is declared <code>inline</code>
+by this package so that the form <code>(cl-acons </code><var>key</var> <var>value</var>
+<var>alist</var><code>)</code> will
+expand directly into <code>(cons (cons </code><var>key</var> <var>value</var><code>) </code><var>alist</var><code>)</code>
+when it is called in user functions, so as to save function calls.
+
+     <p>The following declarations are all equivalent.  Note that the
+<code>defsubst</code> form is a convenient way to define a function
+and declare it inline all at once.
+
+     <pre class="example">          (cl-declaim (inline foo bar))
+          (cl-eval-when (compile load eval)
+            (cl-proclaim '(inline foo bar)))
+          (defsubst foo (...) ...)       ; instead of defun
+</pre>
+     <p><strong>Please note:</strong>  this declaration remains in effect after the
+containing source file is done.  It is correct to use it to
+request that a function you have defined should be inlined,
+but it is impolite to use it to request inlining of an external
+function.
+
+     <p>In Common Lisp, it is possible to use <code>(declare (inline ...))</code>
+before a particular call to a function to cause just that call to
+be inlined; the current byte compilers provide no way to implement
+this, so <code>(cl-declare (inline ...))</code> is currently ignored by
+this package.
+
+     <br><dt><code>notinline</code><dd>The <code>notinline</code> declaration lists functions which should
+not be inlined after all; it cancels a previous <code>inline</code>
+declaration.
+
+     <br><dt><code>optimize</code><dd>This declaration controls how much optimization is performed by
+the compiler.
+
+     <p>The word <code>optimize</code> is followed by any number of lists like
+<code>(speed 3)</code> or <code>(safety 2)</code>.  Common Lisp defines several
+optimization &ldquo;qualities&rdquo;; this package ignores all but <code>speed</code>
+and <code>safety</code>.  The value of a quality should be an integer from
+0 to 3, with 0 meaning &ldquo;unimportant&rdquo; and 3 meaning &ldquo;very important&rdquo;. 
+The default level for both qualities is 1.
+
+     <p>In this package, the <code>speed</code> quality is tied to the <code>byte-optimize</code>
+flag, which is set to <code>nil</code> for <code>(speed 0)</code> and to
+<code>t</code> for higher settings; and the <code>safety</code> quality is
+tied to the <code>byte-compile-delete-errors</code> flag, which is
+set to <code>nil</code> for <code>(safety 3)</code> and to <code>t</code> for all
+lower settings.  (The latter flag controls whether the compiler
+is allowed to optimize out code whose only side-effect could
+be to signal an error, e.g., rewriting <code>(progn foo bar)</code> to
+<code>bar</code> when it is not known whether <code>foo</code> will be bound
+at run-time.)
+
+     <p>Note that even compiling with <code>(safety 0)</code>, the Emacs
+byte-code system provides sufficient checking to prevent real
+harm from being done.  For example, barring serious bugs in
+Emacs itself, Emacs will not crash with a segmentation fault
+just because of an error in a fully-optimized Lisp program.
+
+     <p>The <code>optimize</code> declaration is normally used in a top-level
+<code>cl-proclaim</code> or <code>cl-declaim</code> in a file; Common Lisp allows
+it to be used with <code>declare</code> to set the level of optimization
+locally for a given form, but this will not work correctly with the
+current byte-compiler.  (The <code>cl-declare</code>
+will set the new optimization level, but that level will not
+automatically be unset after the enclosing form is done.)
+
+     <br><dt><code>warn</code><dd>This declaration controls what sorts of warnings are generated
+by the byte compiler.  The word <code>warn</code> is followed by any
+number of &ldquo;warning qualities&rdquo;, similar in form to optimization
+qualities.  The currently supported warning types are
+<code>redefine</code>, <code>callargs</code>, <code>unresolved</code>, and
+<code>free-vars</code>; in the current system, a value of 0 will
+disable these warnings and any higher value will enable them. 
+See the documentation of the variable <code>byte-compile-warnings</code>
+for more details. 
+</dl>
+
+   </body></html>
+

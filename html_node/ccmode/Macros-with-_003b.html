@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Macros with ; - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Macros-with-%3b"></a>
+<a name="Macros-with-_003b"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Noise-Macros.html#Noise-Macros">Noise Macros</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Macro-Backslashes.html#Macro-Backslashes">Macro Backslashes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Custom-Macros.html#Custom-Macros">Custom Macros</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">12.2 Macros with semicolons</h3>
+
+<p><a name="index-macros-with-semicolons-625"></a><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+Macros which needn't (or mustn't) be followed by a semicolon when you
+invoke them, <dfn>macros with semicolons</dfn>, are very common.  These can
+cause CC Mode to parse the next line wrongly as a
+<code>statement-cont</code> (see <a href="Function-Symbols.html#Function-Symbols">Function Symbols</a>) and thus mis-indent
+it.  At the top level, a macro invocation before a defun start can
+cause, for example, <code>c-beginning-of-defun</code> (<kbd>C-M-a</kbd>) not to
+find the correct start of the current function.
+
+   <p>You can prevent these by specifying which macros have semicolons.  It
+doesn't matter whether or not such a macro has a parameter list:
+
+<div class="defun">
+&mdash; User Option: <b>c-macro-names-with-semicolon</b><var><a name="index-c_002dmacro_002dnames_002dwith_002dsemicolon-626"></a></var><br>
+<blockquote><p><a name="index-macro_002dnames_002dwith_002dsemicolon-_0040r_007b_0028c_002d_0029_007d-627"></a>This buffer-local variable specifies which macros have semicolons. 
+After setting its value, you need to call
+<code>c-make-macro-with-semi-re</code> for it to take effect.  It should be
+set to one of these values:
+
+          <dl>
+<dt>nil<dd>There are no macros with semicolons. 
+<br><dt>a list of strings<dd>Each string is the name of a macro with a semicolon.  Only valid
+<code>#define</code> names are allowed here.  For example, to set the
+default value, you could write the following into your <samp><span class="file">.emacs</span></samp>:
+
+          <pre class="example">               (setq c-macro-names-with-semicolon
+                     '("Q_OBJECT" "Q_PROPERTY" "Q_DECLARE" "Q_ENUMS"))
+</pre>
+          <br><dt>a regular expression<dd>This matches each symbol which is a macro with a semicolon.  It must
+not match any string which isn't a valid <code>#define</code> name.  For
+example:
+
+          <pre class="example">               (setq c-macro-names-with-semicolon
+                     "\\&lt;\\(CLEAN_UP_AND_RETURN\\|Q_[[:upper:]]+\\)\\&gt;")
+</pre>
+          </dl>
+        </p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>c-make-macro-with-semi-re</b><var><a name="index-c_002dmake_002dmacro_002dwith_002dsemi_002dre-628"></a></var><br>
+<blockquote><p><a name="index-make_002dmacro_002dwith_002dsemi_002dre-_0040r_007b_0028c_002d_0029_007d-629"></a>Call this (non-interactive) function, which sets internal variables,
+each time you change the value of <code>c-macro-names-with-semicolon</code>
+after the major mode function has run.  It takes no arguments, and its
+return value has no meaning.  This function is called by CC Mode's
+initialization code, after the mode hooks have run. 
+</p></blockquote></div>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   </body></html>
+

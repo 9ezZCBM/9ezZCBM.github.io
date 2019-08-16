@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>session - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="session"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="noweb.html#noweb">noweb</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="no_002dexpand.html#no_002dexpand">no-expand</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Specific-header-arguments.html#Specific-header-arguments">Specific header arguments</a>
+
+</div>
+
+<h5 class="subsubsection">14.8.2.14 <code>:session</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003asession_007d_002c-src-header-argument-2141"></a>
+The <code>:session</code> header argument is for running multiple source code
+blocks under one session.  Org runs &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks with the same
+session name in the same interpreter process.
+
+     <ul>
+<li><code>none</code>
+Default.  Each &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block gets a new interpreter process to
+execute.  The process terminates once the block is evaluated. 
+<li><code>other</code>
+Any string besides <code>none</code> turns that string into the name of that
+session.  For example, <code>:session mysession</code> names it &lsquo;<samp><span class="samp">mysession</span></samp>&rsquo;. 
+If <code>:session</code> has no argument, then the session name is derived from the
+source language identifier.  Subsequent blocks with the same source code
+language use the same session.  Depending on the language, state variables,
+code from other blocks, and the overall interpreted environment may be
+shared.  Some interpreted languages support concurrent sessions when
+subsequent source code language blocks change session names. 
+</ul>
+
+   </body></html>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Firewalls - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Firewalls"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Customizing-Methods.html#Customizing-Methods">Customizing Methods</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Multi_002dhops.html#Multi_002dhops">Multi-hops</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.9 Passing firewalls</h3>
+
+<p><a name="index-http-tunnel-158"></a><a name="index-proxy-hosts_002c-http-tunnel-159"></a>
+Sometimes, it is not possible to reach a remote host directly.  A
+firewall might be in the way, which could be passed via a proxy
+server.
+
+   <p>Both ssh and PuTTY support such proxy settings, using an HTTP tunnel
+via the <samp><span class="command">CONNECT</span></samp> command (conforming to RFC 2616, 2817
+specifications).  Proxy servers using HTTP 1.1 or later protocol
+support this command.
+
+<h4 class="subsection">5.9.1 Tunneling with ssh</h4>
+
+<p>With ssh, you could use the <code>ProxyCommand</code> entry in
+<samp><span class="file">~/.ssh/config</span></samp>:
+
+<pre class="example">     Host host.other.domain
+          ProxyCommand nc -X connect -x proxy.your.domain:3128 %h %p
+</pre>
+   <p><code>nc</code> is BSD's netcat program, which establishes HTTP tunnels. Any
+other program with such a feature could be used as well.
+
+   <p>In the example, opening <samp><span class="file">/ssh:host.your.domain:</span></samp> passes
+the HTTP proxy server &lsquo;<samp><span class="samp">proxy.your.domain</span></samp>&rsquo; on port 3128.
+
+<h4 class="subsection">5.9.2 Tunneling with PuTTY</h4>
+
+<p>PuTTY does not need an external program, HTTP tunnel support is
+built-in.  In the PuTTY config program, create a session for
+&lsquo;<samp><span class="samp">host.your.domain</span></samp>&rsquo;.  In the <samp><span class="option">Connection/Data</span></samp> entry,
+select the <samp><span class="option">HTTP</span></samp> option, and add &lsquo;<samp><span class="samp">proxy.your.domain</span></samp>&rsquo; as
+<samp><span class="option">Proxy hostname</span></samp>, and 3128 as <samp><span class="option">Port</span></samp>.
+
+   <p>Opening <samp><span class="file">/plinkx:host.your.domain:</span></samp> passes the HTTP
+proxy server &lsquo;<samp><span class="samp">proxy.your.domain</span></samp>&rsquo; on port 3128.
+
+   </body></html>
+

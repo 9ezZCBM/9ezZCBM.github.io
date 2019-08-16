@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Review - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Review"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="defun-Exercises.html#defun-Exercises">defun Exercises</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="save_002dexcursion.html#save_002dexcursion">save-excursion</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Defuns.html#Writing-Defuns">Writing Defuns</a>
+
+</div>
+
+<h3 class="section">3.11 Review</h3>
+
+<p>In the last few chapters we have introduced a macro and a fair number
+of functions and special forms.  Here they are described in brief,
+along with a few similar functions that have not been mentioned yet.
+
+     <dl>
+<dt><code>eval-last-sexp</code><dd>Evaluate the last symbolic expression before the current location of
+point.  The value is printed in the echo area unless the function is
+invoked with an argument; in that case, the output is printed in the
+current buffer.  This command is normally bound to <kbd>C-x C-e</kbd>.
+
+     <br><dt><code>defun</code><dd>Define function.  This macro has up to five parts: the name, a
+template for the arguments that will be passed to the function,
+documentation, an optional interactive declaration, and the body of
+the definition.
+
+     <p>For example, in Emacs the function definition of
+<code>dired-unmark-all-marks</code> is as follows.
+
+     <pre class="smallexample">          (defun dired-unmark-all-marks ()
+            "Remove all marks from all files in the Dired buffer."
+            (interactive)
+            (dired-unmark-all-files ?\r))
+</pre>
+     <br><dt><code>interactive</code><dd>Declare to the interpreter that the function can be used
+interactively.  This special form may be followed by a string with one
+or more parts that pass the information to the arguments of the
+function, in sequence.  These parts may also tell the interpreter to
+prompt for information.  Parts of the string are separated by
+newlines, &lsquo;<samp><span class="samp">\n</span></samp>&rsquo;.
+
+     <p>Common code characters are:
+
+          <dl>
+<dt><code>b</code><dd>The name of an existing buffer.
+
+          <br><dt><code>f</code><dd>The name of an existing file.
+
+          <br><dt><code>p</code><dd>The numeric prefix argument.  (Note that this <code>p</code> is lower case.)
+
+          <br><dt><code>r</code><dd>Point and the mark, as two numeric arguments, smallest first.  This
+is the only code letter that specifies two successive arguments
+rather than one. 
+</dl>
+
+     <p>See <a href="../elisp/Interactive-Codes.html#Interactive-Codes">Code Characters for &lsquo;<samp><span class="samp">interactive</span></samp>&rsquo;</a>, for a complete list of
+code characters.
+
+     <br><dt><code>let</code><dd>Declare that a list of variables is for use within the body of the
+<code>let</code> and give them an initial value, either <code>nil</code> or a
+specified value; then evaluate the rest of the expressions in the body
+of the <code>let</code> and return the value of the last one.  Inside the
+body of the <code>let</code>, the Lisp interpreter does not see the values of
+the variables of the same names that are bound outside of the
+<code>let</code>.
+
+     <p>For example,
+
+     <pre class="smallexample">          (let ((foo (buffer-name))
+                (bar (buffer-size)))
+            (message
+             "This buffer is %s and has %d characters."
+             foo bar))
+</pre>
+     <br><dt><code>save-excursion</code><dd>Record the values of point and the current buffer before
+evaluating the body of this special form.  Restore the value of point and
+buffer afterward.
+
+     <p>For example,
+
+     <pre class="smallexample">          (message "We are %d characters into this buffer."
+                   (- (point)
+                      (save-excursion
+                        (goto-char (point-min)) (point))))
+</pre>
+     <br><dt><code>if</code><dd>Evaluate the first argument to the function; if it is true, evaluate
+the second argument; else evaluate the third argument, if there is one.
+
+     <p>The <code>if</code> special form is called a <dfn>conditional</dfn>.  There are
+other conditionals in Emacs Lisp, but <code>if</code> is perhaps the most
+commonly used.
+
+     <p>For example,
+
+     <pre class="smallexample">          (if (= 22 emacs-major-version)
+              (message "This is version 22 Emacs")
+            (message "This is not version 22 Emacs"))
+</pre>
+     <br><dt><code>&lt;</code><dt><code>&gt;</code><dt><code>&lt;=</code><dt><code>&gt;=</code><dd>The <code>&lt;</code> function tests whether its first argument is smaller than
+its second argument.  A corresponding function, <code>&gt;</code>, tests whether
+the first argument is greater than the second.  Likewise, <code>&lt;=</code>
+tests whether the first argument is less than or equal to the second and
+<code>&gt;=</code> tests whether the first argument is greater than or equal to
+the second.  In all cases, both arguments must be numbers or markers
+(markers indicate positions in buffers).
+
+     <br><dt><code>=</code><dd>The <code>=</code> function tests whether two arguments, both numbers or
+markers, are equal.
+
+     <br><dt><code>equal</code><dt><code>eq</code><dd>Test whether two objects are the same.  <code>equal</code> uses one meaning
+of the word &ldquo;same&rdquo; and <code>eq</code> uses another:  <code>equal</code> returns
+true if the two objects have a similar structure and contents, such as
+two copies of the same book.  On the other hand, <code>eq</code>, returns
+true if both arguments are actually the same object. 
+<a name="index-equal-138"></a><a name="index-eq-139"></a>
+<br><dt><code>string&lt;</code><dt><code>string-lessp</code><dt><code>string=</code><dt><code>string-equal</code><dd>The <code>string-lessp</code> function tests whether its first argument is
+smaller than the second argument.  A shorter, alternative name for the
+same function (a <code>defalias</code>) is <code>string&lt;</code>.
+
+     <p>The arguments to <code>string-lessp</code> must be strings or symbols; the
+ordering is lexicographic, so case is significant.  The print names of
+symbols are used instead of the symbols themselves.
+
+     <p><a name="index-g_t_0040samp_007bempty-string_007d-defined-140"></a>An empty string, &lsquo;<samp><span class="samp">""</span></samp>&rsquo;, a string with no characters in it, is
+smaller than any string of characters.
+
+     <p><code>string-equal</code> provides the corresponding test for equality.  Its
+shorter, alternative name is <code>string=</code>.  There are no string test
+functions that correspond to <var>&gt;</var>, <code>&gt;=</code>, or <code>&lt;=</code>.
+
+     <br><dt><code>message</code><dd>Print a message in the echo area.  The first argument is a string that
+can contain &lsquo;<samp><span class="samp">%s</span></samp>&rsquo;, &lsquo;<samp><span class="samp">%d</span></samp>&rsquo;, or &lsquo;<samp><span class="samp">%c</span></samp>&rsquo; to print the value of
+arguments that follow the string.  The argument used by &lsquo;<samp><span class="samp">%s</span></samp>&rsquo; must
+be a string or a symbol; the argument used by &lsquo;<samp><span class="samp">%d</span></samp>&rsquo; must be a
+number.  The argument used by &lsquo;<samp><span class="samp">%c</span></samp>&rsquo; must be an <span class="sc">ascii</span> code
+number; it will be printed as the character with that <span class="sc">ascii</span> code. 
+(Various other %-sequences have not been mentioned.)
+
+     <br><dt><code>setq</code><dt><code>set</code><dd>The <code>setq</code> function sets the value of its first argument to the
+value of the second argument.  The first argument is automatically
+quoted by <code>setq</code>.  It does the same for succeeding pairs of
+arguments.  Another function, <code>set</code>, takes only two arguments and
+evaluates both of them before setting the value returned by its first
+argument to the value returned by its second argument.
+
+     <br><dt><code>buffer-name</code><dd>Without an argument, return the name of the buffer, as a string.
+
+     <br><dt><code>buffer-file-name</code><dd>Without an argument, return the name of the file the buffer is
+visiting.
+
+     <br><dt><code>current-buffer</code><dd>Return the buffer in which Emacs is active; it may not be
+the buffer that is visible on the screen.
+
+     <br><dt><code>other-buffer</code><dd>Return the most recently selected buffer (other than the buffer passed
+to <code>other-buffer</code> as an argument and other than the current
+buffer).
+
+     <br><dt><code>switch-to-buffer</code><dd>Select a buffer for Emacs to be active in and display it in the current
+window so users can look at it.  Usually bound to <kbd>C-x b</kbd>.
+
+     <br><dt><code>set-buffer</code><dd>Switch Emacs's attention to a buffer on which programs will run.  Don't
+alter what the window is showing.
+
+     <br><dt><code>buffer-size</code><dd>Return the number of characters in the current buffer.
+
+     <br><dt><code>point</code><dd>Return the value of the current position of the cursor, as an
+integer counting the number of characters from the beginning of the
+buffer.
+
+     <br><dt><code>point-min</code><dd>Return the minimum permissible value of point in
+the current buffer.  This is 1, unless narrowing is in effect.
+
+     <br><dt><code>point-max</code><dd>Return the value of the maximum permissible value of point in the
+current buffer.  This is the end of the buffer, unless narrowing is in
+effect. 
+</dl>
+
+   </body></html>
+

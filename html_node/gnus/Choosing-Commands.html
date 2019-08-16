@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Choosing Commands - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Choosing-Commands"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Choosing-Variables.html#Choosing-Variables">Choosing Variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Choosing-Articles.html#Choosing-Articles">Choosing Articles</a>
+
+</div>
+
+<h4 class="subsection">3.3.1 Choosing Commands</h4>
+
+<p>None of the following movement commands understand the numeric prefix,
+and they all select and display an article.
+
+   <p>If you want to fetch new articles or redisplay the group, see
+<a href="Exiting-the-Summary-Buffer.html#Exiting-the-Summary-Buffer">Exiting the Summary Buffer</a>.
+
+     <dl>
+<dt><kbd>&lt;SPC&gt;</kbd><dd><a name="index-SPC-_0040r_007b_0028Summary_0029_007d-610"></a><a name="index-gnus_002dsummary_002dnext_002dpage-611"></a>Select the current article, or, if that one's read already, the next
+unread article (<code>gnus-summary-next-page</code>).
+
+     <p>If you have an article window open already and you press <kbd>&lt;SPC&gt;</kbd>
+again, the article will be scrolled.  This lets you conveniently
+<kbd>&lt;SPC&gt;</kbd> through an entire newsgroup.  See <a href="Paging-the-Article.html#Paging-the-Article">Paging the Article</a>.
+
+     <br><dt><kbd>G n</kbd><dt><kbd>n</kbd><dd><a name="index-n-_0040r_007b_0028Summary_0029_007d-612"></a><a name="index-G-n-_0040r_007b_0028Summary_0029_007d-613"></a><a name="index-gnus_002dsummary_002dnext_002dunread_002darticle-614"></a><!-- @icon{gnus-summary-next-unread} -->
+Go to next unread article (<code>gnus-summary-next-unread-article</code>).
+
+     <br><dt><kbd>G p</kbd><dt><kbd>p</kbd><dd><a name="index-p-_0040r_007b_0028Summary_0029_007d-615"></a><a name="index-gnus_002dsummary_002dprev_002dunread_002darticle-616"></a><!-- @icon{gnus-summary-prev-unread} -->
+Go to previous unread article (<code>gnus-summary-prev-unread-article</code>).
+
+     <br><dt><kbd>G N</kbd><dt><kbd>N</kbd><dd><a name="index-N-_0040r_007b_0028Summary_0029_007d-617"></a><a name="index-G-N-_0040r_007b_0028Summary_0029_007d-618"></a><a name="index-gnus_002dsummary_002dnext_002darticle-619"></a>Go to the next article (<code>gnus-summary-next-article</code>).
+
+     <br><dt><kbd>G P</kbd><dt><kbd>P</kbd><dd><a name="index-P-_0040r_007b_0028Summary_0029_007d-620"></a><a name="index-G-P-_0040r_007b_0028Summary_0029_007d-621"></a><a name="index-gnus_002dsummary_002dprev_002darticle-622"></a>Go to the previous article (<code>gnus-summary-prev-article</code>).
+
+     <br><dt><kbd>G C-n</kbd><dd><a name="index-G-C_002dn-_0040r_007b_0028Summary_0029_007d-623"></a><a name="index-gnus_002dsummary_002dnext_002dsame_002dsubject-624"></a>Go to the next article with the same subject
+(<code>gnus-summary-next-same-subject</code>).
+
+     <br><dt><kbd>G C-p</kbd><dd><a name="index-G-C_002dp-_0040r_007b_0028Summary_0029_007d-625"></a><a name="index-gnus_002dsummary_002dprev_002dsame_002dsubject-626"></a>Go to the previous article with the same subject
+(<code>gnus-summary-prev-same-subject</code>).
+
+     <br><dt><kbd>G f</kbd><dt><kbd>.</kbd><dd><a name="index-G-f--_0040r_007b_0028Summary_0029_007d-627"></a><a name="index-g_t_002e--_0040r_007b_0028Summary_0029_007d-628"></a><a name="index-gnus_002dsummary_002dfirst_002dunread_002darticle-629"></a>Go to the first unread article
+(<code>gnus-summary-first-unread-article</code>).
+
+     <br><dt><kbd>G b</kbd><dt><kbd>,</kbd><dd><a name="index-G-b-_0040r_007b_0028Summary_0029_007d-630"></a><a name="index-g_t_002c-_0040r_007b_0028Summary_0029_007d-631"></a><a name="index-gnus_002dsummary_002dbest_002dunread_002darticle-632"></a>Go to the unread article with the highest score
+(<code>gnus-summary-best-unread-article</code>).  If given a prefix argument,
+go to the first unread article that has a score over the default score.
+
+     <br><dt><kbd>G l</kbd><dt><kbd>l</kbd><dd><a name="index-l-_0040r_007b_0028Summary_0029_007d-633"></a><a name="index-G-l-_0040r_007b_0028Summary_0029_007d-634"></a><a name="index-gnus_002dsummary_002dgoto_002dlast_002darticle-635"></a>Go to the previous article read (<code>gnus-summary-goto-last-article</code>).
+
+     <br><dt><kbd>G o</kbd><dd><a name="index-G-o-_0040r_007b_0028Summary_0029_007d-636"></a><a name="index-gnus_002dsummary_002dpop_002darticle-637"></a><a name="index-history-638"></a><a name="index-article-history-639"></a>Pop an article off the summary history and go to this article
+(<code>gnus-summary-pop-article</code>).  This command differs from the
+command above in that you can pop as many previous articles off the
+history as you like, while <kbd>l</kbd> toggles the two last read articles. 
+For a somewhat related issue (if you use these commands a lot),
+see <a href="Article-Backlog.html#Article-Backlog">Article Backlog</a>.
+
+     <br><dt><kbd>G j</kbd><dt><kbd>j</kbd><dd><a name="index-j-_0040r_007b_0028Summary_0029_007d-640"></a><a name="index-G-j-_0040r_007b_0028Summary_0029_007d-641"></a><a name="index-gnus_002dsummary_002dgoto_002darticle-642"></a>Ask for an article number or <code>Message-ID</code>, and then go to that
+article (<code>gnus-summary-goto-article</code>).
+
+   </dl>
+
+   </body></html>
+

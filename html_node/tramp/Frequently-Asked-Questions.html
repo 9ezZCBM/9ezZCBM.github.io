@@ -1,0 +1,617 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Frequently Asked Questions - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Frequently-Asked-Questions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Files-directories-and-localnames.html#Files-directories-and-localnames">Files directories and localnames</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Bug-Reports.html#Bug-Reports">Bug Reports</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">8 Frequently Asked Questions</h2>
+
+<p><a name="index-frequently-asked-questions-263"></a><a name="index-FAQ-264"></a>
+     <ul>
+<li>Where is the latest <span class="sc">Tramp</span>?
+
+     <p><span class="sc">Tramp</span> is available at the GNU URL:
+
+     <p class="noindent"><a href="https://ftp.gnu.org/gnu/tramp/">https://ftp.gnu.org/gnu/tramp/</a>
+
+     <p class="noindent"><span class="sc">Tramp</span>'s GNU project page is located here:
+
+     <p class="noindent"><a href="https://savannah.gnu.org/projects/tramp/">https://savannah.gnu.org/projects/tramp/</a>
+
+     <li>Which systems does it work on?
+
+     <p>The package works successfully on Emacs 24, Emacs 25, and Emacs 26.
+
+     <p>While Unix and Unix-like systems are the primary remote targets,
+<span class="sc">Tramp</span> has equal success connecting to other platforms, such as
+MS Windows 7/8/10.
+
+     <li>How to speed up <span class="sc">Tramp</span>?
+
+     <p><span class="sc">Tramp</span> does many things in the background, some of which
+depends on network speeds, response speeds of remote hosts, and
+authentication delays.  During these operations, <span class="sc">Tramp</span>'s
+responsiveness slows down.  Some suggestions within the scope of
+<span class="sc">Tramp</span>'s settings include:
+
+     <p>Use an external method, such as <samp><span class="option">scp</span></samp>, which are faster than
+internal methods.
+
+     <p>Keep the file <code>tramp-persistency-file-name</code>, which is where
+<span class="sc">Tramp</span> caches remote information about hosts and files.  Caching
+is enabled by default.  Don't disable it.
+
+     <p>Set <code>remote-file-name-inhibit-cache</code> to <code>nil</code> if remote
+files are not independently updated outside <span class="sc">Tramp</span>'s control. 
+That cache cleanup will be necessary if the remote directories or
+files are updated independent of <span class="sc">Tramp</span>.
+
+     <p>Set <code>tramp-completion-reread-directory-timeout</code> to <code>nil</code> to
+speed up completions, <a href="File-name-completion.html#File-name-completion">File name completion</a>.
+
+     <p>Disable version control to avoid delays:
+
+     <pre class="lisp">          (setq vc-ignore-dir-regexp
+                (format "\\(%s\\)\\|\\(%s\\)"
+                        vc-ignore-dir-regexp
+                        tramp-file-name-regexp))
+</pre>
+     <p>If this is too radical, because you want to use version control
+remotely, trim <code>vc-handled-backends</code> to just those you care
+about, for example:
+
+     <pre class="lisp">          (setq vc-handled-backends '(SVN Git))
+</pre>
+     <p>Disable excessive traces.  Set <code>tramp-verbose</code> to 3 or lower,
+default being 3.  Increase trace levels temporarily when hunting for
+bugs.
+
+     <li><span class="sc">Tramp</span> does not connect to the remote host
+
+     <p>Three main reasons for why <span class="sc">Tramp</span> does not connect to the remote host:
+
+          <ul>
+<li>Unknown characters in the prompt
+
+          <p><span class="sc">Tramp</span> needs a clean recognizable prompt on the remote host for
+accurate parsing.  Shell prompts that contain escape sequences for
+coloring cause parsing problems.  <a href="Remote-shell-setup.html#Remote-shell-setup">Remote shell setup</a> for
+customizing prompt detection using regular expressions.
+
+          <p>To check if the remote host's prompt is being recognized, use this
+test: switch to <span class="sc">Tramp</span> connection buffer <samp><span class="file">*tramp/foo*</span></samp>,
+put the cursor at the top of the buffer, and then apply the following
+expression:
+
+          <pre class="example">               <kbd>M-: (re-search-forward (concat tramp-shell-prompt-pattern "$")) &lt;RET&gt;</kbd>
+</pre>
+          <p>If the cursor has not moved to the prompt at the bottom of the buffer,
+then <span class="sc">Tramp</span> has failed to recognize the prompt.
+
+          <p>When using zsh on remote hosts, disable zsh line editor because zsh
+uses left-hand side and right-hand side prompts in parallel.  Add the
+following line to <samp><span class="file">~/.zshrc</span></samp>:
+
+          <pre class="example">               [[ $TERM == "dumb" ]] &amp;&amp; unsetopt zle &amp;&amp; PS1='$ ' &amp;&amp; return
+</pre>
+          <p>This uses the default value of <code>tramp-terminal-type</code>,
+&lsquo;<samp><span class="samp">"dumb"</span></samp>&rsquo;, as value of the <samp><span class="env">TERM</span></samp> environment variable.  If
+you want to use another value for <samp><span class="env">TERM</span></samp>, change
+<code>tramp-terminal-type</code> and this line accordingly.
+
+          <p>When using fish shell on remote hosts, disable fancy formatting by
+adding the following to <samp><span class="file">~/.config/fish/config.fish</span></samp>:
+
+          <pre class="example">               function fish_prompt
+                 if test $TERM = "dumb"
+                    echo "\$ "
+                 else
+                    ...
+                 end
+               end
+</pre>
+          <p>When using WinSSHD on remote hosts, <span class="sc">Tramp</span> does not recognize
+the strange prompt settings.
+
+          <p>A similar problem exist with the iTerm2 shell integration, which sends
+proprietary escape codes when starting a shell.  This can be
+suppressed by changing the respective integration snippet in your
+<samp><span class="file">~/.profile</span></samp> like this:
+
+          <pre class="example">               [ $TERM = "dumb" ] || \
+               test -e "${HOME}/.iterm2_shell_integration.bash" &amp;&amp; \
+               source "${HOME}/.iterm2_shell_integration.bash"
+</pre>
+          <p>And finally, bash's readline should not use key bindings like
+&lsquo;<samp><span class="samp">C-j</span></samp>&rsquo; to commands.  Disable this in your <samp><span class="file">~/.inputrc</span></samp>:
+
+          <pre class="example">               $if term=dumb
+               # Don't bind Control-J or it messes up <span class="sc">Tramp</span>.
+               $else
+               "\C-j": next-history
+               $endif
+</pre>
+          <li>Echoed characters after login
+
+          <p><span class="sc">Tramp</span> suppresses echos from remote hosts with the
+<samp><span class="command">stty -echo</span></samp> command.  But sometimes it is too late to suppress
+welcome messages from the remote host containing harmful control
+characters.  Using <samp><span class="option">sshx</span></samp> or <samp><span class="option">scpx</span></samp> methods can avoid
+this problem because they allocate a pseudo tty.  See <a href="Inline-methods.html#Inline-methods">Inline methods</a>.
+
+          <li><span class="sc">Tramp</span> stops transferring strings longer than 500 characters
+
+          <p>Set <code>tramp-chunksize</code> to 500 to get around this problem, which is
+related to faulty implementation of <code>process-send-string</code> on
+HP-UX, FreeBSD and Tru64 Unix systems.  Consult the documentation for
+<code>tramp-chunksize</code> to see when this is necessary.
+
+          <p>Set <code>file-precious-flag</code> to <code>t</code> for files accessed by
+<span class="sc">Tramp</span> so the file contents are checked using checksum by
+first saving to a temporary file.
+
+          <pre class="lisp">               (add-hook
+                'find-file-hook
+                (lambda ()
+                  (when (file-remote-p default-directory)
+                    (set (make-local-variable 'file-precious-flag) t))))
+</pre>
+          </ul>
+
+     <li><span class="sc">Tramp</span> does not recognize if a <samp><span class="command">ssh</span></samp> session hangs
+
+     <p><samp><span class="command">ssh</span></samp> sessions on the local host hang when the network is
+down.  <span class="sc">Tramp</span> cannot safely detect such hangs.  The network
+configuration for <samp><span class="command">ssh</span></samp> can be configured to kill such hangs
+with the following command in the <samp><span class="file">~/.ssh/config</span></samp>:
+
+     <pre class="example">          Host *
+               ServerAliveInterval 5
+</pre>
+     <li><span class="sc">Tramp</span> does not use default <samp><span class="command">ssh</span></samp> <code>ControlPath</code>
+
+     <p><span class="sc">Tramp</span> overwrites <code>ControlPath</code> settings when initiating
+<samp><span class="command">ssh</span></samp> sessions.  <span class="sc">Tramp</span> does this to fend off a stall
+if a master session opened outside the Emacs session is no longer
+open.  That is why <span class="sc">Tramp</span> prompts for the password again even
+if there is an <samp><span class="command">ssh</span></samp> already open.
+
+     <p><a name="index-tramp_002dssh_002dcontrolmaster_002doptions-265"></a>Some <samp><span class="command">ssh</span></samp> versions support a <code>ControlPersist</code> option,
+which allows you to set the <code>ControlPath</code> provided the variable
+<code>tramp-ssh-controlmaster-options</code> is customized as follows:
+
+     <pre class="lisp">          (customize-set-variable
+           'tramp-ssh-controlmaster-options
+           (concat
+             "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
+             "-o ControlMaster=auto -o ControlPersist=yes"))
+</pre>
+     <p>Note how "%r", "%h" and "%p" must be encoded as "%%r", "%%h" and
+"%%p".
+
+     <p><a name="index-tramp_002duse_002dssh_002dcontrolmaster_002doptions-266"></a>If the <samp><span class="file">~/.ssh/config</span></samp> is configured appropriately for the above
+behavior, then any changes to <samp><span class="command">ssh</span></samp> can be suppressed with
+this <code>nil</code> setting:
+
+     <pre class="lisp">          (customize-set-variable 'tramp-use-ssh-controlmaster-options nil)
+</pre>
+     <li>File name completion does not work with <span class="sc">Tramp</span>
+
+     <p><acronym>ANSI</acronym> escape sequences from the remote shell may cause errors
+in <span class="sc">Tramp</span>'s parsing of remote buffers.
+
+     <p>To test if this is the case, open a remote shell and check if the output
+of <samp><span class="command">ls</span></samp> is in color.
+
+     <p>To disable <acronym>ANSI</acronym> escape sequences from the remote hosts,
+disable &lsquo;<samp><span class="samp">--color=yes</span></samp>&rsquo; or &lsquo;<samp><span class="samp">--color=auto</span></samp>&rsquo; in the remote host's
+<samp><span class="file">.bashrc</span></samp> or <samp><span class="file">.profile</span></samp>.  Turn this alias on and off to see
+if file name completion works.
+
+     <li>File name completion does not work in directories with large number of
+files
+
+     <p>This may be related to globbing, which is the use of shell's ability
+to expand wild card specifications, such as &lsquo;<samp><span class="samp">*.c</span></samp>&rsquo;.  For
+directories with large number of files, globbing might exceed the
+shell's limit on length of command lines and hang.  <span class="sc">Tramp</span> uses
+globbing.
+
+     <p>To test if globbing hangs, open a shell on the remote host and then
+run <samp><span class="command">ls -d * ..?* &gt; /dev/null</span></samp>.
+
+     <p>When testing, ensure the remote shell is the same shell
+(<samp><span class="command">/bin/sh</span></samp>, <samp><span class="command">ksh</span></samp> or <samp><span class="command">bash</span></samp>), that
+<span class="sc">Tramp</span> uses when connecting to that host.
+
+     <li>How to get notified after <span class="sc">Tramp</span> completes file transfers?
+
+     <p>Make Emacs beep after reading from or writing to the remote host with
+the following code in <samp><span class="file">~/.emacs</span></samp>.
+
+     <pre class="lisp">          (defadvice tramp-handle-write-region
+            (after tramp-write-beep-advice activate)
+            "Make <span class="sc">Tramp</span> beep after writing a file."
+            (interactive)
+            (beep))
+          
+          (defadvice tramp-handle-do-copy-or-rename-file
+            (after tramp-copy-beep-advice activate)
+            "Make <span class="sc">Tramp</span> beep after copying a file."
+            (interactive)
+            (beep))
+          
+          (defadvice tramp-handle-insert-file-contents
+            (after tramp-insert-beep-advice activate)
+            "Make <span class="sc">Tramp</span> beep after inserting a file."
+            (interactive)
+            (beep))
+</pre>
+     <li>How to get a Visual Warning when working with &lsquo;<samp><span class="samp">root</span></samp>&rsquo; privileges? 
+Host indication in the mode line?
+
+     <p><a name="index-g_t_0040value_007btramp_007d-theme-267"></a><a name="index-tramp_002dtheme_002dface_002dremapping_002dalist-268"></a>Install <samp><span class="file">tramp-theme</span></samp> from GNU ELPA via Emacs' Package Manager. 
+Enable it via <kbd>M-x load-theme &lt;RET&gt; tramp &lt;RET&gt;</kbd>.  Further
+customization is explained in user option
+<code>tramp-theme-face-remapping-alist</code>.
+
+     <li>Remote host does not understand default options for directory listing
+
+     <p>Emacs computes the <samp><span class="command">dired</span></samp> options based on the local host but
+if the remote host cannot understand the same <samp><span class="command">ls</span></samp> command,
+then set them with a hook as follows:
+
+     <pre class="lisp">          (add-hook
+           'dired-before-readin-hook
+           (lambda ()
+             (when (file-remote-p default-directory)
+               (setq dired-actual-switches "-al"))))
+</pre>
+     <li>Why is <samp><span class="file">~/.sh_history</span></samp> on the remote host growing?
+
+     <p><a name="index-tramp_002dhistfile_002doverride-269"></a><a name="index-HISTFILE_0040r_007b_002c-environment-variable_007d-270"></a><a name="index-HISTFILESIZE_0040r_007b_002c-environment-variable_007d-271"></a><a name="index-HISTSIZE_0040r_007b_002c-environment-variable_007d-272"></a>Due to the remote shell saving tilde expansions triggered by
+<span class="sc">Tramp</span>, the history file is probably growing rapidly. 
+<span class="sc">Tramp</span> can suppress this behavior with the user option
+<code>tramp-histfile-override</code>.  When set to <code>t</code>, environment
+variable <samp><span class="env">HISTFILE</span></samp> is unset, and environment variables
+<samp><span class="env">HISTFILESIZE</span></samp> and <samp><span class="env">HISTSIZE</span></samp> are set to 0.  Don't use this
+with <samp><span class="command">bash</span></samp> 5.0.0.  There is a bug in <samp><span class="command">bash</span></samp> which
+lets <samp><span class="command">bash</span></samp> die.
+
+     <p>Alternatively, <code>tramp-histfile-override</code> could be a string. 
+Environment variable <samp><span class="env">HISTFILE</span></samp> is set to this file name then.  Be
+careful when setting to <samp><span class="file">/dev/null</span></samp>; this might result in
+undesired results when using <samp><span class="command">bash</span></samp> as remote shell.
+
+     <p>Another approach is to disable <span class="sc">Tramp</span>'s handling of the
+<samp><span class="env">HISTFILE</span></samp> at all by setting <code>tramp-histfile-override</code> to
+<code>nil</code>.  In this case, saving history could be turned off by
+putting this shell code in <samp><span class="file">.bashrc</span></samp> or <samp><span class="file">.kshrc</span></samp>:
+
+     <pre class="example">          if [ -f $HOME/.sh_history ] ; then
+             /bin/rm $HOME/.sh_history
+          fi
+          if [ "${HISTFILE-unset}" != "unset" ] ; then
+             unset HISTFILE
+          fi
+          if [ "${HISTSIZE-unset}" != "unset" ] ; then
+             unset HISTSIZE
+          fi
+</pre>
+     <p>For <samp><span class="option">ssh</span></samp>-based method, add the following line to your
+<samp><span class="file">~/.ssh/environment</span></samp>:
+
+     <pre class="example">          HISTFILE=/dev/null
+</pre>
+     <li>How to shorten long file names when typing in <span class="sc">Tramp</span>?
+
+     <p>Adapt several of these approaches to reduce typing.  If the full name
+is <samp><span class="file">/ssh:news@news.my.domain:/opt/news/etc</span></samp>, then:
+
+          <ol type=1 start=1>
+
+          <li>Use simplified syntax:
+
+          <p>If you always apply the default method (see <a href="Default-Method.html#Default-Method">Default Method</a>), you
+could use the simplified <span class="sc">Tramp</span> syntax (see <a href="Change-file-name-syntax.html#Change-file-name-syntax">Change file name syntax</a>):
+
+          <pre class="lisp">               (customize-set-variable 'tramp-default-method "ssh")
+               (tramp-change-syntax 'simplified)
+</pre>
+          <p>The reduced typing: <kbd>C-x C-f
+</kbd><code>/news@news.my.domain:/opt/news/etc</code><kbd>
+&lt;RET&gt;</kbd>.
+
+          <li>Use default values for method name and user name:
+
+          <p>You can define default methods and user names for hosts,
+(see <a href="Default-Method.html#Default-Method">Default Method</a>, see <a href="Default-User.html#Default-User">Default User</a>):
+
+          <pre class="lisp">               (custom-set-variables
+                '(tramp-default-method "ssh")
+                '(tramp-default-user "news"))
+</pre>
+          <p>The reduced typing: <kbd>C-x C-f
+/-:news.my.domain:/opt/news/etc &lt;RET&gt;</kbd>.
+
+          <p><strong>Note</strong> that there are some useful shortcuts already.  Accessing
+your local host as &lsquo;<samp><span class="samp">root</span></samp>&rsquo; user, is possible just by <kbd>C-x C-f
+/su:: &lt;RET&gt;</kbd>.
+
+          <li>Use configuration options of the access method:
+
+          <p>Programs used for access methods already offer powerful configurations
+(see <a href="Customizing-Completion.html#Customizing-Completion">Customizing Completion</a>).  For <samp><span class="option">ssh</span></samp>, configure the
+file <samp><span class="file">~/.ssh/config</span></samp>:
+
+          <pre class="example">               Host xy
+                    HostName news.my.domain
+                    User news
+</pre>
+          <p>The reduced typing: <kbd>C-x C-f /ssh:xy:/opt/news/etc &lt;RET&gt;</kbd>.
+
+          <p>Depending on the number of files in the directories, host names
+completion can further reduce key strokes: <kbd>C-x C-f
+/ssh:x &lt;TAB&gt;</kbd>.
+
+          <li>Use environment variables to expand long strings
+
+          <p>For long file names, set up environment variables that are expanded in
+the minibuffer.  Environment variables are set either outside Emacs or
+inside Emacs with Lisp:
+
+          <pre class="lisp">               (setenv "xy" "/ssh:news@news.my.domain:/opt/news/etc/")
+</pre>
+          <p>The reduced typing: <kbd>C-x C-f $xy &lt;RET&gt;</kbd>.
+
+          <p><strong>Note</strong> that file name cannot be edited here because the
+environment variables are not expanded during editing in the
+minibuffer.
+
+          <li>Define own keys:
+
+          <p>Redefine another key sequence in Emacs for <kbd>C-x C-f</kbd>:
+
+          <pre class="lisp">               (global-set-key
+                [(control x) (control y)]
+                (lambda ()
+                  (interactive)
+                  (find-file
+                   (read-file-name
+                    "Find <span class="sc">Tramp</span> file: "
+                    "/ssh:news@news.my.domain:/opt/news/etc/"))))
+</pre>
+          <p>Simply typing <kbd>C-x C-y</kbd> would prepare minibuffer editing of file
+name.
+
+          <p>See <a href="https://www.emacswiki.org/emacs/TrampMode">the Emacs Wiki</a>
+for a more comprehensive example.
+
+          <li>Define own abbreviation (1):
+
+          <p>Abbreviation list expansion can be used to reduce typing long file names:
+
+          <pre class="lisp">               (add-to-list
+                'directory-abbrev-alist
+                '("^/xy" . "/ssh:news@news.my.domain:/opt/news/etc/"))
+</pre>
+          <p>The reduced typing: <kbd>C-x C-f /xy &lt;RET&gt;</kbd>.
+
+          <p><strong>Note</strong> that file name cannot be edited here because the
+abbreviations are not expanded during editing in the minibuffer. 
+Furthermore, the abbreviation is not expanded during &lt;TAB&gt;
+completion.
+
+          <li>Define own abbreviation (2):
+
+          <p>The <code>abbrev-mode</code> gives additional flexibility for editing in the
+minibuffer:
+
+          <pre class="lisp">               (define-abbrev-table 'my-tramp-abbrev-table
+                 '(("xy" "/ssh:news@news.my.domain:/opt/news/etc/")))
+               
+               (add-hook
+                'minibuffer-setup-hook
+                (lambda ()
+                  (abbrev-mode 1)
+                  (setq local-abbrev-table my-tramp-abbrev-table)))
+               
+               (defadvice minibuffer-complete
+                 (before my-minibuffer-complete activate)
+                 (expand-abbrev))
+               
+               ;; If you use partial-completion-mode
+               (defadvice PC-do-completion
+                 (before my-PC-do-completion activate)
+                 (expand-abbrev))
+</pre>
+          <p>The reduced typing: <kbd>C-x C-f xy &lt;TAB&gt;</kbd>.
+
+          <p>The minibuffer expands for further editing.
+
+          <li>Use bookmarks:
+
+          <p>Use bookmarks to save <span class="sc">Tramp</span> file names.
+
+          <p>Upon visiting a location with <span class="sc">Tramp</span>, save it as a bookmark with
+<kbd>&lt;menu-bar&gt; &lt;edit&gt; &lt;bookmarks&gt; &lt;set&gt;</kbd>.
+
+          <p>To revisit that bookmark:
+<kbd>&lt;menu-bar&gt; &lt;edit&gt; &lt;bookmarks&gt; &lt;jump&gt;</kbd>.
+
+          <li>Use recent files:
+
+          <p><samp><span class="file">recentf</span></samp> remembers visited places.
+
+          <p>Keep remote file names in the recent list without have to check for
+their accessibility through remote access:
+
+          <pre class="lisp">               (recentf-mode 1)
+</pre>
+          <p>Reaching recently opened files: <kbd>&lt;menu-bar&gt; &lt;file&gt;
+&lt;Open Recent&gt;</kbd>.
+
+          <li>Use filecache:
+
+          <p>Since <samp><span class="file">filecache</span></samp> remembers visited places, add the remote
+directory to the cache:
+
+          <pre class="lisp">               <!-- `with-eval-after-load' has been introduced with Emacs 24.4.  Shall -->
+               <!-- be used when appropriate. -->
+               (eval-after-load "filecache"
+                 '(file-cache-add-directory
+                   "/ssh:news@news.my.domain:/opt/news/etc/"))
+</pre>
+          <p>Then use directory completion in the minibuffer with <kbd>C-x C-f
+C-&lt;TAB&gt;</kbd>.
+
+          <li>Use bbdb:
+
+          <p><samp><span class="file">bbdb</span></samp> has a built-in feature for Ange FTP files, which also
+works for <span class="sc">Tramp</span> file names.
+
+          <p>Load <samp><span class="file">bbdb</span></samp> in Emacs:
+
+          <pre class="lisp">               (require 'bbdb)
+               (bbdb-initialize)
+</pre>
+          <p>Create a BBDB entry with <kbd>M-x bbdb-create-ftp-site &lt;RET&gt;</kbd>. 
+Then specify a method and user name where needed.  Examples:
+
+          <pre class="example">               <kbd>M-x bbdb-create-ftp-site &lt;RET&gt;</kbd>
+               <b>Ftp Site:</b> news.my.domain &lt;RET&gt;
+               <b>Ftp Directory:</b> /opt/news/etc/ &lt;RET&gt;
+               <b>Ftp Username:</b> ssh:news &lt;RET&gt;
+               <b>Company:</b> &lt;RET&gt;
+               <b>Additional Comments:</b> &lt;RET&gt;
+</pre>
+          <p>In BBDB buffer, access an entry by pressing the key <kbd>F</kbd>.
+
+          </ol>
+
+     <p>Thanks to <span class="sc">Tramp</span> users for contributing to these recipes.
+
+     <li>Why saved multi-hop file names do not work in a new Emacs session?
+
+     <p>When saving ad-hoc multi-hop <span class="sc">Tramp</span> file names (see <a href="Ad_002dhoc-multi_002dhops.html#Ad_002dhoc-multi_002dhops">Ad-hoc multi-hops</a>) via bookmarks, recent files, filecache, bbdb, or another
+package, use the full ad-hoc file name including all hops, like
+<samp><span class="file">/ssh:bird@bastion|ssh:news.my.domain:/opt/news/etc</span></samp>.
+
+     <p>Alternatively, when saving abbreviated multi-hop file names
+<samp><span class="file">/ssh:news@news.my.domain:/opt/news/etc</span></samp>, the user
+option <code>tramp-save-ad-hoc-proxies</code> must be set non-<code>nil</code>
+value.
+
+     <li>How to connect to a remote Emacs session using <span class="sc">Tramp</span>?
+
+     <p>Configure Emacs Client
+
+     <p>Then on the remote host, start the Emacs Server:
+
+     <pre class="lisp">          (require 'server)
+          (setq server-host (system-name)
+                server-use-tcp t)
+          (server-start)
+</pre>
+     <p>If <code>(system-name)</code> of the remote host cannot be resolved on the
+local host, use IP address instead.
+
+     <p>Copy from the remote host the resulting file
+<samp><span class="file">~/.emacs.d/server/server</span></samp> to the local host, to the same
+location.
+
+     <p>Then start Emacs Client from the command line:
+
+     <pre class="example">          emacsclient /ssh:user@host:/file/to/edit
+</pre>
+     <p><code>user</code> and <code>host</code> refer to the local host.
+
+     <p>To make Emacs Client an editor for other programs, use a wrapper
+script <samp><span class="file">emacsclient.sh</span></samp>:
+
+     <pre class="example">          #!/bin/sh
+          emacsclient /ssh:$(whoami)@$(hostname --fqdn):$1
+</pre>
+     <p><a name="index-EDITOR_0040r_007b_002c-environment-variable_007d-273"></a>Then change the environment variable <samp><span class="env">EDITOR</span></samp> to point to the
+wrapper script:
+
+     <pre class="example">          export EDITOR=/path/to/emacsclient.sh
+</pre>
+     <li>How to disable other packages from calling <span class="sc">Tramp</span>?
+
+     <p>There are packages that call <span class="sc">Tramp</span> without the user ever
+entering a remote file name.  Even without applying a remote file
+syntax, some packages enable <span class="sc">Tramp</span> on their own.  How can users
+disable such features.
+
+          <ul>
+<li><samp><span class="file">ido.el</span></samp>
+
+          <p>Disable <span class="sc">Tramp</span> file name completion:
+
+          <pre class="lisp">               (customize-set-variable 'ido-enable-tramp-completion nil)
+</pre>
+          <li><samp><span class="file">rlogin.el</span></samp>
+
+          <p>Disable remote directory tracking mode:
+
+          <pre class="lisp">               (rlogin-directory-tracking-mode -1)
+</pre>
+          </ul>
+
+     <li>How to disable <span class="sc">Tramp</span>?
+
+          <ul>
+<li>To keep Ange FTP as default the remote files access package, set this
+in <samp><span class="file">.emacs</span></samp>:
+
+          <pre class="lisp">               (customize-set-variable 'tramp-default-method "ftp")
+</pre>
+          <li>To disable both <span class="sc">Tramp</span> (and Ange FTP), set <code>tramp-mode</code> to
+<code>nil</code> in <samp><span class="file">.emacs</span></samp>.  <strong>Note</strong>, that we don't use
+<code>customize-set-variable</code>, in order to avoid loading <span class="sc">Tramp</span>.
+
+          <pre class="lisp">               (setq tramp-mode nil)
+</pre>
+          <li>To unload <span class="sc">Tramp</span>, type <kbd>M-x tramp-unload-tramp &lt;RET&gt;</kbd>. 
+Unloading <span class="sc">Tramp</span> resets Ange FTP plugins also. 
+</ul>
+     </ul>
+
+<!-- For the developer -->
+   </body></html>
+

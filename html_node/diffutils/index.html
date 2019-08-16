@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for GNU Diffutils
+(version 3.6, 6 May 2017),
+and documents the GNU diff, diff3,
+sdiff, and cmp commands for showing the
+differences between files and the GNU patch command for
+using their output to update files.
+
+Copyright (C) 1992-1994, 1998, 2001-2002, 2004, 2006, 2009-2017 Free
+Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+A copy of the license is included in the section entitled
+"GNU Free Documentation License." -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Comparing and Merging Files: Top</title>
+
+<meta name="description" content="Comparing and Merging Files: Top">
+<meta name="keywords" content="Comparing and Merging Files: Top">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="Index.html#Index" rel="index" title="Index">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="/manual" rel="up" title="(dir)">
+<link href="Overview.html#Overview" rel="next" title="Overview">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="/software/gnulib/manual.css">
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Comparing and Merging Files</h1>
+
+
+
+
+<a name="SEC_Overview"></a>
+<h2 class="shortcontents-heading">Short Table of Contents</h2>
+
+<div class="shortcontents">
+<ul class="no-bullet">
+<li><a name="stoc-Overview-1" href="#toc-Overview-1">Overview</a></li>
+<li><a name="stoc-What-Comparison-Means" href="#toc-What-Comparison-Means">1 What Comparison Means</a></li>
+<li><a name="stoc-diff-Output-Formats" href="#toc-diff-Output-Formats">2 <code>diff</code> Output Formats</a></li>
+<li><a name="stoc-Incomplete-Lines-1" href="#toc-Incomplete-Lines-1">3 Incomplete Lines</a></li>
+<li><a name="stoc-Comparing-Directories-1" href="#toc-Comparing-Directories-1">4 Comparing Directories</a></li>
+<li><a name="stoc-Making-diff-Output-Prettier" href="#toc-Making-diff-Output-Prettier">5 Making <code>diff</code> Output Prettier</a></li>
+<li><a name="stoc-diff-Performance-Tradeoffs" href="#toc-diff-Performance-Tradeoffs">6 <code>diff</code> Performance Tradeoffs</a></li>
+<li><a name="stoc-Comparing-Three-Files-1" href="#toc-Comparing-Three-Files-1">7 Comparing Three Files</a></li>
+<li><a name="stoc-Merging-From-a-Common-Ancestor" href="#toc-Merging-From-a-Common-Ancestor">8 Merging From a Common Ancestor</a></li>
+<li><a name="stoc-Interactive-Merging-with-sdiff" href="#toc-Interactive-Merging-with-sdiff">9 Interactive Merging with <code>sdiff</code></a></li>
+<li><a name="stoc-Merging-with-patch-1" href="#toc-Merging-with-patch-1">10 Merging with <code>patch</code></a></li>
+<li><a name="stoc-Tips-for-Making-and-Using-Patches" href="#toc-Tips-for-Making-and-Using-Patches">11 Tips for Making and Using Patches</a></li>
+<li><a name="stoc-Invoking-cmp-1" href="#toc-Invoking-cmp-1">12 Invoking <code>cmp</code></a></li>
+<li><a name="stoc-Invoking-diff-1" href="#toc-Invoking-diff-1">13 Invoking <code>diff</code></a></li>
+<li><a name="stoc-Invoking-diff3-1" href="#toc-Invoking-diff3-1">14 Invoking <code>diff3</code></a></li>
+<li><a name="stoc-Invoking-patch-1" href="#toc-Invoking-patch-1">15 Invoking <code>patch</code></a></li>
+<li><a name="stoc-Invoking-sdiff-1" href="#toc-Invoking-sdiff-1">16 Invoking <code>sdiff</code></a></li>
+<li><a name="stoc-Standards-conformance-1" href="#toc-Standards-conformance-1">17 Standards conformance</a></li>
+<li><a name="stoc-Future-Projects" href="#toc-Future-Projects">18 Future Projects</a></li>
+<li><a name="stoc-Copying-This-Manual-1" href="#toc-Copying-This-Manual-1">Appendix A Copying This Manual</a></li>
+<li><a name="stoc-Translations-of-This-Manual" href="#toc-Translations-of-This-Manual">Appendix B Translations of This Manual</a></li>
+<li><a name="stoc-Index-1" href="#toc-Index-1">Appendix C Index</a></li>
+</ul>
+</div>
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Overview-1" href="Overview.html#Overview">Overview</a></li>
+  <li><a name="toc-What-Comparison-Means" href="Comparison.html#Comparison">1 What Comparison Means</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Hunks-1" href="Hunks.html#Hunks">1.1 Hunks</a></li>
+    <li><a name="toc-Suppressing-Differences-in-Blank-and-Tab-Spacing" href="White-Space.html#White-Space">1.2 Suppressing Differences in Blank and Tab Spacing</a></li>
+    <li><a name="toc-Suppressing-Differences-Whose-Lines-Are-All-Blank" href="Blank-Lines.html#Blank-Lines">1.3 Suppressing Differences Whose Lines Are All Blank</a></li>
+    <li><a name="toc-Suppressing-Differences-Whose-Lines-All-Match-a-Regular-Expression" href="Specified-Lines.html#Specified-Lines">1.4 Suppressing Differences Whose Lines All Match a Regular Expression</a></li>
+    <li><a name="toc-Suppressing-Case-Differences" href="Case-Folding.html#Case-Folding">1.5 Suppressing Case Differences</a></li>
+    <li><a name="toc-Summarizing-Which-Files-Differ" href="Brief.html#Brief">1.6 Summarizing Which Files Differ</a></li>
+    <li><a name="toc-Binary-Files-and-Forcing-Text-Comparisons" href="Binary.html#Binary">1.7 Binary Files and Forcing Text Comparisons</a></li>
+  </ul></li>
+  <li><a name="toc-diff-Output-Formats" href="Output-Formats.html#Output-Formats">2 <code>diff</code> Output Formats</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Two-Sample-Input-Files" href="Sample-diff-Input.html#Sample-diff-Input">2.1 Two Sample Input Files</a></li>
+    <li><a name="toc-Showing-Differences-in-Their-Context" href="Context.html#Context">2.2 Showing Differences in Their Context</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Context-Format-1" href="Context-Format.html#Context-Format">2.2.1 Context Format</a>
+      <ul class="no-bullet">
+        <li><a name="toc-An-Example-of-Context-Format" href="Example-Context.html#Example-Context">2.2.1.1 An Example of Context Format</a></li>
+        <li><a name="toc-An-Example-of-Context-Format-with-Less-Context" href="Less-Context.html#Less-Context">2.2.1.2 An Example of Context Format with Less Context</a></li>
+        <li><a name="toc-Detailed-Description-of-Context-Format" href="Detailed-Context.html#Detailed-Context">2.2.1.3 Detailed Description of Context Format</a></li>
+      </ul></li>
+      <li><a name="toc-Unified-Format-1" href="Unified-Format.html#Unified-Format">2.2.2 Unified Format</a>
+      <ul class="no-bullet">
+        <li><a name="toc-An-Example-of-Unified-Format" href="Example-Unified.html#Example-Unified">2.2.2.1 An Example of Unified Format</a></li>
+        <li><a name="toc-Detailed-Description-of-Unified-Format" href="Detailed-Unified.html#Detailed-Unified">2.2.2.2 Detailed Description of Unified Format</a></li>
+      </ul></li>
+      <li><a name="toc-Showing-Which-Sections-Differences-Are-in" href="Sections.html#Sections">2.2.3 Showing Which Sections Differences Are in</a>
+      <ul class="no-bullet">
+        <li><a name="toc-Showing-Lines-That-Match-Regular-Expressions" href="Specified-Headings.html#Specified-Headings">2.2.3.1 Showing Lines That Match Regular Expressions</a></li>
+        <li><a name="toc-Showing-C-Function-Headings" href="C-Function-Headings.html#C-Function-Headings">2.2.3.2 Showing C Function Headings</a></li>
+      </ul></li>
+      <li><a name="toc-Showing-Alternate-File-Names" href="Alternate-Names.html#Alternate-Names">2.2.4 Showing Alternate File Names</a></li>
+    </ul></li>
+    <li><a name="toc-Showing-Differences-Side-by-Side" href="Side-by-Side.html#Side-by-Side">2.3 Showing Differences Side by Side</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Controlling-Side-by-Side-Format" href="Side-by-Side-Format.html#Side-by-Side-Format">2.3.1 Controlling Side by Side Format</a></li>
+      <li><a name="toc-An-Example-of-Side-by-Side-Format" href="Example-Side-by-Side.html#Example-Side-by-Side">2.3.2 An Example of Side by Side Format</a></li>
+    </ul></li>
+    <li><a name="toc-Showing-Differences-Without-Context" href="Normal.html#Normal">2.4 Showing Differences Without Context</a>
+    <ul class="no-bullet">
+      <li><a name="toc-An-Example-of-Normal-Format" href="Example-Normal.html#Example-Normal">2.4.1 An Example of Normal Format</a></li>
+      <li><a name="toc-Detailed-Description-of-Normal-Format" href="Detailed-Normal.html#Detailed-Normal">2.4.2 Detailed Description of Normal Format</a></li>
+    </ul></li>
+    <li><a name="toc-Making-Edit-Scripts" href="Scripts.html#Scripts">2.5 Making Edit Scripts</a>
+    <ul class="no-bullet">
+      <li><a name="toc-ed-Scripts-1" href="ed-Scripts.html#ed-Scripts">2.5.1 <code>ed</code> Scripts</a>
+      <ul class="no-bullet">
+        <li><a name="toc-Example-ed-Script" href="Example-ed.html#Example-ed">2.5.1.1 Example <code>ed</code> Script</a></li>
+        <li><a name="toc-Detailed-Description-of-ed-Format" href="Detailed-ed.html#Detailed-ed">2.5.1.2 Detailed Description of <code>ed</code> Format</a></li>
+      </ul></li>
+      <li><a name="toc-Forward-ed-Scripts" href="Forward-ed.html#Forward-ed">2.5.2 Forward <code>ed</code> Scripts</a></li>
+      <li><a name="toc-RCS-Scripts" href="RCS.html#RCS">2.5.3 RCS Scripts</a></li>
+    </ul></li>
+    <li><a name="toc-Merging-Files-with-If_002dthen_002delse" href="If_002dthen_002delse.html#If_002dthen_002delse">2.6 Merging Files with If-then-else</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Line-Group-Formats-1" href="Line-Group-Formats.html#Line-Group-Formats">2.6.1 Line Group Formats</a></li>
+      <li><a name="toc-Line-Formats-1" href="Line-Formats.html#Line-Formats">2.6.2 Line Formats</a></li>
+      <li><a name="toc-An-Example-of-If_002dthen_002delse-Format" href="Example-If_002dthen_002delse.html#Example-If_002dthen_002delse">2.6.3 An Example of If-then-else Format</a></li>
+      <li><a name="toc-Detailed-Description-of-If_002dthen_002delse-Format" href="Detailed-If_002dthen_002delse.html#Detailed-If_002dthen_002delse">2.6.4 Detailed Description of If-then-else Format</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Incomplete-Lines-1" href="Incomplete-Lines.html#Incomplete-Lines">3 Incomplete Lines</a></li>
+  <li><a name="toc-Comparing-Directories-1" href="Comparing-Directories.html#Comparing-Directories">4 Comparing Directories</a></li>
+  <li><a name="toc-Making-diff-Output-Prettier" href="Adjusting-Output.html#Adjusting-Output">5 Making <code>diff</code> Output Prettier</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Preserving-Tab-Stop-Alignment" href="Tabs.html#Tabs">5.1 Preserving Tab Stop Alignment</a></li>
+    <li><a name="toc-Omitting-trailing-blanks" href="Trailing-Blanks.html#Trailing-Blanks">5.2 Omitting trailing blanks</a></li>
+    <li><a name="toc-Paginating-diff-Output" href="Pagination.html#Pagination">5.3 Paginating <code>diff</code> Output</a></li>
+  </ul></li>
+  <li><a name="toc-diff-Performance-Tradeoffs" href="diff-Performance.html#diff-Performance">6 <code>diff</code> Performance Tradeoffs</a></li>
+  <li><a name="toc-Comparing-Three-Files-1" href="Comparing-Three-Files.html#Comparing-Three-Files">7 Comparing Three Files</a>
+  <ul class="no-bullet">
+    <li><a name="toc-A-Third-Sample-Input-File" href="Sample-diff3-Input.html#Sample-diff3-Input">7.1 A Third Sample Input File</a></li>
+    <li><a name="toc-An-Example-of-diff3-Normal-Format" href="Example-diff3-Normal.html#Example-diff3-Normal">7.2 An Example of <code>diff3</code> Normal Format</a></li>
+    <li><a name="toc-Detailed-Description-of-diff3-Normal-Format" href="Detailed-diff3-Normal.html#Detailed-diff3-Normal">7.3 Detailed Description of <code>diff3</code> Normal Format</a></li>
+    <li><a name="toc-diff3-Hunks-1" href="diff3-Hunks.html#diff3-Hunks">7.4 <code>diff3</code> Hunks</a></li>
+  </ul></li>
+  <li><a name="toc-Merging-From-a-Common-Ancestor" href="diff3-Merging.html#diff3-Merging">8 Merging From a Common Ancestor</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Selecting-Which-Changes-to-Incorporate" href="Which-Changes.html#Which-Changes">8.1 Selecting Which Changes to Incorporate</a></li>
+    <li><a name="toc-Marking-Conflicts-1" href="Marking-Conflicts.html#Marking-Conflicts">8.2 Marking Conflicts</a></li>
+    <li><a name="toc-Generating-the-Merged-Output-Directly" href="Bypassing-ed.html#Bypassing-ed">8.3 Generating the Merged Output Directly</a></li>
+    <li><a name="toc-How-diff3-Merges-Incomplete-Lines" href="Merging-Incomplete-Lines.html#Merging-Incomplete-Lines">8.4 How <code>diff3</code> Merges Incomplete Lines</a></li>
+    <li><a name="toc-Saving-the-Changed-File-1" href="Saving-the-Changed-File.html#Saving-the-Changed-File">8.5 Saving the Changed File</a></li>
+  </ul></li>
+  <li><a name="toc-Interactive-Merging-with-sdiff" href="Interactive-Merging.html#Interactive-Merging">9 Interactive Merging with <code>sdiff</code></a>
+  <ul class="no-bullet">
+    <li><a name="toc-Specifying-diff-Options-to-sdiff" href="sdiff-Option-Summary.html#sdiff-Option-Summary">9.1 Specifying <code>diff</code> Options to <code>sdiff</code></a></li>
+    <li><a name="toc-Merge-Commands-1" href="Merge-Commands.html#Merge-Commands">9.2 Merge Commands</a></li>
+  </ul></li>
+  <li><a name="toc-Merging-with-patch-1" href="Merging-with-patch.html#Merging-with-patch">10 Merging with <code>patch</code></a>
+  <ul class="no-bullet">
+    <li><a name="toc-Selecting-the-patch-Input-Format" href="patch-Input.html#patch-Input">10.1 Selecting the <code>patch</code> Input Format</a></li>
+    <li><a name="toc-Revision-Control-1" href="Revision-Control.html#Revision-Control">10.2 Revision Control</a></li>
+    <li><a name="toc-Applying-Imperfect-Patches" href="Imperfect.html#Imperfect">10.3 Applying Imperfect Patches</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Applying-Patches-with-Changed-White-Space" href="Changed-White-Space.html#Changed-White-Space">10.3.1 Applying Patches with Changed White Space</a></li>
+      <li><a name="toc-Applying-Reversed-Patches" href="Reversed-Patches.html#Reversed-Patches">10.3.2 Applying Reversed Patches</a></li>
+      <li><a name="toc-Helping-patch-Find-Inexact-Matches" href="Inexact.html#Inexact">10.3.3 Helping <code>patch</code> Find Inexact Matches</a></li>
+      <li><a name="toc-Predicting-what-patch-will-do" href="Dry-Runs.html#Dry-Runs">10.3.4 Predicting what <code>patch</code> will do</a></li>
+    </ul></li>
+    <li><a name="toc-Creating-and-Removing-Files" href="Creating-and-Removing.html#Creating-and-Removing">10.4 Creating and Removing Files</a></li>
+    <li><a name="toc-Updating-Timestamps-on-Patched-Files" href="Patching-Timestamps.html#Patching-Timestamps">10.5 Updating Timestamps on Patched Files</a></li>
+    <li><a name="toc-Multiple-Patches-in-a-File" href="Multiple-Patches.html#Multiple-Patches">10.6 Multiple Patches in a File</a></li>
+    <li><a name="toc-Applying-Patches-in-Other-Directories" href="patch-Directories.html#patch-Directories">10.7 Applying Patches in Other Directories</a></li>
+    <li><a name="toc-Backup-Files" href="Backups.html#Backups">10.8 Backup Files</a></li>
+    <li><a name="toc-Backup-File-Names" href="Backup-Names.html#Backup-Names">10.9 Backup File Names</a></li>
+    <li><a name="toc-Reject-File-Names" href="Reject-Names.html#Reject-Names">10.10 Reject File Names</a></li>
+    <li><a name="toc-Messages-and-Questions-from-patch" href="patch-Messages.html#patch-Messages">10.11 Messages and Questions from <code>patch</code></a>
+    <ul class="no-bullet">
+      <li><a name="toc-Controlling-the-Verbosity-of-patch" href="More-or-Fewer-Messages.html#More-or-Fewer-Messages">10.11.1 Controlling the Verbosity of <code>patch</code></a></li>
+      <li><a name="toc-Inhibiting-Keyboard-Input" href="patch-and-Keyboard-Input.html#patch-and-Keyboard-Input">10.11.2 Inhibiting Keyboard Input</a></li>
+      <li><a name="toc-patch-Quoting-Style-1" href="patch-Quoting-Style.html#patch-Quoting-Style">10.11.3 <code>patch</code> Quoting Style</a></li>
+    </ul></li>
+    <li><a name="toc-patch-and-the-POSIX-Standard" href="patch-and-POSIX.html#patch-and-POSIX">10.12 <code>patch</code> and the POSIX Standard</a></li>
+    <li><a name="toc-GNU-patch-and-Traditional-patch" href="patch-and-Tradition.html#patch-and-Tradition">10.13 GNU <code>patch</code> and Traditional <code>patch</code></a></li>
+  </ul></li>
+  <li><a name="toc-Tips-for-Making-and-Using-Patches" href="Making-Patches.html#Making-Patches">11 Tips for Making and Using Patches</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Tips-for-Patch-Producers-1" href="Tips-for-Patch-Producers.html#Tips-for-Patch-Producers">11.1 Tips for Patch Producers</a></li>
+    <li><a name="toc-Tips-for-Patch-Consumers-1" href="Tips-for-Patch-Consumers.html#Tips-for-Patch-Consumers">11.2 Tips for Patch Consumers</a></li>
+    <li><a name="toc-Avoiding-Common-Mistakes-1" href="Avoiding-Common-Mistakes.html#Avoiding-Common-Mistakes">11.3 Avoiding Common Mistakes</a></li>
+    <li><a name="toc-Generating-Smaller-Patches-1" href="Generating-Smaller-Patches.html#Generating-Smaller-Patches">11.4 Generating Smaller Patches</a></li>
+  </ul></li>
+  <li><a name="toc-Invoking-cmp-1" href="Invoking-cmp.html#Invoking-cmp">12 Invoking <code>cmp</code></a>
+  <ul class="no-bullet">
+    <li><a name="toc-Options-to-cmp" href="cmp-Options.html#cmp-Options">12.1 Options to <code>cmp</code></a></li>
+  </ul></li>
+  <li><a name="toc-Invoking-diff-1" href="Invoking-diff.html#Invoking-diff">13 Invoking <code>diff</code></a>
+  <ul class="no-bullet">
+    <li><a name="toc-Options-to-diff" href="diff-Options.html#diff-Options">13.1 Options to <code>diff</code></a></li>
+  </ul></li>
+  <li><a name="toc-Invoking-diff3-1" href="Invoking-diff3.html#Invoking-diff3">14 Invoking <code>diff3</code></a>
+  <ul class="no-bullet">
+    <li><a name="toc-Options-to-diff3" href="diff3-Options.html#diff3-Options">14.1 Options to <code>diff3</code></a></li>
+  </ul></li>
+  <li><a name="toc-Invoking-patch-1" href="Invoking-patch.html#Invoking-patch">15 Invoking <code>patch</code></a>
+  <ul class="no-bullet">
+    <li><a name="toc-Options-to-patch" href="patch-Options.html#patch-Options">15.1 Options to <code>patch</code></a></li>
+  </ul></li>
+  <li><a name="toc-Invoking-sdiff-1" href="Invoking-sdiff.html#Invoking-sdiff">16 Invoking <code>sdiff</code></a>
+  <ul class="no-bullet">
+    <li><a name="toc-Options-to-sdiff" href="sdiff-Options.html#sdiff-Options">16.1 Options to <code>sdiff</code></a></li>
+  </ul></li>
+  <li><a name="toc-Standards-conformance-1" href="Standards-conformance.html#Standards-conformance">17 Standards conformance</a></li>
+  <li><a name="toc-Future-Projects" href="Projects.html#Projects">18 Future Projects</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Suggested-Projects-for-Improving-GNU-diff-and-patch" href="Shortcomings.html#Shortcomings">18.1 Suggested Projects for Improving GNU <code>diff</code> and <code>patch</code></a>
+    <ul class="no-bullet">
+      <li><a name="toc-Handling-Multibyte-and-Varying_002dWidth-Characters" href="Internationalization.html#Internationalization">18.1.1 Handling Multibyte and Varying-Width Characters</a></li>
+      <li><a name="toc-Handling-Changes-to-the-Directory-Structure" href="Changing-Structure.html#Changing-Structure">18.1.2 Handling Changes to the Directory Structure</a></li>
+      <li><a name="toc-Files-that-are-Neither-Directories-Nor-Regular-Files" href="Special-Files.html#Special-Files">18.1.3 Files that are Neither Directories Nor Regular Files</a></li>
+      <li><a name="toc-File-Names-that-Contain-Unusual-Characters" href="Unusual-File-Names.html#Unusual-File-Names">18.1.4 File Names that Contain Unusual Characters</a></li>
+      <li><a name="toc-Outputting-Diffs-in-Timestamp-Order" href="Timestamp-Order.html#Timestamp-Order">18.1.5 Outputting Diffs in Timestamp Order</a></li>
+      <li><a name="toc-Ignoring-Certain-Changes" href="Ignoring-Changes.html#Ignoring-Changes">18.1.6 Ignoring Certain Changes</a></li>
+      <li><a name="toc-Improving-Performance" href="Speedups.html#Speedups">18.1.7 Improving Performance</a></li>
+    </ul></li>
+    <li><a name="toc-Reporting-Bugs" href="Bugs.html#Bugs">18.2 Reporting Bugs</a></li>
+  </ul></li>
+  <li><a name="toc-Copying-This-Manual-1" href="Copying-This-Manual.html#Copying-This-Manual">Appendix A Copying This Manual</a></li>
+  <li><a name="toc-Translations-of-This-Manual" href="Translations.html#Translations">Appendix B Translations of This Manual</a></li>
+  <li><a name="toc-Index-1" href="Index.html#Index">Appendix C Index</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="Overview.html#Overview" accesskey="n" rel="next">Overview</a>, Up: <a href="/manual" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Comparing-and-Merging-Files"></a>
+<h1 class="top">Comparing and Merging Files</h1>
+
+<p>This manual is for GNU Diffutils
+(version 3.6, 6 May 2017),
+and documents the GNU <code>diff</code>, <code>diff3</code>,
+<code>sdiff</code>, and <code>cmp</code> commands for showing the
+differences between files and the GNU <code>patch</code> command for
+using their output to update files.
+</p>
+<p>Copyright &copy; 1992-1994, 1998, 2001-2002, 2004, 2006, 2009-2017 Free
+Software Foundation, Inc.
+</p>
+<blockquote>
+<p>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+A copy of the license is included in the section entitled
+&ldquo;GNU Free Documentation License.&rdquo;
+</p></blockquote>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Overview.html#Overview" accesskey="1">Overview</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Preliminary information.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Comparison.html#Comparison" accesskey="2">Comparison</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">What file comparison means.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Output-Formats.html#Output-Formats" accesskey="3">Output Formats</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Formats for two-way difference reports.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Incomplete-Lines.html#Incomplete-Lines" accesskey="4">Incomplete Lines</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Lines that lack trailing newlines.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Comparing-Directories.html#Comparing-Directories" accesskey="5">Comparing Directories</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Comparing files and directories.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Adjusting-Output.html#Adjusting-Output" accesskey="6">Adjusting Output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Making <code>diff</code> output prettier.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="diff-Performance.html#diff-Performance" accesskey="7">diff Performance</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Making <code>diff</code> smarter or faster.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Comparing-Three-Files.html#Comparing-Three-Files" accesskey="8">Comparing Three Files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Formats for three-way difference reports.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="diff3-Merging.html#diff3-Merging" accesskey="9">diff3 Merging</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Merging from a common ancestor.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Interactive-Merging.html#Interactive-Merging">Interactive Merging</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Interactive merging with <code>sdiff</code>.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Merging-with-patch.html#Merging-with-patch">Merging with patch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Using <code>patch</code> to change old files into new ones.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Making-Patches.html#Making-Patches">Making Patches</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tips for making and using patch distributions.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Invoking-cmp.html#Invoking-cmp">Invoking cmp</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Compare two files byte by byte.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-diff.html#Invoking-diff">Invoking diff</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Compare two files line by line.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-diff3.html#Invoking-diff3">Invoking diff3</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Compare three files line by line.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-patch.html#Invoking-patch">Invoking patch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Apply a diff file to an original.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-sdiff.html#Invoking-sdiff">Invoking sdiff</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Side-by-side merge of file differences.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Standards-conformance.html#Standards-conformance">Standards conformance</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Conformance to the POSIX standard.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Projects.html#Projects">Projects</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">If you&rsquo;ve found a bug or other shortcoming.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Copying-This-Manual.html#Copying-This-Manual">Copying This Manual</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to make copies of this manual.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Translations.html#Translations">Translations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Available translations of this manual.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Index.html#Index">Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Index.
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Overview.html#Overview" accesskey="n" rel="next">Overview</a>, Up: <a href="/manual" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

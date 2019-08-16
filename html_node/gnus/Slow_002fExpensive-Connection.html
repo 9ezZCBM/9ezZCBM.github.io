@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Slow/Expensive Connection - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Slow%2fExpensive-Connection"></a>
+<a name="Slow_002fExpensive-Connection"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Slow-Terminal-Connection.html#Slow-Terminal-Connection">Slow Terminal Connection</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Customization.html#Customization">Customization</a>
+
+</div>
+
+<h4 class="subsection">11.5.1 Slow/Expensive Connection</h4>
+
+<p>If you run Emacs on a machine locally, and get your news from a machine
+over some very thin strings, you want to cut down on the amount of data
+Gnus has to get from the server.
+
+     <dl>
+<dt><code>gnus-read-active-file</code><dd>Set this to <code>nil</code>, which will inhibit Gnus from requesting the
+entire active file from the server.  This file is often very large.  You
+also have to set <code>gnus-check-new-newsgroups</code> and
+<code>gnus-check-bogus-newsgroups</code> to <code>nil</code> to make sure that Gnus
+doesn't suddenly decide to fetch the active file anyway.
+
+     <br><dt><code>gnus-nov-is-evil</code><dd><a name="index-gnus_002dnov_002dis_002devil-2995"></a>Usually this one must <em>always</em> be <code>nil</code> (which is the
+default).  If, for example, you wish to not use <acronym>NOV</acronym>
+(see <a href="Terminology.html#Terminology">Terminology</a>) with the <code>nntp</code> back end (see <a href="Crosspost-Handling.html#Crosspost-Handling">Crosspost Handling</a>), set <code>nntp-nov-is-evil</code> to a non-<code>nil</code> value
+instead of setting this.  But you normally do not need to set
+<code>nntp-nov-is-evil</code> since Gnus by itself will detect whether the
+<acronym>NNTP</acronym> server supports <acronym>NOV</acronym>.  Anyway, grabbing article
+headers from the <acronym>NNTP</acronym> server will not be very fast if you tell
+Gnus not to use <acronym>NOV</acronym>.
+
+     <p>As the variables for the other back ends, there are
+<code>nndiary-nov-is-evil</code>, <code>nndir-nov-is-evil</code>,
+<code>nnfolder-nov-is-evil</code>, <code>nnimap-nov-is-evil</code>,
+<code>nnml-nov-is-evil</code>, and <code>nnspool-nov-is-evil</code>.  Note that a
+non-<code>nil</code> value for <code>gnus-nov-is-evil</code> overrides all those
+variables. 
+</dl>
+
+   </body></html>
+

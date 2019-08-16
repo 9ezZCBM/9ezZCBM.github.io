@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>copy-to-buffer - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="copy-to-buffer"></a>
+<a name="copy_002dto_002dbuffer"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="insert_002dbuffer.html#insert_002dbuffer">insert-buffer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="More-Complex.html#More-Complex">More Complex</a>
+
+</div>
+
+<h3 class="section">5.1 The Definition of <code>copy-to-buffer</code></h3>
+
+<p><a name="index-copy_002dto_002dbuffer-152"></a>
+After understanding how <code>append-to-buffer</code> works, it is easy to
+understand <code>copy-to-buffer</code>.  This function copies text into a
+buffer, but instead of adding to the second buffer, it replaces all the
+previous text in the second buffer.
+
+   <p>The body of <code>copy-to-buffer</code> looks like this,
+
+<pre class="smallexample">     ...
+     (interactive "BCopy to buffer: \nr")
+     (let ((oldbuf (current-buffer)))
+       (with-current-buffer (get-buffer-create buffer)
+         (barf-if-buffer-read-only)
+         (erase-buffer)
+         (save-excursion
+           (insert-buffer-substring oldbuf start end)))))
+</pre>
+   <p>The <code>copy-to-buffer</code> function has a simpler <code>interactive</code>
+expression than <code>append-to-buffer</code>.
+
+   <p>The definition then says
+
+<pre class="smallexample">     (with-current-buffer (get-buffer-create buffer) ...
+</pre>
+   <p>First, look at the earliest inner expression; that is evaluated first. 
+That expression starts with <code>get-buffer-create buffer</code>.  The
+function tells the computer to use the buffer with the name specified
+as the one to which you are copying, or if such a buffer does not
+exist, to create it.  Then, the <code>with-current-buffer</code> function
+evaluates its body with that buffer temporarily current.
+
+   <p>(This demonstrates another way to shift the computer's attention but
+not the user's.  The <code>append-to-buffer</code> function showed how to do
+the same with <code>save-excursion</code> and <code>set-buffer</code>. 
+<code>with-current-buffer</code> is a newer, and arguably easier,
+mechanism.)
+
+   <p>The <code>barf-if-buffer-read-only</code> function sends you an error
+message saying the buffer is read-only if you cannot modify it.
+
+   <p>The next line has the <code>erase-buffer</code> function as its sole
+contents.  That function erases the buffer.
+
+   <p>Finally, the last two lines contain the <code>save-excursion</code>
+expression with <code>insert-buffer-substring</code> as its body. 
+The  <code>insert-buffer-substring</code> expression copies the text from
+the buffer you are in (and you have not seen the computer shift its
+attention, so you don't know that that buffer is now called
+<code>oldbuf</code>).
+
+   <p>Incidentally, this is what is meant by &ldquo;replacement&rdquo;.  To replace text,
+Emacs erases the previous text and then inserts new text.
+
+   <p>In outline, the body of <code>copy-to-buffer</code> looks like this:
+
+<pre class="smallexample">     (let (<var>bind-</var><code>oldbuf</code><var>-to-value-of-</var><code>current-buffer</code>)
+         (<var>with-the-buffer-you-are-copying-to</var>
+           (<var>but-do-not-erase-or-copy-to-a-read-only-buffer</var>)
+           (erase-buffer)
+           (save-excursion
+             <var>insert-substring-from-</var><code>oldbuf</code><var>-into-buffer</var>)))
+</pre>
+   </body></html>
+

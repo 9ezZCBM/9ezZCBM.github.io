@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Code Indentation - IDLWAVE User Manual</title>
+<!--
+This file documents IDLWAVE, a major mode for editing IDL files with
+Emacs, and interacting with an IDL shell run as a subprocess.
+
+This is edition 6.1 of the IDLWAVE User Manual for IDLWAVE
+6.1.
+
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Code-Indentation"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Continued-Statement-Indentation.html#Continued-Statement-Indentation">Continued Statement Indentation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Code-Formatting.html#Code-Formatting">Code Formatting</a>
+
+</div>
+
+<h4 class="subsection">4.1.1 Code Indentation</h4>
+
+<p><a name="index-Code-indentation-19"></a><a name="index-Indentation-20"></a>
+Like all Emacs programming modes, IDLWAVE performs code indentation. 
+The &lt;TAB&gt; key indents the current line relative to context. 
+&lt;LFD&gt; insert a newline and indents the new line.  The indentation is
+governed by a number of variables.  IDLWAVE indents blocks (between
+<code>PRO</code>/<code>FUNCTION</code>/<code>BEGIN</code> and <code>END</code>), and
+continuation lines.
+
+   <p><a name="index-Foreign-code_002c-adapting-21"></a><a name="index-Indentation_002c-of-foreign-code-22"></a><a name="index-C_002dM_002d_005c-23"></a>To re-indent a larger portion of code (e.g., when working with foreign
+code written with different conventions), use <kbd>C-M-\</kbd>
+(<code>indent-region</code>) after marking the relevant code.  Useful marking
+commands are <kbd>C-x h</kbd> (the entire file) or <kbd>C-M-h</kbd> (the current
+subprogram).  The command <kbd>C-M-q</kbd> reindents the entire current
+routine.  See <a href="Actions.html#Actions">Actions</a>, for information how to impose additional
+formatting conventions on foreign code.
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-main-block-indent</b> (<code>2</code>)<var><a name="index-idlwave_002dmain_002dblock_002dindent-24"></a></var><br>
+<blockquote><p>Extra indentation for the main block of code.  That is the block between
+the FUNCTION/PRO statement and the END statement for that program
+unit. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-block-indent</b> (<code>3</code>)<var><a name="index-idlwave_002dblock_002dindent-25"></a></var><br>
+<blockquote><p>Extra indentation applied to block lines.  If you change this, you
+probably also want to change <code>idlwave-end-offset</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-end-offset</b> (<code>-3</code>)<var><a name="index-idlwave_002dend_002doffset-26"></a></var><br>
+<blockquote><p>Extra indentation applied to block END lines.  A value equal to negative
+<code>idlwave-block-indent</code> will make END lines line up with the block
+BEGIN lines. 
+</p></blockquote></div>
+
+   </body></html>
+

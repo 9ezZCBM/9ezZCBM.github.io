@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Easy templates - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Easy-templates"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Speed-keys.html#Speed-keys">Speed keys</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Completion.html#Completion">Completion</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Miscellaneous.html#Miscellaneous">Miscellaneous</a>
+
+</div>
+
+<h3 class="section">15.2 Easy templates</h3>
+
+<p><a name="index-template-insertion-2232"></a><a name="index-insertion_002c-of-templates-2233"></a>
+With just a few keystrokes, Org's easy templates inserts empty pairs of
+structural elements, such as <code>#+BEGIN_SRC</code> and <code>#+END_SRC</code>.  Easy
+templates use an expansion mechanism, which is native to Org, in a process
+similar to <samp><span class="file">yasnippet</span></samp> and other Emacs template expansion packages.
+
+   <p><kbd>&lt;</kbd> <kbd>s</kbd> <kbd>&lt;TAB&gt;</kbd> expands to a &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block.
+
+   <p><kbd>&lt;</kbd> <kbd>l</kbd> <kbd>&lt;TAB&gt;</kbd> expands to:
+
+   <p>#+BEGIN_EXPORT latex
+
+   <p>#+END_EXPORT
+
+   <p>Org comes with these pre-defined easy templates:
+
+   <p><table summary=""><tr align="left"><td valign="top" width="10%"><kbd>s</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_SRC ... #+END_SRC</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>e</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_EXAMPLE ... #+END_EXAMPLE</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>q</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_QUOTE ... #+END_QUOTE</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>v</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_VERSE ... #+END_VERSE</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>c</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_CENTER ... #+END_CENTER</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>C</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_COMMENT ... #+END_COMMENT</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>l</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_EXPORT latex ... #+END_EXPORT</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>L</kbd> </td><td valign="top" width="90%"><code>#+LATEX:</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>h</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_EXPORT html ... #+END_EXPORT</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>H</kbd> </td><td valign="top" width="90%"><code>#+HTML:</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>a</kbd> </td><td valign="top" width="90%"><code>#+BEGIN_EXPORT ascii ... #+END_EXPORT</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>A</kbd> </td><td valign="top" width="90%"><code>#+ASCII:</code>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>i</kbd> </td><td valign="top" width="90%"><code>#+INDEX:</code> line
+<br></td></tr><tr align="left"><td valign="top" width="10%"><kbd>I</kbd> </td><td valign="top" width="90%"><code>#+INCLUDE:</code> line
+   <br></td></tr></table>
+
+   <p>More templates can added by customizing the variable
+<code>org-structure-template-alist</code>, whose docstring has additional details.
+
+   </body></html>
+

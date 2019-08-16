@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Conformity - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Conformity"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Emacsen.html#Emacsen">Emacsen</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Compatibility.html#Compatibility">Compatibility</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="History.html#History">History</a>
+
+</div>
+
+<h4 class="subsection">11.2.4 Conformity</h4>
+
+<p>No rebels without a clue here, ma'am.  We conform to all standards known
+to (wo)man.  Except for those standards and/or conventions we disagree
+with, of course.
+
+     <dl>
+<dt><strong>RFC 822</strong><dd><a name="index-RFC-822-2931"></a><a name="index-RFC-2822-2932"></a><a name="index-RFC-5322-2933"></a>There are no known breaches of this standard or its successors
+(currently RFCs 2822 and 5322).
+
+     <br><dt><strong>RFC 1036</strong><dd><a name="index-RFC-1036-2934"></a>There are no known breaches of this (now-obsolete) standard, either.
+
+     <br><dt><strong>RFC 5536</strong><dd><a name="index-RFC-5536-2935"></a>We do have some breaches of this standard, the successor of RFC 1036.
+
+          <dl>
+<dt><em>X-Newsreader</em><dt><em>User-Agent</em><dd>These are considered to be &ldquo;vanity headers&rdquo;, while I consider them
+to be consumer information.  After seeing so many badly formatted
+articles coming from <code>tin</code> and <code>Netscape</code> I know not to use
+either of those for posting articles.  I would not have known that if
+it wasn't for the <code>X-Newsreader</code> header. 
+</dl>
+
+     <br><dt><strong>USEFOR</strong><dd><a name="index-USEFOR-2936"></a>USEFOR was an IETF working group that produced Internet RFCs 5536 and 5537. 
+The Gnus towers will look into implementing the changes embodied by these
+standards.
+
+     <br><dt><strong>MIME&mdash;RFC 2045&ndash;2049 etc</strong><dd><a name="index-g_t_0040acronym_007bMIME_007d-2937"></a>All the various <acronym>MIME</acronym> RFCs are supported.
+
+     <br><dt><strong>Disposition Notifications&mdash;RFC 2298</strong><dd>Message Mode is able to request notifications from the receiver.
+
+     <br><dt><strong>PGP&mdash;RFC 1991 and RFC 2440</strong><dd><a name="index-RFC-1991-2938"></a><a name="index-RFC-2440-2939"></a>RFC 1991 is the original <acronym>PGP</acronym> message specification,
+published as an informational RFC.  RFC 2440 was the follow-up, now
+called Open PGP, and put on the Standards Track.  Both document a
+non-<acronym>MIME</acronym> aware <acronym>PGP</acronym> format.  Gnus supports both
+encoding (signing and encryption) and decoding (verification and
+decryption).
+
+     <br><dt><strong>PGP/MIME&mdash;RFC 2015/3156</strong><dd>RFC 2015 (superseded by 3156 which references RFC 2440 instead of RFC
+1991) describes the <acronym>MIME</acronym>-wrapping around the RFC 1991/2440 format. 
+Gnus supports both encoding and decoding.
+
+     <br><dt><strong>S/MIME&mdash;RFC 2633</strong><dd>RFC 2633 describes the <acronym>S/MIME</acronym> format.
+
+     <br><dt><strong>IMAP&mdash;RFC 1730/2060, RFC 2195, RFC 2086, RFC 2359, RFC 2595, RFC 1731</strong><dd>RFC 1730 is <acronym>IMAP</acronym> version 4, updated somewhat by RFC 2060
+(<acronym>IMAP</acronym> 4 revision 1).  RFC 2195 describes CRAM-MD5
+authentication for <acronym>IMAP</acronym>.  RFC 2086 describes access control
+lists (ACLs) for <acronym>IMAP</acronym>.  RFC 2359 describes a <acronym>IMAP</acronym>
+protocol enhancement.  RFC 2595 describes the proper <acronym>TLS</acronym>
+integration (STARTTLS) with <acronym>IMAP</acronym>.  RFC 1731 describes the
+GSSAPI/Kerberos4 mechanisms for <acronym>IMAP</acronym>.
+
+   </dl>
+
+   <p>If you ever notice Gnus acting non-compliant with regards to the texts
+mentioned above, don't hesitate to drop a note to Gnus Towers and let us
+know.
+
+   </body></html>
+

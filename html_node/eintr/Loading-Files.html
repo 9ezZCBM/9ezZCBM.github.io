@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Loading Files - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Loading-Files"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Autoload.html#Autoload">Autoload</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Keymaps.html#Keymaps">Keymaps</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a>
+
+</div>
+
+<h3 class="section">16.9 Loading Files</h3>
+
+<p><a name="index-Loading-files-337"></a><!-- findex load -->
+
+   <p>Many people in the GNU Emacs community have written extensions to
+Emacs.  As time goes by, these extensions are often included in new
+releases.  For example, the Calendar and Diary packages are now part
+of the standard GNU Emacs, as is Calc.
+
+   <p>You can use a <code>load</code> command to evaluate a complete file and
+thereby install all the functions and variables in the file into Emacs. 
+For example:
+
+<!-- (auto-compression-mode t) -->
+<pre class="smallexample">     (load "~/emacs/slowsplit")
+</pre>
+   <p>This evaluates, i.e., loads, the <samp><span class="file">slowsplit.el</span></samp> file or if it
+exists, the faster, byte compiled <samp><span class="file">slowsplit.elc</span></samp> file from the
+<samp><span class="file">emacs</span></samp> sub-directory of your home directory.  The file contains
+the function <code>split-window-quietly</code>, which John Robinson wrote in
+1989.
+
+   <p>The <code>split-window-quietly</code> function splits a window with the
+minimum of redisplay.  I installed it in 1989 because it worked well
+with the slow 1200 baud terminals I was then using.  Nowadays, I only
+occasionally come across such a slow connection, but I continue to use
+the function because I like the way it leaves the bottom half of a
+buffer in the lower of the new windows and the top half in the upper
+window.
+
+   <p>To replace the key binding for the default
+<code>split-window-vertically</code>, you must also unset that key and bind
+the keys to <code>split-window-quietly</code>, like this:
+
+<pre class="smallexample">     (global-unset-key "\C-x2")
+     (global-set-key "\C-x2" 'split-window-quietly)
+</pre>
+   <p><a name="index-load_002dpath-338"></a>If you load many extensions, as I do, then instead of specifying the
+exact location of the extension file, as shown above, you can specify
+that directory as part of Emacs's <code>load-path</code>.  Then, when Emacs
+loads a file, it will search that directory as well as its default
+list of directories.  (The default list is specified in <samp><span class="file">paths.h</span></samp>
+when Emacs is built.)
+
+   <p>The following command adds your <samp><span class="file">~/emacs</span></samp> directory to the
+existing load path:
+
+<pre class="smallexample">     ;;; Emacs Load Path
+     (setq load-path (cons "~/emacs" load-path))
+</pre>
+   <p>Incidentally, <code>load-library</code> is an interactive interface to the
+<code>load</code> function.  The complete function looks like this:
+
+   <p><a name="index-load_002dlibrary-339"></a>
+<pre class="smallexample">     (defun load-library (library)
+       "Load the Emacs Lisp library named LIBRARY.
+     This is an interface to the function `load'.  LIBRARY is searched
+     for in `load-path', both with and without `load-suffixes' (as
+     well as `load-file-rep-suffixes').
+     
+     See Info node `(emacs)Lisp Libraries' for more details.
+     See `load-file' for a different interface to `load'."
+       (interactive
+        (list (completing-read "Load library: "
+                               (apply-partially 'locate-file-completion-table
+                                                load-path
+                                                (get-load-suffixes)))))
+       (load library))
+</pre>
+   <p>The name of the function, <code>load-library</code>, comes from the use of
+&ldquo;library&rdquo; as a conventional synonym for &ldquo;file&rdquo;.  The source for the
+<code>load-library</code> command is in the <samp><span class="file">files.el</span></samp> library.
+
+   <p>Another interactive command that does a slightly different job is
+<code>load-file</code>.  See <a href="../emacs/Lisp-Libraries.html#Lisp-Libraries">Libraries of Lisp Code for Emacs</a>, for information on the
+distinction between <code>load-library</code> and this command.
+
+   </body></html>
+

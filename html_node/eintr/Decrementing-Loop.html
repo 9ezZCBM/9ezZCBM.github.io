@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Decrementing Loop - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Decrementing-Loop"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Incrementing-Loop-Details.html#Incrementing-Loop-Details">Incrementing Loop Details</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="while.html#while">while</a>
+
+</div>
+
+<h4 class="subsection">11.1.4 Loop with a Decrementing Counter</h4>
+
+<p>Another common way to write a <code>while</code> loop is to write the test
+so that it determines whether a counter is greater than zero.  So long
+as the counter is greater than zero, the loop is repeated.  But when
+the counter is equal to or less than zero, the loop is stopped.  For
+this to work, the counter has to start out greater than zero and then
+be made smaller and smaller by a form that is evaluated
+repeatedly.
+
+   <p>The test will be an expression such as <code>(&gt; counter 0)</code> which
+returns <code>t</code> for true if the value of <code>counter</code> is greater
+than zero, and <code>nil</code> for false if the value of <code>counter</code> is
+equal to or less than zero.  The expression that makes the number
+smaller and smaller can be a simple <code>setq</code> such as <code>(setq
+counter (1- counter))</code>, where <code>1-</code> is a built-in function in
+Emacs Lisp that subtracts 1 from its argument.
+
+   <p>The template for a decrementing <code>while</code> loop looks like this:
+
+<pre class="smallexample">     (while (&gt; counter 0)                    ; <span class="roman">true-or-false-test</span>
+       <var>body</var>...
+       (setq counter (1- counter)))          ; <span class="roman">decrementer</span>
+</pre>
+   <ul class="menu">
+<li><a accesskey="1" href="Decrementing-Example.html#Decrementing-Example">Decrementing Example</a>:         More pebbles on the beach. 
+<li><a accesskey="2" href="Dec-Example-parts.html#Dec-Example-parts">Dec Example parts</a>:            The parts of the function definition. 
+<li><a accesskey="3" href="Dec-Example-altogether.html#Dec-Example-altogether">Dec Example altogether</a>:       Putting the function definition together. 
+</ul>
+
+   </body></html>
+

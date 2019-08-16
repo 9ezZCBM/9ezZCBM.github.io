@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Xref - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Xref"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="EDE.html#EDE">EDE</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Change-Log.html#Change-Log">Change Log</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Maintaining.html#Maintaining">Maintaining</a>
+
+</div>
+
+<h3 class="section">28.3 Find Identifier References</h3>
+
+<p><a name="index-xref-3186"></a>
+  An <dfn>identifier</dfn> is a name of a syntactical subunit of the
+program: a function, a subroutine, a method, a class, a data type, a
+macro, etc.  In a programming language, each identifier is a symbol in
+the language's syntax.  Program development and maintenance requires
+capabilities to quickly find where each identifier was defined and
+referenced, to rename identifiers across the entire project, etc.
+
+   <p>These capabilities are also useful for finding references in major
+modes other than those defined to support programming languages.  For
+example, chapters, sections, appendices, etc. of a text or a TeX
+document can be treated as subunits as well, and their names can be
+used as identifiers.  In this chapter, we use the term &ldquo;identifiers&rdquo;
+to collectively refer to the names of any kind of subunits, in program
+source and in other kinds of text alike.
+
+   <p>Emacs provides a unified interface to these capabilities, called
+&lsquo;<samp><span class="samp">xref</span></samp>&rsquo;.
+
+   <p><a name="index-xref-backend-3187"></a>To do its job, <code>xref</code> needs to make use of information and to
+employ methods specific to the major mode.  What files to search for
+identifiers, how to find references to identifiers, how to complete on
+identifiers&mdash;all this and more is mode-specific knowledge. 
+<code>xref</code> delegates the mode-specific parts of its job to a
+<dfn>backend</dfn> provided by the mode; it also includes defaults for some
+of its commands, for those modes that don't provide their own.
+
+   <p>A backend can implement its capabilities in a variety of ways.  Here
+are a few examples:
+
+     <ol type=a start=1>
+<li>Some major modes provide built-in means for looking up the language
+symbols.  For example, Emacs Lisp symbols can be identified by
+searching the package load history, maintained by the Emacs Lisp
+interpreter, and by consulting the built-in documentation strings; the
+Emacs Lisp mode uses these facilities in its backend to allow finding
+definitions of symbols.  (One disadvantage of this kind of backend is
+that it only knows about subunits that were loaded into the
+interpreter.)
+
+     <li>An external program can extract references by scanning the relevant
+files, and build a database of these references.  A backend can then
+access this database whenever it needs to list or look up references. 
+The Emacs distribution includes <samp><span class="command">etags</span></samp>, a command for tagging
+identifier definitions in programs, which supports many programming
+languages and other major modes, such as HTML, by extracting
+references into <dfn>tags tables</dfn>.  See <a href="Create-Tags-Table.html#Create-Tags-Table">Create Tags Table</a>.  Major
+modes for languages supported by <samp><span class="command">etags</span></samp> can use tags tables
+as basis for their backend.  (One disadvantage of this kind of backend
+is that tags tables need to be kept reasonably up to date, by
+rebuilding them from time to time.)
+        </ol>
+
+<ul class="menu">
+<li><a accesskey="1" href="Find-Identifiers.html#Find-Identifiers">Find Identifiers</a>:     Commands to find where an identifier is defined
+                          or referenced, to list identifiers, etc. 
+<li><a accesskey="2" href="Tags-Tables.html#Tags-Tables">Tags Tables</a>:          Tags table records which file defines a symbol. 
+<li><a accesskey="3" href="Select-Tags-Table.html#Select-Tags-Table">Select Tags Table</a>:    How to visit a specific tags table. 
+</ul>
+
+   </body></html>
+

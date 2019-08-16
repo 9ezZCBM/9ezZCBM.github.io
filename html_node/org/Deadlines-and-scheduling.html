@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Deadlines and scheduling - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Deadlines-and-scheduling"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Clocking-work-time.html#Clocking-work-time">Clocking work time</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Creating-timestamps.html#Creating-timestamps">Creating timestamps</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Dates-and-times.html#Dates-and-times">Dates and times</a>
+
+</div>
+
+<h3 class="section">8.3 Deadlines and scheduling</h3>
+
+<p>A timestamp may be preceded by special keywords to facilitate planning.  Both
+the timestamp and the keyword have to be positioned immediately after the task
+they refer to.
+
+     <dl>
+<dt><var>DEADLINE</var><dd><a name="index-g_t_0040code_007bDEADLINE_007d-keyword-868"></a>
+Meaning: the task (most likely a TODO item, though not necessarily) is supposed
+to be finished on that date.
+
+     <p><a name="index-org_002ddeadline_002dwarning_002ddays-869"></a><a name="index-org_002dagenda_002dskip_002ddeadline_002dprewarning_002dif_002dscheduled-870"></a>On the deadline date, the task will be listed in the agenda.  In
+addition, the agenda for <em>today</em> will carry a warning about the
+approaching or missed deadline, starting
+<code>org-deadline-warning-days</code> before the due date, and continuing
+until the entry is marked DONE.  An example:
+
+     <pre class="example">          *** TODO write article about the Earth for the Guide
+              DEADLINE: &lt;2004-02-29 Sun&gt;
+              The editor in charge is [[bbdb:Ford Prefect]]
+</pre>
+     <p>You can specify a different lead time for warnings for a specific
+deadline using the following syntax.  Here is an example with a warning
+period of 5 days <code>DEADLINE: &lt;2004-02-29 Sun -5d&gt;</code>.  This warning is
+deactivated if the task gets scheduled and you set
+<code>org-agenda-skip-deadline-prewarning-if-scheduled</code> to <code>t</code>.
+
+     <br><dt><var>SCHEDULED</var><dd><a name="index-g_t_0040code_007bSCHEDULED_007d-keyword-871"></a>
+Meaning: you are planning to start working on that task on the given
+date.
+
+     <p><a name="index-org_002dagenda_002dskip_002dscheduled_002dif_002ddone-872"></a>The headline will be listed under the given date<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.  In
+addition, a reminder that the scheduled date has passed will be present
+in the compilation for <em>today</em>, until the entry is marked DONE, i.e.,
+the task will automatically be forwarded until completed.
+
+     <pre class="example">          *** TODO Call Trillian for a date on New Years Eve.
+              SCHEDULED: &lt;2004-12-25 Sat&gt;
+</pre>
+     <p><a name="index-org_002dscheduled_002ddelay_002ddays-873"></a><a name="index-org_002dagenda_002dskip_002dscheduled_002ddelay_002dif_002ddeadline-874"></a>If you want to <em>delay</em> the display of this task in the agenda, use
+<code>SCHEDULED: &lt;2004-12-25 Sat -2d&gt;</code>: the task is still scheduled on the
+25th but will appear two days later.  In case the task contains a repeater,
+the delay is considered to affect all occurrences; if you want the delay to
+only affect the first scheduled occurrence of the task, use <code>--2d</code>
+instead.  See <code>org-scheduled-delay-days</code> and
+<code>org-agenda-skip-scheduled-delay-if-deadline</code> for details on how to
+control this globally or per agenda.
+
+     <p class="noindent"><b>Important:</b> Scheduling an item in Org mode should <i>not</i> be
+understood in the same way that we understand <i>scheduling a meeting</i>. 
+Setting a date for a meeting is just a simple appointment, you should
+mark this entry with a simple plain timestamp, to get this item shown
+on the date where it applies.  This is a frequent misunderstanding by
+Org users.  In Org mode, <i>scheduling</i> means setting a date when you
+want to start working on an action item. 
+</dl>
+
+   <p>You may use timestamps with repeaters in scheduling and deadline
+entries.  Org mode will issue early and late warnings based on the
+assumption that the timestamp represents the <i>nearest instance</i> of
+the repeater.  However, the use of diary sexp entries like
+<code>&lt;%%(diary-float t 42)&gt;</code>
+in scheduling and deadline timestamps is limited.  Org mode does not
+know enough about the internals of each sexp function to issue early and
+late warnings.  However, it will show the item on each day where the
+sexp entry matches.
+
+<ul class="menu">
+<li><a accesskey="1" href="Inserting-deadline_002fschedule.html#Inserting-deadline_002fschedule">Inserting deadline/schedule</a>:   Planning items
+<li><a accesskey="2" href="Repeated-tasks.html#Repeated-tasks">Repeated tasks</a>:               Items that show up again and again
+</ul>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> It will still
+be listed on that date after it has been marked DONE.  If you don't like
+this, set the variable <code>org-agenda-skip-scheduled-if-done</code>.</p>
+
+   <hr></div>
+
+   </body></html>
+

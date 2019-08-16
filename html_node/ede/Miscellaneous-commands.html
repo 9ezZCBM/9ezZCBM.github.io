@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Miscellaneous commands - Emacs Development Environment</title>
+<!--
+This file describes EDE, the Emacs Development Environment.
+
+Copyright (C) 1998--2001, 2004--2005, 2008--2019
+Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Miscellaneous-commands"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Extending-EDE.html#Extending-EDE">Extending EDE</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Building-and-Debugging.html#Building-and-Debugging">Building and Debugging</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">7 Miscellaneous commands</h2>
+
+<p>If you opt to go in and edit <i>EDE</i> project files directly&mdash;for
+instance, by using <kbd>C-c . e</kbd> (see <a href="Customize-Features.html#Customize-Features">Customize Features</a>)&mdash;you
+must then &ldquo;rescan&rdquo; the project files to update the internal data
+structures.  To rescan the current project, type <kbd>C-c . g</kbd>
+(<code>ede-rescan-toplevel</code>).
+
+   <p><i>EDE</i> can help you find files in your project, via the command
+<kbd>C-c . f</kbd> (<code>ede-find-file</code>).  This prompts for a file name;
+you need not specify the directory.  EDE then tries to visit a file
+with that name somewhere in your project.
+
+   <p><i>EDE</i> can use external tools to help with file finding.  To do this,
+customize <code>ede-locate-setup-options</code>.
+
+<div class="defun">
+&mdash; Variable: <b>ede-locate-setup-options</b><var><a name="index-ede_002dlocate_002dsetup_002doptions-1"></a></var><br>
+<blockquote><p><a name="ede_002dlocate_002dsetup_002doptions"></a>List of locate objects to try out by default. 
+Listed in order of preference.  If the first item cannot be used in
+a particular project, then the next one is tried. 
+It is always assumed that <dfn>ede-locate-base</dfn> is at end of the list. 
+</p></blockquote></div>
+
+   <p><i>EDE</i> also provides a project display mode for the speedbar
+(see <a href="../emacs/Speedbar.html#Speedbar">Speedbar</a>).  This allows you to view
+your source files as they are structured in your project: as a
+hierarchical tree, grouped according to target.
+
+   <p>To activate the speedbar in this mode, type <kbd>C-c . s</kbd>
+(<code>ede-speedbar</code>).
+
+<ul class="menu">
+<li><a accesskey="1" href="Make-and-Automake-projects.html#Make-and-Automake-projects">Make and Automake projects</a>:   Project types of &lsquo;<samp><span class="samp">ede-project</span></samp>&rsquo;
+<li><a accesskey="2" href="Automake-direct-projects.html#Automake-direct-projects">Automake direct projects</a>:     Project interface on hand-written automake files. 
+<li><a accesskey="3" href="Simple-projects.html#Simple-projects">Simple projects</a>:              Projects <i>EDE</i> doesn't manage. 
+</ul>
+
+   </body></html>
+

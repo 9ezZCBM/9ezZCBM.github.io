@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Closing items - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Closing-items"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Tracking-TODO-state-changes.html#Tracking-TODO-state-changes">Tracking TODO state changes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Progress-logging.html#Progress-logging">Progress logging</a>
+
+</div>
+
+<h4 class="subsection">5.3.1 Closing items</h4>
+
+<p>The most basic logging is to keep track of <em>when</em> a certain TODO
+item was finished.  This is achieved with<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+<pre class="lisp">     (setq org-log-done 'time)
+</pre>
+   <p><a name="index-org_002dclosed_002dkeep_002dwhen_002dno_002dtodo-598"></a>Then each time you turn an entry from a TODO (not-done) state into any of the
+DONE states, a line &lsquo;<samp><span class="samp">CLOSED: [timestamp]</span></samp>&rsquo; will be inserted just after
+the headline.  If you turn the entry back into a TODO item through further
+state cycling, that line will be removed again.  If you turn the entry back
+to a non-TODO state (by pressing <kbd>C-c C-t &lt;SPC&gt;</kbd> for example), that line
+will also be removed, unless you set <code>org-closed-keep-when-no-todo</code> to
+non-<code>nil</code>.  If you want to record a note along with the timestamp,
+use<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>
+
+<pre class="lisp">     (setq org-log-done 'note)
+</pre>
+   <p class="noindent">You will then be prompted for a note, and that note will be stored below
+the entry with a &lsquo;<samp><span class="samp">Closing Note</span></samp>&rsquo; heading.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> The corresponding
+in-buffer setting is: <code>#+STARTUP: logdone</code></p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> The corresponding in-buffer setting is: <code>#+STARTUP:
+lognotedone</code>.</p>
+
+   <hr></div>
+
+   </body></html>
+

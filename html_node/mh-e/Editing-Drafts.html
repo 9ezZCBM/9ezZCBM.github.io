@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Editing Drafts - The MH-E Manual</title>
+<!--
+This is version 8.6 of `The MH-E
+Manual', last updated 2016-04-29.
+
+Copyright (C) 1995, 2001--2003, 2005--2019 Free Software
+Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of either:
+
+       a. the GNU Free Documentation License, Version 1.3 or any later
+          version published by the Free Software Foundation; with no
+          Invariant Sections, with the Front-Cover Texts being ``A GNU
+          Manual,'' and with the Back-Cover Texts as in (a) below. A
+          copy of the license is included in the section entitled ``GNU
+          Free Documentation License.''
+
+          (a) The FSF's Back-Cover Text is: ``You have the freedom to
+          copy and modify this GNU manual.''
+
+       b. the GNU General Public License as published by the Free
+          Software Foundation; either version 3, or (at your option)
+          any later version. A copy of the license is included in the
+          section entitled ``GNU General Public License.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Editing-Drafts"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Aliases.html#Aliases">Aliases</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Sending-Mail.html#Sending-Mail">Sending Mail</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">9 Editing a Draft</h2>
+
+<p><a name="index-g_t_0040samp_007bLetter_007d-menu-1119"></a><a name="index-MH_002dLetter-mode-1120"></a><a name="index-draft-1121"></a><a name="index-editing-draft-1122"></a><a name="index-menu_002c-_0040samp_007bLetter_007d-1123"></a><a name="index-modes_002c-MH_002dLetter-1124"></a>
+When you edit a message that you want to send (called a <dfn>draft</dfn> in
+this case), the mode used is MH-Letter. This mode provides several
+commands in addition to the normal Emacs editing commands to help you
+edit your draft. These can also be found in the &lsquo;<samp><span class="samp">Letter</span></samp>&rsquo; menu.
+
+     
+<a name="index-SPC-1125"></a>
+<a name="index-mh_002dletter_002dcomplete_002dor_002dspace-1126"></a>
+<dl><dt><kbd>&lt;SPC&gt;</kbd><dd>Perform completion or insert space (<code>mh-letter-complete-or-space</code>). 
+<!--  -->
+<a name="index-M_002dTAB-1127"></a><a name="index-mh_002dletter_002dcomplete-1128"></a><br><dt><kbd>M-&lt;TAB&gt;</kbd><dd>Perform completion on header field or word preceding point
+(<code>mh-letter-complete</code>). 
+<!--  -->
+<a name="index-g_t_002c-_0040r_007b_0028comma_0029_007d-1129"></a><a name="index-mh_002dletter_002dconfirm_002daddress-1130"></a><br><dt><kbd>, (comma)</kbd><dd>Flash alias expansion (<code>mh-letter-confirm-address</code>). 
+<!--  -->
+<a name="index-TAB-1131"></a><a name="index-mh_002dletter_002dnext_002dheader_002dfield_002dor_002dindent-1132"></a><br><dt><kbd>&lt;TAB&gt;</kbd><dd>Cycle to next field (<code>mh-letter-next-header-field-or-indent</code>). 
+<!--  -->
+<a name="index-S_002dTAB-1133"></a><a name="index-mh_002dletter_002dprevious_002dheader_002dfield-1134"></a><br><dt><kbd>S-&lt;TAB&gt;</kbd><dd>Cycle to the previous header field
+(<code>mh-letter-previous-header-field</code>). 
+<!--  -->
+<a name="index-C_002dc-_003f-1135"></a><a name="index-mh_002dhelp-1136"></a><br><dt><kbd>C-c ?</kbd><dd>Display cheat sheet for the MH-E commands (<code>mh-help</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Send-This-Draft_007d-menu-item-1137"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Send-This-Draft_007d-1138"></a><a name="index-C_002dc-C_002dc-1139"></a><a name="index-mh_002dsend_002dletter-1140"></a><br><dt><kbd>C-c C-c</kbd><dd>Save draft and send message (<code>mh-send-letter</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dd-1141"></a><a name="index-mh_002dinsert_002didentity-1142"></a><br><dt><kbd>C-c C-d</kbd><dd>Insert fields specified by the given identity
+(<code>mh-insert-identity</code>). See <a href="Identities.html#Identities">Identities</a>. 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Pull-in-All-Compositions-_0028MH_0029_007d-menu-item-1143"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Pull-in-All-Compositions-_0028MH_0029_007d-1144"></a><a name="index-C_002dc-C_002de-1145"></a><a name="index-mh_002dmh_002dto_002dmime-1146"></a><br><dt><kbd>C-c C-e</kbd><dd>Compose <span class="sc">mime</span> message from MH-style directives
+(<code>mh-mh-to-mime</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002da-1147"></a><a name="index-C_002dc-C_002df-a-1148"></a><a name="index-mh_002dto_002dfield-1149"></a><br><dt><kbd>C-c C-f C-a</kbd><dt><kbd>C-c C-f a</kbd><dd>Move to &lsquo;<samp><span class="samp">Mail-Reply-To:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002db-1150"></a><a name="index-C_002dc-C_002df-b-1151"></a><br><dt><kbd>C-c C-f C-b</kbd><dt><kbd>C-c C-f b</kbd><dd>Move to &lsquo;<samp><span class="samp">Bcc:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002dc-1152"></a><a name="index-C_002dc-C_002df-c-1153"></a><br><dt><kbd>C-c C-f C-c</kbd><dt><kbd>C-c C-f c</kbd><dd>Move to &lsquo;<samp><span class="samp">Cc:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002dd-1154"></a><a name="index-C_002dc-C_002df-d-1155"></a><br><dt><kbd>C-c C-f C-d</kbd><dt><kbd>C-c C-f d</kbd><dd>Move to &lsquo;<samp><span class="samp">Dcc:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002df-1156"></a><a name="index-C_002dc-C_002df-f-1157"></a><a name="index-mh_002dto_002dfcc-1158"></a><br><dt><kbd>C-c C-f C-f</kbd><dt><kbd>C-c C-f f</kbd><dd>Move to &lsquo;<samp><span class="samp">Fcc:</span></samp>&rsquo; header field (<code>mh-to-fcc</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002dl-1159"></a><a name="index-C_002dc-C_002df-l-1160"></a><br><dt><kbd>C-c C-f C-l</kbd><dt><kbd>C-c C-f l</kbd><dd>Move to &lsquo;<samp><span class="samp">Mail-Followup-To:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002dm-1161"></a><a name="index-C_002dc-C_002df-m-1162"></a><br><dt><kbd>C-c C-f C-m</kbd><dt><kbd>C-c C-f m</kbd><dd>Move to &lsquo;<samp><span class="samp">From:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002dr-1163"></a><a name="index-C_002dc-C_002df-r-1164"></a><br><dt><kbd>C-c C-f C-r</kbd><dt><kbd>C-c C-f r</kbd><dd>Move to &lsquo;<samp><span class="samp">Reply-To:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002ds-1165"></a><a name="index-C_002dc-C_002df-s-1166"></a><br><dt><kbd>C-c C-f C-s</kbd><dt><kbd>C-c C-f s</kbd><dd>Move to &lsquo;<samp><span class="samp">Subject:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002df-C_002dt-1167"></a><a name="index-C_002dc-C_002df-t-1168"></a><br><dt><kbd>C-c C-f C-t</kbd><dt><kbd>C-c C-f t</kbd><dd>Move to &lsquo;<samp><span class="samp">To:</span></samp>&rsquo; header field (<code>mh-to-field</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Insert-a-Message_002e_002e_002e_007d-menu-item-1169"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Insert-a-Message_002e_002e_002e_007d-1170"></a><a name="index-C_002dc-C_002di-1171"></a><a name="index-mh_002dinsert_002dletter-1172"></a><br><dt><kbd>C-c C-i</kbd><dd>Insert a message (<code>mh-insert-letter</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-C_002de-1173"></a><a name="index-mh_002dmml_002dsecure_002dmessage_002dencrypt-1174"></a><br><dt><kbd>C-c C-m C-e</kbd><dd>Add tag to encrypt the message (<code>mh-mml-secure-message-encrypt</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Compose-Forward_002e_002e_002e_007d-menu-item-1175"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Compose-Forward_002e_002e_002e_007d-1176"></a><a name="index-C_002dc-C_002dm-C_002df-1177"></a><a name="index-C_002dc-C_002dm-f-1178"></a><a name="index-mh_002dcompose_002dforward-1179"></a><br><dt><kbd>C-c C-m C-f</kbd><dt><kbd>C-c C-m f</kbd><dd>Add tag to forward a message (<code>mh-compose-forward</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Compose-Get-File-_0028MH_0029_002e_002e_002e_007d-menu-item-1180"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Compose-Get-File-_0028MH_0029_002e_002e_002e_007d-1181"></a><a name="index-C_002dc-C_002dm-C_002dg-1182"></a><a name="index-C_002dc-C_002dm-g-1183"></a><a name="index-mh_002dmh_002dcompose_002danon_002dftp-1184"></a><br><dt><kbd>C-c C-m C-g</kbd><dt><kbd>C-c C-m g</kbd><dd>Add tag to include anonymous ftp reference to a file
+(<code>mh-mh-compose-anon-ftp</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Compose-Insertion_002e_002e_002e_007d-menu-item-1185"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Compose-Insertion_002e_002e_002e_007d-1186"></a><a name="index-C_002dc-C_002dm-C_002di-1187"></a><a name="index-C_002dc-C_002dm-i-1188"></a><a name="index-mh_002dcompose_002dinsertion-1189"></a><br><dt><kbd>C-c C-m C-i</kbd><dt><kbd>C-c C-m i</kbd><dd>Add tag to include a file such as an image or sound
+(<code>mh-compose-insertion</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Pull-in-All-Compositions-_0028MML_0029_007d-menu-item-1190"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Pull-in-All-Compositions-_0028MML_0029_007d-1191"></a><a name="index-C_002dc-C_002dm-C_002dm-1192"></a><a name="index-C_002dc-C_002dm-m-1193"></a><a name="index-mh_002dmml_002dto_002dmime-1194"></a><br><dt><kbd>C-c C-m C-m</kbd><dt><kbd>C-c C-m m</kbd><dd>Compose <span class="sc">mime</span> message from MML tags (<code>mh-mml-to-mime</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-C_002dn-1195"></a><a name="index-C_002dc-C_002dm-n-1196"></a><a name="index-mh_002dmml_002dunsecure_002dmessage-1197"></a><br><dt><kbd>C-c C-m C-n</kbd><dt><kbd>C-c C-m n</kbd><dd>Remove any secure message tags (<code>mh-mml-unsecure-message</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-C_002ds-1198"></a><a name="index-mh_002dmml_002dsecure_002dmessage_002dsign-1199"></a><br><dt><kbd>C-c C-m C-s</kbd><dd>Add tag to sign the message (<code>mh-mml-secure-message-sign</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Compose-Compressed-tar-_0028MH_0029_002e_002e_002e_007d-menu-item-1200"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Compose-Compressed-tar-_0028MH_0029_002e_002e_002e_007d-1201"></a><a name="index-C_002dc-C_002dm-C_002dt-1202"></a><a name="index-C_002dc-C_002dm-t-1203"></a><a name="index-mh_002dmh_002dcompose_002dexternal_002dcompressed_002dtar-1204"></a><br><dt><kbd>C-c C-m C-t</kbd><dt><kbd>C-c C-m t</kbd><dd>Add tag to include anonymous ftp reference to a compressed tar file
+(<code>mh-mh-compose-external-compressed-tar</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Revert-to-Non_002dMIME-Edit-_0028MH_0029_007d-menu-item-1205"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Revert-to-Non_002dMIME-Edit-_0028MH_0029_007d-1206"></a><a name="index-C_002dc-C_002dm-C_002du-1207"></a><a name="index-C_002dc-C_002dm-u-1208"></a><a name="index-mh_002dmh_002dto_002dmime_002dundo-1209"></a><br><dt><kbd>C-c C-m C-u</kbd><dt><kbd>C-c C-m u</kbd><dd>Undo effects of <kbd>C-c C-e</kbd> (<code>mh-mh-to-mime-undo</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-C_002dx-1210"></a><a name="index-C_002dc-C_002dm-x-1211"></a><a name="index-mh_002dmh_002dcompose_002dexternal_002dtype-1212"></a><br><dt><kbd>C-c C-m C-x</kbd><dt><kbd>C-c C-m x</kbd><dd>Add tag to refer to a remote file
+(<code>mh-mh-compose-external-type</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-e-e-1213"></a><a name="index-mh_002dmml_002dsecure_002dmessage_002dencrypt-1214"></a><br><dt><kbd>C-c C-m e e</kbd><dd>Add tag to encrypt the message (<code>mh-mml-secure-message-encrypt</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-e-s-1215"></a><a name="index-mh_002dmml_002dsecure_002dmessage_002dsignencrypt-1216"></a><br><dt><kbd>C-c C-m e s</kbd><dd>Add tag to encrypt and sign the message<br>
+(<code>mh-mml-secure-message-signencrypt</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-s-e-1217"></a><a name="index-mh_002dmml_002dsecure_002dmessage_002dsignencrypt-1218"></a><br><dt><kbd>C-c C-m s e</kbd><dd>Add tag to encrypt and sign the message<br>
+(<code>mh-mml-secure-message-signencrypt</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dm-s-s-1219"></a><a name="index-mh_002dmml_002dsecure_002dmessage_002dsign-1220"></a><br><dt><kbd>C-c C-m s s</kbd><dd>Add tag to sign the message (<code>mh-mml-secure-message-sign</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Split-Current-Line_007d-menu-item-1221"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Split-Current-Line_007d-1222"></a><a name="index-C_002dc-C_002do-1223"></a><a name="index-mh_002dopen_002dline-1224"></a><br><dt><kbd>C-c C-o</kbd><dd>Insert a newline and leave point before it (<code>mh-open-line</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Kill-This-Draft_007d-menu-item-1225"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Kill-This-Draft_007d-1226"></a><a name="index-C_002dc-C_002dq-1227"></a><a name="index-mh_002dfully_002dkill_002ddraft-1228"></a><br><dt><kbd>C-c C-q</kbd><dd>Quit editing and delete draft message (<code>mh-fully-kill-draft</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Insert-Signature_007d-menu-item-1229"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Insert-Signature_007d-1230"></a><a name="index-C_002dc-C_002ds-1231"></a><a name="index-mh_002dinsert_002dsignature-1232"></a><br><dt><kbd>C-c C-s</kbd><dd>Insert signature in message (<code>mh-insert-signature</code>). 
+<!--  -->
+<a name="index-C_002dc-C_002dt-1233"></a><a name="index-mh_002dletter_002dtoggle_002dheader_002dfield_002ddisplay-1234"></a><br><dt><kbd>C-c C-t</kbd><dd>Toggle display of header field at point
+(<code>mh-letter-toggle-header-field-display</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Check-Recipient_007d-menu-item-1235"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Check-Recipient_007d-1236"></a><a name="index-C_002dc-C_002dw-1237"></a><a name="index-mh_002dcheck_002dwhom-1238"></a><br><dt><kbd>C-c C-w</kbd><dd>Verify recipients, showing expansion of any aliases
+(<code>mh-check-whom</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bLetter-_003e-Yank-Current-Message_007d-menu-item-1239"></a><a name="index-menu-item_002c-_0040samp_007bLetter-_003e-Yank-Current-Message_007d-1240"></a><a name="index-C_002dc-C_002dy-1241"></a><a name="index-mh_002dyank_002dcur_002dmsg-1242"></a><br><dt><kbd>C-c C-y</kbd><dd>Insert the current message into the draft buffer
+(<code>mh-yank-cur-msg</code>). 
+<!--  -->
+<a name="index-C_002dc-M_002dd-1243"></a><a name="index-mh_002dinsert_002dauto_002dfields-1244"></a><br><dt><kbd>C-c M-d</kbd><dd>Insert custom fields if recipient is found in
+<code>mh-auto-fields-list</code> (<code>mh-insert-auto-fields</code>). 
+See <a href="Identities.html#Identities">Identities</a>. 
+</dl>
+
+   <p><a name="index-g_t_0040samp_007bmh_002dletter_007d-customization-group-1245"></a><a name="index-customization-group_002c-_0040samp_007bmh_002dletter_007d-1246"></a>
+Several options from the &lsquo;<samp><span class="samp">mh-letter</span></samp>&rsquo; customization group are used
+while editing a draft.
+
+     <dl>
+<dt><code>mh-compose-insertion</code><a name="index-mh_002dcompose_002dinsertion-1247"></a><dd>Type of <span class="sc">mime</span> message tags in messages (default: &lsquo;<samp><span class="samp">MML</span></samp>&rsquo; if
+available; otherwise &lsquo;<samp><span class="samp">MH</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-compose-skipped-header-fields</code><a name="index-mh_002dcompose_002dskipped_002dheader_002dfields-1248"></a><dd>List of header fields to skip over when navigating in draft (default:
+<code>'("From"</code> <code>"Organization"</code> <code>"References"</code>
+<code>"In-Reply-To"</code> <code>"X-Face"</code> <code>"Face"</code>
+<code>"X-Image-URL"</code> <code>"X-Mailer")</code>. 
+<!--  -->
+<br><dt><code>mh-compose-space-does-completion-flag</code><a name="index-mh_002dcompose_002dspace_002ddoes_002dcompletion_002dflag-1249"></a><dd>On means &lt;SPC&gt; does completion in message header (default:
+&lsquo;<samp><span class="samp">off</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-delete-yanked-msg-window-flag</code><a name="index-mh_002ddelete_002dyanked_002dmsg_002dwindow_002dflag-1250"></a><dd>On means delete any window displaying the message (default: &lsquo;<samp><span class="samp">off</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-extract-from-attribution-verb</code><a name="index-mh_002dextract_002dfrom_002dattribution_002dverb-1251"></a><dd>Verb to use for attribution when a message is yanked by <kbd>C-c C-y</kbd>
+(default: <code>"wrote:"</code>). 
+<!--  -->
+<br><dt><code>mh-ins-buf-prefix</code><a name="index-mh_002dins_002dbuf_002dprefix-1252"></a><dd>String to put before each line of a yanked or inserted message
+(default: <code>"&gt; "</code>). 
+<!--  -->
+<br><dt><code>mh-letter-complete-function</code><a name="index-mh_002dletter_002dcomplete_002dfunction-1253"></a><dd>Function to call when completing outside of address or folder fields
+(default: <code>ispell-complete-word</code>). 
+<!--  -->
+<br><dt><code>mh-letter-fill-column</code><a name="index-mh_002dletter_002dfill_002dcolumn-1254"></a><dd>Fill column to use in MH-Letter mode (default: 72). 
+<!--  -->
+<br><dt><code>mh-mml-method-default</code><a name="index-mh_002dmml_002dmethod_002ddefault-1255"></a><dd>Default method to use in security tags (default: &lsquo;<samp><span class="samp">PGP (MIME)</span></samp>&rsquo; if
+support for it is available; otherwise &lsquo;<samp><span class="samp">None</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-signature-file-name</code><a name="index-mh_002dsignature_002dfile_002dname-1256"></a><dd>Source of user's signature (default: <code>"~/.signature"</code>). 
+<!--  -->
+<br><dt><code>mh-signature-separator-flag</code><a name="index-mh_002dsignature_002dseparator_002dflag-1257"></a><dd>On means a signature separator should be inserted (default:
+&lsquo;<samp><span class="samp">on</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-x-face-file</code><a name="index-mh_002dx_002dface_002dfile-1258"></a><dd>File containing X-Face or Face header field to insert in outgoing mail. 
+(default: <code>"~/.face"</code>). 
+<!--  -->
+<br><dt><code>mh-yank-behavior</code><a name="index-mh_002dyank_002dbehavior-1259"></a><dd>Controls which part of a message is yanked by <kbd>C-c C-y</kbd> (default:
+&lsquo;<samp><span class="samp">Body With Attribution</span></samp>&rsquo;). 
+</dl>
+
+   <p>The following hooks are available.
+
+     <dl>
+<dt><code>mail-citation-hook</code><a name="index-mail_002dcitation_002dhook-1260"></a><dd>Hook for modifying a citation just inserted in the mail buffer
+(default: <code>nil</code>). 
+<!--  -->
+<br><dt><code>mh-before-send-letter-hook</code><a name="index-mh_002dbefore_002dsend_002dletter_002dhook-1261"></a><dd>Hook run at the beginning of the <kbd>C-c C-c</kbd> command (default:
+&lsquo;<samp><span class="samp">nil</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-mh-to-mime-hook</code><a name="index-mh_002dmh_002dto_002dmime_002dhook-1262"></a><dd>Hook run on the formatted letter by <kbd>C-c C-e</kbd> (default:
+&lsquo;<samp><span class="samp">nil</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-insert-signature-hook</code><a name="index-mh_002dinsert_002dsignature_002dhook-1263"></a><dd>Hook run by <kbd>C-c C-s</kbd> after signature has been inserted (default:
+<code>nil</code>). 
+</dl>
+
+   <p>The following face is available.
+
+     <dl>
+<dt><code>mh-letter-header-field</code><a name="index-mh_002dletter_002dheader_002dfield-1264"></a><dd>Editable header field value face in draft buffers. 
+</dl>
+
+   <p>The commands and options introduced here are explained in more
+detail in the following sections.
+
+<ul class="menu">
+<li><a accesskey="1" href="Editing-Message.html#Editing-Message">Editing Message</a>
+<li><a accesskey="2" href="Inserting-Letter.html#Inserting-Letter">Inserting Letter</a>
+<li><a accesskey="3" href="Inserting-Messages.html#Inserting-Messages">Inserting Messages</a>
+<li><a accesskey="4" href="Signature.html#Signature">Signature</a>
+<li><a accesskey="5" href="Picture.html#Picture">Picture</a>
+<li><a accesskey="6" href="Adding-Attachments.html#Adding-Attachments">Adding Attachments</a>
+<li><a accesskey="7" href="Sending-PGP.html#Sending-PGP">Sending PGP</a>
+<li><a accesskey="8" href="Checking-Recipients.html#Checking-Recipients">Checking Recipients</a>
+<li><a accesskey="9" href="Sending-Message.html#Sending-Message">Sending Message</a>
+<li><a href="Killing-Draft.html#Killing-Draft">Killing Draft</a>
+</ul>
+
+   </body></html>
+

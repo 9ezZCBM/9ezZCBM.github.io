@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Getting Buffers - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Getting-Buffers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Buffer-Names.html#Buffer-Names">Buffer Names</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Practicing-Evaluation.html#Practicing-Evaluation">Practicing Evaluation</a>
+
+</div>
+
+<h3 class="section">2.2 Getting Buffers</h3>
+
+<p><a name="index-current_002dbuffer-74"></a><a name="index-other_002dbuffer-75"></a><a name="index-Getting-a-buffer-76"></a>
+The <code>buffer-name</code> function returns the <em>name</em> of the buffer;
+to get the buffer <em>itself</em>, a different function is needed: the
+<code>current-buffer</code> function.  If you use this function in code, what
+you get is the buffer itself.
+
+   <p>A name and the object or entity to which the name refers are different
+from each other.  You are not your name.  You are a person to whom
+others refer by name.  If you ask to speak to George and someone hands you
+a card with the letters &lsquo;<samp><span class="samp">G</span></samp>&rsquo;, &lsquo;<samp><span class="samp">e</span></samp>&rsquo;, &lsquo;<samp><span class="samp">o</span></samp>&rsquo;, &lsquo;<samp><span class="samp">r</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">g</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">e</span></samp>&rsquo; written on it, you might be amused, but you would
+not be satisfied.  You do not want to speak to the name, but to the
+person to whom the name refers.  A buffer is similar: the name of the
+scratch buffer is <samp><span class="file">*scratch*</span></samp>, but the name is not the buffer.  To
+get a buffer itself, you need to use a function such as
+<code>current-buffer</code>.
+
+   <p>However, there is a slight complication: if you evaluate
+<code>current-buffer</code> in an expression on its own, as we will do here,
+what you see is a printed representation of the name of the buffer
+without the contents of the buffer.  Emacs works this way for two
+reasons: the buffer may be thousands of lines long&mdash;too long to be
+conveniently displayed; and, another buffer may have the same contents
+but a different name, and it is important to distinguish between them.
+
+   <p>Here is an expression containing the function:
+
+<pre class="smallexample">     (current-buffer)
+</pre>
+   <p class="noindent">If you evaluate this expression in Info in Emacs in the usual way,
+<samp><span class="file">#&lt;buffer *info*&gt;</span></samp> will appear in the echo area.  The special
+format indicates that the buffer itself is being returned, rather than
+just its name.
+
+   <p>Incidentally, while you can type a number or symbol into a program, you
+cannot do that with the printed representation of a buffer: the only way
+to get a buffer itself is with a function such as <code>current-buffer</code>.
+
+   <p>A related function is <code>other-buffer</code>.  This returns the most
+recently selected buffer other than the one you are in currently, not
+a printed representation of its name.  If you have recently switched
+back and forth from the <samp><span class="file">*scratch*</span></samp> buffer, <code>other-buffer</code>
+will return that buffer.
+
+   <p>You can see this by evaluating the expression:
+
+<pre class="smallexample">     (other-buffer)
+</pre>
+   <p class="noindent">You should see <samp><span class="file">#&lt;buffer *scratch*&gt;</span></samp> appear in the echo area, or
+the name of whatever other buffer you switched back from most
+recently<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Actually, by default, if the buffer from which you
+just switched is visible to you in another window, <code>other-buffer</code>
+will choose the most recent buffer that you cannot see; this is a
+subtlety that I often forget.</p>
+
+   <hr></div>
+
+   </body></html>
+

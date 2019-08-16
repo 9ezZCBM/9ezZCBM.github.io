@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Agenda files - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Agenda-files"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Agenda-dispatcher.html#Agenda-dispatcher">Agenda dispatcher</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Agenda-views.html#Agenda-views">Agenda views</a>
+
+</div>
+
+<h3 class="section">10.1 Agenda files</h3>
+
+<p><a name="index-agenda-files-1127"></a><a name="index-files-for-agenda-1128"></a>
+<a name="index-org_002dagenda_002dfiles-1129"></a>The information to be shown is normally collected from all <em>agenda
+files</em>, the files listed in the variable
+<code>org-agenda-files</code><a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.  If a directory is part of this list,
+all files with the extension <samp><span class="file">.org</span></samp> in this directory will be part
+of the list.
+
+   <p>Thus, even if you only work with a single Org file, that file should
+be put into the list<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.  You can customize <code>org-agenda-files</code>, but
+the easiest way to maintain it is through the following commands
+
+   <p><a name="index-files_002c-adding-to-agenda-list-1130"></a>
+     
+<a name="index-C_002dc-_005b-1131"></a>
+<a name="index-org_002dagenda_002dfile_002dto_002dfront-1132"></a>
+<dl><dt><kbd>C-c [ &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-agenda-file-to-front</code><kbd>)</kbd><dd>
+Add current file to the list of agenda files.  The file is added to
+the front of the list.  If it was already in the list, it is moved to
+the front.  With a prefix argument, file is added/moved to the end. 
+<a name="index-C_002dc-_005d-1133"></a><a name="index-org_002dremove_002dfile-1134"></a><br><dt><kbd>C-c ] &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-remove-file</code><kbd>)</kbd><dd>
+Remove current file from the list of agenda files. 
+<a name="index-C_002d_002c-1135"></a><a name="index-cycling_002c-of-agenda-files-1136"></a><a name="index-C_002d_0027-1137"></a><a name="index-org_002dcycle_002dagenda_002dfiles-1138"></a><br><dt><kbd>C-' &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-cycle-agenda-files</code><kbd>)</kbd>
+<dt><kbd>C-,</kbd><dd>Cycle through agenda file list, visiting one file after the other. 
+<br><dt><kbd>M-x org-switchb &lt;RET&gt;</kbd><dd>Command to use an <code>iswitchb</code>-like interface to switch to and between Org
+buffers. 
+</dl>
+
+<p class="noindent">The Org menu contains the current list of files and can be used
+to visit any of them.
+
+   <p>If you would like to focus the agenda temporarily on a file not in
+this list, or on just one file in the list, or even on only a subtree in a
+file, then this can be done in different ways.  For a single agenda command,
+you may press <kbd>&lt;</kbd> once or several times in the dispatcher
+(see <a href="Agenda-dispatcher.html#Agenda-dispatcher">Agenda dispatcher</a>).  To restrict the agenda scope for an
+extended period, use the following commands:
+
+     
+<a name="index-C_002dc-C_002dx-_003c-1139"></a>
+<a name="index-org_002dagenda_002dset_002drestriction_002dlock-1140"></a>
+<dl><dt><kbd>C-c C-x &lt; &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-agenda-set-restriction-lock</code><kbd>)</kbd><dd>
+Permanently restrict the agenda to the current subtree.  When with a
+prefix argument, or with the cursor before the first headline in a file,
+the agenda scope is set to the entire file.  This restriction remains in
+effect until removed with <kbd>C-c C-x &gt;</kbd>, or by typing either <kbd>&lt;</kbd>
+or <kbd>&gt;</kbd> in the agenda dispatcher.  If there is a window displaying an
+agenda view, the new restriction takes effect immediately. 
+<a name="index-C_002dc-C_002dx-_003e-1141"></a><a name="index-org_002dagenda_002dremove_002drestriction_002dlock-1142"></a><br><dt><kbd>C-c C-x &gt; &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-agenda-remove-restriction-lock</code><kbd>)</kbd><dd>
+Remove the permanent restriction created by <kbd>C-c C-x &lt;</kbd>. 
+</dl>
+
+<p class="noindent">When working with <samp><span class="file">speedbar.el</span></samp>, you can use the following commands in
+the Speedbar frame:
+
+     
+<a name="index-g_t_003c-1143"></a>
+<a name="index-org_002dspeedbar_002dset_002dagenda_002drestriction-1144"></a>
+<dl><dt><kbd>&lt; </kbd><span class="roman">in the speedbar frame</span><kbd> &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-speedbar-set-agenda-restriction</code><kbd>)</kbd><dd>
+Permanently restrict the agenda to the item&mdash;either an Org file or a subtree
+in such a file&mdash;at the cursor in the Speedbar frame. 
+If there is a window displaying an agenda view, the new restriction takes
+effect immediately. 
+<a name="index-g_t_003e-1145"></a><a name="index-org_002dagenda_002dremove_002drestriction_002dlock-1146"></a><br><dt><kbd>&gt; </kbd><span class="roman">in the speedbar frame</span><kbd> &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-agenda-remove-restriction-lock</code><kbd>)</kbd><dd>
+Lift the restriction. 
+</dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> If the value of that variable is not a
+list, but a single file name, then the list of agenda files will be
+maintained in that external file.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> When using the dispatcher, pressing
+<kbd>&lt;</kbd> before selecting a command will actually limit the command to
+the current file, and ignore <code>org-agenda-files</code> until the next
+dispatcher command.</p>
+
+   <hr></div>
+
+   </body></html>
+

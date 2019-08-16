@@ -1,0 +1,375 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>IDLWAVE User Manual</title>
+<!--
+This file documents IDLWAVE, a major mode for editing IDL files with
+Emacs, and interacting with an IDL shell run as a subprocess.
+
+This is edition 6.1 of the IDLWAVE User Manual for IDLWAVE
+6.1.
+
+Copyright (C) 1999-2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being "A GNU Manual", and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     "GNU Free Documentation License".
+
+     (a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+     modify this GNU manual."
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div id="content" class="inner">
+
+<h2 class="unnumbered">IDLWAVE</h2>
+
+<p>IDLWAVE is a package which supports editing source code written in the
+Interactive Data Language (IDL), and running IDL as an inferior shell.
+
+   <p>This file documents IDLWAVE, a major mode for editing IDL files with
+Emacs, and interacting with an IDL shell run as a subprocess.
+
+   <p>This is edition 6.1 of the IDLWAVE User Manual for IDLWAVE
+6.1.
+
+
+
+<table style="float:left" width="100%">
+  <tr>
+    <td><a accesskey="1" href="Introduction.html#Introduction">Introduction</a></td>
+    <td>What IDLWAVE is, and what it is not</td>
+  </tr>
+  <tr>
+    <td><a accesskey="2" href="IDLWAVE-in-a-Nutshell.html#IDLWAVE-in-a-Nutshell">IDLWAVE in a Nutshell</a></td>
+    <td>One page quick-start guide</td>
+  </tr>
+  <tr>
+    <td><a accesskey="3" href="Getting-Started.html#Getting-Started">Getting Started</a></td>
+    <td>Tutorial</td>
+  </tr>
+  <tr>
+    <td><a accesskey="4" href="The-IDLWAVE-Major-Mode.html#The-IDLWAVE-Major-Mode">The IDLWAVE Major Mode</a></td>
+    <td>The mode for editing IDL programs</td>
+  </tr>
+  <tr>
+    <td><a accesskey="5" href="The-IDLWAVE-Shell.html#The-IDLWAVE-Shell">The IDLWAVE Shell</a></td>
+    <td>The mode for running IDL as an inferior program</td>
+  </tr>
+  <tr>
+    <td><a accesskey="6" href="Acknowledgments.html#Acknowledgments">Acknowledgments</a></td>
+    <td>Who did what</td>
+  </tr>
+  <tr>
+    <td><a accesskey="7" href="Sources-of-Routine-Info.html#Sources-of-Routine-Info">Sources of Routine Info</a></td>
+    <td>How does IDLWAVE know about routine XYZ</td>
+  </tr>
+  <tr>
+    <td><a accesskey="8" href="HTML-Help-Browser-Tips.html#HTML-Help-Browser-Tips">HTML Help Browser Tips</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a accesskey="9" href="Configuration-Examples.html#Configuration-Examples">Configuration Examples</a></td>
+    <td>The user is king</td>
+  </tr>
+  <tr>
+    <td><a href="Windows-and-macOS.html#Windows-and-macOS">Windows and macOS</a></td>
+    <td>What still works, and how</td>
+  </tr>
+  <tr>
+    <td><a href="Troubleshooting.html#Troubleshooting">Troubleshooting</a></td>
+    <td>When good computers turn bad</td>
+  </tr>
+  <tr>
+    <td><a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a></td>
+    <td>The license for this documentation.</td>
+  </tr>
+  <tr>
+    <td><a href="Index.html#Index">Index</a></td>
+    <td>Fast access
+
+  </td></tr></table>
+
+<h3>Detailed Node Listing</h3></p>
+
+<table  style="float:left" width="100%">
+  <tr>
+    <th colspan="2" align="left" style="text-align:left">Getting Started (Tutorial)
+
+  </th></tr>
+  <tr>
+    <td><a href="Lesson-I_002d_002d_002dDevelopment-Cycle.html#Lesson-I_002d_002d_002dDevelopment-Cycle">Lesson I---Development Cycle</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Lesson-II_002d_002d_002dCustomization.html#Lesson-II_002d_002d_002dCustomization">Lesson II---Customization</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Lesson-III_002d_002d_002dUser-Catalog.html#Lesson-III_002d_002d_002dUser-Catalog">Lesson III---User Catalog</a></td>
+    <td>
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">The IDLWAVE Major Mode
+
+  </th></tr>
+  <tr>
+    <td><a href="Code-Formatting.html#Code-Formatting">Code Formatting</a></td>
+    <td>Making code look nice</td>
+  </tr>
+  <tr>
+    <td><a href="Routine-Info.html#Routine-Info">Routine Info</a></td>
+    <td>Calling Sequence and Keyword List</td>
+  </tr>
+  <tr>
+    <td><a href="Online-Help.html#Online-Help">Online Help</a></td>
+    <td>One key press from source to help</td>
+  </tr>
+  <tr>
+    <td><a href="Completion.html#Completion">Completion</a></td>
+    <td>Completing routine names and Keywords</td>
+  </tr>
+  <tr>
+    <td><a href="Routine-Source.html#Routine-Source">Routine Source</a></td>
+    <td>Finding routines, the easy way</td>
+  </tr>
+  <tr>
+    <td><a href="Resolving-Routines.html#Resolving-Routines">Resolving Routines</a></td>
+    <td>Force the Shell to compile a routine</td>
+  </tr>
+  <tr>
+    <td><a href="Code-Templates.html#Code-Templates">Code Templates</a></td>
+    <td>Frequent code constructs</td>
+  </tr>
+  <tr>
+    <td><a href="Abbreviations.html#Abbreviations">Abbreviations</a></td>
+    <td>Abbreviations for common commands</td>
+  </tr>
+  <tr>
+    <td><a href="Actions.html#Actions">Actions</a></td>
+    <td>Changing case, Padding, End checking</td>
+  </tr>
+  <tr>
+    <td><a href="Doc-Header.html#Doc-Header">Doc Header</a></td>
+    <td>Inserting a standard header</td>
+  </tr>
+  <tr>
+    <td><a href="Motion-Commands.html#Motion-Commands">Motion Commands</a></td>
+    <td>Moving through the structure of a program</td>
+  </tr>
+  <tr>
+    <td><a href="Misc-Options.html#Misc-Options">Misc Options</a></td>
+    <td>Things that fit nowhere else
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Code Formatting
+
+  </th></tr>
+  <tr>
+    <td><a href="Code-Indentation.html#Code-Indentation">Code Indentation</a></td>
+    <td>Reflecting the logical structure</td>
+  </tr>
+  <tr>
+    <td><a href="Continued-Statement-Indentation.html#Continued-Statement-Indentation">Continued Statement Indentation</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Comment-Indentation.html#Comment-Indentation">Comment Indentation</a></td>
+    <td>Special indentation for comment lines</td>
+  </tr>
+  <tr>
+    <td><a href="Continuation-Lines.html#Continuation-Lines">Continuation Lines</a></td>
+    <td>Splitting statements over lines</td>
+  </tr>
+  <tr>
+    <td><a href="Syntax-Highlighting.html#Syntax-Highlighting">Syntax Highlighting</a></td>
+    <td>Font-lock support</td>
+  </tr>
+  <tr>
+    <td><a href="Octals-and-Highlighting.html#Octals-and-Highlighting">Octals and Highlighting</a></td>
+    <td>Why "123 causes problems
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Online Help
+
+  </th></tr>
+  <tr>
+    <td><a href="Help-with-HTML-Documentation.html#Help-with-HTML-Documentation">Help with HTML Documentation</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Help-with-Source.html#Help-with-Source">Help with Source</a></td>
+    <td>
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Completion
+
+  </th></tr>
+  <tr>
+    <td><a href="Case-of-Completed-Words.html#Case-of-Completed-Words">Case of Completed Words</a></td>
+    <td>CaseOFcomPletedWords</td>
+  </tr>
+  <tr>
+    <td><a href="Object-Method-Completion-and-Class-Ambiguity.html#Object-Method-Completion-and-Class-Ambiguity">Object Method Completion and Class Ambiguity</a></td>
+    <td>obj-&gt;Method, what?</td>
+  </tr>
+  <tr>
+    <td><a href="Object-Method-Completion-in-the-Shell.html#Object-Method-Completion-in-the-Shell">Object Method Completion in the Shell</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Class-and-Keyword-Inheritance.html#Class-and-Keyword-Inheritance">Class and Keyword Inheritance</a></td>
+    <td>obj-&gt;Method, _EXTRA=e</td>
+  </tr>
+  <tr>
+    <td><a href="Structure-Tag-Completion.html#Structure-Tag-Completion">Structure Tag Completion</a></td>
+    <td>Completing state.Tag
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Actions
+
+  </th></tr>
+  <tr>
+    <td><a href="Block-Boundary-Check.html#Block-Boundary-Check">Block Boundary Check</a></td>
+    <td>Is the END statement correct?</td>
+  </tr>
+  <tr>
+    <td><a href="Padding-Operators.html#Padding-Operators">Padding Operators</a></td>
+    <td>Enforcing space around &lsquo;<samp><span class="samp">=</span></samp>&rsquo; etc</td>
+  </tr>
+  <tr>
+    <td><a href="Case-Changes.html#Case-Changes">Case Changes</a></td>
+    <td>Enforcing upper case keywords
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">The IDLWAVE Shell
+
+  </th></tr>
+  <tr>
+    <td><a href="Starting-the-Shell.html#Starting-the-Shell">Starting the Shell</a></td>
+    <td>How to launch IDL as a subprocess</td>
+  </tr>
+  <tr>
+    <td><a href="Using-the-Shell.html#Using-the-Shell">Using the Shell</a></td>
+    <td>Interactively working with the Shell</td>
+  </tr>
+  <tr>
+    <td><a href="Commands-Sent-to-the-Shell.html#Commands-Sent-to-the-Shell">Commands Sent to the Shell</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Debugging-IDL-Programs.html#Debugging-IDL-Programs">Debugging IDL Programs</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Examining-Variables.html#Examining-Variables">Examining Variables</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Custom-Expression-Examination.html#Custom-Expression-Examination">Custom Expression Examination</a></td>
+    <td>
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Debugging IDL Programs
+
+  </th></tr>
+  <tr>
+    <td><a href="A-Tale-of-Two-Modes.html#A-Tale-of-Two-Modes">A Tale of Two Modes</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Debug-Key-Bindings.html#Debug-Key-Bindings">Debug Key Bindings</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Breakpoints-and-Stepping.html#Breakpoints-and-Stepping">Breakpoints and Stepping</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Compiling-Programs.html#Compiling-Programs">Compiling Programs</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Walking-the-Calling-Stack.html#Walking-the-Calling-Stack">Walking the Calling Stack</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Electric-Debug-Mode.html#Electric-Debug-Mode">Electric Debug Mode</a></td>
+    <td>
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Sources of Routine Info
+
+  </th></tr>
+  <tr>
+    <td><a href="Routine-Definitions.html#Routine-Definitions">Routine Definitions</a></td>
+    <td>Where IDL Routines are defined.</td>
+  </tr>
+  <tr>
+    <td><a href="Routine-Information-Sources.html#Routine-Information-Sources">Routine Information Sources</a></td>
+    <td>So how does IDLWAVE know about...</td>
+  </tr>
+  <tr>
+    <td><a href="Catalogs.html#Catalogs">Catalogs</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Load_002dPath-Shadows.html#Load_002dPath-Shadows">Load-Path Shadows</a></td>
+    <td>Routines defined in several places</td>
+  </tr>
+  <tr>
+    <td><a href="Documentation-Scan.html#Documentation-Scan">Documentation Scan</a></td>
+    <td>Scanning the IDL Manuals
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Catalogs
+
+  </th></tr>
+  <tr>
+    <td><a href="Library-Catalogs.html#Library-Catalogs">Library Catalogs</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="User-Catalog.html#User-Catalog">User Catalog</a></td>
+    <td>
+  </td></tr>
+</table>
+   <p>Copyright &copy; 1999&ndash;2019 Free Software Foundation, Inc.
+
+   <blockquote>
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being &ldquo;A GNU Manual&rdquo;,
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled &ldquo;GNU Free Documentation License&rdquo;.
+
+   <p>(a) The FSF's Back-Cover Text is: &ldquo;You have the freedom to copy and
+modify this GNU manual.&rdquo;
+</blockquote>
+</div>
+
+   </body></html>
+
+<!--
+
+Local Variables:
+coding: utf-8
+End:
+
+-->

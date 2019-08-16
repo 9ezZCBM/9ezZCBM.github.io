@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Timers - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Timers"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Effort-estimates.html#Effort-estimates">Effort estimates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Dates-and-times.html#Dates-and-times">Dates and times</a>
+
+</div>
+
+<h3 class="section">8.6 Taking notes with a timer</h3>
+
+<p><a name="index-relative-timer-956"></a><a name="index-countdown-timer-957"></a><a name="index-g_t_003b-958"></a>
+Org provides two types of timers.  There is a relative timer that counts up,
+which can be useful when taking notes during, for example, a meeting or
+a video viewing.  There is also a countdown timer.
+
+   <p>The relative and countdown are started with separate commands.
+
+     
+<a name="index-C_002dc-C_002dx-0-959"></a>
+<a name="index-org_002dtimer_002dstart-960"></a>
+<dl><dt><kbd>C-c C-x 0 &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-timer-start</code><kbd>)</kbd><dd>
+Start or reset the relative timer.  By default, the timer is set to 0.  When
+called with a <kbd>C-u</kbd> prefix, prompt the user for a starting offset.  If
+there is a timer string at point, this is taken as the default, providing a
+convenient way to restart taking notes after a break in the process.  When
+called with a double prefix argument <kbd>C-u C-u</kbd>, change all timer strings
+in the active region by a certain amount.  This can be used to fix timer
+strings if the timer was not started at exactly the right moment. 
+<a name="index-C_002dc-C_002dx-_003b-961"></a><a name="index-org_002dtimer_002dset_002dtimer-962"></a><br><dt><kbd>C-c C-x ; &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-timer-set-timer</code><kbd>)</kbd><dd>
+Start a countdown timer.  The user is prompted for a duration. 
+<code>org-timer-default-timer</code> sets the default countdown value.  Giving
+a numeric prefix argument overrides this default value.  This command is
+available as <kbd>;</kbd> in agenda buffers. 
+</dl>
+
+   <p>Once started, relative and countdown timers are controlled with the same
+commands.
+
+     
+<a name="index-C_002dc-C_002dx-_002e-963"></a>
+<a name="index-org_002dtimer-964"></a>
+<dl><dt><kbd>C-c C-x . &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-timer</code><kbd>)</kbd><dd>
+Insert the value of the current relative or countdown timer into the buffer. 
+If no timer is running, the relative timer will be started.  When called with
+a prefix argument, the relative timer is restarted. 
+<a name="index-C_002dc-C_002dx-_002d-965"></a><a name="index-org_002dtimer_002ditem-966"></a><br><dt><kbd>C-c C-x - &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-timer-item</code><kbd>)</kbd><dd>
+Insert a description list item with the value of the current relative or
+countdown timer.  With a prefix argument, first reset the relative timer to
+0. 
+<a name="index-M_002d_0040key_007bRET_007d-967"></a><a name="index-org_002dinsert_002dheading-968"></a><br><dt><kbd>M-&lt;RET&gt; &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-insert-heading</code><kbd>)</kbd><dd>
+Once the timer list is started, you can also use <kbd>M-&lt;RET&gt;</kbd> to insert
+new timer items. 
+<a name="index-C_002dc-C_002dx-_0040comma_007b_007d-969"></a><a name="index-org_002dtimer_002dpause_002dor_002dcontinue-970"></a><br><dt><kbd>C-c C-x , &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-timer-pause-or-continue</code><kbd>)</kbd><dd>
+Pause the timer, or continue it if it is already paused. 
+<a name="index-C_002dc-C_002dx-_005f-971"></a><a name="index-org_002dtimer_002dstop-972"></a><br><dt><kbd>C-c C-x _ &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-timer-stop</code><kbd>)</kbd><dd>
+Stop the timer.  After this, you can only start a new timer, not continue the
+old one.  This command also removes the timer from the mode line. 
+</dl>
+
+   </body></html>
+

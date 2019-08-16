@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Link format - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Link-format"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Internal-links.html#Internal-links">Internal links</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hyperlinks.html#Hyperlinks">Hyperlinks</a>
+
+</div>
+
+<h3 class="section">4.1 Link format</h3>
+
+<p><a name="index-link-format-454"></a><a name="index-format_002c-of-links-455"></a>
+Org will recognize plain URL-like links and activate them as
+clickable links.  The general link format, however, looks like this:
+
+<pre class="example">     [[link][description]]       <span class="roman">or alternatively</span>           [[link]]
+</pre>
+   <p class="noindent">Once a link in the buffer is complete (all brackets present), Org
+will change the display so that &lsquo;<samp><span class="samp">description</span></samp>&rsquo; is displayed instead
+of &lsquo;<samp><span class="samp">[[link][description]]</span></samp>&rsquo; and &lsquo;<samp><span class="samp">link</span></samp>&rsquo; is displayed instead of
+&lsquo;<samp><span class="samp">[[link]]</span></samp>&rsquo;.  Links will be highlighted in the face <code>org-link</code>,
+which by default is an underlined face.  You can directly edit the
+visible part of a link.  Note that this can be either the &lsquo;<samp><span class="samp">link</span></samp>&rsquo;
+part (if there is no description) or the &lsquo;<samp><span class="samp">description</span></samp>&rsquo; part.  To
+edit also the invisible &lsquo;<samp><span class="samp">link</span></samp>&rsquo; part, use <kbd>C-c C-l</kbd> with the
+cursor on the link.
+
+   <p>If you place the cursor at the beginning or just behind the end of the
+displayed text and press &lt;BACKSPACE&gt;, you will remove the
+(invisible) bracket at that location.  This makes the link incomplete
+and the internals are again displayed as plain text.  Inserting the
+missing bracket hides the link internals again.  To show the
+internal structure of all links, use the menu entry
+<code>Org-&gt;Hyperlinks-&gt;Literal links</code>.
+
+   </body></html>
+

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Loops &amp; Recursion - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Loops-%26-Recursion"></a>
+<a name="Loops-_0026-Recursion"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Regexp-Search.html#Regexp-Search">Regexp Search</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Yanking.html#Yanking">Yanking</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">11 Loops and Recursion</h2>
+
+<p><a name="index-Loops-and-recursion-225"></a><a name="index-Recursion-and-loops-226"></a><a name="index-Repetition-_0028loops_0029-227"></a>
+Emacs Lisp has two primary ways to cause an expression, or a series of
+expressions, to be evaluated repeatedly: one uses a <code>while</code>
+loop, and the other uses <dfn>recursion</dfn>.
+
+   <p>Repetition can be very valuable.  For example, to move forward four
+sentences, you need only write a program that will move forward one
+sentence and then repeat the process four times.  Since a computer does
+not get bored or tired, such repetitive action does not have the
+deleterious effects that excessive or the wrong kinds of repetition can
+have on humans.
+
+   <p>People mostly write Emacs Lisp functions using <code>while</code> loops and
+their kin; but you can use recursion, which provides a very powerful
+way to think about and then to solve problems<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.
+
+<ul class="menu">
+<li><a accesskey="1" href="while.html#while">while</a>:                        Causing a stretch of code to repeat. 
+<li><a accesskey="2" href="dolist-dotimes.html#dolist-dotimes">dolist dotimes</a>
+<li><a accesskey="3" href="Recursion.html#Recursion">Recursion</a>:                    Causing a function to call itself. 
+<li><a accesskey="4" href="Looping-exercise.html#Looping-exercise">Looping exercise</a>
+</ul>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> You can write
+recursive functions to be frugal or wasteful of mental or computer
+resources; as it happens, methods that people find easy&mdash;that are
+frugal of mental resources&mdash;sometimes use considerable computer
+resources.  Emacs was designed to run on machines that we now consider
+limited and its default settings are conservative.  You may want to
+increase the values of <code>max-specpdl-size</code> and
+<code>max-lisp-eval-depth</code>.  In my <samp><span class="file">.emacs</span></samp> file, I set them to
+15 and 30 times their default value.</p>
+
+   <hr></div>
+
+   </body></html>
+

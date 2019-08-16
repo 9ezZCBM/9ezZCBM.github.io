@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Capture - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Capture"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Attachments.html#Attachments">Attachments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Capture-_002d-Refile-_002d-Archive.html#Capture-_002d-Refile-_002d-Archive">Capture - Refile - Archive</a>
+
+</div>
+
+<h3 class="section">9.1 Capture</h3>
+
+<p><a name="index-capture-974"></a>
+Capture lets you quickly store notes with little interruption of your work
+flow.  Org's method for capturing new items is heavily inspired by John
+Wiegley excellent <samp><span class="file">remember.el</span></samp> package.  Up to version 6.36, Org
+used a special setup for <samp><span class="file">remember.el</span></samp>, then replaced it with
+<samp><span class="file">org-remember.el</span></samp>.  As of version 8.0, <samp><span class="file">org-remember.el</span></samp> has
+been completely replaced by <samp><span class="file">org-capture.el</span></samp>.
+
+   <p>If your configuration depends on <samp><span class="file">org-remember.el</span></samp>, you need to update
+it and use the setup described below.  To convert your
+<code>org-remember-templates</code>, run the command
+<pre class="example">     <kbd>M-x org-capture-import-remember-templates &lt;RET&gt;</kbd>
+</pre>
+   <p class="noindent">and then customize the new variable with <kbd>M-x
+customize-variable org-capture-templates</kbd>, check the result, and save the
+customization.
+
+<ul class="menu">
+<li><a accesskey="1" href="Setting-up-capture.html#Setting-up-capture">Setting up capture</a>:           Where notes will be stored
+<li><a accesskey="2" href="Using-capture.html#Using-capture">Using capture</a>:                Commands to invoke and terminate capture
+<li><a accesskey="3" href="Capture-templates.html#Capture-templates">Capture templates</a>:            Define the outline of different note types
+</ul>
+
+   </body></html>
+

@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>recursive-count-words - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="recursive-count-words"></a>
+<a name="recursive_002dcount_002dwords"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Counting-Exercise.html#Counting-Exercise">Counting Exercise</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="count_002dwords_002dexample.html#count_002dwords_002dexample">count-words-example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Counting-Words.html#Counting-Words">Counting Words</a>
+
+</div>
+
+<h3 class="section">13.2 Count Words Recursively</h3>
+
+<p><a name="index-Count-words-recursively-274"></a><a name="index-Recursively-counting-words-275"></a><a name="index-Words_002c-counted-recursively-276"></a>
+You can write the function for counting words recursively as well as
+with a <code>while</code> loop.  Let's see how this is done.
+
+   <p>First, we need to recognize that the <code>count-words-example</code>
+function has three jobs: it sets up the appropriate conditions for
+counting to occur; it counts the words in the region; and it sends a
+message to the user telling how many words there are.
+
+   <p>If we write a single recursive function to do everything, we will
+receive a message for every recursive call.  If the region contains 13
+words, we will receive thirteen messages, one right after the other. 
+We don't want this!  Instead, we must write two functions to do the
+job, one of which (the recursive function) will be used inside of the
+other.  One function will set up the conditions and display the
+message; the other will return the word count.
+
+   <p>Let us start with the function that causes the message to be displayed. 
+We can continue to call this <code>count-words-example</code>.
+
+   <p>This is the function that the user will call.  It will be interactive. 
+Indeed, it will be similar to our previous versions of this
+function, except that it will call <code>recursive-count-words</code> to
+determine how many words are in the region.
+
+   <p>We can readily construct a template for this function, based on our
+previous versions:
+
+<pre class="smallexample">     ;; <span class="roman">Recursive version; uses regular expression search</span>
+     (defun count-words-example (beginning end)
+       "<var>documentation</var>..."
+       (<var>interactive-expression</var>...)
+     
+     ;;; <span class="roman">1. Set up appropriate conditions.</span>
+       (<var>explanatory message</var>)
+       (<var>set-up functions</var>...
+     
+     ;;; <span class="roman">2. Count the words.</span>
+         <var>recursive call</var>
+     
+     ;;; <span class="roman">3. Send a message to the user.</span>
+         <var>message providing word count</var>))
+</pre>
+   <p>The definition looks straightforward, except that somehow the count
+returned by the recursive call must be passed to the message
+displaying the word count.  A little thought suggests that this can be
+done by making use of a <code>let</code> expression: we can bind a variable
+in the varlist of a <code>let</code> expression to the number of words in
+the region, as returned by the recursive call; and then the
+<code>cond</code> expression, using binding, can display the value to the
+user.
+
+   <p>Often, one thinks of the binding within a <code>let</code> expression as
+somehow secondary to the primary work of a function.  But in this
+case, what you might consider the primary job of the function,
+counting words, is done within the <code>let</code> expression.
+
+   <p>Using <code>let</code>, the function definition looks like this:
+
+<pre class="smallexample">     (defun count-words-example (beginning end)
+       "Print number of words in the region."
+       (interactive "r")
+     
+     ;;; <span class="roman">1. Set up appropriate conditions.</span>
+       (message "Counting words in region ... ")
+       (save-excursion
+         (goto-char beginning)
+     
+     ;;; <span class="roman">2. Count the words.</span>
+         (let ((count (recursive-count-words end)))
+     
+     ;;; <span class="roman">3. Send a message to the user.</span>
+           (cond ((zerop count)
+                  (message
+                   "The region does NOT have any words."))
+                 ((= 1 count)
+                  (message
+                   "The region has 1 word."))
+                 (t
+                  (message
+                   "The region has %d words." count))))))
+</pre>
+   <p>Next, we need to write the recursive counting function.
+
+   <p>A recursive function has at least three parts: the do-again-test, the
+next-step-expression, and the recursive call.
+
+   <p>The do-again-test determines whether the function will or will not be
+called again.  Since we are counting words in a region and can use a
+function that moves point forward for every word, the do-again-test
+can check whether point is still within the region.  The do-again-test
+should find the value of point and determine whether point is before,
+at, or after the value of the end of the region.  We can use the
+<code>point</code> function to locate point.  Clearly, we must pass the
+value of the end of the region to the recursive counting function as an
+argument.
+
+   <p>In addition, the do-again-test should also test whether the search finds a
+word.  If it does not, the function should not call itself again.
+
+   <p>The next-step-expression changes a value so that when the recursive
+function is supposed to stop calling itself, it stops.  More
+precisely, the next-step-expression changes a value so that at the
+right time, the do-again-test stops the recursive function from
+calling itself again.  In this case, the next-step-expression can be
+the expression that moves point forward, word by word.
+
+   <p>The third part of a recursive function is the recursive call.
+
+   <p>Somewhere, we also need a part that does the work of the
+function, a part that does the counting.  A vital part!
+
+   <p>But already, we have an outline of the recursive counting function:
+
+<pre class="smallexample">     (defun recursive-count-words (region-end)
+       "<var>documentation</var>..."
+        <var>do-again-test</var>
+        <var>next-step-expression</var>
+        <var>recursive call</var>)
+</pre>
+   <p>Now we need to fill in the slots.  Let's start with the simplest cases
+first:  if point is at or beyond the end of the region, there cannot
+be any words in the region, so the function should return zero. 
+Likewise, if the search fails, there are no words to count, so the
+function should return zero.
+
+   <p>On the other hand, if point is within the region and the search
+succeeds, the function should call itself again.
+
+   <p>Thus, the do-again-test should look like this:
+
+<pre class="smallexample">     (and (&lt; (point) region-end)
+          (re-search-forward "\\w+\\W*" region-end t))
+</pre>
+   <p>Note that the search expression is part of the do-again-test&mdash;the
+function returns <code>t</code> if its search succeeds and <code>nil</code> if it
+fails.  (See <a href="Whitespace-Bug.html#Whitespace-Bug">The Whitespace Bug in <code>count-words-example</code></a>, for an explanation of how
+<code>re-search-forward</code> works.)
+
+   <p>The do-again-test is the true-or-false test of an <code>if</code> clause. 
+Clearly, if the do-again-test succeeds, the then-part of the <code>if</code>
+clause should call the function again; but if it fails, the else-part
+should return zero since either point is outside the region or the
+search failed because there were no words to find.
+
+   <p>But before considering the recursive call, we need to consider the
+next-step-expression.  What is it?  Interestingly, it is the search
+part of the do-again-test.
+
+   <p>In addition to returning <code>t</code> or <code>nil</code> for the
+do-again-test, <code>re-search-forward</code> moves point forward as a side
+effect of a successful search.  This is the action that changes the
+value of point so that the recursive function stops calling itself
+when point completes its movement through the region.  Consequently,
+the <code>re-search-forward</code> expression is the next-step-expression.
+
+   <p>In outline, then, the body of the <code>recursive-count-words</code>
+function looks like this:
+
+<pre class="smallexample">     (if <var>do-again-test-and-next-step-combined</var>
+         ;; <span class="roman">then</span>
+         <var>recursive-call-returning-count</var>
+       ;; <span class="roman">else</span>
+       <var>return-zero</var>)
+</pre>
+   <p>How to incorporate the mechanism that counts?
+
+   <p>If you are not used to writing recursive functions, a question like
+this can be troublesome.  But it can and should be approached
+systematically.
+
+   <p>We know that the counting mechanism should be associated in some way
+with the recursive call.  Indeed, since the next-step-expression moves
+point forward by one word, and since a recursive call is made for
+each word, the counting mechanism must be an expression that adds one
+to the value returned by a call to <code>recursive-count-words</code>.
+
+   <p>Consider several cases:
+
+     <ul>
+<li>If there are two words in the region, the function should return
+a value resulting from adding one to the value returned when it counts
+the first word, plus the number returned when it counts the remaining
+words in the region, which in this case is one.
+
+     <li>If there is one word in the region, the function should return
+a value resulting from adding one to the value returned when it counts
+that word, plus the number returned when it counts the remaining
+words in the region, which in this case is zero.
+
+     <li>If there are no words in the region, the function should return zero. 
+</ul>
+
+   <p>From the sketch we can see that the else-part of the <code>if</code> returns
+zero for the case of no words.  This means that the then-part of the
+<code>if</code> must return a value resulting from adding one to the value
+returned from a count of the remaining words.
+
+   <p>The expression will look like this, where <code>1+</code> is a function that
+adds one to its argument.
+
+<pre class="smallexample">     (1+ (recursive-count-words region-end))
+</pre>
+   <p>The whole <code>recursive-count-words</code> function will then look like
+this:
+
+<pre class="smallexample">     (defun recursive-count-words (region-end)
+       "<var>documentation</var>..."
+     
+     ;;; <span class="roman">1. do-again-test</span>
+       (if (and (&lt; (point) region-end)
+                (re-search-forward "\\w+\\W*" region-end t))
+     
+     ;;; <span class="roman">2. then-part: the recursive call</span>
+           (1+ (recursive-count-words region-end))
+     
+     ;;; <span class="roman">3. else-part</span>
+         0))
+</pre>
+   <p>Let's examine how this works:
+
+   <p>If there are no words in the region, the else part of the <code>if</code>
+expression is evaluated and consequently the function returns zero.
+
+   <p>If there is one word in the region, the value of point is less than
+the value of <code>region-end</code> and the search succeeds.  In this case,
+the true-or-false-test of the <code>if</code> expression tests true, and the
+then-part of the <code>if</code> expression is evaluated.  The counting
+expression is evaluated.  This expression returns a value (which will
+be the value returned by the whole function) that is the sum of one
+added to the value returned by a recursive call.
+
+   <p>Meanwhile, the next-step-expression has caused point to jump over the
+first (and in this case only) word in the region.  This means that
+when <code>(recursive-count-words region-end)</code> is evaluated a second
+time, as a result of the recursive call, the value of point will be
+equal to or greater than the value of region end.  So this time,
+<code>recursive-count-words</code> will return zero.  The zero will be added
+to one, and the original evaluation of <code>recursive-count-words</code>
+will return one plus zero, which is one, which is the correct amount.
+
+   <p>Clearly, if there are two words in the region, the first call to
+<code>recursive-count-words</code> returns one added to the value returned
+by calling <code>recursive-count-words</code> on a region containing the
+remaining word&mdash;that is, it adds one to one, producing two, which is
+the correct amount.
+
+   <p>Similarly, if there are three words in the region, the first call to
+<code>recursive-count-words</code> returns one added to the value returned
+by calling <code>recursive-count-words</code> on a region containing the
+remaining two words&mdash;and so on and so on.
+
+<p class="noindent">With full documentation the two functions look like this:
+
+<p class="noindent">The recursive function:
+
+   <p><a name="index-recursive_002dcount_002dwords-277"></a>
+<pre class="smallexample">     (defun recursive-count-words (region-end)
+       "Number of words between point and REGION-END."
+     
+     ;;; <span class="roman">1. do-again-test</span>
+       (if (and (&lt; (point) region-end)
+                (re-search-forward "\\w+\\W*" region-end t))
+     
+     ;;; <span class="roman">2. then-part: the recursive call</span>
+           (1+ (recursive-count-words region-end))
+     
+     ;;; <span class="roman">3. else-part</span>
+         0))
+</pre>
+   <p class="noindent">The wrapper:
+
+<pre class="smallexample">     ;;; <span class="roman">Recursive version</span>
+     (defun count-words-example (beginning end)
+       "Print number of words in the region.
+     
+     Words are defined as at least one word-constituent
+     character followed by at least one character that is
+     not a word-constituent.  The buffer's syntax table
+     determines which characters these are."
+       (interactive "r")
+       (message "Counting words in region ... ")
+       (save-excursion
+         (goto-char beginning)
+         (let ((count (recursive-count-words end)))
+           (cond ((zerop count)
+                  (message
+                   "The region does NOT have any words."))
+                 ((= 1 count)
+                  (message "The region has 1 word."))
+                 (t
+                  (message
+                   "The region has %d words." count))))))
+</pre>
+   </body></html>
+

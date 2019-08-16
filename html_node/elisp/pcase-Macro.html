@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>pcase Macro - GNU Emacs Lisp Reference Manual</title>
+<!--
+This is the `GNU Emacs Lisp Reference Manual'
+corresponding to Emacs version 26.2.
+
+Copyright (C) 1990--1996, 1998--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``GNU General Public
+     License,'' with the Front-Cover Texts being ``A GNU Manual,'' and
+     with the Back-Cover Texts as in (a) below.  A copy of the license
+     is included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="pcase-Macro"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Extending-pcase.html#Extending-pcase">Extending pcase</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Pattern_002dMatching-Conditional.html#Pattern_002dMatching-Conditional">Pattern-Matching Conditional</a>
+
+</div>
+
+<h4 class="subsection">11.4.1 The <code>pcase</code> macro</h4>
+
+<p>For background, See <a href="Pattern_002dMatching-Conditional.html#Pattern_002dMatching-Conditional">Pattern-Matching Conditional</a>.
+
+<div class="defun">
+&mdash; Macro: <b>pcase</b><var> expression &amp;rest clauses<a name="index-pcase-725"></a></var><br>
+<blockquote><p>Each clause in <var>clauses</var> has the form:
+<code>(</code><var>pattern</var><code>&nbsp;</code><var>body-forms</var><code>...)</code><!-- /@w -->.
+
+        <p>Evaluate <var>expression</var> to determine its value, <var>expval</var>. 
+Find the first clause in <var>clauses</var> whose <var>pattern</var> matches
+<var>expval</var> and pass control to that clause's <var>body-forms</var>.
+
+        <p>If there is a match, the value of <code>pcase</code> is the value
+of the last of <var>body-forms</var> in the successful clause. 
+Otherwise, <code>pcase</code> evaluates to <code>nil</code>. 
+</p></blockquote></div>
+
+   <p><a name="index-pcase-pattern-726"></a>Each <var>pattern</var> has to be a <dfn>pcase pattern</dfn>, which can use
+either one of the core patterns defined below, or one of the patterns
+defined via <code>pcase-defmacro</code> (see <a href="Extending-pcase.html#Extending-pcase">Extending pcase</a>).
+
+   <p>The rest of this subsection describes different forms of core
+patterns, presents some examples, and concludes with important caveats
+on using the let-binding facility provided by some pattern forms.  A
+core pattern can have the following forms:
+
+     <dl>
+<dt><code>_</code><dd>Matches any <var>expval</var>. 
+This is also known as <dfn>don't care</dfn> or <dfn>wildcard</dfn>.
+
+     <br><dt><code>'</code><var>val</var><dd>Matches if <var>expval</var> equals <var>val</var>.  The comparison is done as
+if by <code>equal</code> (see <a href="Equality-Predicates.html#Equality-Predicates">Equality Predicates</a>).
+
+     <br><dt><var>keyword</var><dt><var>integer</var><dt><var>string</var><dd>Matches if <var>expval</var> equals the literal object. 
+This is a special case of <code>'</code><var>val</var>, above,
+possible because literal objects of these types are self-quoting.
+
+     <br><dt><var>symbol</var><dd>Matches any <var>expval</var>, and additionally let-binds <var>symbol</var> to
+<var>expval</var>, such that this binding is available to
+<var>body-forms</var> (see <a href="Dynamic-Binding.html#Dynamic-Binding">Dynamic Binding</a>).
+
+     <p>If <var>symbol</var> is part of a sequencing pattern <var>seqpat</var>
+(e.g., by using <code>and</code>, below), the binding is also available to
+the portion of <var>seqpat</var> following the appearance of <var>symbol</var>. 
+This usage has some caveats, see <a href="pcase_002dsymbol_002dcaveats.html#pcase_002dsymbol_002dcaveats">caveats</a>.
+
+     <p>Two symbols to avoid are <code>t</code>, which behaves like <code>_</code>
+(above) and is deprecated, and <code>nil</code>, which signals an error. 
+Likewise, it makes no sense to bind keyword symbols
+(see <a href="Constant-Variables.html#Constant-Variables">Constant Variables</a>).
+
+     <br><dt><code>(pred </code><var>function</var><code>)</code><dd>Matches if the predicate <var>function</var> returns non-<code>nil</code>
+when called on <var>expval</var>. 
+the predicate <var>function</var> can have one of the following forms:
+
+          <dl>
+<dt>function name (a symbol)<dd>Call the named function with one argument, <var>expval</var>.
+
+          <p>Example: <code>integerp</code>
+
+          <br><dt>lambda expression<dd>Call the anonymous function with one argument,
+<var>expval</var> (see <a href="Lambda-Expressions.html#Lambda-Expressions">Lambda Expressions</a>).
+
+          <p>Example: <code>(lambda (n) (= 42 n))</code>
+
+          <br><dt>function call with <var>n</var> args<dd>Call the function (the first element of the function call)
+with <var>n</var> arguments (the other elements) and an additional
+<var>n</var>+1-th argument that is <var>expval</var>.
+
+          <p>Example: <code>(= 42)</code><br>
+In this example, the function is <code>=</code>, <var>n</var> is one, and
+the actual function call becomes: <code>(=&nbsp;42&nbsp;</code><var>expval</var><code>)</code><!-- /@w -->. 
+</dl>
+
+     <br><dt><code>(app </code><var>function</var> <var>pattern</var><code>)</code><dd>Matches if <var>function</var> called on <var>expval</var> returns a
+value that matches <var>pattern</var>. 
+<var>function</var> can take one of the forms described for <code>pred</code>,
+above.  Unlike <code>pred</code>, however, <code>app</code> tests the result
+against <var>pattern</var>, rather than against a boolean truth value.
+
+     <br><dt><code>(guard </code><var>boolean-expression</var><code>)</code><dd>Matches if <var>boolean-expression</var> evaluates to non-<code>nil</code>.
+
+     <br><dt><code>(let </code><var>pattern</var> <var>expr</var><code>)</code><dd>Evaluates <var>expr</var> to get <var>exprval</var> and matches if <var>exprval</var>
+matches <var>pattern</var>.  (It is called <code>let</code> because <var>pattern</var>
+can bind symbols to values using <var>symbol</var>.) 
+</dl>
+
+   <p><a name="index-sequencing-pattern-727"></a>A <dfn>sequencing pattern</dfn> (also known as <var>seqpat</var>) is a
+pattern that processes its sub-pattern arguments in sequence. 
+There are two for <code>pcase</code>: <code>and</code> and <code>or</code>. 
+They behave in a similar manner to the special forms
+that share their name (see <a href="Combining-Conditions.html#Combining-Conditions">Combining Conditions</a>),
+but instead of processing values, they process sub-patterns.
+
+     <dl>
+<dt><code>(and </code><var>pattern1</var><code>...)</code><dd>Attempts to match <var>pattern1</var><small class="dots">...</small>, in order, until one of them
+fails to match.  In that case, <code>and</code> likewise fails to match, and
+the rest of the sub-patterns are not tested.  If all sub-patterns
+match, <code>and</code> matches.
+
+     <br><dt><code>(or </code><var>pattern1</var> <var>pattern2</var><code>...)</code><dd>Attempts to match <var>pattern1</var>, <var>pattern2</var>, <small class="dots">...</small>, in order,
+until one of them succeeds.  In that case, <code>or</code> likewise matches,
+and the rest of the sub-patterns are not tested.  (Note that there
+must be at least two sub-patterns. 
+Simply <code>(or&nbsp;</code><var>pattern1</var><code>)</code><!-- /@w --> signals error.) 
+<!-- Issue: Is this correct and intended? -->
+<!-- Are there exceptions, qualifications? -->
+<!-- (Btw, ``Please avoid it'' is a poor error message.) -->
+
+     <p>To present a consistent environment (see <a href="Intro-Eval.html#Intro-Eval">Intro Eval</a>)
+to <var>body-forms</var> (thus avoiding an evaluation error on match),
+if any of the sub-patterns let-binds a set of symbols,
+they <em>must</em> all bind the same set of symbols. 
+</dl>
+
+   <p><a name="pcase_002dexample_002d0"></a>
+
+<h4 class="subheading">Example: Advantage Over <code>cl-case</code></h4>
+
+<p>Here's an example that highlights some advantages <code>pcase</code>
+has over <code>cl-case</code>
+(see <a href="../cl/Conditionals.html#Conditionals">Conditionals</a>).
+
+<pre class="example">     (pcase (get-return-code x)
+       ;; string
+       ((and (pred stringp) msg)
+        (message "%s" msg))
+       ;; symbol
+       ('success       (message "Done!"))
+       ('would-block   (message "Sorry, can't do it now"))
+       ('read-only     (message "The shmliblick is read-only"))
+       ('access-denied (message "You do not have the needed rights"))
+       ;; default
+       (code           (message "Unknown return code %S" code)))
+</pre>
+   <p class="noindent">With <code>cl-case</code>, you would need to explicitly declare a local
+variable <code>code</code> to hold the return value of <code>get-return-code</code>. 
+Also <code>cl-case</code> is difficult to use with strings because it
+uses <code>eql</code> for comparison.
+
+   <p><a name="pcase_002dexample_002d1"></a>
+
+<h4 class="subheading">Example: Using <code>and</code></h4>
+
+<p>A common idiom is to write a pattern starting with <code>and</code>,
+with one or more <var>symbol</var> sub-patterns providing bindings
+to the sub-patterns that follow (as well as to the body forms). 
+For example, the following pattern matches single-digit integers.
+
+<pre class="example">     (and
+       (pred integerp)
+       n                     ; <span class="roman">bind </span><code>n</code><span class="roman"> to </span><var>expval</var>
+       (guard (&lt;= -9 n 9)))
+</pre>
+   <p class="noindent">First, <code>pred</code> matches if <code>(integerp&nbsp;</code><var>expval</var><code>)</code><!-- /@w -->
+evaluates to non-<code>nil</code>. 
+Next, <code>n</code> is a <var>symbol</var> pattern that matches
+anything and binds <code>n</code> to <var>expval</var>. 
+Lastly, <code>guard</code> matches if the boolean expression
+<code>(&lt;=&nbsp;-9&nbsp;n&nbsp;9)</code><!-- /@w --> (note the reference to <code>n</code>)
+evaluates to non-<code>nil</code>. 
+If all these sub-patterns match, <code>and</code> matches.
+
+   <p><a name="pcase_002dexample_002d2"></a>
+
+<h4 class="subheading">Example: Reformulation with <code>pcase</code></h4>
+
+<p>Here is another example that shows how to reformulate a simple
+matching task from its traditional implementation
+(function <code>grok/traditional</code>) to one using
+<code>pcase</code> (function <code>grok/pcase</code>). 
+The docstring for both these functions is:
+&ldquo;If OBJ is a string of the form "key:NUMBER", return NUMBER
+(a string).  Otherwise, return the list ("149" default).&rdquo;
+First, the traditional implementation (see <a href="Regular-Expressions.html#Regular-Expressions">Regular Expressions</a>):
+
+<pre class="example">     (defun grok/traditional (obj)
+       (if (and (stringp obj)
+                (string-match "^key:\\([[:digit:]]+\\)$" obj))
+           (match-string 1 obj)
+         (list "149" 'default)))
+     
+     (grok/traditional "key:0")   &rArr; "0"
+     (grok/traditional "key:149") &rArr; "149"
+     (grok/traditional 'monolith) &rArr; ("149" default)
+</pre>
+   <p class="noindent">The reformulation demonstrates <var>symbol</var> binding as well as
+<code>or</code>, <code>and</code>, <code>pred</code>, <code>app</code> and <code>let</code>.
+
+<pre class="example">     (defun grok/pcase (obj)
+       (pcase obj
+         ((or                                     ; <span class="roman">line 1</span>
+           (and                                   ; <span class="roman">line 2</span>
+            (pred stringp)                        ; <span class="roman">line 3</span>
+            (pred (string-match                   ; <span class="roman">line 4</span>
+                   "^key:\\([[:digit:]]+\\)$"))   ; <span class="roman">line 5</span>
+            (app (match-string 1)                 ; <span class="roman">line 6</span>
+                 val))                            ; <span class="roman">line 7</span>
+           (let val (list "149" 'default)))       ; <span class="roman">line 8</span>
+          val)))                                  ; <span class="roman">line 9</span>
+     
+     (grok/pcase "key:0")   &rArr; "0"
+     (grok/pcase "key:149") &rArr; "149"
+     (grok/pcase 'monolith) &rArr; ("149" default)
+</pre>
+   <p class="noindent">The bulk of <code>grok/pcase</code> is a single clause of a <code>pcase</code>
+form, the pattern on lines 1-8, the (single) body form on line 9. 
+The pattern is <code>or</code>, which tries to match in turn its argument
+sub-patterns, first <code>and</code> (lines 2-7), then <code>let</code> (line 8),
+until one of them succeeds.
+
+   <p>As in the previous example (see <a href="pcase_002dexample_002d1.html#pcase_002dexample_002d1">Example 1</a>),
+<code>and</code> begins with a <code>pred</code> sub-pattern to ensure
+the following sub-patterns work with an object of the correct
+type (string, in this case).  If <code>(stringp&nbsp;</code><var>expval</var><code>)</code><!-- /@w -->
+returns <code>nil</code>, <code>pred</code> fails, and thus <code>and</code> fails, too.
+
+   <p>The next <code>pred</code> (lines 4-5) evaluates
+<code>(string-match&nbsp;RX&nbsp;</code><var>expval</var><code>)</code><!-- /@w -->
+and matches if the result is non-<code>nil</code>, which means
+that <var>expval</var> has the desired form: <code>key:NUMBER</code>. 
+Again, failing this, <code>pred</code> fails and <code>and</code>, too.
+
+   <p>Lastly (in this series of <code>and</code> sub-patterns), <code>app</code>
+evaluates <code>(match-string&nbsp;1&nbsp;</code><var>expval</var><code>)</code><!-- /@w --> (line 6)
+to get a temporary value <var>tmp</var> (i.e., the &ldquo;NUMBER&rdquo; substring)
+and tries to match <var>tmp</var> against pattern <code>val</code> (line 7). 
+Since that is a <var>symbol</var> pattern, it matches unconditionally
+and additionally binds <code>val</code> to <var>tmp</var>.
+
+   <p>Now that <code>app</code> has matched, all <code>and</code> sub-patterns
+have matched, and so <code>and</code> matches. 
+Likewise, once <code>and</code> has matched, <code>or</code> matches
+and does not proceed to try sub-pattern <code>let</code> (line 8).
+
+   <p>Let's consider the situation where <code>obj</code> is not a string,
+or it is a string but has the wrong form. 
+In this case, one of the <code>pred</code> (lines 3-5) fails to match,
+thus <code>and</code> (line 2) fails to match,
+thus <code>or</code> (line 1) proceeds to try sub-pattern <code>let</code> (line 8).
+
+   <p>First, <code>let</code> evaluates <code>(list&nbsp;"149"&nbsp;'default)</code><!-- /@w -->
+to get <code>("149"&nbsp;default)</code><!-- /@w -->, the <var>exprval</var>, and then
+tries to match <var>exprval</var> against pattern <code>val</code>. 
+Since that is a <var>symbol</var> pattern, it matches unconditionally
+and additionally binds <code>val</code> to <var>exprval</var>. 
+Now that <code>let</code> has matched, <code>or</code> matches.
+
+   <p>Note how both <code>and</code> and <code>let</code> sub-patterns finish in the
+same way: by trying (always successfully) to match against the
+<var>symbol</var> pattern <code>val</code>, in the process binding <code>val</code>. 
+Thus, <code>or</code> always matches and control always passes
+to the body form (line 9). 
+Because that is the last body form in a successfully matched
+<code>pcase</code> clause, it is the value of <code>pcase</code> and likewise
+the return value of <code>grok/pcase</code> (see <a href="What-Is-a-Function.html#What-Is-a-Function">What Is a Function</a>).
+
+   <p><a name="pcase_002dsymbol_002dcaveats"></a>
+
+<h4 class="subheading">Caveats for <var>symbol</var> in Sequencing Patterns</h4>
+
+<p>The preceding examples all use sequencing patterns
+which include the <var>symbol</var>
+sub-pattern in some way. 
+Here are some important details about that usage.
+
+     <ol type=1 start=1>
+<li>When <var>symbol</var> occurs more than once in <var>seqpat</var>,
+the second and subsequent occurrences do not expand to re-binding,
+but instead expand to an equality test using <code>eq</code>.
+
+     <p>The following example features a <code>pcase</code> form
+with two clauses and two <var>seqpat</var>, A and B. 
+Both A and B first check that <var>expval</var> is a
+pair (using <code>pred</code>),
+and then bind symbols to the <code>car</code> and <code>cdr</code>
+of <var>expval</var> (using one <code>app</code> each).
+
+     <p>For A, because symbol <code>st</code> is mentioned twice, the second
+mention becomes an equality test using <code>eq</code>. 
+On the other hand, B uses two separate symbols, <code>s1</code> and
+<code>s2</code>, both of which become independent bindings.
+
+     <pre class="example">          (defun grok (object)
+            (pcase object
+              ((and (pred consp)        ; seqpat A
+                    (app car st)        ; first mention: st
+                    (app cdr st))       ; second mention: st
+               (list 'eq st))
+              ((and (pred consp)        ; seqpat B
+                    (app car s1)        ; first mention: s1
+                    (app cdr s2))       ; first mention: s2
+               (list 'not-eq s1 s2))))
+          
+          (let ((s "yow!"))
+            (grok (cons s s)))      &rArr; (eq "yow!")
+          (grok (cons "yo!" "yo!")) &rArr; (not-eq "yo!" "yo!")
+          (grok '(4 2))             &rArr; (not-eq 4 (2))
+</pre>
+     <li>Side-effecting code referencing <var>symbol</var> is undefined. 
+Avoid. 
+For example, here are two similar functions. 
+Both use <code>and</code>, <var>symbol</var> and <code>guard</code>:
+
+     <pre class="example">          (defun square-double-digit-p/CLEAN (integer)
+            (pcase (* integer integer)
+              ((and n (guard (&lt; 9 n 100))) (list 'yes n))
+              (sorry (list 'no sorry))))
+          
+          (square-double-digit-p/CLEAN 9) &rArr; (yes 81)
+          (square-double-digit-p/CLEAN 3) &rArr; (no 9)
+          
+          (defun square-double-digit-p/MAYBE (integer)
+            (pcase (* integer integer)
+              ((and n (guard (&lt; 9 (incf n) 100))) (list 'yes n))
+              (sorry (list 'no sorry))))
+          
+          (square-double-digit-p/MAYBE 9) &rArr; (yes 81)
+          (square-double-digit-p/MAYBE 3) &rArr; (yes 9)  ; <span class="roman">WRONG!</span>
+</pre>
+     <p class="noindent">The difference is in <var>boolean-expression</var> in <code>guard</code>:
+<code>CLEAN</code> references <code>n</code> simply and directly,
+while <code>MAYBE</code> references <code>n</code> with a side-effect,
+in the expression <code>(incf n)</code>. 
+When <code>integer</code> is 3, here's what happens:
+
+          <ul>
+<li>The first <code>n</code> binds it to <var>expval</var>,
+i.e., the result of evaluating <code>(* 3 3)</code>, or 9.
+
+          <li><var>boolean-expression</var> is evaluated:
+
+          <pre class="example">               start:   (&lt; 9 (incf n)        100)
+               becomes: (&lt; 9 (setq n (1+ n)) 100)
+               becomes: (&lt; 9 (setq n (1+ 9)) 100)
+               becomes: (&lt; 9 (setq n 10)     100)
+                                                  ; <span class="roman">side-effect here!</span>
+               becomes: (&lt; 9       n         100) ; <code>n</code><span class="roman"> now bound to 10</span>
+               becomes: (&lt; 9      10         100)
+               becomes: t
+</pre>
+          <li>Because the result of the evaluation is non-<code>nil</code>,
+<code>guard</code> matches, <code>and</code> matches, and
+control passes to that clause's body forms. 
+</ul>
+
+     <p class="noindent">Aside from the mathematical incorrectness of asserting that 9 is a
+double-digit integer, there is another problem with <code>MAYBE</code>. 
+The body form references <code>n</code> once more, yet we do not see
+the updated value&mdash;10&mdash;at all.  What happened to it?
+
+     <p>To sum up, it's best to avoid side-effecting references to
+<var>symbol</var> patterns entirely, not only
+in <var>boolean-expression</var> (in <code>guard</code>),
+but also in <var>expr</var> (in <code>let</code>)
+and <var>function</var> (in <code>pred</code> and <code>app</code>).
+
+     <li>On match, the clause's body forms can reference the set
+of symbols the pattern let-binds. 
+When <var>seqpat</var> is <code>and</code>, this set is
+the union of all the symbols each of its sub-patterns let-binds. 
+This makes sense because, for <code>and</code> to match,
+all the sub-patterns must match.
+
+     <p>When <var>seqpat</var> is <code>or</code>, things are different:
+<code>or</code> matches at the first sub-pattern that matches;
+the rest of the sub-patterns are ignored. 
+It makes no sense for each sub-pattern to let-bind a different
+set of symbols because the body forms have no way to distinguish
+which sub-pattern matched and choose among the different sets. 
+For example, the following is invalid:
+
+     <pre class="example">          (pcase (read-number "Enter an integer: ")
+            ((or (and (pred evenp)
+                      e-num)      ; <span class="roman">bind </span><code>e-num</code><span class="roman"> to </span><var>expval</var>
+                 o-num)           ; <span class="roman">bind </span><code>o-num</code><span class="roman"> to </span><var>expval</var>
+             (list e-num o-num)))
+          
+          Enter an integer: 42
+          error--&gt; Symbol’s value as variable is void: o-num
+          Enter an integer: 149
+          error--&gt; Symbol’s value as variable is void: e-num
+</pre>
+     <p class="noindent">Evaluating body form <code>(list&nbsp;e-num&nbsp;o-num)</code><!-- /@w --> signals error. 
+To distinguish between sub-patterns, you can use another symbol,
+identical in name in all sub-patterns but differing in value. 
+Reworking the above example:
+
+     <pre class="example">          (pcase (read-number "Enter an integer: ")
+            ((and num                                ; <span class="roman">line 1</span>
+                  (or (and (pred evenp)              ; <span class="roman">line 2</span>
+                           (let spin 'even))         ; <span class="roman">line 3</span>
+                      (let spin 'odd)))              ; <span class="roman">line 4</span>
+             (list spin num)))                       ; <span class="roman">line 5</span>
+          
+          Enter an integer: 42
+          &rArr; (even 42)
+          Enter an integer: 149
+          &rArr; (odd 149)
+</pre>
+     <p class="noindent">Line 1 &ldquo;factors out&rdquo; the <var>expval</var> binding with
+<code>and</code> and <var>symbol</var> (in this case, <code>num</code>). 
+On line 2, <code>or</code> begins in the same way as before,
+but instead of binding different symbols, uses <code>let</code> twice
+(lines 3-4) to bind the same symbol <code>spin</code> in both sub-patterns. 
+The value of <code>spin</code> distinguishes the sub-patterns. 
+The body form references both symbols (line 5).
+        </ol>
+
+   </body></html>
+

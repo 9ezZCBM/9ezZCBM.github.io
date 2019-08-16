@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Body of mark-whole-buffer - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Body-of-mark-whole-buffer"></a>
+<a name="Body-of-mark_002dwhole_002dbuffer"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mark_002dwhole_002dbuffer-overview.html#mark_002dwhole_002dbuffer-overview">mark-whole-buffer overview</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mark_002dwhole_002dbuffer.html#mark_002dwhole_002dbuffer">mark-whole-buffer</a>
+
+</div>
+
+<h4 class="subsection">4.3.1 Body of <code>mark-whole-buffer</code></h4>
+
+<p>The body of the <code>mark-whole-buffer</code> function consists of three
+lines of code:
+
+<!-- GNU Emacs 22 -->
+<pre class="smallexample">     (push-mark (point))
+     (push-mark (point-max) nil t)
+     (goto-char (point-min))
+</pre>
+   <p>The first of these lines is the expression, <code>(push-mark (point))</code>.
+
+   <p>This line does exactly the same job as the first line of the body of
+the <code>simplified-beginning-of-buffer</code> function, which is written
+<code>(push-mark)</code>.  In both cases, the Lisp interpreter sets a mark
+at the current position of the cursor.
+
+   <p>I don't know why the expression in <code>mark-whole-buffer</code> is written
+<code>(push-mark (point))</code> and the expression in
+<code>beginning-of-buffer</code> is written <code>(push-mark)</code>.  Perhaps
+whoever wrote the code did not know that the arguments for
+<code>push-mark</code> are optional and that if <code>push-mark</code> is not
+passed an argument, the function automatically sets mark at the
+location of point by default.  Or perhaps the expression was written
+so as to parallel the structure of the next line.  In any case, the
+line causes Emacs to determine the position of point and set a mark
+there.
+
+   <p>In earlier versions of GNU Emacs, the next line of
+<code>mark-whole-buffer</code> was <code>(push-mark (point-max))</code>.  This
+expression sets a mark at the point in the buffer that has the highest
+number.  This will be the end of the buffer (or, if the buffer is
+narrowed, the end of the accessible portion of the buffer. 
+See <a href="Narrowing-_0026-Widening.html#Narrowing-_0026-Widening">Narrowing and Widening</a>, for more about
+narrowing.)  After this mark has been set, the previous mark, the one
+set at point, is no longer set, but Emacs remembers its position, just
+as all other recent marks are always remembered.  This means that you
+can, if you wish, go back to that position by typing <kbd>C-u
+C-&lt;SPC&gt;</kbd> twice.
+
+   <p>In GNU Emacs 22, the <code>(point-max)</code> is slightly more complicated. 
+The line reads
+
+<pre class="smallexample">     (push-mark (point-max) nil t)
+</pre>
+   <p class="noindent">The expression works nearly the same as before.  It sets a mark at the
+highest numbered place in the buffer that it can.  However, in this
+version, <code>push-mark</code> has two additional arguments.  The second
+argument to <code>push-mark</code> is <code>nil</code>.  This tells the function
+it <em>should</em> display a message that says &ldquo;Mark set&rdquo; when it pushes
+the mark.  The third argument is <code>t</code>.  This tells
+<code>push-mark</code> to activate the mark when Transient Mark mode is
+turned on.  Transient Mark mode highlights the currently active
+region.  It is often turned off.
+
+   <p>Finally, the last line of the function is <code>(goto-char
+(point-min)))</code>.  This is written exactly the same way as it is written
+in <code>beginning-of-buffer</code>.  The expression moves the cursor to
+the minimum point in the buffer, that is, to the beginning of the buffer
+(or to the beginning of the accessible portion of the buffer).  As a
+result of this, point is placed at the beginning of the buffer and mark
+is set at the end of the buffer.  The whole buffer is, therefore, the
+region.
+
+<!-- FIXME: the definition of append-to-buffer has been changed (in -->
+<!-- 2010-03-30). -->
+   </body></html>
+

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>The @code{should} Macro - Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="The-%3ccode%3eshould%3c%2fcode%3e-Macro"></a>
+<a name="The-_003ccode_003eshould_003c_002fcode_003e-Macro"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Expected-Failures.html#Expected-Failures">Expected Failures</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="How-to-Write-Tests.html#How-to-Write-Tests">How to Write Tests</a>
+
+</div>
+
+<h3 class="section">3.1 The <code>should</code> Macro</h3>
+
+<p><a name="index-should_0040r_007b_002c-ert-macro_007d-25"></a>Test bodies can include arbitrary code; but to be useful, they need to
+check whether the code being tested (or <em>code under test</em>)
+does what it is supposed to do.  The macro <code>should</code> is similar to
+<code>cl-assert</code> from the cl package
+(see <a href="../cl/Assertions.html#Assertions">Assertions</a>),
+but analyzes its argument form and records information that ERT can
+display to help debugging.
+
+   <p>This test definition
+
+<pre class="lisp">     (ert-deftest addition-test ()
+       (should (= (+ 1 2) 4)))
+</pre>
+   <p>will produce this output when run via <kbd>M-x ert</kbd>:
+
+<pre class="example">     F addition-test
+         (ert-test-failed
+          ((should
+            (=
+             (+ 1 2)
+             4))
+           :form
+           (= 3 4)
+           :value nil))
+</pre>
+   <p>In this example, <code>should</code> recorded the fact that (= (+ 1 2) 4)
+reduced to (= 3 4) before it reduced to <code>nil</code>.  When debugging why the
+test failed, it helps to know that the function <code>+</code> returned 3
+here.  ERT records the return value for any predicate called directly
+within <code>should</code>.
+
+   <p><a name="index-should_002dnot_0040r_007b_002c-ert-macro_007d-26"></a><a name="index-should_002derror_0040r_007b_002c-ert-macro_007d-27"></a>In addition to <code>should</code>, ERT provides <code>should-not</code>, which
+checks that the predicate returns <code>nil</code>, and <code>should-error</code>, which
+checks that the form called within it signals an error.  An example
+use of <code>should-error</code>:
+
+<pre class="lisp">     (ert-deftest test-divide-by-zero ()
+       (should-error (/ 1 0)
+                     :type 'arith-error))
+</pre>
+   <p>This checks that dividing one by zero signals an error of type
+<code>arith-error</code>.  The <code>:type</code> argument to <code>should-error</code>
+is optional; if absent, any type of error is accepted. 
+<code>should-error</code> returns an error description of the error that was
+signaled, to allow additional checks to be made.  The error
+description has the format <code>(ERROR-SYMBOL . DATA)</code>.
+
+   <p>There is no <code>should-not-error</code> macro since tests that signal an
+error fail anyway, so <code>should-not-error</code> is effectively the
+default.
+
+   <p>See <a href="Understanding-Explanations.html#Understanding-Explanations">Understanding Explanations</a>, for more details on what
+<code>should</code> reports.
+
+   </body></html>
+

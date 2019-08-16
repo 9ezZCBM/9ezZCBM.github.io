@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>else - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="else"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Truth-_0026-Falsehood.html#Truth-_0026-Falsehood">Truth &amp; Falsehood</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="if.html#if">if</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Defuns.html#Writing-Defuns">Writing Defuns</a>
+
+</div>
+
+<h3 class="section">3.8 If&ndash;then&ndash;else Expressions</h3>
+
+<p><a name="index-Else-128"></a>
+An <code>if</code> expression may have an optional third argument, called
+the <dfn>else-part</dfn>, for the case when the true-or-false-test returns
+false.  When this happens, the second argument or then-part of the
+overall <code>if</code> expression is <em>not</em> evaluated, but the third or
+else-part <em>is</em> evaluated.  You might think of this as the cloudy
+day alternative for the decision &ldquo;if it is warm and sunny, then go to
+the beach, else read a book!&rdquo;.
+
+   <p>The word &ldquo;else&rdquo; is not written in the Lisp code; the else-part of an
+<code>if</code> expression comes after the then-part.  In the written Lisp, the
+else-part is usually written to start on a line of its own and is
+indented less than the then-part:
+
+<pre class="smallexample">     (if <var>true-or-false-test</var>
+         <var>action-to-carry-out-if-the-test-returns-true</var>
+       <var>action-to-carry-out-if-the-test-returns-false</var>)
+</pre>
+   <p>For example, the following <code>if</code> expression prints the message &lsquo;<samp><span class="samp">4
+is not greater than 5!</span></samp>&rsquo; when you evaluate it in the usual way:
+
+<pre class="smallexample">     (if (&gt; 4 5)                               ; <span class="roman">if-part</span>
+         (message "4 falsely greater than 5!") ; <span class="roman">then-part</span>
+       (message "4 is not greater than 5!"))   ; <span class="roman">else-part</span>
+</pre>
+   <p class="noindent">Note that the different levels of indentation make it easy to
+distinguish the then-part from the else-part.  (GNU Emacs has several
+commands that automatically indent <code>if</code> expressions correctly. 
+See <a href="Typing-Lists.html#Typing-Lists">GNU Emacs Helps You Type Lists</a>.)
+
+   <p>We can extend the <code>type-of-animal</code> function to include an
+else-part by simply incorporating an additional part to the <code>if</code>
+expression.
+
+   <p>You can see the consequences of doing this if you evaluate the following
+version of the <code>type-of-animal</code> function definition to install it
+and then evaluate the two subsequent expressions to pass different
+arguments to the function.
+
+<pre class="smallexample">     (defun type-of-animal (characteristic)  ; <span class="roman">Second version.</span>
+       "Print message in echo area depending on CHARACTERISTIC.
+     If the CHARACTERISTIC is the string \"fierce\",
+     then warn of a tiger; else say it is not fierce."
+       (if (equal characteristic "fierce")
+           (message "It is a tiger!")
+         (message "It is not fierce!")))
+</pre>
+   <pre class="sp">
+
+</pre>
+<pre class="smallexample">     (type-of-animal "fierce")
+     
+     (type-of-animal "striped")
+</pre>
+   <!-- Following sentence rewritten to prevent overfull hbox. -->
+<p class="noindent">When you evaluate <code>(type-of-animal "fierce")</code>, you will see the
+following message printed in the echo area: <code>"It is a tiger!"</code>; but
+when you evaluate <code>(type-of-animal "striped")</code>, you will see
+<code>"It is not fierce!"</code>.
+
+   <p>(Of course, if the <var>characteristic</var> were <code>"ferocious"</code>, the
+message <code>"It is not fierce!"</code> would be printed; and it would be
+misleading!  When you write code, you need to take into account the
+possibility that some such argument will be tested by the <code>if</code>
+and write your program accordingly.)
+
+   </body></html>
+

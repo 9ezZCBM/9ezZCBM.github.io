@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Evaluating Inner Lists - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Evaluating-Inner-Lists"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="How-the-Interpreter-Acts.html#How-the-Interpreter-Acts">How the Interpreter Acts</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Evaluation.html#Evaluation">Evaluation</a>
+
+</div>
+
+<h4 class="subsection">1.6.1 Evaluating Inner Lists</h4>
+
+<p><a name="index-Inner-list-evaluation-37"></a><a name="index-Evaluating-inner-lists-38"></a>
+If evaluation applies to a list that is inside another list, the outer
+list may use the value returned by the first evaluation as information
+when the outer list is evaluated.  This explains why inner expressions
+are evaluated first: the values they return are used by the outer
+expressions.
+
+   <p>We can investigate this process by evaluating another addition example. 
+Place your cursor after the following expression and type <kbd>C-x C-e</kbd>:
+
+<pre class="smallexample">     (+ 2 (+ 3 3))
+</pre>
+   <p class="noindent">The number 8 will appear in the echo area.
+
+   <p>What happens is that the Lisp interpreter first evaluates the inner
+expression, <code>(+ 3 3)</code>, for which the value 6 is returned; then it
+evaluates the outer expression as if it were written <code>(+ 2 6)</code>, which
+returns the value 8.  Since there are no more enclosing expressions to
+evaluate, the interpreter prints that value in the echo area.
+
+   <p>Now it is easy to understand the name of the command invoked by the
+keystrokes <kbd>C-x C-e</kbd>: the name is <code>eval-last-sexp</code>.  The
+letters <code>sexp</code> are an abbreviation for &ldquo;symbolic expression&rdquo;, and
+<code>eval</code> is an abbreviation for &ldquo;evaluate&rdquo;.  The command
+evaluates the last symbolic expression.
+
+   <p>As an experiment, you can try evaluating the expression by putting the
+cursor at the beginning of the next line immediately following the
+expression, or inside the expression.
+
+   <p>Here is another copy of the expression:
+
+<pre class="smallexample">     (+ 2 (+ 3 3))
+</pre>
+   <p class="noindent">If you place the cursor at the beginning of the blank line that
+immediately follows the expression and type <kbd>C-x C-e</kbd>, you will
+still get the value 8 printed in the echo area.  Now try putting the
+cursor inside the expression.  If you put it right after the next to
+last parenthesis (so it appears to sit on top of the last parenthesis),
+you will get a 6 printed in the echo area!  This is because the command
+evaluates the expression <code>(+ 3 3)</code>.
+
+   <p>Now put the cursor immediately after a number.  Type <kbd>C-x C-e</kbd> and
+you will get the number itself.  In Lisp, if you evaluate a number, you
+get the number itself&mdash;this is how numbers differ from symbols.  If you
+evaluate a list starting with a symbol like <code>+</code>, you will get a
+value returned that is the result of the computer carrying out the
+instructions in the function definition attached to that name.  If a
+symbol by itself is evaluated, something different happens, as we will
+see in the next section.
+
+   </body></html>
+

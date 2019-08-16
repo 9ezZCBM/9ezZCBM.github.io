@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Special symbols - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Special-symbols"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Subscripts-and-superscripts.html#Subscripts-and-superscripts">Subscripts and superscripts</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Literal-examples.html#Literal-examples">Literal examples</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Markup.html#Markup">Markup</a>
+
+</div>
+
+<h3 class="section">11.6 Special symbols</h3>
+
+<p><a name="index-Org-entities-1561"></a><a name="index-math-symbols-1562"></a><a name="index-special-symbols-1563"></a><a name="index-HTML-entities-1564"></a><a name="index-g_t_0040LaTeX_007b_007d-entities-1565"></a>
+You can use LaTeX-like syntax to insert special symbols&mdash;named
+entities&mdash;like &lsquo;<samp><span class="samp">\alpha</span></samp>&rsquo; to indicate the Greek letter, or &lsquo;<samp><span class="samp">\to</span></samp>&rsquo; to
+indicate an arrow.  Completion for these symbols is available, just type
+&lsquo;<samp><span class="samp">\</span></samp>&rsquo; and maybe a few letters, and press <kbd>M-&lt;TAB&gt;</kbd> to see possible
+completions.  If you need such a symbol inside a word, terminate it with
+a pair of curly brackets.  For example
+
+<pre class="example">     Pro tip: Given a circle \Gamma of diameter d, the length of its circumference
+     is \pi{}d.
+</pre>
+   <p><a name="index-org_002dentities_002dhelp-1566"></a><a name="index-org_002dentities_002duser-1567"></a>A large number of entities is provided, with names taken from both HTML and
+LaTeX; you can comfortably browse the complete list from a dedicated
+buffer using the command <code>org-entities-help</code>.  It is also possible to
+provide your own special symbols in the variable <code>org-entities-user</code>.
+
+   <p>During export, these symbols are transformed into the native format of the
+exporter back-end.  Strings like <code>\alpha</code> are exported as <code>&amp;alpha;</code>
+in the HTML output, and as <code>\(\alpha\)</code> in the LaTeX output. 
+Similarly, <code>\nbsp</code> becomes <code>&amp;nbsp;</code> in HTML and <code>~</code> in
+LaTeX.
+
+   <p><a name="index-escaping-characters-1568"></a>Entities may also be used as a may to escape markup in an Org document, e.g.,
+&lsquo;<samp><span class="samp">\under{}not underlined\under</span></samp>&rsquo; exports as &lsquo;<samp><span class="samp">_not underlined_</span></samp>&rsquo;.
+
+   <p><a name="index-special-symbols_002c-in_002dbuffer-display-1569"></a>If you would like to see entities displayed as UTF-8 characters, use the
+following command<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>:
+
+     
+<a name="index-g_t_0040code_007bentitiespretty_007d_002c-STARTUP-keyword-1570"></a>
+<a name="index-C_002dc-C_002dx-_005c-1571"></a>
+<dl><dt><kbd>C-c C-x \</kbd><dd>Toggle display of entities as UTF-8 characters.  This does not change the
+buffer content which remains plain ASCII, but it overlays the UTF-8 character
+for display purposes only. 
+</dl>
+
+   <p><a name="index-shy-hyphen_002c-special-symbol-1572"></a><a name="index-dash_002c-special-symbol-1573"></a><a name="index-ellipsis_002c-special-symbol-1574"></a>In addition to regular entities defined above, Org exports in a special
+way<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a> the following commonly used character
+combinations: &lsquo;<samp><span class="samp">\-</span></samp>&rsquo; is treated as a shy hyphen, &lsquo;<samp><span class="samp">--</span></samp>&rsquo; and &lsquo;<samp><span class="samp">---</span></samp>&rsquo;
+are converted into dashes, and &lsquo;<samp><span class="samp">...</span></samp>&rsquo; becomes a compact set of dots.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> You can turn this on by default by setting the
+variable <code>org-pretty-entities</code>, or on a per-file base with the
+<code>#+STARTUP</code> option <code>entitiespretty</code>.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> This behavior can be disabled with <code>-</code> export setting
+(see <a href="Export-settings.html#Export-settings">Export settings</a>).</p>
+
+   <hr></div>
+
+   </body></html>
+

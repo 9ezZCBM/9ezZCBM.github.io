@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Lisp Interpreter - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Lisp-Interpreter"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Evaluation.html#Evaluation">Evaluation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Names-_0026-Definitions.html#Names-_0026-Definitions">Names &amp; Definitions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="List-Processing.html#List-Processing">List Processing</a>
+
+</div>
+
+<h3 class="section">1.5 The Lisp Interpreter</h3>
+
+<p><a name="index-Lisp-interpreter_002c-what-it-does-30"></a><a name="index-Interpreter_002c-what-it-does-31"></a>
+Based on what we have seen, we can now start to figure out what the
+Lisp interpreter does when we command it to evaluate a list. 
+First, it looks to see whether there is a quote before the list; if
+there is, the interpreter just gives us the list.  On the other
+hand, if there is no quote, the interpreter looks at the first element
+in the list and sees whether it has a function definition.  If it does,
+the interpreter carries out the instructions in the function definition. 
+Otherwise, the interpreter prints an error message.
+
+   <p>This is how Lisp works.  Simple.  There are added complications which we
+will get to in a minute, but these are the fundamentals.  Of course, to
+write Lisp programs, you need to know how to write function definitions
+and attach them to names, and how to do this without confusing either
+yourself or the computer.
+
+<ul class="menu">
+<li><a accesskey="1" href="Complications.html#Complications">Complications</a>:                Variables, Special forms, Lists within. 
+<li><a accesskey="2" href="Byte-Compiling.html#Byte-Compiling">Byte Compiling</a>:               Specially processing code for speed. 
+</ul>
+
+   </body></html>
+

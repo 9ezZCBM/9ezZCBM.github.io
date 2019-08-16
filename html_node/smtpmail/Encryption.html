@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Encryption - Emacs SMTP Library</title>
+<!--
+Copyright (C) 2003--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Encryption"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Queued-delivery.html#Queued-delivery">Queued delivery</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Authentication.html#Authentication">Authentication</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Encryption</h2>
+
+<p><a name="index-STARTTLS-22"></a><a name="index-TLS-23"></a><a name="index-SSL-24"></a>For greater security, you can encrypt your connection to the SMTP
+server.  If this is to work, both Emacs and the server must support it.
+
+   <p>The SMTP library supports the &ldquo;Transport Layer Security&rdquo; (TLS), and
+the older &ldquo;Secure Sockets Layer&rdquo; (SSL) encryption mechanisms. 
+It also supports STARTTLS, which is a variant of TLS in which the
+initial connection to the server is made in plain text, requesting a
+switch to an encrypted channel for the rest of the process.
+
+   <p><a name="index-smtpmail_002dstream_002dtype-25"></a>The variable <code>smtpmail-stream-type</code> controls what form of
+connection the SMTP library uses.  The default value is <code>nil</code>,
+which means to use a plain connection, but try to switch to a STARTTLS
+encrypted connection if the server supports it.  Other possible values
+are: <code>starttls</code> to insist on STARTTLS; <code>ssl</code> to use TLS/SSL;
+and <code>plain</code> for no encryption.
+
+   <p>Use of any form of TLS/SSL requires support in Emacs.  You can either
+use the built-in support (in Emacs 24.1 and later), or the
+<samp><span class="file">starttls.el</span></samp> Lisp library.  The built-in support uses the GnuTLS
+<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> library. 
+If your Emacs has GnuTLS support built-in, the function
+<code>gnutls-available-p</code> is defined and returns non-<code>nil</code>. 
+Otherwise, you must use the <samp><span class="file">starttls.el</span></samp> library (see that file for
+more information on customization options, etc.).  The Lisp library
+requires one of the following external tools to be installed:
+
+     <ol type=1 start=1>
+<li>The GnuTLS command line tool &lsquo;<samp><span class="samp">gnutls-cli</span></samp>&rsquo;, which you can get from
+<a href="https://www.gnu.org/software/gnutls/">https://www.gnu.org/software/gnutls/</a>.  This is the recommended
+tool, mainly because it can verify server certificates.
+
+     <li>The &lsquo;<samp><span class="samp">starttls</span></samp>&rsquo; external program, which you can get from
+<samp><span class="file">starttls-*.tar.gz</span></samp> from <a href="ftp://ftp.opaopa.org/pub/elisp/">ftp://ftp.opaopa.org/pub/elisp/</a>.
+        </ol>
+
+   <p><a name="index-certificates-26"></a><a name="index-keys-27"></a>The SMTP server may also request that you verify your identity by
+sending a certificate and the associated encryption key to the server. 
+If you need to do this, you can use an <samp><span class="file">~/.authinfo</span></samp> entry like this:
+
+<pre class="smallexample">     machine mail.example.org port 25 key "~/.my_smtp_tls.key" cert "~/.my_smtp_tls.cert"
+</pre>
+   <p class="noindent">(This replaces the old <code>smtpmail-starttls-credentials</code> variable used
+prior to Emacs 24.1.)
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> <a href="https://www.gnu.org/software/gnutls/">https://www.gnu.org/software/gnutls/</a></p>
+
+   <hr></div>
+
+   </body></html>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Gnus Unplugged - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Gnus-Unplugged"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Email-Based-Diary.html#Email-Based-Diary">Email Based Diary</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Select-Methods.html#Select-Methods">Select Methods</a>
+
+</div>
+
+<h3 class="section">6.9 Gnus Unplugged</h3>
+
+<p><a name="index-offline-2302"></a><a name="index-unplugged-2303"></a><a name="index-agent-2304"></a><a name="index-Gnus-agent-2305"></a><a name="index-Gnus-unplugged-2306"></a>
+In olden times (ca. February '88), people used to run their newsreaders
+on big machines with permanent connections to the net.  News transport
+was dealt with by news servers, and all the newsreaders had to do was to
+read news.  Believe it or not.
+
+   <p>Nowadays most people read news and mail at home, and use some sort of
+modem to connect to the net.  To avoid running up huge phone bills, it
+would be nice to have a way to slurp down all the news and mail, hang up
+the phone, read for several hours, and then upload any responses you
+have to make.  And then you repeat the procedure.
+
+   <p>Of course, you can use news servers for doing this as well.  I've used
+<code>inn</code> together with <code>slurp</code>, <code>pop</code> and <code>sendmail</code>
+for some years, but doing that's a bore.  Moving the news server
+functionality up to the newsreader makes sense if you're the only person
+reading news on a machine.
+
+   <p>Setting up Gnus as an &ldquo;offline&rdquo; newsreader is quite simple.  In
+fact, you don't have to configure anything as the agent is now enabled
+by default (see <a href="Agent-Variables.html#Agent-Variables">gnus-agent</a>).
+
+   <p>Of course, to use it as such, you have to learn a few new commands.
+
+<ul class="menu">
+<li><a accesskey="1" href="Agent-Basics.html#Agent-Basics">Agent Basics</a>:                 How it all is supposed to work. 
+<li><a accesskey="2" href="Agent-Categories.html#Agent-Categories">Agent Categories</a>:             How to tell the Gnus Agent what to download. 
+<li><a accesskey="3" href="Agent-Commands.html#Agent-Commands">Agent Commands</a>:               New commands for all the buffers. 
+<li><a accesskey="4" href="Agent-Visuals.html#Agent-Visuals">Agent Visuals</a>:                Ways that the agent may effect your summary buffer. 
+<li><a accesskey="5" href="Agent-as-Cache.html#Agent-as-Cache">Agent as Cache</a>:               The Agent is a big cache too. 
+<li><a accesskey="6" href="Agent-Expiry.html#Agent-Expiry">Agent Expiry</a>:                 How to make old articles go away. 
+<li><a accesskey="7" href="Agent-Regeneration.html#Agent-Regeneration">Agent Regeneration</a>:           How to recover from lost connections and other accidents. 
+<li><a accesskey="8" href="Agent-and-flags.html#Agent-and-flags">Agent and flags</a>:              How the Agent maintains flags. 
+<li><a accesskey="9" href="Agent-and-IMAP.html#Agent-and-IMAP">Agent and IMAP</a>:               How to use the Agent with <acronym>IMAP</acronym>. 
+<li><a href="Outgoing-Messages.html#Outgoing-Messages">Outgoing Messages</a>:            What happens when you post/mail something? 
+<li><a href="Agent-Variables.html#Agent-Variables">Agent Variables</a>:              Customizing is fun. 
+<li><a href="Example-Setup.html#Example-Setup">Example Setup</a>:                An example <samp><span class="file">~/.gnus.el</span></samp> file for offline people. 
+<li><a href="Batching-Agents.html#Batching-Agents">Batching Agents</a>:              How to fetch news from a <code>cron</code> job. 
+<li><a href="Agent-Caveats.html#Agent-Caveats">Agent Caveats</a>:                What you think it'll do and what it does. 
+</ul>
+
+   </body></html>
+

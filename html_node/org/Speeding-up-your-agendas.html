@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Speeding up your agendas - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Speeding-up-your-agendas"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Extracting-agenda-information.html#Extracting-agenda-information">Extracting agenda information</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Special-agenda-views.html#Special-agenda-views">Special agenda views</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hacking.html#Hacking">Hacking</a>
+
+</div>
+
+<h3 class="section">A.9 Speeding up your agendas</h3>
+
+<p><a name="index-agenda-views_002c-optimization-2418"></a>
+Some agenda commands slow down when the Org files grow in size or number. 
+Here are tips to speed up:
+
+     <ol type=1 start=1>
+<li>Reduce the number of Org agenda files to avoid slowdowns due to hard drive
+accesses. 
+<li>Reduce the number of &lsquo;<samp><span class="samp">DONE</span></samp>&rsquo; and archived headlines so agenda operations
+that skip over these can finish faster. 
+<li><a name="index-org_002dagenda_002ddim_002dblocked_002dtasks-2419"></a>Do not dim blocked tasks:
+     <pre class="lisp">          (setq org-agenda-dim-blocked-tasks nil)
+</pre>
+     <li><a name="index-org_002dstartup_002dfolded-2420"></a><a name="index-org_002dagenda_002dinhibit_002dstartup-2421"></a>Stop preparing agenda buffers on startup:
+     <pre class="lisp">          (setq org-agenda-inhibit-startup nil)
+</pre>
+     <li><a name="index-org_002dagenda_002dshow_002dinherited_002dtags-2422"></a><a name="index-org_002dagenda_002duse_002dtag_002dinheritance-2423"></a>Disable tag inheritance for agendas:
+     <pre class="lisp">          (setq org-agenda-use-tag-inheritance nil)
+</pre>
+     </ol>
+
+   <p>These options can be applied to selected agenda views.  For more details
+about generation of agenda views, see the docstrings for the relevant
+variables, and this <a href="https://orgmode.org/worg/agenda-optimization.html">dedicated Worg page</a> for agenda optimization.
+
+   </body></html>
+

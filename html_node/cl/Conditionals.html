@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Conditionals - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Conditionals"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Blocks-and-Exits.html#Blocks-and-Exits">Blocks and Exits</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Variable-Bindings.html#Variable-Bindings">Variable Bindings</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Control-Structure.html#Control-Structure">Control Structure</a>
+
+</div>
+
+<h3 class="section">4.4 Conditionals</h3>
+
+<p><a name="index-conditionals-37"></a>
+These conditional forms augment Emacs Lisp's simple <code>if</code>,
+<code>and</code>, <code>or</code>, and <code>cond</code> forms.
+
+<div class="defun">
+&mdash; Macro: <b>cl-case</b><var> keyform clause<small class="dots">...</small><a name="index-cl_002dcase-38"></a></var><br>
+<blockquote><p>This macro evaluates <var>keyform</var>, then compares it with the key
+values listed in the various <var>clause</var>s.  Whichever clause matches
+the key is executed; comparison is done by <code>eql</code>.  If no clause
+matches, the <code>cl-case</code> form returns <code>nil</code>.  The clauses are
+of the form
+
+     <pre class="example">          (<var>keylist</var> <var>body-forms</var>...)
+</pre>
+        <p class="noindent">where <var>keylist</var> is a list of key values.  If there is exactly
+one value, and it is not a cons cell or the symbol <code>nil</code> or
+<code>t</code>, then it can be used by itself as a <var>keylist</var> without
+being enclosed in a list.  All key values in the <code>cl-case</code> form
+must be distinct.  The final clauses may use <code>t</code> in place of
+a <var>keylist</var> to indicate a default clause that should be taken
+if none of the other clauses match.  (The symbol <code>otherwise</code>
+is also recognized in place of <code>t</code>.  To make a clause that
+matches the actual symbol <code>t</code>, <code>nil</code>, or <code>otherwise</code>,
+enclose the symbol in a list.)
+
+        <p>For example, this expression reads a keystroke, then does one of
+four things depending on whether it is an &lsquo;<samp><span class="samp">a</span></samp>&rsquo;, a &lsquo;<samp><span class="samp">b</span></samp>&rsquo;,
+a &lt;RET&gt; or <kbd>C-j</kbd>, or anything else.
+
+     <pre class="example">          (cl-case (read-char)
+            (?a (do-a-thing))
+            (?b (do-b-thing))
+            ((?\r ?\n) (do-ret-thing))
+            (t (do-other-thing)))
+</pre>
+        </blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-ecase</b><var> keyform clause<small class="dots">...</small><a name="index-cl_002decase-39"></a></var><br>
+<blockquote><p>This macro is just like <code>cl-case</code>, except that if the key does
+not match any of the clauses, an error is signaled rather than
+simply returning <code>nil</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-typecase</b><var> keyform clause<small class="dots">...</small><a name="index-cl_002dtypecase-40"></a></var><br>
+<blockquote><p>This macro is a version of <code>cl-case</code> that checks for types
+rather than values.  Each <var>clause</var> is of the form
+&lsquo;<samp><span class="samp">(</span><var>type</var> <var>body</var><span class="samp">...)</span></samp>&rsquo;.  See <a href="Type-Predicates.html#Type-Predicates">Type Predicates</a>,
+for a description of type specifiers.  For example,
+
+     <pre class="example">          (cl-typecase x
+            (integer (munch-integer x))
+            (float (munch-float x))
+            (string (munch-integer (string-to-number x)))
+            (t (munch-anything x)))
+</pre>
+        <p>The type specifier <code>t</code> matches any type of object; the word
+<code>otherwise</code> is also allowed.  To make one clause match any of
+several types, use an <code>(or ...)</code> type specifier. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-etypecase</b><var> keyform clause<small class="dots">...</small><a name="index-cl_002detypecase-41"></a></var><br>
+<blockquote><p>This macro is just like <code>cl-typecase</code>, except that if the key does
+not match any of the clauses, an error is signaled rather than
+simply returning <code>nil</code>. 
+</p></blockquote></div>
+
+   </body></html>
+

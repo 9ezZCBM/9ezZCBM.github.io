@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>A Beamer example - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="A-Beamer-example"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Editing-support.html#Editing-support">Editing support</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Beamer-export.html#Beamer-export">Beamer export</a>
+
+</div>
+
+<h4 class="subsection">12.8.6 A Beamer example</h4>
+
+<p>Here is an example of an Org document ready for Beamer export.
+
+<pre class="example">     #+TITLE: Example Presentation
+     #+AUTHOR: Carsten Dominik
+     #+OPTIONS: H:2 toc:t num:t
+     #+LATEX_CLASS: beamer
+     #+LATEX_CLASS_OPTIONS: [presentation]
+     #+BEAMER_THEME: Madrid
+     #+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col) %8BEAMER_OPT(Opt)
+     
+     * This is the first structural section
+     
+     ** Frame 1
+     *** Thanks to Eric Fraga                                           :B_block:
+         :PROPERTIES:
+         :BEAMER_COL: 0.48
+         :BEAMER_ENV: block
+         :END:
+         for the first viable Beamer setup in Org
+     *** Thanks to everyone else                                        :B_block:
+         :PROPERTIES:
+         :BEAMER_COL: 0.48
+         :BEAMER_ACT: &lt;2-&gt;
+         :BEAMER_ENV: block
+         :END:
+         for contributing to the discussion
+     **** This will be formatted as a beamer note                       :B_note:
+          :PROPERTIES:
+          :BEAMER_env: note
+          :END:
+     ** Frame 2 (where we will not use columns)
+     *** Request
+         Please test this stuff!
+</pre>
+   </body></html>
+

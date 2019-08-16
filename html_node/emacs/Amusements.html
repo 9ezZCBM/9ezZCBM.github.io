@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Amusements - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Amusements"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Packages.html#Packages">Packages</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Hyperlinking.html#Hyperlinking">Hyperlinking</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">47 Games and Other Amusements</h2>
+
+<p><a name="index-boredom-4630"></a><a name="index-games-4631"></a>
+<a name="index-animate_002dbirthday_002dpresent-4632"></a><a name="index-animate-4633"></a>  The <code>animate</code> package makes text dance (e.g., <kbd>M-x
+animate-birthday-present</kbd>).
+
+   <p><a name="index-blackbox-4634"></a><a name="index-mpuz-4635"></a><a name="index-g_t5x5-4636"></a><a name="index-puzzles-4637"></a>  <kbd>M-x blackbox</kbd>, <kbd>M-x mpuz</kbd> and <kbd>M-x 5x5</kbd> are puzzles. 
+<code>blackbox</code> challenges you to determine the location of objects
+inside a box by tomography.  <code>mpuz</code> displays a multiplication
+puzzle with letters standing for digits in a code that you must
+guess&mdash;to guess a value, type a letter and then the digit you think it
+stands for.  The aim of <code>5x5</code> is to fill in all the squares.
+
+   <p><a name="index-bubbles-4638"></a><a name="index-bubbles-4639"></a>  <kbd>M-x bubbles</kbd> is a game in which the object is to remove as many
+bubbles as you can in the smallest number of moves.
+
+   <p><a name="index-decipher-4640"></a><a name="index-ciphers-4641"></a><a name="index-cryptanalysis-4642"></a>  <kbd>M-x decipher</kbd> helps you to cryptanalyze a buffer which is
+encrypted in a simple monoalphabetic substitution cipher.
+
+   <p><a name="index-dissociated_002dpress-4643"></a>  <kbd>M-x dissociated-press</kbd> scrambles the text in the current Emacs
+buffer, word by word or character by character, writing its output to
+a buffer named <samp><span class="file">*Dissociation*</span></samp>.  A positive argument tells it to
+operate character by character, and specifies the number of overlap
+characters.  A negative argument tells it to operate word by word, and
+specifies the number of overlap words.  Dissociated Press produces
+results fairly like those of a Markov chain, but is however, an
+independent, ignoriginal invention; it techniquitously copies several
+consecutive characters from the sample text between random jumps,
+unlike a Markov chain which would jump randomly after each word or
+character.  Keep dissociwords out of your documentation, if you want
+it to be well userenced and properbose.
+
+   <p><a name="index-dunnet-4644"></a><a name="index-dunnet-4645"></a>  <kbd>M-x dunnet</kbd> runs a text-based adventure game.
+
+   <p><a name="index-gomoku-4646"></a><a name="index-Go-Moku-4647"></a>  If you want a little more personal involvement, try <kbd>M-x gomoku</kbd>,
+which plays the game Go Moku with you.
+
+   <p><a name="index-tower-of-Hanoi-4648"></a><a name="index-hanoi-4649"></a>  If you are a little bit bored, you can try <kbd>M-x hanoi</kbd>.  If you are
+considerably bored, give it a numeric argument.  If you are very, very
+bored, try an argument of 9.  Sit back and watch.
+
+   <p><a name="index-life-4650"></a><a name="index-Life-4651"></a>  <kbd>M-x life</kbd> runs Conway's Game of Life cellular automaton.
+
+   <p><a name="index-morse_002dregion-4652"></a><a name="index-unmorse_002dregion-4653"></a><a name="index-nato_002dregion-4654"></a><a name="index-Morse-code-4655"></a><a name="index-g_t_002d_002d_002f_002d_002d_002d_002f_002e_002d_002e_002f_002e_002e_002e_002f_002e-4656"></a>  <kbd>M-x morse-region</kbd> converts the text in the region to Morse
+code; <kbd>M-x unmorse-region</kbd> converts it back.  <kbd>M-x
+nato-region</kbd> converts the text in the region to NATO phonetic
+alphabet; <kbd>M-x denato-region</kbd> converts it back.
+
+   <p><a name="index-pong-4657"></a><a name="index-Pong-game-4658"></a><a name="index-tetris-4659"></a><a name="index-Tetris-4660"></a><a name="index-snake-4661"></a><a name="index-Snake-4662"></a>  <kbd>M-x pong</kbd>, <kbd>M-x snake</kbd> and <kbd>M-x tetris</kbd> are
+implementations of the well-known Pong, Snake and Tetris games.
+
+   <p><a name="index-solitaire-4663"></a><a name="index-solitaire-4664"></a>  <kbd>M-x solitaire</kbd> plays a game of solitaire in which you jump pegs
+across other pegs.
+
+   <p><a name="index-zone-4665"></a><a name="index-zone-4666"></a>  The command <kbd>M-x zone</kbd> plays games with the display when Emacs
+is idle.
+
+   <p><a name="index-butterfly-4667"></a><a name="index-butterfly-4668"></a>  &ldquo;Real Programmers&rdquo; deploy <kbd>M-x butterfly</kbd>, which uses butterflies
+to flip a bit on the drive platter, see <a href="https://xkcd.com/378">https://xkcd.com/378</a>.
+
+   <p><a name="index-doctor-4669"></a><a name="index-Eliza-4670"></a>  Finally, if you find yourself frustrated, try describing your
+problems to the famous psychotherapist Eliza.  Just do <kbd>M-x
+doctor</kbd>.  End each input by typing &lt;RET&gt; twice.
+
+<!-- This is part of the Emacs manual. -->
+<!-- Copyright (C) 1985-1987, 1993-1995, 1997, 2000-2019 Free Software -->
+<!-- Foundation, Inc. -->
+<!-- See file emacs.texi for copying conditions. -->
+   </body></html>
+

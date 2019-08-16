@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Complete forward-sentence - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Complete-forward-sentence"></a>
+<a name="Complete-forward_002dsentence"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="fwd_002dsentence-while-loops.html#fwd_002dsentence-while-loops">fwd-sentence while loops</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="forward_002dsentence.html#forward_002dsentence">forward-sentence</a>
+
+</div>
+
+<h4 class="unnumberedsubsec">Complete <code>forward-sentence</code> function definition</h4>
+
+   <p>Here is the code for <code>forward-sentence</code>:
+
+<!-- in GNU Emacs 22 -->
+<pre class="smallexample">     (defun forward-sentence (&amp;optional arg)
+       "Move forward to next end of sentence.  With argument, repeat.
+     With negative argument, move backward repeatedly to start of sentence.
+     
+     The variable `sentence-end' is a regular expression that matches ends of
+     sentences.  Also, every paragraph boundary terminates sentences as well."
+       (interactive "p")
+       (or arg (setq arg 1))
+       (let ((opoint (point))
+             (sentence-end (sentence-end)))
+         (while (&lt; arg 0)
+           (let ((pos (point))
+                 (par-beg (save-excursion (start-of-paragraph-text) (point))))
+            (if (and (re-search-backward sentence-end par-beg t)
+                     (or (&lt; (match-end 0) pos)
+                         (re-search-backward sentence-end par-beg t)))
+                (goto-char (match-end 0))
+              (goto-char par-beg)))
+           (setq arg (1+ arg)))
+         (while (&gt; arg 0)
+           (let ((par-end (save-excursion (end-of-paragraph-text) (point))))
+            (if (re-search-forward sentence-end par-end t)
+                (skip-chars-backward " \t\n")
+              (goto-char par-end)))
+           (setq arg (1- arg)))
+         (constrain-to-field nil opoint t)))
+</pre>
+   <p>The function looks long at first sight and it is best to look at its
+skeleton first, and then its muscle.  The way to see the skeleton is to
+look at the expressions that start in the left-most columns:
+
+<pre class="smallexample">     (defun forward-sentence (&amp;optional arg)
+       "<var>documentation</var>..."
+       (interactive "p")
+       (or arg (setq arg 1))
+       (let ((opoint (point)) (sentence-end (sentence-end)))
+         (while (&lt; arg 0)
+           (let ((pos (point))
+                 (par-beg (save-excursion (start-of-paragraph-text) (point))))
+            <var>rest-of-body-of-while-loop-when-going-backwards</var>
+         (while (&gt; arg 0)
+           (let ((par-end (save-excursion (end-of-paragraph-text) (point))))
+            <var>rest-of-body-of-while-loop-when-going-forwards</var>
+         <var>handle-forms-and-equivalent</var>
+</pre>
+   <p>This looks much simpler!  The function definition consists of
+documentation, an <code>interactive</code> expression, an <code>or</code>
+expression, a <code>let</code> expression, and <code>while</code> loops.
+
+   <p>Let's look at each of these parts in turn.
+
+   <p>We note that the documentation is thorough and understandable.
+
+   <p>The function has an <code>interactive "p"</code> declaration.  This means
+that the processed prefix argument, if any, is passed to the
+function as its argument.  (This will be a number.)  If the function
+is not passed an argument (it is optional) then the argument
+<code>arg</code> will be bound to 1.
+
+   <p>When <code>forward-sentence</code> is called non-interactively without an
+argument, <code>arg</code> is bound to <code>nil</code>.  The <code>or</code> expression
+handles this.  What it does is either leave the value of <code>arg</code> as
+it is, but only if <code>arg</code> is bound to a value; or it sets the
+value of <code>arg</code> to 1, in the case when <code>arg</code> is bound to
+<code>nil</code>.
+
+   <p>Next is a <code>let</code>.  That specifies the values of two local
+variables, <code>opoint</code> and <code>sentence-end</code>.  The local value of
+point, from before the search, is used in the
+<code>constrain-to-field</code> function which handles forms and
+equivalents.  The <code>sentence-end</code> variable is set by the
+<code>sentence-end</code> function.
+
+   </body></html>
+

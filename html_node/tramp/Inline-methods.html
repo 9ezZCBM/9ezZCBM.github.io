@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Inline methods - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Inline-methods"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="External-methods.html#External-methods">External methods</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Connection-types.html#Connection-types">Connection types</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.2 Inline methods</h3>
+
+<p><a name="index-inline-methods-43"></a><a name="index-methods_002c-inline-44"></a>
+Inline methods use the same login connection to transfer file
+contents.  Inline methods are quick and easy for small files.  They
+depend on the availability of suitable encoding and decoding programs
+on the remote host.  For local source and destination, <span class="sc">Tramp</span>
+may use built-in equivalents of such programs in Emacs.
+
+   <p>Inline methods can work in situations where an external transfer
+program is unavailable.  Inline methods also work when transferring
+files between different <em>user identities</em> on the same host.
+
+   <p><a name="index-uuencode-45"></a><a name="index-mimencode-46"></a><a name="index-base_002d64-encoding-47"></a>
+<span class="sc">Tramp</span> checks the remote host for the availability and
+usability of <samp><span class="command">mimencode</span></samp> (part of the <samp><span class="command">metamail</span></samp>
+package) or <samp><span class="command">uuencode</span></samp>.  <span class="sc">Tramp</span> uses the first reliable
+command it finds.  <span class="sc">Tramp</span>'s search path can be customized, see
+<a href="Remote-programs.html#Remote-programs">Remote programs</a>.
+
+   <p>In case both <samp><span class="command">mimencode</span></samp> and <samp><span class="command">uuencode</span></samp> are
+unavailable, <span class="sc">Tramp</span> first transfers a small Perl program to the
+remote host, and then tries that program for encoding and decoding.
+
+   <p><a name="index-tramp_002dinline_002dcompress_002dstart_002dsize-48"></a>To increase transfer speeds for large text files, use compression
+before encoding.  The user option
+<code>tramp-inline-compress-start-size</code> specifies the file size for
+such optimization.
+
+     <dl>
+<dt><samp><span class="option">rsh</span></samp><dd><a name="index-method-rsh-49"></a><a name="index-rsh-method-50"></a>
+<samp><span class="command">rsh</span></samp> is an option for connecting to hosts within local
+networks since <samp><span class="command">rsh</span></samp> is not as secure as other methods.
+
+     <br><dt><samp><span class="option">ssh</span></samp><dd><a name="index-method-ssh-51"></a><a name="index-ssh-method-52"></a>
+<samp><span class="command">ssh</span></samp> is a more secure option than others to connect to a
+remote host.
+
+     <p><samp><span class="command">ssh</span></samp> can also take extra parameters as port numbers.  For
+example, a host on port 42 is specified as <samp><span class="file">host#42</span></samp> (the real
+host name, a hash sign, then a port number).  It is the same as passing
+&lsquo;<samp><span class="samp">-p 42</span></samp>&rsquo; to the <samp><span class="command">ssh</span></samp> command.
+
+     <br><dt><samp><span class="option">telnet</span></samp><dd><a name="index-method-telnet-53"></a><a name="index-telnet-method-54"></a>
+Connecting to a remote host with <samp><span class="command">telnet</span></samp> is as insecure
+as the <samp><span class="option">rsh</span></samp> method.
+
+     <br><dt><samp><span class="option">su</span></samp><dd><a name="index-method-su-55"></a><a name="index-su-method-56"></a>
+Instead of connecting to a remote host, <samp><span class="command">su</span></samp> program allows
+editing as another user.  The host can be either &lsquo;<samp><span class="samp">localhost</span></samp>&rsquo; or
+the host returned by the function <samp><span class="command">(system-name)</span></samp>.  See
+<a href="Multi_002dhops.html#Multi_002dhops">Multi-hops</a> for an exception to this behavior.
+
+     <br><dt><samp><span class="option">sudo</span></samp><dd><a name="index-method-sudo-57"></a><a name="index-sudo-method-58"></a>
+Similar to <samp><span class="option">su</span></samp> method, <samp><span class="option">sudo</span></samp> uses <samp><span class="command">sudo</span></samp>. 
+<samp><span class="command">sudo</span></samp> must have sufficient rights to start a shell.
+
+     <br><dt><samp><span class="option">doas</span></samp><dd><a name="index-method-doas-59"></a><a name="index-doas-method-60"></a>
+This method is used on OpenBSD like the <samp><span class="command">sudo</span></samp> command.
+
+     <br><dt><samp><span class="option">sg</span></samp><dd><a name="index-method-sg-61"></a><a name="index-sg-method-62"></a>
+The <samp><span class="command">sg</span></samp> program allows editing as different group.  The host
+can be either &lsquo;<samp><span class="samp">localhost</span></samp>&rsquo; or the host returned by the function
+<samp><span class="command">(system-name)</span></samp>.  The user name must be specified, but it
+denotes a group name.  See <a href="Multi_002dhops.html#Multi_002dhops">Multi-hops</a> for an exception to this
+behavior.
+
+     <br><dt><samp><span class="option">sshx</span></samp><dd><a name="index-method-sshx-63"></a><a name="index-sshx-method-64"></a>
+Works like <samp><span class="option">ssh</span></samp> but without the extra authentication prompts. 
+<samp><span class="option">sshx</span></samp> uses &lsquo;<samp><span class="samp">ssh -t -t </span><var>host</var><span class="samp"> -l </span><var>user</var><span class="samp"> /bin/sh</span></samp>&rsquo;
+to open a connection with a &ldquo;standard&rdquo; login shell.
+
+     <p><strong>Note</strong> that <samp><span class="option">sshx</span></samp> does not bypass authentication
+questions.  For example, if the host key of the remote host is not
+known, <samp><span class="option">sshx</span></samp> will still ask &ldquo;Are you sure you want to
+continue connecting?&rdquo;.  <span class="sc">Tramp</span> cannot handle such questions. 
+Connections will have to be setup where logins can proceed without
+such questions.
+
+     <p><samp><span class="option">sshx</span></samp> is useful for MS Windows users when <samp><span class="command">ssh</span></samp>
+triggers an error about allocating a pseudo tty.  This happens due to
+missing shell prompts that confuses <span class="sc">Tramp</span>.
+
+     <p><samp><span class="option">sshx</span></samp> supports the &lsquo;<samp><span class="samp">-p</span></samp>&rsquo; argument.
+
+     <br><dt><samp><span class="option">krlogin</span></samp><dd><a name="index-method-krlogin-65"></a><a name="index-krlogin-method-66"></a><a name="index-kerberos-_0028with-krlogin-method_0029-67"></a>
+This method is also similar to <samp><span class="option">ssh</span></samp>.  It uses the
+<samp><span class="command">krlogin -x</span></samp> command only for remote host login.
+
+     <br><dt><samp><span class="option">ksu</span></samp><dd><a name="index-method-ksu-68"></a><a name="index-ksu-method-69"></a><a name="index-kerberos-_0028with-ksu-method_0029-70"></a>
+This is another method from the Kerberos suite.  It behaves like <samp><span class="option">su</span></samp>.
+
+     <br><dt><samp><span class="option">plink</span></samp><dd><a name="index-method-plink-71"></a><a name="index-plink-method-72"></a>
+<samp><span class="option">plink</span></samp> method is for MS Windows users with the PuTTY
+implementation of SSH.  It uses &lsquo;<samp><span class="samp">plink -ssh</span></samp>&rsquo; to log in to the
+remote host.
+
+     <p>Check the &lsquo;<samp><span class="samp">Share SSH connections if possible</span></samp>&rsquo; control for that
+session.
+
+     <p><samp><span class="option">plink</span></samp> method supports the &lsquo;<samp><span class="samp">-P</span></samp>&rsquo; argument.
+
+     <br><dt><samp><span class="option">plinkx</span></samp><dd><a name="index-method-plinkx-73"></a><a name="index-plinkx-method-74"></a>
+Another method using PuTTY on MS Windows with session names instead of
+host names.  <samp><span class="option">plinkx</span></samp> calls &lsquo;<samp><span class="samp">plink -load </span><var>session</var><span class="samp">
+-t</span></samp>&rsquo;.  User names and port numbers must be defined in the session.
+
+     <p>Check the &lsquo;<samp><span class="samp">Share SSH connections if possible</span></samp>&rsquo; control for that
+session.
+
+   </dl>
+
+   </body></html>
+

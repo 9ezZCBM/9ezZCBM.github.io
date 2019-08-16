@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Several files recursively - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Several-files-recursively"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Prepare-the-data.html#Prepare-the-data">Prepare the data</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Several-files.html#Several-files">Several files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Words-in-a-defun.html#Words-in-a-defun">Words in a defun</a>
+
+</div>
+
+<h3 class="section">14.8 Recursively Count Words in Different Files</h3>
+
+<p>Besides a <code>while</code> loop, you can work on each of a list of files
+with recursion.  A recursive version of <code>lengths-list-many-files</code>
+is short and simple.
+
+   <p>The recursive function has the usual parts: the do-again-test, the
+next-step-expression, and the recursive call.  The do-again-test
+determines whether the function should call itself again, which it
+will do if the <code>list-of-files</code> contains any remaining elements;
+the next-step-expression resets the <code>list-of-files</code> to the
+<span class="sc">cdr</span> of itself, so eventually the list will be empty; and the
+recursive call calls itself on the shorter list.  The complete
+function is shorter than this description! 
+<a name="index-recursive_002dlengths_002dlist_002dmany_002dfiles-287"></a>
+<pre class="smallexample">     (defun recursive-lengths-list-many-files (list-of-files)
+       "Return list of lengths of each defun in LIST-OF-FILES."
+       (if list-of-files                     ; <span class="roman">do-again-test</span>
+           (append
+            (lengths-list-file
+             (expand-file-name (car list-of-files)))
+            (recursive-lengths-list-many-files
+             (cdr list-of-files)))))
+</pre>
+   <p class="noindent">In a sentence, the function returns the lengths' list for the first of
+the <code>list-of-files</code> appended to the result of calling itself on
+the rest of the <code>list-of-files</code>.
+
+   <p>Here is a test of <code>recursive-lengths-list-many-files</code>, along with
+the results of running <code>lengths-list-file</code> on each of the files
+individually.
+
+   <p>Install <code>recursive-lengths-list-many-files</code> and
+<code>lengths-list-file</code>, if necessary, and then evaluate the
+following expressions.  You may need to change the files' pathnames;
+those here work when this Info file and the Emacs sources are located
+in their customary places.  To change the expressions, copy them to
+the <samp><span class="file">*scratch*</span></samp> buffer, edit them, and then evaluate them.
+
+   <p>The results are shown after the &lsquo;<samp><span class="samp">&rArr;</span></samp>&rsquo;.  (These results are
+for files from Emacs version 22.1.1; files from other versions of
+Emacs may produce different results.)
+
+<!-- !!! 22.1.1 lisp sources location here -->
+<pre class="smallexample">     (cd "/usr/local/share/emacs/22.1.1/")
+     
+     (lengths-list-file "./lisp/macros.el")
+          &rArr; (283 263 480 90)
+     
+     (lengths-list-file "./lisp/mail/mailalias.el")
+          &rArr; (38 32 29 95 178 180 321 218 324)
+     
+     (lengths-list-file "./lisp/makesum.el")
+          &rArr; (85 181)
+     
+       (recursive-lengths-list-many-files
+        '("./lisp/macros.el"
+          "./lisp/mail/mailalias.el"
+          "./lisp/makesum.el"))
+            &rArr; (283 263 480 90 38 32 29 95 178 180 321 218 324 85 181)
+</pre>
+   <p>The <code>recursive-lengths-list-many-files</code> function produces the
+output we want.
+
+   <p>The next step is to prepare the data in the list for display in a graph.
+
+   </body></html>
+

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Mode Line - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Mode-Line"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Miscellaneous.html#Miscellaneous">Miscellaneous</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a>
+
+</div>
+
+<h3 class="section">16.14 A Modified Mode Line</h3>
+
+<p><a name="index-mode_002dline_002dformat-348"></a><a name="index-Mode-line-format-349"></a>
+Finally, a feature I really like: a modified mode line.
+
+   <p>When I work over a network, I forget which machine I am using.  Also,
+I tend to I lose track of where I am, and which line point is on.
+
+   <p>So I reset my mode line to look like this:
+
+<pre class="smallexample">     -:-- foo.texi   rattlesnake:/home/bob/  Line 1  (Texinfo Fill) Top
+</pre>
+   <p>I am visiting a file called <samp><span class="file">foo.texi</span></samp>, on my machine
+<samp><span class="file">rattlesnake</span></samp> in my <samp><span class="file">/home/bob</span></samp> buffer.  I am on line 1, in
+Texinfo mode, and am at the top of the buffer.
+
+   <p>My <samp><span class="file">.emacs</span></samp> file has a section that looks like this:
+
+<pre class="smallexample">     ;; Set a Mode Line that tells me which machine, which directory,
+     ;; and which line I am on, plus the other customary information.
+     (setq-default mode-line-format
+      (quote
+       (#("-" 0 1
+          (help-echo
+           "mouse-1: select window, mouse-2: delete others ..."))
+        mode-line-mule-info
+        mode-line-modified
+        mode-line-frame-identification
+        "    "
+        mode-line-buffer-identification
+        "    "
+        (:eval (substring
+                (system-name) 0 (string-match "\\..+" (system-name))))
+        ":"
+        default-directory
+        #(" " 0 1
+          (help-echo
+           "mouse-1: select window, mouse-2: delete others ..."))
+        (line-number-mode " Line %l ")
+        global-mode-string
+        #("   %[(" 0 6
+          (help-echo
+           "mouse-1: select window, mouse-2: delete others ..."))
+        (:eval (mode-line-mode-name))
+        mode-line-process
+        minor-mode-alist
+        #("%n" 0 2 (help-echo "mouse-2: widen" local-map (keymap ...)))
+        ")%] "
+        (-3 . "%P")
+        ;;   "-%-"
+        )))
+</pre>
+   <p class="noindent">Here, I redefine the default mode line.  Most of the parts are from
+the original; but I make a few changes.  I set the <em>default</em> mode
+line format so as to permit various modes, such as Info, to override
+it.
+
+   <p>Many elements in the list are self-explanatory:
+<code>mode-line-modified</code> is a variable that tells whether the buffer
+has been modified, <code>mode-name</code> tells the name of the mode, and so
+on.  However, the format looks complicated because of two features we
+have not discussed.
+
+   <p><a name="index-Properties_002c-in-mode-line-example-350"></a>The first string in the mode line is a dash or hyphen, &lsquo;<samp><span class="samp">-</span></samp>&rsquo;.  In
+the old days, it would have been specified simply as <code>"-"</code>.  But
+nowadays, Emacs can add properties to a string, such as highlighting
+or, as in this case, a help feature.  If you place your mouse cursor
+over the hyphen, some help information appears (By default, you must
+wait seven-tenths of a second before the information appears.  You can
+change that timing by changing the value of <code>tooltip-delay</code>.)
+
+   <p>The new string format has a special syntax:
+
+<pre class="smallexample">     #("-" 0 1 (help-echo "mouse-1: select window, ..."))
+</pre>
+   <p class="noindent">The <code>#(</code> begins a list.  The first element of the list is the
+string itself, just one &lsquo;<samp><span class="samp">-</span></samp>&rsquo;.  The second and third
+elements specify the range over which the fourth element applies.  A
+range starts <em>after</em> a character, so a zero means the range
+starts just before the first character; a 1 means that the range ends
+just after the first character.  The third element is the property for
+the range.  It consists of a property list,  a
+property name, in this case, &lsquo;<samp><span class="samp">help-echo</span></samp>&rsquo;, followed by a value, in this
+case, a string.  The second, third, and fourth elements of this new
+string format can be repeated.
+
+   <p>See <a href="../elisp/Text-Properties.html#Text-Properties">Text Properties</a>, and see <a href="../elisp/Mode-Line-Format.html#Mode-Line-Format">Mode Line Format</a>, for more information.
+
+   <p><code>mode-line-buffer-identification</code>
+displays the current buffer name.  It is a list
+beginning <code>(#("%12b" 0 4 ...</code>. 
+The <code>#(</code> begins the list.
+
+   <p>The &lsquo;<samp><span class="samp">"%12b"</span></samp>&rsquo; displays the current buffer name, using the
+<code>buffer-name</code> function with which we are familiar; the &lsquo;<samp><span class="samp">12</span></samp>&rsquo;
+specifies the maximum number of characters that will be displayed. 
+When a name has fewer characters, whitespace is added to fill out to
+this number.  (Buffer names can and often should be longer than 12
+characters; this length works well in a typical 80 column wide
+window.)
+
+   <p><code>:eval</code> says to evaluate the following form and use the result as
+a string to display.  In this case, the expression displays the first
+component of the full system name.  The end of the first component is
+a &lsquo;<samp><span class="samp">.</span></samp>&rsquo; (period), so I use the <code>string-match</code> function to
+tell me the length of the first component.  The substring from the
+zeroth character to that length is the name of the machine.
+
+   <p>This is the expression:
+
+<pre class="smallexample">     (:eval (substring
+             (system-name) 0 (string-match "\\..+" (system-name))))
+</pre>
+   <p>&lsquo;<samp><span class="samp">%[</span></samp>&rsquo; and &lsquo;<samp><span class="samp">%]</span></samp>&rsquo; cause a pair of square brackets
+to appear for each recursive editing level.  &lsquo;<samp><span class="samp">%n</span></samp>&rsquo; says &ldquo;Narrow&rdquo;
+when narrowing is in effect.  &lsquo;<samp><span class="samp">%P</span></samp>&rsquo; tells you the percentage of
+the buffer that is above the bottom of the window, or &ldquo;Top&rdquo;, &ldquo;Bottom&rdquo;,
+or &ldquo;All&rdquo;.  (A lower case &lsquo;<samp><span class="samp">p</span></samp>&rsquo; tell you the percentage above the
+<em>top</em> of the window.)  &lsquo;<samp><span class="samp">%-</span></samp>&rsquo; inserts enough dashes to fill
+out the line.
+
+   <p>Remember, you don't have to like Emacs to like it&mdash;your own
+Emacs can have different colors, different commands, and different
+keys than a default Emacs.
+
+   <p>On the other hand, if you want to bring up a plain out-of-the-box
+Emacs, with no customization, type:
+
+<pre class="smallexample">     emacs -q
+</pre>
+   <p class="noindent">This will start an Emacs that does <em>not</em> load your
+<samp><span class="file">~/.emacs</span></samp> initialization file.  A plain, default Emacs.  Nothing
+more.
+
+   </body></html>
+

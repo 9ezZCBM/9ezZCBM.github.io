@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Understanding Explanations - Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Understanding-Explanations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Interactive-Debugging.html#Interactive-Debugging">Interactive Debugging</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="How-to-Debug-Tests.html#How-to-Debug-Tests">How to Debug Tests</a>
+
+</div>
+
+<h3 class="section">4.1 Understanding Explanations</h3>
+
+<p><a name="index-understanding-explanations-39"></a><a name="index-explanations_002c-understanding-40"></a>
+Failed <code>should</code> forms are reported like this:
+
+<pre class="example">     F addition-test
+         (ert-test-failed
+          ((should
+            (=
+             (+ 1 2)
+             4))
+           :form
+           (= 3 4)
+           :value nil))
+</pre>
+   <p>ERT shows what the <code>should</code> expression looked like and what
+values its subexpressions had: The source code of the assertion was
+<code>(should (= (+ 1 2) 4))</code>, which applied the function <code>=</code> to
+the arguments <code>3</code> and <code>4</code>, resulting in the value
+<code>nil</code>.  In this case, the test is wrong; it should expect 3
+rather than 4.
+
+   <p>If a predicate like <code>equal</code> is used with <code>should</code>, ERT
+provides a so-called <em>explanation</em>:
+
+<pre class="example">     F list-test
+         (ert-test-failed
+          ((should
+            (equal
+             (list 'a 'b 'c)
+             '(a b d)))
+           :form
+           (equal
+            (a b c)
+            (a b d))
+           :value nil :explanation
+           (list-elt 2
+                     (different-atoms c d))))
+</pre>
+   <p>In this case, the function <code>equal</code> was applied to the arguments
+<code>(a b c)</code> and <code>(a b d)</code>.  ERT's explanation shows that
+the item at index 2 differs between the two lists; in one list, it is
+the atom c, in the other, it is the atom d.
+
+   <p>In simple examples like the above, the explanation is unnecessary. 
+But in cases where the difference is not immediately apparent, it can
+save time:
+
+<pre class="example">     F test1
+         (ert-test-failed
+          ((should
+            (equal x y))
+           :form
+           (equal a a)
+           :value nil :explanation
+           (different-symbols-with-the-same-name a a)))
+</pre>
+   <p>ERT only provides explanations for predicates that have an explanation
+function registered.  See <a href="Defining-Explanation-Functions.html#Defining-Explanation-Functions">Defining Explanation Functions</a>.
+
+   </body></html>
+

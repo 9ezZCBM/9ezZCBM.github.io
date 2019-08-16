@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Plain lists in @LaTeX{} export - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Plain-lists-in-LaTeX-export"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Source-blocks-in-LaTeX-export.html#Source-blocks-in-LaTeX-export">Source blocks in LaTeX export</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Images-in-LaTeX-export.html#Images-in-LaTeX-export">Images in LaTeX export</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="LaTeX-export.html#LaTeX-export">LaTeX export</a>
+
+</div>
+
+<h4 class="subsection">12.10.7 Plain lists in LaTeX export</h4>
+
+<p><a name="index-plain-lists_002c-in-_0040LaTeX_007b_007d-export-1871"></a><a name="index-g_t_0040code_007b_0023_002bATTR_005fLATEX_007d_002c-in-plain-lists-1872"></a>
+The LaTeX export back-end accepts the <code>:environment</code> and
+<code>:options</code> attributes for plain lists.  Both attributes work together
+for customizing lists, as shown in the examples:
+
+<pre class="example">     #+LATEX_HEADER: \usepackage[inline]{enumitem}
+     Some ways to say "Hello":
+     #+ATTR_LATEX: :environment itemize*
+     #+ATTR_LATEX: :options [label={}, itemjoin={,}, itemjoin*={, and}]
+     - Hola
+     - Bonjour
+     - Guten Tag.
+</pre>
+   <p>Since LaTeX supports only four levels of nesting for lists, use an
+external package, such as &lsquo;<samp><span class="samp">enumitem</span></samp>&rsquo; in LaTeX, for levels deeper than
+four:
+
+<pre class="example">     #+LATEX_HEADER: \usepackage{enumitem}
+     #+LATEX_HEADER: \renewlist{itemize}{itemize}{9}
+     #+LATEX_HEADER: \setlist[itemize]{label=$\circ$}
+     - One
+       - Two
+         - Three
+           - Four
+             - Five
+</pre>
+   </body></html>
+

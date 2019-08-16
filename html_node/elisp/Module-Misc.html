@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Module Misc - GNU Emacs Lisp Reference Manual</title>
+<!--
+This is the `GNU Emacs Lisp Reference Manual'
+corresponding to Emacs version 26.2.
+
+Copyright (C) 1990--1996, 1998--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``GNU General Public
+     License,'' with the Front-Cover Texts being ``A GNU Manual,'' and
+     with the Back-Cover Texts as in (a) below.  A copy of the license
+     is included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Module-Misc"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Module-Nonlocal.html#Module-Nonlocal">Module Nonlocal</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Module-Values.html#Module-Values">Module Values</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Dynamic-Modules.html#Writing-Dynamic-Modules">Writing Dynamic Modules</a>
+
+</div>
+
+<h4 class="subsection">E.8.4 Miscellaneous Convenience Functions for Modules</h4>
+
+<p>This subsection describes a few convenience functions provided by
+the module <acronym>API</acronym>.  Like the functions described in previous
+subsections, all of them are actually function pointers, and need to
+be called via the <code>emacs_env</code> pointer.  Description of functions
+that were introduced after Emacs 25 calls out the first version where
+they became available.
+
+<div class="defun">
+&mdash; Function: bool <b>eq</b> (<var>emacs_env *env, emacs_value val1, emacs_value val2</var>)<var><a name="index-eq-5418"></a></var><br>
+<blockquote><p>This function returns <code>true</code> if the Lisp objects represented by
+<var>val1</var> and <var>val2</var> are identical, <code>false</code> otherwise.  This
+is the same as the Lisp function <code>eq</code> (see <a href="Equality-Predicates.html#Equality-Predicates">Equality Predicates</a>), but avoids the need to intern the objects represented by
+the arguments.
+
+        <p>There are no <acronym>API</acronym> functions for other equality predicates, so
+you will need to use <code>intern</code> and <code>funcall</code>, described
+below, to perform more complex equality tests. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: bool <b>is_not_nil</b> (<var>emacs_env *env, emacs_value val</var>)<var><a name="index-is_005fnot_005fnil-5419"></a></var><br>
+<blockquote><p>This function tests whether the Lisp object represented by <var>val</var>
+is non-<code>nil</code>; it returns <code>true</code> or <code>false</code> accordingly.
+
+        <p>Note that you could implement an equivalent test by using
+<code>intern</code> to get an <code>emacs_value</code> representing <code>nil</code>,
+then use <code>eq</code>, described above, to test for equality.  But using
+this function is more convenient. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: emacs_value <b>type_of</b> (<var>emacs_env *env, emacs_value </var><code>object</code>)<var><a name="index-type_005fof-5420"></a></var><br>
+<blockquote><p>This function returns the type of <var>object</var> as a value that
+represents a symbol: <code>string</code> for a string, <code>integer</code> for an
+integer, <code>process</code> for a process, etc.  See <a href="Type-Predicates.html#Type-Predicates">Type Predicates</a>. 
+You can use <code>intern</code> and <code>eq</code> to compare against known type
+symbols, if your code needs to depend on the object type. 
+</p></blockquote></div>
+
+   <p><a name="intern"></a>
+
+<div class="defun">
+&mdash; Function: emacs_value <b>intern</b> (<var>emacs_env *env, const char *name</var>)<var><a name="index-intern-5421"></a></var><br>
+<blockquote><p>This function returns an interned Emacs symbol whose name is
+<var>name</var>, which should be an <acronym>ASCII</acronym> null-terminated string. 
+It creates a new symbol if one does not already exist.
+
+        <p>Together with <code>funcall</code>, described below, this function provides
+a means for invoking any Lisp-callable Emacs function, provided that
+its name is a pure <acronym>ASCII</acronym> string.  For example, here's how to
+intern a symbol whose name <code>name_str</code> is non-<acronym>ASCII</acronym>, by
+calling the more powerful Emacs <code>intern</code> function
+(see <a href="Creating-Symbols.html#Creating-Symbols">Creating Symbols</a>):
+
+     <pre class="example">          emacs_value fintern = env-&gt;intern (env, "intern");
+          emacs_value sym_name =
+            env-&gt;make_string (env, name_str, strlen (name_str));
+          emacs_value intern_args[] = { sym_name, env-&gt;intern (env, "nil") };
+          emacs_value symbol = env-&gt;funcall (env, fintern, 2, intern_args);
+</pre>
+        </blockquote></div>
+
+<div class="defun">
+&mdash; Function: emacs_value <b>funcall</b> (<var>emacs_env *env, emacs_value func, ptrdiff_t nargs, emacs_value *args</var>)<var><a name="index-funcall-5422"></a></var><br>
+<blockquote><p>This function calls the specified <var>func</var> passing it <var>nargs</var>
+arguments from the array pointed to by <var>args</var>.  The argument
+<var>func</var> can be a function symbol (e.g., returned by <code>intern</code>
+described above), a module function returned by <code>make_function</code>
+(see <a href="Module-Functions.html#Module-Functions">Module Functions</a>), a subroutine written in C, etc.  If
+<var>nargs</var> is zero, <var>args</var> can be a <code>NULL</code> pointer.
+
+        <p>The function returns the value that <var>func</var> returned. 
+</p></blockquote></div>
+
+   <p>If your module includes potentially long-running code, it is a good
+idea to check from time to time in that code whether the user wants to
+quit, e.g., by typing <kbd>C-g</kbd> (see <a href="Quitting.html#Quitting">Quitting</a>).  The following
+function, which is available since Emacs 26.1, is provided for that
+purpose.
+
+   <p><a name="should_005fquit"></a>
+
+<div class="defun">
+&mdash; Function: bool <b>should_quit</b> (<var>emacs_env *env</var>)<var><a name="index-should_005fquit-5423"></a></var><br>
+<blockquote><p>This function returns <code>true</code> if the user wants to quit.  In that
+case, we recommend that your module function aborts any on-going
+processing and returns as soon as possible. 
+</p></blockquote></div>
+
+   </body></html>
+

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Android shell setup - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Android-shell-setup"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Auto_002dsave-and-Backup.html#Auto_002dsave-and-Backup">Auto-save and Backup</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Remote-shell-setup.html#Remote-shell-setup">Remote shell setup</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.17 Android shell setup hints</h3>
+
+<p><a name="index-android-shell-setup-for-ssh-209"></a>
+<span class="sc">Tramp</span> uses the <samp><span class="option">adb</span></samp> method to access Android devices. 
+Android devices provide a restricted shell access through an USB
+connection.  The local host must have the <samp><span class="command">adb</span></samp> program
+installed.  Usually, it is sufficient to open the file
+<samp><span class="file">/adb::/</span></samp>.  Then you can navigate in the filesystem via
+<code>dired</code>.
+
+   <p>Alternatively, applications such as <code>Termux</code> or <code>SSHDroid</code>
+that run <samp><span class="command">sshd</span></samp> process on the Android device can accept any
+<samp><span class="option">ssh</span></samp>-based methods provided these settings are adjusted:
+
+     <ul>
+<li><samp><span class="command">sh</span></samp> must be specified for remote shell since Android devices
+do not provide <samp><span class="command">/bin/sh</span></samp>.  <samp><span class="command">sh</span></samp> will then invoke
+whatever shell is installed on the device with this setting:
+
+     <pre class="lisp">          (add-to-list 'tramp-connection-properties
+          	     (list (regexp-quote "192.168.0.26") "remote-shell" "sh"))
+</pre>
+     <p class="noindent">where &lsquo;<samp><span class="samp">192.168.0.26</span></samp>&rsquo; is the Android device's IP address. 
+(see <a href="Predefined-connection-information.html#Predefined-connection-information">Predefined connection information</a>).
+
+     <li><span class="sc">Tramp</span> requires preserving <samp><span class="env">PATH</span></samp> environment variable from
+user settings.  Android devices prefer <samp><span class="file">/system/xbin</span></samp> path over
+<samp><span class="file">/system/bin</span></samp>.  Both of these are set as follows:
+
+     <pre class="lisp">          (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+          (add-to-list 'tramp-remote-path "/system/xbin")
+</pre>
+     <li>When the Android device is not &lsquo;<samp><span class="samp">rooted</span></samp>&rsquo;, specify a writable
+directory for temporary files:
+
+     <pre class="lisp">          (add-to-list 'tramp-remote-process-environment "TMPDIR=$HOME")
+</pre>
+     <li>Open a remote connection with the command <kbd>C-x C-f
+/ssh:192.168.0.26#2222: &lt;RET&gt;</kbd>, where <samp><span class="command">sshd</span></samp> is
+listening on port &lsquo;<samp><span class="samp">2222</span></samp>&rsquo;.
+
+     <p>To add a corresponding entry to the <samp><span class="file">~/.ssh/config</span></samp> file
+(recommended), use this:
+
+     <pre class="example">          Host android
+               HostName 192.168.0.26
+               User root
+               Port 2222
+</pre>
+     <p class="noindent">To use the host name &lsquo;<samp><span class="samp">android</span></samp>&rsquo; instead of the IP address shown in
+the previous example, fix the connection properties as follows:
+
+     <pre class="lisp">          (add-to-list 'tramp-connection-properties
+          	     (list (regexp-quote "android") "remote-shell" "sh"))
+</pre>
+     <p class="noindent">Open a remote connection with a more concise command <kbd>C-x C-f
+/ssh:android: &lt;RET&gt;</kbd>. 
+</ul>
+
+   </body></html>
+

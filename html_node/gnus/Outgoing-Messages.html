@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Outgoing Messages - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Outgoing-Messages"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Agent-Variables.html#Agent-Variables">Agent Variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Agent-and-IMAP.html#Agent-and-IMAP">Agent and IMAP</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Gnus-Unplugged.html#Gnus-Unplugged">Gnus Unplugged</a>
+
+</div>
+
+<h4 class="subsection">6.9.10 Outgoing Messages</h4>
+
+<p>By default, when Gnus is unplugged, all outgoing messages (both mail
+and news) are stored in the draft group &ldquo;queue&rdquo; (see <a href="Drafts.html#Drafts">Drafts</a>). 
+You can view them there after posting, and edit them at will.
+
+   <p>You can control the circumstances under which outgoing mail is queued
+(see <code>gnus-agent-queue-mail</code>, see <a href="Agent-Variables.html#Agent-Variables">Agent Variables</a>).  Outgoing
+news is always queued when Gnus is unplugged, and never otherwise.
+
+   <p>You can send the messages either from the draft group with the special
+commands available there, or you can use the <kbd>J S</kbd> command in the
+group buffer to send all the sendable messages in the draft group. 
+Posting news will only work when Gnus is plugged, but you can send
+mail at any time.
+
+   <p>If sending mail while unplugged does not work for you and you worry
+about hitting <kbd>J S</kbd> by accident when unplugged, you can have Gnus
+ask you to confirm your action (see
+<code>gnus-agent-prompt-send-queue</code>, see <a href="Agent-Variables.html#Agent-Variables">Agent Variables</a>).
+
+   </body></html>
+

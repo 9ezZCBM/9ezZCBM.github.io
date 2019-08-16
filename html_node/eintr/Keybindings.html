@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Keybindings - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Keybindings"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Keymaps.html#Keymaps">Keymaps</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Indent-Tabs-Mode.html#Indent-Tabs-Mode">Indent Tabs Mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a>
+
+</div>
+
+<h3 class="section">16.7 Some Keybindings</h3>
+
+<p>Now for some personal keybindings:
+
+<pre class="smallexample">     ;;; Compare windows
+     (global-set-key "\C-cw" 'compare-windows)
+</pre>
+   <p><a name="index-compare_002dwindows-324"></a><code>compare-windows</code> is a nifty command that compares the text in
+your current window with text in the next window.  It makes the
+comparison by starting at point in each window, moving over text in
+each window as far as they match.  I use this command all the time.
+
+   <p>This also shows how to set a key globally, for all modes.
+
+   <p><a name="index-Setting-a-key-globally-325"></a><a name="index-Global-set-key-326"></a><a name="index-Key-setting-globally-327"></a><a name="index-global_002dset_002dkey-328"></a>The command is <code>global-set-key</code>.  It is followed by the
+keybinding.  In a <samp><span class="file">.emacs</span></samp> file, the keybinding is written as
+shown: <code>\C-c</code> stands for Control-C, which means to press the
+control key and the <kbd>c</kbd> key at the same time.  The <code>w</code> means
+to press the <kbd>w</kbd> key.  The keybinding is surrounded by double
+quotation marks.  In documentation, you would write this as
+<kbd>C-c&nbsp;w</kbd><!-- /@w -->.  (If you were binding a &lt;META&gt; key, such as
+<kbd>M-c</kbd>, rather than a &lt;CTRL&gt; key, you would write
+<code>\M-c</code><!-- /@w --> in your <samp><span class="file">.emacs</span></samp> file.  See <a href="../emacs/Init-Rebinding.html#Init-Rebinding">Rebinding Keys in Your Init File</a>, for
+details.)
+
+   <p>The command invoked by the keys is <code>compare-windows</code>.  Note that
+<code>compare-windows</code> is preceded by a single-quote; otherwise, Emacs
+would first try to evaluate the symbol to determine its value.
+
+   <p>These three things, the double quotation marks, the backslash before
+the &lsquo;<samp><span class="samp">C</span></samp>&rsquo;, and the single-quote are necessary parts of
+keybinding that I tend to forget.  Fortunately, I have come to
+remember that I should look at my existing <samp><span class="file">.emacs</span></samp> file, and
+adapt what is there.
+
+   <p>As for the keybinding itself: <kbd>C-c w</kbd>.  This combines the prefix
+key, <kbd>C-c</kbd>, with a single character, in this case, <kbd>w</kbd>.  This
+set of keys, <kbd>C-c</kbd> followed by a single character, is strictly
+reserved for individuals' own use.  (I call these <dfn>own</dfn> keys, since
+these are for my own use.)  You should always be able to create such a
+keybinding for your own use without stomping on someone else's
+keybinding.  If you ever write an extension to Emacs, please avoid
+taking any of these keys for public use.  Create a key like <kbd>C-c
+C-w</kbd> instead.  Otherwise, we will run out of own keys.
+
+   <p>Here is another keybinding, with a comment:
+
+<pre class="smallexample">     ;;; Keybinding for 'occur'
+     ; I use occur a lot, so let's bind it to a key:
+     (global-set-key "\C-co" 'occur)
+</pre>
+   <p><a name="index-occur-329"></a>The <code>occur</code> command shows all the lines in the current buffer
+that contain a match for a regular expression.  When the region is
+active, <code>occur</code> restricts matches to such region.  Otherwise it
+uses the entire buffer. 
+Matching lines are shown in a buffer called <samp><span class="file">*Occur*</span></samp>. 
+That buffer serves as a menu to jump to occurrences.
+
+   <p><a name="index-global_002dunset_002dkey-330"></a><a name="index-Unbinding-key-331"></a><a name="index-Key-unbinding-332"></a>Here is how to unbind a key, so it does not
+work:
+
+<pre class="smallexample">     ;;; Unbind 'C-x f'
+     (global-unset-key "\C-xf")
+</pre>
+   <p>There is a reason for this unbinding: I found I inadvertently typed
+<kbd>C-x&nbsp;f</kbd><!-- /@w --> when I meant to type <kbd>C-x C-f</kbd>.  Rather than find a
+file, as I intended, I accidentally set the width for filled text,
+almost always to a width I did not want.  Since I hardly ever reset my
+default width, I simply unbound the key.
+
+   <p><a name="index-list_002dbuffers_0040r_007b_002c-rebound_007d-333"></a><a name="index-buffer_002dmenu_0040r_007b_002c-bound-to-key_007d-334"></a>The following rebinds an existing key:
+
+<pre class="smallexample">     ;;; Rebind 'C-x C-b' for 'buffer-menu'
+     (global-set-key "\C-x\C-b" 'buffer-menu)
+</pre>
+   <p>By default, <kbd>C-x C-b</kbd> runs the
+<code>list-buffers</code> command.  This command lists
+your buffers in <em>another</em> window.  Since I
+almost always want to do something in that
+window, I prefer the  <code>buffer-menu</code>
+command, which not only lists the buffers,
+but moves point into that window.
+
+   </body></html>
+

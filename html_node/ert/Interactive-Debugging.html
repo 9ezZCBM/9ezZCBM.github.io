@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Interactive Debugging - Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Interactive-Debugging"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Understanding-Explanations.html#Understanding-Explanations">Understanding Explanations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="How-to-Debug-Tests.html#How-to-Debug-Tests">How to Debug Tests</a>
+
+</div>
+
+<h3 class="section">4.2 Interactive Debugging</h3>
+
+<p><a name="index-interactive-debugging-41"></a><a name="index-debugging-failed-tests-42"></a>
+Debugging failed tests essentially works the same way as debugging any
+other problems with Lisp code.  Here are a few tricks specific to
+tests:
+
+     
+<a name="index-re_002drunning-a-failed-test-43"></a>
+<ul><li>Re-run the failed test a few times to see if it fails in the same way
+each time.  It's good to find out whether the behavior is
+deterministic before spending any time looking for a cause.  In the
+ERT results buffer, <kbd>r</kbd> re-runs the selected test.
+
+     <p><a name="index-jump-to-the-test-source-code-44"></a><li>Use <kbd>.</kbd> to jump to the source code of the test to find out exactly
+what it does.  Perhaps the test is broken rather than the code
+under test.
+
+     <li>If the test contains a series of <code>should</code> forms and you can't
+tell which one failed, use <kbd>l</kbd>, which shows you the list of all
+<code>should</code> forms executed during the test before it failed.
+
+     <p><a name="index-show-backtrace-of-failed-test-45"></a><li>Use <kbd>b</kbd> to view the backtrace.  You can also use <kbd>d</kbd> to re-run
+the test with debugging enabled, this will enter the debugger and show
+the backtrace as well; but the top few frames shown there will not be
+relevant to you since they are ERT's own debugger hook.  <kbd>b</kbd>
+strips them out, so it is more convenient.
+
+     <li>If the test or the code under testing prints messages using
+<code>message</code>, use <kbd>m</kbd> to see what messages it printed before it
+failed.  This can be useful to figure out how far it got.
+
+     <p><a name="index-instrumenting-test-for-Edebug-46"></a><li>You can instrument tests for debugging the same way you instrument
+<code>defun</code>s for debugging: go to the source code of the test and
+type <kbd>C-u C-M-x</kbd>.  Then, go back to the ERT buffer and
+re-run the test with <kbd>r</kbd> or <kbd>d</kbd>.
+
+     <p><a name="index-discard-obsolete-test-results-47"></a><li>If you have been editing and rearranging tests, it is possible that
+ERT remembers an old test that you have since renamed or removed:
+renamings or removals of definitions in the source code leave around a
+stray definition under the old name in the running process (this is a
+common problem in Lisp).  In such a situation, hit <kbd>D</kbd> to let ERT
+forget about the obsolete test. 
+</ul>
+
+   </body></html>
+

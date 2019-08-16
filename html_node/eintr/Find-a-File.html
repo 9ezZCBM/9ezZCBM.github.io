@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Find a File - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Find-a-File"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lengths_002dlist_002dfile.html#lengths_002dlist_002dfile">lengths-list-file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Several-defuns.html#Several-defuns">Several defuns</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Words-in-a-defun.html#Words-in-a-defun">Words in a defun</a>
+
+</div>
+
+<h3 class="section">14.5 Find a File</h3>
+
+<p><a name="index-Find-a-File-284"></a>
+To find a file in Emacs, you use the <kbd>C-x C-f</kbd> (<code>find-file</code>)
+command.  This command is almost, but not quite right for the lengths
+problem.
+
+   <p>Let's look at the source for <code>find-file</code>:
+
+<pre class="smallexample">     (defun find-file (filename)
+       "Edit file FILENAME.
+     Switch to a buffer visiting file FILENAME,
+     creating one if none already exists."
+       (interactive "FFind file: ")
+       (switch-to-buffer (find-file-noselect filename)))
+</pre>
+   <p class="noindent">(The most recent version of the <code>find-file</code> function definition
+permits you to specify optional wildcards to visit multiple files;
+that makes the definition more complex and we will not discuss it
+here, since it is not relevant.  You can see its source using either
+<kbd>M-.</kbd> (<code>xref-find-definitions</code>) or <kbd>C-h f</kbd>
+(<code>describe-function</code>).)
+
+   <p>The definition I am showing possesses short but complete documentation
+and an interactive specification that prompts you for a file name when
+you use the command interactively.  The body of the definition
+contains two functions, <code>find-file-noselect</code> and
+<code>switch-to-buffer</code>.
+
+   <p>According to its documentation as shown by <kbd>C-h f</kbd> (the
+<code>describe-function</code> command), the <code>find-file-noselect</code>
+function reads the named file into a buffer and returns the buffer. 
+(Its most recent version includes an optional <var>wildcards</var> argument,
+too, as well as another to read a file literally and another to
+suppress warning messages.  These optional arguments are irrelevant.)
+
+   <p>However, the <code>find-file-noselect</code> function does not select the
+buffer in which it puts the file.  Emacs does not switch its attention
+(or yours if you are using <code>find-file-noselect</code>) to the selected
+buffer.  That is what <code>switch-to-buffer</code> does: it switches the
+buffer to which Emacs attention is directed; and it switches the
+buffer displayed in the window to the new buffer.  We have discussed
+buffer switching elsewhere.  (See <a href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a>.)
+
+   <p>In this histogram project, we do not need to display each file on the
+screen as the program determines the length of each definition within
+it.  Instead of employing <code>switch-to-buffer</code>, we can work with
+<code>set-buffer</code>, which redirects the attention of the computer
+program to a different buffer but does not redisplay it on the screen. 
+So instead of calling on <code>find-file</code> to do the job, we must write
+our own expression.
+
+   <p>The task is easy: use <code>find-file-noselect</code> and <code>set-buffer</code>.
+
+   </body></html>
+

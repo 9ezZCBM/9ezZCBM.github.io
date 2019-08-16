@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Indentation Commands - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Indentation-Commands"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Tab-Stops.html#Tab-Stops">Tab Stops</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Indentation.html#Indentation">Indentation</a>
+
+</div>
+
+<h3 class="section">24.1 Indentation Commands</h3>
+
+<p>Apart from the <kbd>&lt;TAB&gt;</kbd> (<code>indent-for-tab-command</code>)
+command, Emacs provides a variety of commands to perform indentation
+in other ways.
+
+     <dl>
+<dt><kbd>C-M-o</kbd><dd><a name="index-C_002dM_002do-2026"></a><a name="index-split_002dline-2027"></a>Split the current line at point (<code>split-line</code>).  The text on the
+line after point becomes a new line, indented to the same column where
+point is located.  This command first moves point forward over any
+spaces and tabs.  Afterward, point is positioned before the inserted
+newline.
+
+     <p><a name="index-M_002dm-2028"></a><a name="index-back_002dto_002dindentation-2029"></a><br><dt><kbd>M-m</kbd><dd>Move (forward or back) to the first non-whitespace character on the
+current line (<code>back-to-indentation</code>).  If there are no
+non-whitespace characters on the line, move to the end of the line.
+
+     <br><dt><kbd>M-i</kbd><dd><a name="index-M_002di-2030"></a><a name="index-tab_002dto_002dtab_002dstop-2031"></a>Indent whitespace at point, up to the next tab stop
+(<code>tab-to-tab-stop</code>).  See <a href="Tab-Stops.html#Tab-Stops">Tab Stops</a>.
+
+     <p><a name="index-indent_002drelative-2032"></a><br><dt><kbd>M-x indent-relative</kbd><dd>Insert whitespace at point, until point is aligned with the first
+non-whitespace character on the previous line (actually, the last
+non-blank line).  If point is already farther right than that, run
+<code>tab-to-tab-stop</code> instead&mdash;unless called with a numeric
+argument, in which case do nothing.
+
+     <br><dt><kbd>M-^</kbd><dd><a name="index-M_002d_005e-2033"></a><a name="index-delete_002dindentation-2034"></a>Merge the previous and the current line (<code>delete-indentation</code>). 
+This joins the two lines cleanly, by replacing any indentation at
+the front of the current line, together with the line boundary, with a
+single space.
+
+     <p>As a special case (useful for Lisp code), the single space is omitted
+if the characters to be joined are consecutive opening and closing
+parentheses, or if the junction follows another newline.
+
+     <p>If there is a fill prefix, <kbd>M-^</kbd> deletes the fill prefix if it
+appears after the newline that is deleted.  See <a href="Fill-Prefix.html#Fill-Prefix">Fill Prefix</a>.
+
+     <br><dt><kbd>C-M-\</kbd><dd><a name="index-C_002dM_002d_005c-2035"></a><a name="index-indent_002dregion-2036"></a>Indent all the lines in the region, as though you had typed
+<kbd>&lt;TAB&gt;</kbd> at the beginning of each line (<code>indent-region</code>).
+
+     <p>If a numeric argument is supplied, indent every line in the region to
+that column number.
+
+     <br><dt><kbd>C-x &lt;TAB&gt;</kbd><dd><a name="index-C_002dx-TAB-2037"></a><a name="index-indent_002drigidly-2038"></a><a name="index-remove-indentation-2039"></a>This command is used to change the indentation of all lines that begin
+in the region, moving the affected lines as a rigid unit.
+
+     <p>If called with no argument, the command activates a transient mode for
+adjusting the indentation of the affected lines interactively.  While
+this transient mode is active, typing <kbd>&lt;LEFT&gt;</kbd> or
+<kbd>&lt;RIGHT&gt;</kbd> indents leftward and rightward, respectively, by one
+space.  You can also type <kbd>S-&lt;LEFT&gt;</kbd> or <kbd>S-&lt;RIGHT&gt;</kbd> to
+indent leftward or rightward to the next tab stop (see <a href="Tab-Stops.html#Tab-Stops">Tab Stops</a>). 
+Typing any other key disables the transient mode, and resumes normal
+editing.
+
+     <p>If called with a prefix argument <var>n</var>, this command indents the
+lines forward by <var>n</var> spaces (without enabling the transient mode). 
+Negative values of <var>n</var> indent backward, so you can remove all
+indentation from the lines in the region using a large negative
+argument, like this:
+
+     <pre class="smallexample">          C-u -999 C-x &lt;TAB&gt;
+</pre>
+     </dl>
+
+   </body></html>
+

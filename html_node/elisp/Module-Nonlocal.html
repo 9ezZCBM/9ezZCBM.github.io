@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Module Nonlocal - GNU Emacs Lisp Reference Manual</title>
+<!--
+This is the `GNU Emacs Lisp Reference Manual'
+corresponding to Emacs version 26.2.
+
+Copyright (C) 1990--1996, 1998--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``GNU General Public
+     License,'' with the Front-Cover Texts being ``A GNU Manual,'' and
+     with the Back-Cover Texts as in (a) below.  A copy of the license
+     is included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Module-Nonlocal"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Module-Misc.html#Module-Misc">Module Misc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Dynamic-Modules.html#Writing-Dynamic-Modules">Writing Dynamic Modules</a>
+
+</div>
+
+<h4 class="subsection">E.8.5 Nonlocal Exits in Modules</h4>
+
+<p><a name="index-nonlocal-exits_002c-in-modules-5424"></a>
+  Emacs Lisp supports nonlocal exits, whereby program control is
+transfered from one point in a program to another remote point. 
+See <a href="Nonlocal-Exits.html#Nonlocal-Exits">Nonlocal Exits</a>.  Thus, Lisp functions called by your module
+might exit nonlocally by calling <code>signal</code> or <code>throw</code>, and
+your module functions must handle such nonlocal exits properly.  Such
+handling is needed because C programs will not automatically release
+resources and perform other cleanups in these cases; your module code
+must itself do it.  The module <acronym>API</acronym> provides facilities for
+that, described in this subsection.  They are generally available
+since Emacs 25; those of them that became available in later releases
+explicitly call out the first Emacs version where they became part of
+the <acronym>API</acronym>.
+
+   <p>When some Lisp code called by a module function signals an error or
+throws, the nonlocal exit is trapped, and the pending exit and its
+associated data are stored in the environment.  Whenever a nonlocal
+exit is pending in the environment, any module <acronym>API</acronym> function
+called with a pointer to that environment will return immediately
+without any processing (the functions <code>non_local_exit_check</code>,
+<code>non_local_exit_get</code>, and <code>non_local_exit_clear</code> are
+exceptions from this rule).  If your module function then does nothing
+and returns to Emacs, a pending nonlocal exit will cause Emacs to act
+on it: signal an error or throw to the corresponding <code>catch</code>.
+
+   <p>So the simplest &ldquo;handling&rdquo; of nonlocal exits in module functions is
+to do nothing special and let the rest of your code to run as if
+nothing happened.  However, this can cause two classes of problems:
+
+     <ul>
+<li>Your module function might use uninitialized or undefined values,
+since <acronym>API</acronym> functions return immediately without producing the
+expected results.
+
+     <li>Your module might leak resources, because it might not have the
+opportunity to release them. 
+</ul>
+
+   <p>Therefore, we recommend that your module functions check for nonlocal
+exit conditions and recover from them, using the functions described
+below.
+
+<div class="defun">
+&mdash; Function: enum <b>emacs_funcall_exit</b><var> non_local_exit_check </var>(<var>emacs_env *env</var>)<var><a name="index-emacs_005ffuncall_005fexit-5425"></a></var><br>
+<blockquote><p>This function returns the kind of nonlocal exit condition stored in
+<var>env</var>.  The possible values are:
+
+        <p><a name="index-emacs_005ffuncall_005fexit_0040r_007b_002c-enumeration_007d-5426"></a>
+          <dl>
+<dt><code>emacs_funcall_exit_return</code><a name="index-emacs_005ffuncall_005fexit_005freturn-5427"></a><dd>The last <acronym>API</acronym> function exited normally. 
+<br><dt><code>emacs_funcall_exit_signal</code><a name="index-emacs_005ffuncall_005fexit_005fsignal-5428"></a><dd>The last <acronym>API</acronym> function signaled an error. 
+<br><dt><code>emacs_funcall_exit_throw</code><a name="index-emacs_005ffuncall_005fexit_005fthrow-5429"></a><dd>The last <acronym>API</acronym> function exited via <code>throw</code>. 
+</dl>
+        </p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: emacs_funcall_exit <b>non_local_exit_get</b> (<var>emacs_env *env, emacs_value *symbol, emacs_value *data</var>)<var><a name="index-non_005flocal_005fexit_005fget-5430"></a></var><br>
+<blockquote><p>This function returns the kind of nonlocal exit condition stored in
+<var>env</var>, like <code>non_local_exit_check</code> does, but it also returns
+the full information about the nonlocal exit, if any.  If the return
+value is <code>emacs_funcall_exit_signal</code>, the function stores the
+error symbol in <code>*</code><var>symbol</var> and the error data in
+<code>*</code><var>data</var> (see <a href="Signaling-Errors.html#Signaling-Errors">Signaling Errors</a>).  If the return value is
+<code>emacs_funcall_exit_throw</code>, the function stores the <code>catch</code>
+tag symbol in <code>*</code><var>symbol</var> and the <code>throw</code> value in
+<code>*</code><var>data</var>.  The function doesn't store anything in memory
+pointed by these arguments when the return value is
+<code>emacs_funcall_exit_return</code>. 
+</p></blockquote></div>
+
+   <p>You should check nonlocal exit conditions where it matters: before you
+allocated some resource or after you allocated a resource that might
+need freeing, or where a failure means further processing is
+impossible or infeasible.
+
+   <p>Once your module function detected that a nonlocal exit is pending, it
+can either return to Emacs (after performing the necessary local
+cleanup), or it can attempt to recover from the nonlocal exit.  The
+following <acronym>API</acronym> functions will help with these tasks.
+
+<div class="defun">
+&mdash; Function: void <b>non_local_exit_clear</b> (<var>emacs_env *env</var>)<var><a name="index-non_005flocal_005fexit_005fclear-5431"></a></var><br>
+<blockquote><p>This function clears the pending nonlocal exit conditions and data
+from <var>env</var>.  After calling it, the module <acronym>API</acronym> functions
+will work normally.  Use this function if your module function can
+recover from nonlocal exits of the Lisp functions it calls and
+continue, and also before calling any of the following two functions
+(or any other <acronym>API</acronym> functions, if you want them to perform
+their intended processing when a nonlocal exit is pending). 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: void <b>non_local_exit_throw</b> (<var>emacs_env *env, emacs_value tag, emacs_value value</var>)<var><a name="index-non_005flocal_005fexit_005fthrow-5432"></a></var><br>
+<blockquote><p>This function throws to the Lisp <code>catch</code> symbol represented by
+<var>tag</var>, passing it <var>value</var> as the value to return.  Your module
+function should in general return soon after calling this function. 
+One use of this function is when you want to re-throw a non-local exit
+from one of the called <acronym>API</acronym> or Lisp functions. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: void <b>non_local_exit_signal</b> (<var>emacs_env *env, emacs_value error, emacs_value data</var>)<var><a name="index-non_005flocal_005fexit_005fsignal-5433"></a></var><br>
+<blockquote><p>This function signals the error represented by <var>error</var> with the
+specified error data <var>data</var>.  The module function should return
+soon after calling this function.  This function could be useful,
+e.g., for signaling errors from module functions to Emacs. 
+</p></blockquote></div>
+
+   </body></html>
+

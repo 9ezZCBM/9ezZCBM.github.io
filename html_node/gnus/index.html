@@ -1,0 +1,1718 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Gnus Manual</title>
+<!--
+Copyright (C) 1995-2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being "A GNU Manual", and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     "GNU Free Documentation License".
+
+     (a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+     modify this GNU manual."
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div id="content" class="inner">
+
+<h2 class="unnumbered">The Gnus Newsreader</h2>
+
+<table style="float:left" width="100%">
+  <tr>
+    <td><a accesskey="1" href="Starting-Up.html#Starting-Up">Starting Up</a></td>
+    <td>Finding news can be a pain.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="2" href="Group-Buffer.html#Group-Buffer">Group Buffer</a></td>
+    <td>Selecting, subscribing and killing groups.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="3" href="Summary-Buffer.html#Summary-Buffer">Summary Buffer</a></td>
+    <td>Reading, saving and posting articles.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="4" href="Article-Buffer.html#Article-Buffer">Article Buffer</a></td>
+    <td>Displaying and handling articles.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="5" href="Composing-Messages.html#Composing-Messages">Composing Messages</a></td>
+    <td>Information on sending mail and news.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="6" href="Select-Methods.html#Select-Methods">Select Methods</a></td>
+    <td>Gnus reads all messages from various select methods.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="7" href="Scoring.html#Scoring">Scoring</a></td>
+    <td>Assigning values to articles.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="8" href="Searching.html#Searching">Searching</a></td>
+    <td>Mail and News search engines.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="9" href="Various.html#Various">Various</a></td>
+    <td>General purpose settings.</td>
+  </tr>
+  <tr>
+    <td><a href="The-End.html#The-End">The End</a></td>
+    <td>Farewell and goodbye.</td>
+  </tr>
+  <tr>
+    <td><a href="Appendices.html#Appendices">Appendices</a></td>
+    <td>Terminology, Emacs intro, <acronym>FAQ</acronym>, History, Internals.</td>
+  </tr>
+  <tr>
+    <td><a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a></td>
+    <td>The license for this documentation.</td>
+  </tr>
+  <tr>
+    <td><a href="Index.html#Index">Index</a></td>
+    <td>Variable, function and concept index.</td>
+  </tr>
+  <tr>
+    <td><a href="Key-Index.html#Key-Index">Key Index</a></td>
+    <td>Key Index.
+<!-- Doesn't work right in html. -->
+<!-- FIXME Do this in a more standard way. -->
+
+  </td></tr></table>
+
+<h3>Detailed Node Listing</h3></p>
+
+<table  style="float:left" width="100%">
+  <tr>
+    <th colspan="2" align="left" style="text-align:left">Starting Gnus
+
+  </th></tr>
+  <tr>
+    <td><a href="Finding-the-News.html#Finding-the-News">Finding the News</a></td>
+    <td>Choosing a method for getting news.</td>
+  </tr>
+  <tr>
+    <td><a href="The-Server-is-Down.html#The-Server-is-Down">The Server is Down</a></td>
+    <td>How can I read my mail then?</td>
+  </tr>
+  <tr>
+    <td><a href="Slave-Gnusae.html#Slave-Gnusae">Slave Gnusae</a></td>
+    <td>You can have more than one Gnus active at a time.</td>
+  </tr>
+  <tr>
+    <td><a href="Fetching-a-Group.html#Fetching-a-Group">Fetching a Group</a></td>
+    <td>Starting Gnus just to read a group.</td>
+  </tr>
+  <tr>
+    <td><a href="New-Groups.html#New-Groups">New Groups</a></td>
+    <td>What is Gnus supposed to do with new groups?</td>
+  </tr>
+  <tr>
+    <td><a href="Changing-Servers.html#Changing-Servers">Changing Servers</a></td>
+    <td>You may want to move from one server to another.</td>
+  </tr>
+  <tr>
+    <td><a href="Startup-Files.html#Startup-Files">Startup Files</a></td>
+    <td>Those pesky startup files---<samp><span class="file">.newsrc</span></samp>.</td>
+  </tr>
+  <tr>
+    <td><a href="Auto-Save.html#Auto-Save">Auto Save</a></td>
+    <td>Recovering from a crash.</td>
+  </tr>
+  <tr>
+    <td><a href="The-Active-File.html#The-Active-File">The Active File</a></td>
+    <td>Reading the active file over a slow line Takes Time.</td>
+  </tr>
+  <tr>
+    <td><a href="Startup-Variables.html#Startup-Variables">Startup Variables</a></td>
+    <td>Other variables you might change.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">New Groups
+
+  </th></tr>
+  <tr>
+    <td><a href="Checking-New-Groups.html#Checking-New-Groups">Checking New Groups</a></td>
+    <td>Determining what groups are new.</td>
+  </tr>
+  <tr>
+    <td><a href="Subscription-Methods.html#Subscription-Methods">Subscription Methods</a></td>
+    <td>What Gnus should do with new groups.</td>
+  </tr>
+  <tr>
+    <td><a href="Filtering-New-Groups.html#Filtering-New-Groups">Filtering New Groups</a></td>
+    <td>Making Gnus ignore certain new groups.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Group Buffer
+
+  </th></tr>
+  <tr>
+    <td><a href="Group-Buffer-Format.html#Group-Buffer-Format">Group Buffer Format</a></td>
+    <td>Information listed and how you can change it.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Maneuvering.html#Group-Maneuvering">Group Maneuvering</a></td>
+    <td>Commands for moving in the group buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Selecting-a-Group.html#Selecting-a-Group">Selecting a Group</a></td>
+    <td>Actually reading news.</td>
+  </tr>
+  <tr>
+    <td><a href="Subscription-Commands.html#Subscription-Commands">Subscription Commands</a></td>
+    <td>Unsubscribing, killing, subscribing.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Data.html#Group-Data">Group Data</a></td>
+    <td>Changing the info for a group.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Levels.html#Group-Levels">Group Levels</a></td>
+    <td>Levels?  What are those, then?</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Score.html#Group-Score">Group Score</a></td>
+    <td>A mechanism for finding out what groups you like.</td>
+  </tr>
+  <tr>
+    <td><a href="Marking-Groups.html#Marking-Groups">Marking Groups</a></td>
+    <td>You can mark groups for later processing.</td>
+  </tr>
+  <tr>
+    <td><a href="Foreign-Groups.html#Foreign-Groups">Foreign Groups</a></td>
+    <td>Creating and editing groups.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Parameters.html#Group-Parameters">Group Parameters</a></td>
+    <td>Each group may have different parameters set.</td>
+  </tr>
+  <tr>
+    <td><a href="Listing-Groups.html#Listing-Groups">Listing Groups</a></td>
+    <td>Gnus can list various subsets of the groups.</td>
+  </tr>
+  <tr>
+    <td><a href="Sorting-Groups.html#Sorting-Groups">Sorting Groups</a></td>
+    <td>Re-arrange the group order.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Maintenance.html#Group-Maintenance">Group Maintenance</a></td>
+    <td>Maintaining a tidy <samp><span class="file">.newsrc</span></samp> file.</td>
+  </tr>
+  <tr>
+    <td><a href="Browse-Foreign-Server.html#Browse-Foreign-Server">Browse Foreign Server</a></td>
+    <td>You can browse a server.  See what it has to offer.</td>
+  </tr>
+  <tr>
+    <td><a href="Exiting-Gnus.html#Exiting-Gnus">Exiting Gnus</a></td>
+    <td>Stop reading news and get some work done.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Topics.html#Group-Topics">Group Topics</a></td>
+    <td>A folding group mode divided into topics.</td>
+  </tr>
+  <tr>
+    <td><a href="Non_002dASCII-Group-Names.html#Non_002dASCII-Group-Names">Non-ASCII Group Names</a></td>
+    <td>Accessing groups of non-English names.</td>
+  </tr>
+  <tr>
+    <td><a href="Misc-Group-Stuff.html#Misc-Group-Stuff">Misc Group Stuff</a></td>
+    <td>Other stuff that you can to do.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Group Buffer Format
+
+  </th></tr>
+  <tr>
+    <td><a href="Group-Line-Specification.html#Group-Line-Specification">Group Line Specification</a></td>
+    <td>Deciding how the group buffer is to look.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Mode-Line-Specification.html#Group-Mode-Line-Specification">Group Mode Line Specification</a></td>
+    <td>The group buffer mode line.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Highlighting.html#Group-Highlighting">Group Highlighting</a></td>
+    <td>Having nice colors in the group buffer.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Group Topics
+
+  </th></tr>
+  <tr>
+    <td><a href="Topic-Commands.html#Topic-Commands">Topic Commands</a></td>
+    <td>Interactive E-Z commands.</td>
+  </tr>
+  <tr>
+    <td><a href="Topic-Variables.html#Topic-Variables">Topic Variables</a></td>
+    <td>How to customize the topics the Lisp Way.</td>
+  </tr>
+  <tr>
+    <td><a href="Topic-Sorting.html#Topic-Sorting">Topic Sorting</a></td>
+    <td>Sorting each topic individually.</td>
+  </tr>
+  <tr>
+    <td><a href="Topic-Topology.html#Topic-Topology">Topic Topology</a></td>
+    <td>A map of the world.</td>
+  </tr>
+  <tr>
+    <td><a href="Topic-Parameters.html#Topic-Parameters">Topic Parameters</a></td>
+    <td>Parameters that apply to all groups in a topic.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Misc Group Stuff
+
+  </th></tr>
+  <tr>
+    <td><a href="Scanning-New-Messages.html#Scanning-New-Messages">Scanning New Messages</a></td>
+    <td>Asking Gnus to see whether new messages have arrived.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Information.html#Group-Information">Group Information</a></td>
+    <td>Information and help on groups and Gnus.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Timestamp.html#Group-Timestamp">Group Timestamp</a></td>
+    <td>Making Gnus keep track of when you last read a group.</td>
+  </tr>
+  <tr>
+    <td><a href="File-Commands.html#File-Commands">File Commands</a></td>
+    <td>Reading and writing the Gnus files.</td>
+  </tr>
+  <tr>
+    <td><a href="Sieve-Commands.html#Sieve-Commands">Sieve Commands</a></td>
+    <td>Managing Sieve scripts.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Summary Buffer
+
+  </th></tr>
+  <tr>
+    <td><a href="Summary-Buffer-Format.html#Summary-Buffer-Format">Summary Buffer Format</a></td>
+    <td>Deciding how the summary buffer is to look.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Maneuvering.html#Summary-Maneuvering">Summary Maneuvering</a></td>
+    <td>Moving around the summary buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Choosing-Articles.html#Choosing-Articles">Choosing Articles</a></td>
+    <td>Reading articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Paging-the-Article.html#Paging-the-Article">Paging the Article</a></td>
+    <td>Scrolling the current article.</td>
+  </tr>
+  <tr>
+    <td><a href="Reply-Followup-and-Post.html#Reply-Followup-and-Post">Reply Followup and Post</a></td>
+    <td>Posting articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Delayed-Articles.html#Delayed-Articles">Delayed Articles</a></td>
+    <td>Send articles at a later time.</td>
+  </tr>
+  <tr>
+    <td><a href="Marking-Articles.html#Marking-Articles">Marking Articles</a></td>
+    <td>Marking articles as read, expirable, etc.</td>
+  </tr>
+  <tr>
+    <td><a href="Limiting.html#Limiting">Limiting</a></td>
+    <td>You can limit the summary buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Threading.html#Threading">Threading</a></td>
+    <td>How threads are made.</td>
+  </tr>
+  <tr>
+    <td><a href="Sorting-the-Summary-Buffer.html#Sorting-the-Summary-Buffer">Sorting the Summary Buffer</a></td>
+    <td>How articles and threads are sorted.</td>
+  </tr>
+  <tr>
+    <td><a href="Asynchronous-Fetching.html#Asynchronous-Fetching">Asynchronous Fetching</a></td>
+    <td>Gnus might be able to pre-fetch articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Caching.html#Article-Caching">Article Caching</a></td>
+    <td>You may store articles in a cache.</td>
+  </tr>
+  <tr>
+    <td><a href="Persistent-Articles.html#Persistent-Articles">Persistent Articles</a></td>
+    <td>Making articles expiry-resistant.</td>
+  </tr>
+  <tr>
+    <td><a href="Sticky-Articles.html#Sticky-Articles">Sticky Articles</a></td>
+    <td>Article buffers that are not reused.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Backlog.html#Article-Backlog">Article Backlog</a></td>
+    <td>Having already read articles hang around.</td>
+  </tr>
+  <tr>
+    <td><a href="Saving-Articles.html#Saving-Articles">Saving Articles</a></td>
+    <td>Ways of customizing article saving.</td>
+  </tr>
+  <tr>
+    <td><a href="Decoding-Articles.html#Decoding-Articles">Decoding Articles</a></td>
+    <td>Gnus can treat series of (uu)encoded articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Treatment.html#Article-Treatment">Article Treatment</a></td>
+    <td>The article buffer can be mangled at will.</td>
+  </tr>
+  <tr>
+    <td><a href="MIME-Commands.html#MIME-Commands">MIME Commands</a></td>
+    <td>Doing MIMEy things with the articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Charsets.html#Charsets">Charsets</a></td>
+    <td>Character set issues.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Commands.html#Article-Commands">Article Commands</a></td>
+    <td>Doing various things with the article buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Sorting.html#Summary-Sorting">Summary Sorting</a></td>
+    <td>Sorting the summary buffer in various ways.</td>
+  </tr>
+  <tr>
+    <td><a href="Finding-the-Parent.html#Finding-the-Parent">Finding the Parent</a></td>
+    <td>No child support?  Get the parent.</td>
+  </tr>
+  <tr>
+    <td><a href="Alternative-Approaches.html#Alternative-Approaches">Alternative Approaches</a></td>
+    <td>Reading using non-default summaries.</td>
+  </tr>
+  <tr>
+    <td><a href="Tree-Display.html#Tree-Display">Tree Display</a></td>
+    <td>A more visual display of threads.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail-Group-Commands.html#Mail-Group-Commands">Mail Group Commands</a></td>
+    <td>Some commands can only be used in mail groups.</td>
+  </tr>
+  <tr>
+    <td><a href="Various-Summary-Stuff.html#Various-Summary-Stuff">Various Summary Stuff</a></td>
+    <td>What didn't fit anywhere else.</td>
+  </tr>
+  <tr>
+    <td><a href="Exiting-the-Summary-Buffer.html#Exiting-the-Summary-Buffer">Exiting the Summary Buffer</a></td>
+    <td>Returning to the Group buffer,
+                                or reselecting the current group.</td>
+  </tr>
+  <tr>
+    <td><a href="Crosspost-Handling.html#Crosspost-Handling">Crosspost Handling</a></td>
+    <td>How crossposted articles are dealt with.</td>
+  </tr>
+  <tr>
+    <td><a href="Duplicate-Suppression.html#Duplicate-Suppression">Duplicate Suppression</a></td>
+    <td>An alternative when crosspost handling fails.</td>
+  </tr>
+  <tr>
+    <td><a href="Security.html#Security">Security</a></td>
+    <td>Decrypt and Verify.</td>
+  </tr>
+  <tr>
+    <td><a href="Mailing-List.html#Mailing-List">Mailing List</a></td>
+    <td>Mailing list minor mode.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Summary Buffer Format
+
+  </th></tr>
+  <tr>
+    <td><a href="Summary-Buffer-Lines.html#Summary-Buffer-Lines">Summary Buffer Lines</a></td>
+    <td>You can specify how summary lines should look.</td>
+  </tr>
+  <tr>
+    <td><a href="To-From-Newsgroups.html#To-From-Newsgroups">To From Newsgroups</a></td>
+    <td>How to not display your own name.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Buffer-Mode-Line.html#Summary-Buffer-Mode-Line">Summary Buffer Mode Line</a></td>
+    <td>You can say how the mode line should look.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Highlighting.html#Summary-Highlighting">Summary Highlighting</a></td>
+    <td>Making the summary buffer all pretty and nice.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Choosing Articles
+
+  </th></tr>
+  <tr>
+    <td><a href="Choosing-Commands.html#Choosing-Commands">Choosing Commands</a></td>
+    <td>Commands for choosing articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Choosing-Variables.html#Choosing-Variables">Choosing Variables</a></td>
+    <td>Variables that influence these commands.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Reply, Followup and Post
+
+  </th></tr>
+  <tr>
+    <td><a href="Summary-Mail-Commands.html#Summary-Mail-Commands">Summary Mail Commands</a></td>
+    <td>Sending mail.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Post-Commands.html#Summary-Post-Commands">Summary Post Commands</a></td>
+    <td>Sending news.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Message-Commands.html#Summary-Message-Commands">Summary Message Commands</a></td>
+    <td>Other Message-related commands.</td>
+  </tr>
+  <tr>
+    <td><a href="Canceling-and-Superseding.html#Canceling-and-Superseding">Canceling and Superseding</a></td>
+    <td>
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Marking Articles
+
+  </th></tr>
+  <tr>
+    <td><a href="Unread-Articles.html#Unread-Articles">Unread Articles</a></td>
+    <td>Marks for unread articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Read-Articles.html#Read-Articles">Read Articles</a></td>
+    <td>Marks for read articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Other-Marks.html#Other-Marks">Other Marks</a></td>
+    <td>Marks that do not affect readedness.</td>
+  </tr>
+  <tr>
+    <td><a href="Setting-Marks.html#Setting-Marks">Setting Marks</a></td>
+    <td>How to set and remove marks.</td>
+  </tr>
+  <tr>
+    <td><a href="Generic-Marking-Commands.html#Generic-Marking-Commands">Generic Marking Commands</a></td>
+    <td>How to customize the marking.</td>
+  </tr>
+  <tr>
+    <td><a href="Setting-Process-Marks.html#Setting-Process-Marks">Setting Process Marks</a></td>
+    <td>How to mark articles for later processing.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Threading
+
+  </th></tr>
+  <tr>
+    <td><a href="Customizing-Threading.html#Customizing-Threading">Customizing Threading</a></td>
+    <td>Variables you can change to affect the threading.</td>
+  </tr>
+  <tr>
+    <td><a href="Thread-Commands.html#Thread-Commands">Thread Commands</a></td>
+    <td>Thread based commands in the summary buffer.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Customizing Threading
+
+  </th></tr>
+  <tr>
+    <td><a href="Loose-Threads.html#Loose-Threads">Loose Threads</a></td>
+    <td>How Gnus gathers loose threads into bigger threads.</td>
+  </tr>
+  <tr>
+    <td><a href="Filling-In-Threads.html#Filling-In-Threads">Filling In Threads</a></td>
+    <td>Making the threads displayed look fuller.</td>
+  </tr>
+  <tr>
+    <td><a href="More-Threading.html#More-Threading">More Threading</a></td>
+    <td>Even more variables for fiddling with threads.</td>
+  </tr>
+  <tr>
+    <td><a href="Low_002dLevel-Threading.html#Low_002dLevel-Threading">Low-Level Threading</a></td>
+    <td>You thought it was over... but you were wrong!
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Decoding Articles
+
+  </th></tr>
+  <tr>
+    <td><a href="Uuencoded-Articles.html#Uuencoded-Articles">Uuencoded Articles</a></td>
+    <td>Uudecode articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Shell-Archives.html#Shell-Archives">Shell Archives</a></td>
+    <td>Unshar articles.</td>
+  </tr>
+  <tr>
+    <td><a href="PostScript-Files.html#PostScript-Files">PostScript Files</a></td>
+    <td>Split PostScript.</td>
+  </tr>
+  <tr>
+    <td><a href="Other-Files.html#Other-Files">Other Files</a></td>
+    <td>Plain save and binhex.</td>
+  </tr>
+  <tr>
+    <td><a href="Decoding-Variables.html#Decoding-Variables">Decoding Variables</a></td>
+    <td>Variables for a happy decoding.</td>
+  </tr>
+  <tr>
+    <td><a href="Viewing-Files.html#Viewing-Files">Viewing Files</a></td>
+    <td>You want to look at the result of the decoding?
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Decoding Variables
+
+  </th></tr>
+  <tr>
+    <td><a href="Rule-Variables.html#Rule-Variables">Rule Variables</a></td>
+    <td>Variables that say how a file is to be viewed.</td>
+  </tr>
+  <tr>
+    <td><a href="Other-Decode-Variables.html#Other-Decode-Variables">Other Decode Variables</a></td>
+    <td>Other decode variables.</td>
+  </tr>
+  <tr>
+    <td><a href="Uuencoding-and-Posting.html#Uuencoding-and-Posting">Uuencoding and Posting</a></td>
+    <td>Variables for customizing uuencoding.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Article Treatment
+
+  </th></tr>
+  <tr>
+    <td><a href="Article-Highlighting.html#Article-Highlighting">Article Highlighting</a></td>
+    <td>You want to make the article look like fruit salad.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Fontisizing.html#Article-Fontisizing">Article Fontisizing</a></td>
+    <td>Making emphasized text look nice.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Hiding.html#Article-Hiding">Article Hiding</a></td>
+    <td>You also want to make certain info go away.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Washing.html#Article-Washing">Article Washing</a></td>
+    <td>Lots of way-neat functions to make life better.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Header.html#Article-Header">Article Header</a></td>
+    <td>Doing various header transformations.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Buttons.html#Article-Buttons">Article Buttons</a></td>
+    <td>Click on URLs, Message-IDs, addresses and the like.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Button-Levels.html#Article-Button-Levels">Article Button Levels</a></td>
+    <td>Controlling appearance of buttons.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Date.html#Article-Date">Article Date</a></td>
+    <td>Grumble, UT!</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Display.html#Article-Display">Article Display</a></td>
+    <td>Display various stuff---X-Face, Picons, Smileys, Gravatars</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Signature.html#Article-Signature">Article Signature</a></td>
+    <td>What is a signature?</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Miscellanea.html#Article-Miscellanea">Article Miscellanea</a></td>
+    <td>Various other stuff.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Alternative Approaches
+
+  </th></tr>
+  <tr>
+    <td><a href="Pick-and-Read.html#Pick-and-Read">Pick and Read</a></td>
+    <td>First mark articles and then read them.</td>
+  </tr>
+  <tr>
+    <td><a href="Binary-Groups.html#Binary-Groups">Binary Groups</a></td>
+    <td>Auto-decode all articles.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Various Summary Stuff
+
+  </th></tr>
+  <tr>
+    <td><a href="Summary-Group-Information.html#Summary-Group-Information">Summary Group Information</a></td>
+    <td>Information oriented commands.</td>
+  </tr>
+  <tr>
+    <td><a href="Searching-for-Articles.html#Searching-for-Articles">Searching for Articles</a></td>
+    <td>Multiple article commands.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Generation-Commands.html#Summary-Generation-Commands">Summary Generation Commands</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Really-Various-Summary-Commands.html#Really-Various-Summary-Commands">Really Various Summary Commands</a></td>
+    <td>Those pesky non-conformant commands.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Article Buffer
+
+  </th></tr>
+  <tr>
+    <td><a href="Hiding-Headers.html#Hiding-Headers">Hiding Headers</a></td>
+    <td>Deciding what headers should be displayed.</td>
+  </tr>
+  <tr>
+    <td><a href="Using-MIME.html#Using-MIME">Using MIME</a></td>
+    <td>Pushing articles through <acronym>MIME</acronym> before reading them.</td>
+  </tr>
+  <tr>
+    <td><a href="HTML.html#HTML">HTML</a></td>
+    <td>Reading <acronym>HTML</acronym> messages.</td>
+  </tr>
+  <tr>
+    <td><a href="Customizing-Articles.html#Customizing-Articles">Customizing Articles</a></td>
+    <td>Tailoring the look of the articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Article-Keymap.html#Article-Keymap">Article Keymap</a></td>
+    <td>Keystrokes available in the article buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Misc-Article.html#Misc-Article">Misc Article</a></td>
+    <td>Other stuff.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Composing Messages
+
+  </th></tr>
+  <tr>
+    <td><a href="Mail.html#Mail">Mail</a></td>
+    <td>Mailing and replying.</td>
+  </tr>
+  <tr>
+    <td><a href="Posting-Server.html#Posting-Server">Posting Server</a></td>
+    <td>What server should you post and mail via?</td>
+  </tr>
+  <tr>
+    <td><a href="POP-before-SMTP.html#POP-before-SMTP">POP before SMTP</a></td>
+    <td>You cannot send a mail unless you read a mail.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail-and-Post.html#Mail-and-Post">Mail and Post</a></td>
+    <td>Mailing and posting at the same time.</td>
+  </tr>
+  <tr>
+    <td><a href="Archived-Messages.html#Archived-Messages">Archived Messages</a></td>
+    <td>Where Gnus stores the messages you've sent.</td>
+  </tr>
+  <tr>
+    <td><a href="Posting-Styles.html#Posting-Styles">Posting Styles</a></td>
+    <td>An easier way to specify who you are.</td>
+  </tr>
+  <tr>
+    <td><a href="Drafts.html#Drafts">Drafts</a></td>
+    <td>Postponing messages and rejected messages.</td>
+  </tr>
+  <tr>
+    <td><a href="Rejected-Articles.html#Rejected-Articles">Rejected Articles</a></td>
+    <td>What happens if the server doesn't like your article?</td>
+  </tr>
+  <tr>
+    <td><a href="Signing-and-encrypting.html#Signing-and-encrypting">Signing and encrypting</a></td>
+    <td>How to compose secure messages.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Select Methods
+
+  </th></tr>
+  <tr>
+    <td><a href="Server-Buffer.html#Server-Buffer">Server Buffer</a></td>
+    <td>Making and editing virtual servers.</td>
+  </tr>
+  <tr>
+    <td><a href="Getting-News.html#Getting-News">Getting News</a></td>
+    <td>Reading USENET news with Gnus.</td>
+  </tr>
+  <tr>
+    <td><a href="Using-IMAP.html#Using-IMAP">Using IMAP</a></td>
+    <td>Reading mail from <acronym>IMAP</acronym>.</td>
+  </tr>
+  <tr>
+    <td><a href="Getting-Mail.html#Getting-Mail">Getting Mail</a></td>
+    <td>Reading your personal mail with Gnus.</td>
+  </tr>
+  <tr>
+    <td><a href="Browsing-the-Web.html#Browsing-the-Web">Browsing the Web</a></td>
+    <td>Getting messages from a plethora of Web sources.</td>
+  </tr>
+  <tr>
+    <td><a href="Other-Sources.html#Other-Sources">Other Sources</a></td>
+    <td>Reading directories, files.</td>
+  </tr>
+  <tr>
+    <td><a href="Combined-Groups.html#Combined-Groups">Combined Groups</a></td>
+    <td>Combining groups into one group.</td>
+  </tr>
+  <tr>
+    <td><a href="Email-Based-Diary.html#Email-Based-Diary">Email Based Diary</a></td>
+    <td>Using mails to manage diary events in Gnus.</td>
+  </tr>
+  <tr>
+    <td><a href="Gnus-Unplugged.html#Gnus-Unplugged">Gnus Unplugged</a></td>
+    <td>Reading news and mail offline.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Server Buffer
+
+  </th></tr>
+  <tr>
+    <td><a href="Server-Buffer-Format.html#Server-Buffer-Format">Server Buffer Format</a></td>
+    <td>You can customize the look of this buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Server-Commands.html#Server-Commands">Server Commands</a></td>
+    <td>Commands to manipulate servers.</td>
+  </tr>
+  <tr>
+    <td><a href="Example-Methods.html#Example-Methods">Example Methods</a></td>
+    <td>Examples server specifications.</td>
+  </tr>
+  <tr>
+    <td><a href="Creating-a-Virtual-Server.html#Creating-a-Virtual-Server">Creating a Virtual Server</a></td>
+    <td>An example session.</td>
+  </tr>
+  <tr>
+    <td><a href="Server-Variables.html#Server-Variables">Server Variables</a></td>
+    <td>Which variables to set.</td>
+  </tr>
+  <tr>
+    <td><a href="Servers-and-Methods.html#Servers-and-Methods">Servers and Methods</a></td>
+    <td>You can use server names as select methods.</td>
+  </tr>
+  <tr>
+    <td><a href="Unavailable-Servers.html#Unavailable-Servers">Unavailable Servers</a></td>
+    <td>Some servers you try to contact may be down.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Getting News
+
+  </th></tr>
+  <tr>
+    <td><a href="NNTP.html#NNTP">NNTP</a></td>
+    <td>Reading news from an <acronym>NNTP</acronym> server.</td>
+  </tr>
+  <tr>
+    <td><a href="News-Spool.html#News-Spool">News Spool</a></td>
+    <td>Reading news from the local spool.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left"><acronym>NNTP</acronym>
+
+  </th></tr>
+  <tr>
+    <td><a href="Direct-Functions.html#Direct-Functions">Direct Functions</a></td>
+    <td>Connecting directly to the server.</td>
+  </tr>
+  <tr>
+    <td><a href="Indirect-Functions.html#Indirect-Functions">Indirect Functions</a></td>
+    <td>Connecting indirectly to the server.</td>
+  </tr>
+  <tr>
+    <td><a href="Common-Variables.html#Common-Variables">Common Variables</a></td>
+    <td>Understood by several connection functions.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Getting Mail
+
+  </th></tr>
+  <tr>
+    <td><a href="Mail-in-a-Newsreader.html#Mail-in-a-Newsreader">Mail in a Newsreader</a></td>
+    <td>Important introductory notes.</td>
+  </tr>
+  <tr>
+    <td><a href="Getting-Started-Reading-Mail.html#Getting-Started-Reading-Mail">Getting Started Reading Mail</a></td>
+    <td>A simple cookbook example.</td>
+  </tr>
+  <tr>
+    <td><a href="Splitting-Mail.html#Splitting-Mail">Splitting Mail</a></td>
+    <td>How to create mail groups.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail-Sources.html#Mail-Sources">Mail Sources</a></td>
+    <td>How to tell Gnus where to get mail from.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail-Back-End-Variables.html#Mail-Back-End-Variables">Mail Back End Variables</a></td>
+    <td>Variables for customizing mail handling.</td>
+  </tr>
+  <tr>
+    <td><a href="Fancy-Mail-Splitting.html#Fancy-Mail-Splitting">Fancy Mail Splitting</a></td>
+    <td>Gnus can do hairy splitting of incoming mail.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Mail-Splitting.html#Group-Mail-Splitting">Group Mail Splitting</a></td>
+    <td>Use group customize to drive mail splitting.</td>
+  </tr>
+  <tr>
+    <td><a href="Incorporating-Old-Mail.html#Incorporating-Old-Mail">Incorporating Old Mail</a></td>
+    <td>What about the old mail you have?</td>
+  </tr>
+  <tr>
+    <td><a href="Expiring-Mail.html#Expiring-Mail">Expiring Mail</a></td>
+    <td>Getting rid of unwanted mail.</td>
+  </tr>
+  <tr>
+    <td><a href="Washing-Mail.html#Washing-Mail">Washing Mail</a></td>
+    <td>Removing cruft from the mail you get.</td>
+  </tr>
+  <tr>
+    <td><a href="Duplicates.html#Duplicates">Duplicates</a></td>
+    <td>Dealing with duplicated mail.</td>
+  </tr>
+  <tr>
+    <td><a href="Not-Reading-Mail.html#Not-Reading-Mail">Not Reading Mail</a></td>
+    <td>Using mail back ends for reading other files.</td>
+  </tr>
+  <tr>
+    <td><a href="Choosing-a-Mail-Back-End.html#Choosing-a-Mail-Back-End">Choosing a Mail Back End</a></td>
+    <td>Gnus can read a variety of mail formats.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Mail Sources
+
+  </th></tr>
+  <tr>
+    <td><a href="Mail-Source-Specifiers.html#Mail-Source-Specifiers">Mail Source Specifiers</a></td>
+    <td>How to specify what a mail source is.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail-Source-Customization.html#Mail-Source-Customization">Mail Source Customization</a></td>
+    <td>Some variables that influence things.</td>
+  </tr>
+  <tr>
+    <td><a href="Fetching-Mail.html#Fetching-Mail">Fetching Mail</a></td>
+    <td>Using the mail source specifiers.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Choosing a Mail Back End
+
+  </th></tr>
+  <tr>
+    <td><a href="Unix-Mail-Box.html#Unix-Mail-Box">Unix Mail Box</a></td>
+    <td>Using the (quite) standard Un*x mbox.</td>
+  </tr>
+  <tr>
+    <td><a href="Babyl.html#Babyl">Babyl</a></td>
+    <td>Babyl was used by older versions of Rmail.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail-Spool.html#Mail-Spool">Mail Spool</a></td>
+    <td>Store your mail in a private spool?</td>
+  </tr>
+  <tr>
+    <td><a href="MH-Spool.html#MH-Spool">MH Spool</a></td>
+    <td>An mhspool-like back end.</td>
+  </tr>
+  <tr>
+    <td><a href="Maildir.html#Maildir">Maildir</a></td>
+    <td>Another one-file-per-message format.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail-Folders.html#Mail-Folders">Mail Folders</a></td>
+    <td>Having one file for each group.</td>
+  </tr>
+  <tr>
+    <td><a href="Comparing-Mail-Back-Ends.html#Comparing-Mail-Back-Ends">Comparing Mail Back Ends</a></td>
+    <td>An in-depth looks at pros and cons.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Browsing the Web
+
+  </th></tr>
+  <tr>
+    <td><a href="Archiving-Mail.html#Archiving-Mail">Archiving Mail</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Web-Searches.html#Web-Searches">Web Searches</a></td>
+    <td>Creating groups from articles that match a string.</td>
+  </tr>
+  <tr>
+    <td><a href="RSS.html#RSS">RSS</a></td>
+    <td>Reading RDF site summary.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Other Sources
+
+  </th></tr>
+  <tr>
+    <td><a href="Directory-Groups.html#Directory-Groups">Directory Groups</a></td>
+    <td>You can read a directory as if it was a newsgroup.</td>
+  </tr>
+  <tr>
+    <td><a href="Anything-Groups.html#Anything-Groups">Anything Groups</a></td>
+    <td>Dired?  Who needs dired?</td>
+  </tr>
+  <tr>
+    <td><a href="Document-Groups.html#Document-Groups">Document Groups</a></td>
+    <td>Single files can be the basis of a group.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail_002dTo_002dNews-Gateways.html#Mail_002dTo_002dNews-Gateways">Mail-To-News Gateways</a></td>
+    <td>Posting articles via mail-to-news gateways.</td>
+  </tr>
+  <tr>
+    <td><a href="The-Empty-Backend.html#The-Empty-Backend">The Empty Backend</a></td>
+    <td>The backend that never has any news.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Document Groups
+
+  </th></tr>
+  <tr>
+    <td><a href="Document-Server-Internals.html#Document-Server-Internals">Document Server Internals</a></td>
+    <td>How to add your own document types.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Combined Groups
+
+  </th></tr>
+  <tr>
+    <td><a href="Virtual-Groups.html#Virtual-Groups">Virtual Groups</a></td>
+    <td>Combining articles from many groups.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Email Based Diary
+
+  </th></tr>
+  <tr>
+    <td><a href="The-NNDiary-Back-End.html#The-NNDiary-Back-End">The NNDiary Back End</a></td>
+    <td>Basic setup and usage.</td>
+  </tr>
+  <tr>
+    <td><a href="The-Gnus-Diary-Library.html#The-Gnus-Diary-Library">The Gnus Diary Library</a></td>
+    <td>Utility toolkit on top of nndiary.</td>
+  </tr>
+  <tr>
+    <td><a href="Sending-or-Not-Sending.html#Sending-or-Not-Sending">Sending or Not Sending</a></td>
+    <td>A final note on sending diary messages.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">The NNDiary Back End
+
+  </th></tr>
+  <tr>
+    <td><a href="Diary-Messages.html#Diary-Messages">Diary Messages</a></td>
+    <td>What makes a message valid for nndiary.</td>
+  </tr>
+  <tr>
+    <td><a href="Running-NNDiary.html#Running-NNDiary">Running NNDiary</a></td>
+    <td>NNDiary has two modes of operation.</td>
+  </tr>
+  <tr>
+    <td><a href="Customizing-NNDiary.html#Customizing-NNDiary">Customizing NNDiary</a></td>
+    <td>Bells and whistles.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">The Gnus Diary Library
+
+  </th></tr>
+  <tr>
+    <td><a href="Diary-Summary-Line-Format.html#Diary-Summary-Line-Format">Diary Summary Line Format</a></td>
+    <td>A nicer summary buffer line format.</td>
+  </tr>
+  <tr>
+    <td><a href="Diary-Articles-Sorting.html#Diary-Articles-Sorting">Diary Articles Sorting</a></td>
+    <td>A nicer way to sort messages.</td>
+  </tr>
+  <tr>
+    <td><a href="Diary-Headers-Generation.html#Diary-Headers-Generation">Diary Headers Generation</a></td>
+    <td>Not doing it manually.</td>
+  </tr>
+  <tr>
+    <td><a href="Diary-Group-Parameters.html#Diary-Group-Parameters">Diary Group Parameters</a></td>
+    <td>Not handling them manually.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Gnus Unplugged
+
+  </th></tr>
+  <tr>
+    <td><a href="Agent-Basics.html#Agent-Basics">Agent Basics</a></td>
+    <td>How it all is supposed to work.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-Categories.html#Agent-Categories">Agent Categories</a></td>
+    <td>How to tell the Gnus Agent what to download.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-Commands.html#Agent-Commands">Agent Commands</a></td>
+    <td>New commands for all the buffers.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-Visuals.html#Agent-Visuals">Agent Visuals</a></td>
+    <td>Ways that the agent may effect your summary buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-as-Cache.html#Agent-as-Cache">Agent as Cache</a></td>
+    <td>The Agent is a big cache too.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-Expiry.html#Agent-Expiry">Agent Expiry</a></td>
+    <td>How to make old articles go away.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-Regeneration.html#Agent-Regeneration">Agent Regeneration</a></td>
+    <td>How to recover from lost connections and other accidents.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-and-flags.html#Agent-and-flags">Agent and flags</a></td>
+    <td>How the Agent maintains flags.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-and-IMAP.html#Agent-and-IMAP">Agent and IMAP</a></td>
+    <td>How to use the Agent with <acronym>IMAP</acronym>.</td>
+  </tr>
+  <tr>
+    <td><a href="Outgoing-Messages.html#Outgoing-Messages">Outgoing Messages</a></td>
+    <td>What happens when you post/mail something?</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-Variables.html#Agent-Variables">Agent Variables</a></td>
+    <td>Customizing is fun.</td>
+  </tr>
+  <tr>
+    <td><a href="Example-Setup.html#Example-Setup">Example Setup</a></td>
+    <td>An example <samp><span class="file">~/.gnus.el</span></samp> file for offline people.</td>
+  </tr>
+  <tr>
+    <td><a href="Batching-Agents.html#Batching-Agents">Batching Agents</a></td>
+    <td>How to fetch news from a <code>cron</code> job.</td>
+  </tr>
+  <tr>
+    <td><a href="Agent-Caveats.html#Agent-Caveats">Agent Caveats</a></td>
+    <td>What you think it'll do and what it does.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Agent Categories
+
+  </th></tr>
+  <tr>
+    <td><a href="Category-Syntax.html#Category-Syntax">Category Syntax</a></td>
+    <td>What a category looks like.</td>
+  </tr>
+  <tr>
+    <td><a href="Category-Buffer.html#Category-Buffer">Category Buffer</a></td>
+    <td>A buffer for maintaining categories.</td>
+  </tr>
+  <tr>
+    <td><a href="Category-Variables.html#Category-Variables">Category Variables</a></td>
+    <td>Customize'r'Us.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Agent Commands
+
+  </th></tr>
+  <tr>
+    <td><a href="Group-Agent-Commands.html#Group-Agent-Commands">Group Agent Commands</a></td>
+    <td>Configure groups and fetch their contents.</td>
+  </tr>
+  <tr>
+    <td><a href="Summary-Agent-Commands.html#Summary-Agent-Commands">Summary Agent Commands</a></td>
+    <td>Manually select then fetch specific articles.</td>
+  </tr>
+  <tr>
+    <td><a href="Server-Agent-Commands.html#Server-Agent-Commands">Server Agent Commands</a></td>
+    <td>Select the servers that are supported by the agent.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Scoring
+
+  </th></tr>
+  <tr>
+    <td><a href="Summary-Score-Commands.html#Summary-Score-Commands">Summary Score Commands</a></td>
+    <td>Adding score entries for the current group.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Score-Commands.html#Group-Score-Commands">Group Score Commands</a></td>
+    <td>General score commands.</td>
+  </tr>
+  <tr>
+    <td><a href="Score-Variables.html#Score-Variables">Score Variables</a></td>
+    <td>Customize your scoring.  (My, what terminology).</td>
+  </tr>
+  <tr>
+    <td><a href="Score-File-Format.html#Score-File-Format">Score File Format</a></td>
+    <td>What a score file may contain.</td>
+  </tr>
+  <tr>
+    <td><a href="Score-File-Editing.html#Score-File-Editing">Score File Editing</a></td>
+    <td>You can edit score files by hand as well.</td>
+  </tr>
+  <tr>
+    <td><a href="Adaptive-Scoring.html#Adaptive-Scoring">Adaptive Scoring</a></td>
+    <td>Big Sister Gnus knows what you read.</td>
+  </tr>
+  <tr>
+    <td><a href="Home-Score-File.html#Home-Score-File">Home Score File</a></td>
+    <td>How to say where new score entries are to go.</td>
+  </tr>
+  <tr>
+    <td><a href="Followups-To-Yourself.html#Followups-To-Yourself">Followups To Yourself</a></td>
+    <td>Having Gnus notice when people answer you.</td>
+  </tr>
+  <tr>
+    <td><a href="Scoring-On-Other-Headers.html#Scoring-On-Other-Headers">Scoring On Other Headers</a></td>
+    <td>Scoring on non-standard headers.</td>
+  </tr>
+  <tr>
+    <td><a href="Scoring-Tips.html#Scoring-Tips">Scoring Tips</a></td>
+    <td>How to score effectively.</td>
+  </tr>
+  <tr>
+    <td><a href="Reverse-Scoring.html#Reverse-Scoring">Reverse Scoring</a></td>
+    <td>That problem child of old is not problem.</td>
+  </tr>
+  <tr>
+    <td><a href="Global-Score-Files.html#Global-Score-Files">Global Score Files</a></td>
+    <td>Earth-spanning, ear-splitting score files.</td>
+  </tr>
+  <tr>
+    <td><a href="Kill-Files.html#Kill-Files">Kill Files</a></td>
+    <td>They are still here, but they can be ignored.</td>
+  </tr>
+  <tr>
+    <td><a href="Converting-Kill-Files.html#Converting-Kill-Files">Converting Kill Files</a></td>
+    <td>Translating kill files to score files.</td>
+  </tr>
+  <tr>
+    <td><a href="Advanced-Scoring.html#Advanced-Scoring">Advanced Scoring</a></td>
+    <td>Using logical expressions to build score rules.</td>
+  </tr>
+  <tr>
+    <td><a href="Score-Decays.html#Score-Decays">Score Decays</a></td>
+    <td>It can be useful to let scores wither away.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Advanced Scoring
+
+  </th></tr>
+  <tr>
+    <td><a href="Advanced-Scoring-Syntax.html#Advanced-Scoring-Syntax">Advanced Scoring Syntax</a></td>
+    <td>A definition.</td>
+  </tr>
+  <tr>
+    <td><a href="Advanced-Scoring-Examples.html#Advanced-Scoring-Examples">Advanced Scoring Examples</a></td>
+    <td>What they look like.</td>
+  </tr>
+  <tr>
+    <td><a href="Advanced-Scoring-Tips.html#Advanced-Scoring-Tips">Advanced Scoring Tips</a></td>
+    <td>Getting the most out of it.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Searching
+
+  </th></tr>
+  <tr>
+    <td><a href="nnir.html#nnir">nnir</a></td>
+    <td>Searching with various engines.</td>
+  </tr>
+  <tr>
+    <td><a href="nnmairix.html#nnmairix">nnmairix</a></td>
+    <td>Searching with Mairix.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">nnir
+
+  </th></tr>
+  <tr>
+    <td><a href="What-is-nnir_003f.html#What-is-nnir_003f">What is nnir?</a></td>
+    <td>What does nnir do.</td>
+  </tr>
+  <tr>
+    <td><a href="Basic-Usage.html#Basic-Usage">Basic Usage</a></td>
+    <td>How to perform simple searches.</td>
+  </tr>
+  <tr>
+    <td><a href="Setting-up-nnir.html#Setting-up-nnir">Setting up nnir</a></td>
+    <td>How to set up nnir.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Setting up nnir
+
+  </th></tr>
+  <tr>
+    <td><a href="Associating-Engines.html#Associating-Engines">Associating Engines</a></td>
+    <td>How to associate engines.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Various
+
+  </th></tr>
+  <tr>
+    <td><a href="Process_002fPrefix.html#Process_002fPrefix">Process/Prefix</a></td>
+    <td>A convention used by many treatment commands.</td>
+  </tr>
+  <tr>
+    <td><a href="Interactive.html#Interactive">Interactive</a></td>
+    <td>Making Gnus ask you many questions.</td>
+  </tr>
+  <tr>
+    <td><a href="Symbolic-Prefixes.html#Symbolic-Prefixes">Symbolic Prefixes</a></td>
+    <td>How to supply some Gnus functions with options.</td>
+  </tr>
+  <tr>
+    <td><a href="Formatting-Variables.html#Formatting-Variables">Formatting Variables</a></td>
+    <td>You can specify what buffers should look like.</td>
+  </tr>
+  <tr>
+    <td><a href="Window-Layout.html#Window-Layout">Window Layout</a></td>
+    <td>Configuring the Gnus buffer windows.</td>
+  </tr>
+  <tr>
+    <td><a href="Faces-and-Fonts.html#Faces-and-Fonts">Faces and Fonts</a></td>
+    <td>How to change how faces look.</td>
+  </tr>
+  <tr>
+    <td><a href="Mode-Lines.html#Mode-Lines">Mode Lines</a></td>
+    <td>Displaying information in the mode lines.</td>
+  </tr>
+  <tr>
+    <td><a href="Highlighting-and-Menus.html#Highlighting-and-Menus">Highlighting and Menus</a></td>
+    <td>Making buffers look all nice and cozy.</td>
+  </tr>
+  <tr>
+    <td><a href="Daemons.html#Daemons">Daemons</a></td>
+    <td>Gnus can do things behind your back.</td>
+  </tr>
+  <tr>
+    <td><a href="Undo.html#Undo">Undo</a></td>
+    <td>Some actions can be undone.</td>
+  </tr>
+  <tr>
+    <td><a href="Predicate-Specifiers.html#Predicate-Specifiers">Predicate Specifiers</a></td>
+    <td>Specifying predicates.</td>
+  </tr>
+  <tr>
+    <td><a href="Moderation.html#Moderation">Moderation</a></td>
+    <td>What to do if you're a moderator.</td>
+  </tr>
+  <tr>
+    <td><a href="Image-Enhancements.html#Image-Enhancements">Image Enhancements</a></td>
+    <td>Modern versions of Emacs/XEmacs can display images.</td>
+  </tr>
+  <tr>
+    <td><a href="Fuzzy-Matching.html#Fuzzy-Matching">Fuzzy Matching</a></td>
+    <td>What's the big fuzz?</td>
+  </tr>
+  <tr>
+    <td><a href="Thwarting-Email-Spam.html#Thwarting-Email-Spam">Thwarting Email Spam</a></td>
+    <td>Simple ways to avoid unsolicited commercial email.</td>
+  </tr>
+  <tr>
+    <td><a href="Spam-Package.html#Spam-Package">Spam Package</a></td>
+    <td>A package for filtering and processing spam.</td>
+  </tr>
+  <tr>
+    <td><a href="The-Gnus-Registry.html#The-Gnus-Registry">The Gnus Registry</a></td>
+    <td>A package for tracking messages by Message-ID.</td>
+  </tr>
+  <tr>
+    <td><a href="The-Gnus-Cloud.html#The-Gnus-Cloud">The Gnus Cloud</a></td>
+    <td>A package for synchronizing Gnus marks.</td>
+  </tr>
+  <tr>
+    <td><a href="Other-modes.html#Other-modes">Other modes</a></td>
+    <td>Interaction with other modes.</td>
+  </tr>
+  <tr>
+    <td><a href="Various-Various.html#Various-Various">Various Various</a></td>
+    <td>Things that are really various.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Formatting Variables
+
+  </th></tr>
+  <tr>
+    <td><a href="Formatting-Basics.html#Formatting-Basics">Formatting Basics</a></td>
+    <td>A formatting variable is basically a format string.</td>
+  </tr>
+  <tr>
+    <td><a href="Mode-Line-Formatting.html#Mode-Line-Formatting">Mode Line Formatting</a></td>
+    <td>Some rules about mode line formatting variables.</td>
+  </tr>
+  <tr>
+    <td><a href="Advanced-Formatting.html#Advanced-Formatting">Advanced Formatting</a></td>
+    <td>Modifying output in various ways.</td>
+  </tr>
+  <tr>
+    <td><a href="User_002dDefined-Specs.html#User_002dDefined-Specs">User-Defined Specs</a></td>
+    <td>Having Gnus call your own functions.</td>
+  </tr>
+  <tr>
+    <td><a href="Formatting-Fonts.html#Formatting-Fonts">Formatting Fonts</a></td>
+    <td>Making the formatting look colorful and nice.</td>
+  </tr>
+  <tr>
+    <td><a href="Positioning-Point.html#Positioning-Point">Positioning Point</a></td>
+    <td>Moving point to a position after an operation.</td>
+  </tr>
+  <tr>
+    <td><a href="Tabulation.html#Tabulation">Tabulation</a></td>
+    <td>Tabulating your output.</td>
+  </tr>
+  <tr>
+    <td><a href="Wide-Characters.html#Wide-Characters">Wide Characters</a></td>
+    <td>Dealing with wide characters.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Image Enhancements
+
+  </th></tr>
+  <tr>
+    <td><a href="X_002dFace.html#X_002dFace">X-Face</a></td>
+    <td>Display a funky, teensy black-and-white image.</td>
+  </tr>
+  <tr>
+    <td><a href="Face.html#Face">Face</a></td>
+    <td>Display a funkier, teensier colored image.</td>
+  </tr>
+  <tr>
+    <td><a href="Smileys.html#Smileys">Smileys</a></td>
+    <td>Show all those happy faces the way they were
+                                  meant to be shown.</td>
+  </tr>
+  <tr>
+    <td><a href="Picons.html#Picons">Picons</a></td>
+    <td>How to display pictures of what you're reading.</td>
+  </tr>
+  <tr>
+    <td><a href="Gravatars.html#Gravatars">Gravatars</a></td>
+    <td>Display the avatar of people you read.</td>
+  </tr>
+  <tr>
+    <td><a href="XVarious.html#XVarious">XVarious</a></td>
+    <td>Other XEmacsy Gnusey variables.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Thwarting Email Spam
+
+  </th></tr>
+  <tr>
+    <td><a href="The-problem-of-spam.html#The-problem-of-spam">The problem of spam</a></td>
+    <td>Some background, and some solutions</td>
+  </tr>
+  <tr>
+    <td><a href="Anti_002dSpam-Basics.html#Anti_002dSpam-Basics">Anti-Spam Basics</a></td>
+    <td>Simple steps to reduce the amount of spam.</td>
+  </tr>
+  <tr>
+    <td><a href="SpamAssassin.html#SpamAssassin">SpamAssassin</a></td>
+    <td>How to use external anti-spam tools.</td>
+  </tr>
+  <tr>
+    <td><a href="Hashcash.html#Hashcash">Hashcash</a></td>
+    <td>Reduce spam by burning CPU time.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Spam Package
+
+  </th></tr>
+  <tr>
+    <td><a href="Spam-Package-Introduction.html#Spam-Package-Introduction">Spam Package Introduction</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Filtering-Incoming-Mail.html#Filtering-Incoming-Mail">Filtering Incoming Mail</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Detecting-Spam-in-Groups.html#Detecting-Spam-in-Groups">Detecting Spam in Groups</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Spam-and-Ham-Processors.html#Spam-and-Ham-Processors">Spam and Ham Processors</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Spam-Package-Configuration-Examples.html#Spam-Package-Configuration-Examples">Spam Package Configuration Examples</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Spam-Back-Ends.html#Spam-Back-Ends">Spam Back Ends</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Extending-the-Spam-package.html#Extending-the-Spam-package">Extending the Spam package</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Spam-Statistics-Package.html#Spam-Statistics-Package">Spam Statistics Package</a></td>
+    <td>
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Spam Statistics Package
+
+  </th></tr>
+  <tr>
+    <td><a href="Creating-a-spam_002dstat-dictionary.html#Creating-a-spam_002dstat-dictionary">Creating a spam-stat dictionary</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Splitting-mail-using-spam_002dstat.html#Splitting-mail-using-spam_002dstat">Splitting mail using spam-stat</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Low_002dlevel-interface-to-the-spam_002dstat-dictionary.html#Low_002dlevel-interface-to-the-spam_002dstat-dictionary">Low-level interface to the spam-stat dictionary</a></td>
+    <td>
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Appendices
+
+  </th></tr>
+  <tr>
+    <td><a href="XEmacs.html#XEmacs">XEmacs</a></td>
+    <td>Requirements for installing under XEmacs.</td>
+  </tr>
+  <tr>
+    <td><a href="History.html#History">History</a></td>
+    <td>How Gnus got where it is today.</td>
+  </tr>
+  <tr>
+    <td><a href="On-Writing-Manuals.html#On-Writing-Manuals">On Writing Manuals</a></td>
+    <td>Why this is not a beginner's guide.</td>
+  </tr>
+  <tr>
+    <td><a href="Terminology.html#Terminology">Terminology</a></td>
+    <td>We use really difficult, like, words here.</td>
+  </tr>
+  <tr>
+    <td><a href="Customization.html#Customization">Customization</a></td>
+    <td>Tailoring Gnus to your needs.</td>
+  </tr>
+  <tr>
+    <td><a href="Troubleshooting.html#Troubleshooting">Troubleshooting</a></td>
+    <td>What you might try if things do not work.</td>
+  </tr>
+  <tr>
+    <td><a href="Gnus-Reference-Guide.html#Gnus-Reference-Guide">Gnus Reference Guide</a></td>
+    <td>Rilly, rilly technical stuff.</td>
+  </tr>
+  <tr>
+    <td><a href="Emacs-for-Heathens.html#Emacs-for-Heathens">Emacs for Heathens</a></td>
+    <td>A short introduction to Emacsian terms.</td>
+  </tr>
+  <tr>
+    <td><a href="Frequently-Asked-Questions.html#Frequently-Asked-Questions">Frequently Asked Questions</a></td>
+    <td>The Gnus FAQ
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">History
+
+  </th></tr>
+  <tr>
+    <td><a href="Gnus-Versions.html#Gnus-Versions">Gnus Versions</a></td>
+    <td>What Gnus versions have been released.</td>
+  </tr>
+  <tr>
+    <td><a href="Why_003f.html#Why_003f">Why?</a></td>
+    <td>What's the point of Gnus?</td>
+  </tr>
+  <tr>
+    <td><a href="Compatibility.html#Compatibility">Compatibility</a></td>
+    <td>Just how compatible is Gnus with <span class="sc">gnus</span>?</td>
+  </tr>
+  <tr>
+    <td><a href="Conformity.html#Conformity">Conformity</a></td>
+    <td>Gnus tries to conform to all standards.</td>
+  </tr>
+  <tr>
+    <td><a href="Emacsen.html#Emacsen">Emacsen</a></td>
+    <td>Gnus can be run on a few modern Emacsen.</td>
+  </tr>
+  <tr>
+    <td><a href="Gnus-Development.html#Gnus-Development">Gnus Development</a></td>
+    <td>How Gnus is developed.</td>
+  </tr>
+  <tr>
+    <td><a href="Contributors.html#Contributors">Contributors</a></td>
+    <td>Oodles of people.</td>
+  </tr>
+  <tr>
+    <td><a href="New-Features.html#New-Features">New Features</a></td>
+    <td>Pointers to some of the new stuff in Gnus.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">New Features
+
+  </th></tr>
+  <tr>
+    <td><a href="ding-Gnus.html#ding-Gnus">ding Gnus</a></td>
+    <td>New things in Gnus 5.0/5.1, the first new Gnus.</td>
+  </tr>
+  <tr>
+    <td><a href="September-Gnus.html#September-Gnus">September Gnus</a></td>
+    <td>The Thing Formally Known As Gnus 5.2/5.3.</td>
+  </tr>
+  <tr>
+    <td><a href="Red-Gnus.html#Red-Gnus">Red Gnus</a></td>
+    <td>Third time best---Gnus 5.4/5.5.</td>
+  </tr>
+  <tr>
+    <td><a href="Quassia-Gnus.html#Quassia-Gnus">Quassia Gnus</a></td>
+    <td>Two times two is four, or Gnus 5.6/5.7.</td>
+  </tr>
+  <tr>
+    <td><a href="Pterodactyl-Gnus.html#Pterodactyl-Gnus">Pterodactyl Gnus</a></td>
+    <td>Pentad also starts with P, AKA Gnus 5.8/5.9.</td>
+  </tr>
+  <tr>
+    <td><a href="Oort-Gnus.html#Oort-Gnus">Oort Gnus</a></td>
+    <td>It's big.  It's far out.  Gnus 5.10/5.11.</td>
+  </tr>
+  <tr>
+    <td><a href="No-Gnus.html#No-Gnus">No Gnus</a></td>
+    <td>Very punny.  Gnus 5.12/5.13</td>
+  </tr>
+  <tr>
+    <td><a href="Ma-Gnus.html#Ma-Gnus">Ma Gnus</a></td>
+    <td>Celebrating 25 years of Gnus.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Customization
+
+  </th></tr>
+  <tr>
+    <td><a href="Slow_002fExpensive-Connection.html#Slow_002fExpensive-Connection">Slow/Expensive Connection</a></td>
+    <td>You run a local Emacs and get the news elsewhere.</td>
+  </tr>
+  <tr>
+    <td><a href="Slow-Terminal-Connection.html#Slow-Terminal-Connection">Slow Terminal Connection</a></td>
+    <td>You run a remote Emacs.</td>
+  </tr>
+  <tr>
+    <td><a href="Little-Disk-Space.html#Little-Disk-Space">Little Disk Space</a></td>
+    <td>You feel that having large setup files is icky.</td>
+  </tr>
+  <tr>
+    <td><a href="Slow-Machine.html#Slow-Machine">Slow Machine</a></td>
+    <td>You feel like buying a faster machine.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Gnus Reference Guide
+
+  </th></tr>
+  <tr>
+    <td><a href="Gnus-Utility-Functions.html#Gnus-Utility-Functions">Gnus Utility Functions</a></td>
+    <td>Common functions and variable to use.</td>
+  </tr>
+  <tr>
+    <td><a href="Back-End-Interface.html#Back-End-Interface">Back End Interface</a></td>
+    <td>How Gnus communicates with the servers.</td>
+  </tr>
+  <tr>
+    <td><a href="Score-File-Syntax.html#Score-File-Syntax">Score File Syntax</a></td>
+    <td>A BNF definition of the score file standard.</td>
+  </tr>
+  <tr>
+    <td><a href="Headers.html#Headers">Headers</a></td>
+    <td>How Gnus stores headers internally.</td>
+  </tr>
+  <tr>
+    <td><a href="Ranges.html#Ranges">Ranges</a></td>
+    <td>A handy format for storing mucho numbers.</td>
+  </tr>
+  <tr>
+    <td><a href="Group-Info.html#Group-Info">Group Info</a></td>
+    <td>The group info format.</td>
+  </tr>
+  <tr>
+    <td><a href="Extended-Interactive.html#Extended-Interactive">Extended Interactive</a></td>
+    <td>Symbolic prefixes and stuff.</td>
+  </tr>
+  <tr>
+    <td><a href="Emacs_002fXEmacs-Code.html#Emacs_002fXEmacs-Code">Emacs/XEmacs Code</a></td>
+    <td>Gnus can be run under all modern Emacsen.</td>
+  </tr>
+  <tr>
+    <td><a href="Various-File-Formats.html#Various-File-Formats">Various File Formats</a></td>
+    <td>Formats of files that Gnus use.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Back End Interface
+
+  </th></tr>
+  <tr>
+    <td><a href="Required-Back-End-Functions.html#Required-Back-End-Functions">Required Back End Functions</a></td>
+    <td>Functions that must be implemented.</td>
+  </tr>
+  <tr>
+    <td><a href="Optional-Back-End-Functions.html#Optional-Back-End-Functions">Optional Back End Functions</a></td>
+    <td>Functions that need not be implemented.</td>
+  </tr>
+  <tr>
+    <td><a href="Error-Messaging.html#Error-Messaging">Error Messaging</a></td>
+    <td>How to get messages and report errors.</td>
+  </tr>
+  <tr>
+    <td><a href="Writing-New-Back-Ends.html#Writing-New-Back-Ends">Writing New Back Ends</a></td>
+    <td>Extending old back ends.</td>
+  </tr>
+  <tr>
+    <td><a href="Hooking-New-Back-Ends-Into-Gnus.html#Hooking-New-Back-Ends-Into-Gnus">Hooking New Back Ends Into Gnus</a></td>
+    <td>What has to be done on the Gnus end.</td>
+  </tr>
+  <tr>
+    <td><a href="Mail_002dlike-Back-Ends.html#Mail_002dlike-Back-Ends">Mail-like Back Ends</a></td>
+    <td>Some tips on mail back ends.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Various File Formats
+
+  </th></tr>
+  <tr>
+    <td><a href="Active-File-Format.html#Active-File-Format">Active File Format</a></td>
+    <td>Information on articles and groups available.</td>
+  </tr>
+  <tr>
+    <td><a href="Newsgroups-File-Format.html#Newsgroups-File-Format">Newsgroups File Format</a></td>
+    <td>Group descriptions.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Emacs for Heathens
+
+  </th></tr>
+  <tr>
+    <td><a href="Keystrokes.html#Keystrokes">Keystrokes</a></td>
+    <td>Entering text and executing commands.</td>
+  </tr>
+  <tr>
+    <td><a href="Emacs-Lisp.html#Emacs-Lisp">Emacs Lisp</a></td>
+    <td>The built-in Emacs programming language.
+  </td></tr>
+</table>
+
+</div>
+
+   </body></html>
+
+<!--
+
+Local Variables:
+coding: utf-8
+End:
+
+-->

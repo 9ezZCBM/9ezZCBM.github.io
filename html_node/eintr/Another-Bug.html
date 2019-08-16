@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Another Bug - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Another-Bug"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Final-printed-graph.html#Final-printed-graph">Final printed graph</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mapcar.html#mapcar">mapcar</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Print-Whole-Graph.html#Print-Whole-Graph">Print Whole Graph</a>
+
+</div>
+
+<h4 class="appendixsubsec">C.4.5 Another Bug <small class="dots">...</small> Most Insidious</h4>
+
+<p><a name="index-Bug_002c-most-insidious-type-404"></a><a name="index-Insidious-type-of-bug-405"></a>
+I said &ldquo;almost ready to print&rdquo;!  Of course, there is a bug in the
+<code>print-graph</code> function <small class="dots">...</small>  It has a <code>vertical-step</code>
+option, but not a <code>horizontal-step</code> option.  The
+<code>top-of-range</code> scale goes from 10 to 300 by tens.  But the
+<code>print-graph</code> function will print only by ones.
+
+   <p>This is a classic example of what some consider the most insidious
+type of bug, the bug of omission.  This is not the kind of bug you can
+find by studying the code, for it is not in the code; it is an omitted
+feature.  Your best actions are to try your program early and often;
+and try to arrange, as much as you can, to write code that is easy to
+understand and easy to change.  Try to be aware, whenever you can,
+that whatever you have written, <em>will</em> be rewritten, if not soon,
+eventually.  A hard maxim to follow.
+
+   <p>It is the <code>print-X-axis-numbered-line</code> function that needs the
+work; and then the <code>print-X-axis</code> and the <code>print-graph</code>
+functions need to be adapted.  Not much needs to be done; there is one
+nicety: the numbers ought to line up under the tic marks.  This takes
+a little thought.
+
+   <p>Here is the corrected <code>print-X-axis-numbered-line</code>:
+
+<pre class="smallexample">     (defun print-X-axis-numbered-line
+       (number-of-X-tics X-axis-leading-spaces
+        &amp;optional horizontal-step)
+       "Print line of X-axis numbers"
+       (let ((number X-axis-label-spacing)
+             (horizontal-step (or horizontal-step 1)))
+         (insert X-axis-leading-spaces)
+         ;; <span class="roman">Delete extra leading spaces.</span>
+         (delete-char
+          (- (1-
+              (length (number-to-string horizontal-step)))))
+         (insert (concat
+                  (make-string
+                   ;; <span class="roman">Insert white space.</span>
+                   (-  (* symbol-width
+                          X-axis-label-spacing)
+                       (1-
+                        (length
+                         (number-to-string horizontal-step)))
+                       2)
+                   ? )
+                  (number-to-string
+                   (* number horizontal-step))))
+         ;; <span class="roman">Insert remaining numbers.</span>
+         (setq number (+ number X-axis-label-spacing))
+         (while (&gt; number-of-X-tics 1)
+           (insert (X-axis-element
+                    (* number horizontal-step)))
+           (setq number (+ number X-axis-label-spacing))
+           (setq number-of-X-tics (1- number-of-X-tics)))))
+</pre>
+   <p>If you are reading this in Info, you can see the new versions of
+<code>print-X-axis</code> <code>print-graph</code> and evaluate them.  If you are
+reading this in a printed book, you can see the changed lines here
+(the full text is too much to print).
+
+<pre class="smallexample">     (defun print-X-axis (numbers-list horizontal-step)
+       "Print X axis labels to length of NUMBERS-LIST.
+     Optionally, HORIZONTAL-STEP, a positive integer,
+     specifies how much an X  axis label increments for
+     each column."
+     ;; Value of symbol-width and full-Y-label-width
+     ;; are passed by print-graph.
+       (let* ((leading-spaces
+               (make-string full-Y-label-width ? ))
+            ;; symbol-width <span class="roman">is provided by</span> graph-body-print
+            (tic-width (* symbol-width X-axis-label-spacing))
+            (X-length (length numbers-list))
+            (X-tic
+             (concat
+              (make-string
+               ;; <span class="roman">Make a string of blanks.</span>
+               (-  (* symbol-width X-axis-label-spacing)
+                   (length X-axis-tic-symbol))
+               ? )
+              ;; <span class="roman">Concatenate blanks with tic symbol.</span>
+              X-axis-tic-symbol))
+            (tic-number
+             (if (zerop (% X-length tic-width))
+                 (/ X-length tic-width)
+               (1+ (/ X-length tic-width)))))
+     
+         (print-X-axis-tic-line
+          tic-number leading-spaces X-tic)
+         (insert "\n")
+         (print-X-axis-numbered-line
+          tic-number leading-spaces horizontal-step)))
+</pre>
+   <pre class="smallexample">     (defun print-graph
+       (numbers-list &amp;optional vertical-step horizontal-step)
+       "Print labeled bar graph of the NUMBERS-LIST.
+     The numbers-list consists of the Y-axis values.
+     
+     Optionally, VERTICAL-STEP, a positive integer,
+     specifies how much a Y axis label increments for
+     each line.  For example, a step of 5 means that
+     each row is five units.
+     
+     Optionally, HORIZONTAL-STEP, a positive integer,
+     specifies how much an X  axis label increments for
+     each column."
+       (let* ((symbol-width (length graph-blank))
+              ;; <code>height</code> <span class="roman">is both the largest number</span>
+              ;; <span class="roman">and the number with the most digits.</span>
+              (height (apply 'max numbers-list))
+              (height-of-top-line
+               (if (zerop (% height Y-axis-label-spacing))
+                   height
+                 ;; <span class="roman">else</span>
+                 (* (1+ (/ height Y-axis-label-spacing))
+                    Y-axis-label-spacing)))
+              (vertical-step (or vertical-step 1))
+              (full-Y-label-width
+               (length
+                (concat
+                 (number-to-string
+                  (* height-of-top-line vertical-step))
+                 Y-axis-tic))))
+         (print-Y-axis
+          height-of-top-line full-Y-label-width vertical-step)
+         (graph-body-print
+             numbers-list height-of-top-line symbol-width)
+         (print-X-axis numbers-list horizontal-step)))
+</pre>
+   <!-- qqq -->
+   </body></html>
+

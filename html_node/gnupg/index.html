@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This is the The GNU Privacy Guard Manual (version
+2.2.17, July 2019).
+
+
+(C) 2002, 2004, 2005, 2006, 2007, 2010 Free Software Foundation, Inc.
+
+(C) 2013, 2014, 2015 Werner Koch.
+
+(C) 2015, 2016, 2017 g10 Code GmbH.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version. The text of the license can be found in the
+section entitled "Copying". -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Top (Using the GNU Privacy Guard)</title>
+
+<meta name="description" content="Top (Using the GNU Privacy Guard)">
+<meta name="keywords" content="Top (Using the GNU Privacy Guard)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#Top" rel="start" title="Top">
+<link href="Option-Index.html#Option-Index" rel="index" title="Option Index">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="../dir/index.html" rel="up" title="(dir)">
+<link href="Installation.html#Installation" rel="next" title="Installation">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="/share/site.css">
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Using the GNU Privacy Guard</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div align="center"><img src="gnupg-logo-tr.png" alt="The GnuPG Logo">
+</div>
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="Installation.html#Installation" accesskey="n" rel="next">Installation</a>, Up: <a href="../dir/index.html" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Option-Index.html#Option-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="SEC_Top"></a>
+<p>This is the <cite>The GNU Privacy Guard Manual</cite> (version
+2.2.17, July 2019).
+</p>
+
+<p>&copy; 2002, 2004, 2005, 2006, 2007, 2010 Free Software Foundation, Inc.<br>
+&copy; 2013, 2014, 2015 Werner Koch.<br>
+&copy; 2015, 2016, 2017 g10 Code GmbH.
+</p>
+<blockquote>
+<p>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version. The text of the license can be found in the
+section entitled &ldquo;Copying&rdquo;.
+</p></blockquote>
+
+
+<p>This manual documents how to use the GNU Privacy Guard system as well as
+the administration and the architecture.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Installation.html#Installation" accesskey="1">Installation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">A short installation guide.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Invoking-GPG_002dAGENT.html#Invoking-GPG_002dAGENT" accesskey="2">Invoking GPG-AGENT</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to launch the secret key daemon.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-DIRMNGR.html#Invoking-DIRMNGR" accesskey="3">Invoking DIRMNGR</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to launch the CRL and OCSP daemon.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-GPG.html#Invoking-GPG" accesskey="4">Invoking GPG</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Using the OpenPGP protocol.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-GPGSM.html#Invoking-GPGSM" accesskey="5">Invoking GPGSM</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Using the S/MIME protocol.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Invoking-SCDAEMON.html#Invoking-SCDAEMON" accesskey="6">Invoking SCDAEMON</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to handle Smartcards.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Specify-a-User-ID.html#Specify-a-User-ID" accesskey="7">Specify a User ID</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to Specify a User Id.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Trust-Values.html#Trust-Values" accesskey="8">Trust Values</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How GnuPG displays trust values.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Helper-Tools.html#Helper-Tools" accesskey="9">Helper Tools</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Description of small helper tools
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Web-Key-Service.html#Web-Key-Service">Web Key Service</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tools for the Web Key Service
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Howtos.html#Howtos">Howtos</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to do certain things.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="System-Notes.html#System-Notes">System Notes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Notes pertaining to certain OSes.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Debugging.html#Debugging">Debugging</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to solve problems
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Copying.html#Copying">Copying</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">GNU General Public License says
+                        how you can copy and share GnuPG
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Contributors.html#Contributors">Contributors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">People who have contributed to GnuPG.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Glossary.html#Glossary">Glossary</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Short description of terms used.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Option-Index.html#Option-Index">Option Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Index to command line options.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Environment-Index.html#Environment-Index">Environment Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Index to environment variables and files.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Index.html#Index">Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Index of concepts and symbol names.
+</td></tr>
+</table>
+
+
+<a name="SEC_Overview"></a>
+<h2 class="shortcontents-heading">Short Table of Contents</h2>
+
+<div class="shortcontents">
+<ul class="no-bullet">
+<li><a name="stoc-A-short-installation-guide" href="#toc-A-short-installation-guide">1 A short installation guide</a></li>
+<li><a name="stoc-Invoking-GPG_002dAGENT-1" href="#toc-Invoking-GPG_002dAGENT-1">2 Invoking GPG-AGENT</a></li>
+<li><a name="stoc-Invoking-DIRMNGR-1" href="#toc-Invoking-DIRMNGR-1">3 Invoking DIRMNGR</a></li>
+<li><a name="stoc-Invoking-GPG-1" href="#toc-Invoking-GPG-1">4 Invoking GPG</a></li>
+<li><a name="stoc-Invoking-GPGSM-1" href="#toc-Invoking-GPGSM-1">5 Invoking GPGSM</a></li>
+<li><a name="stoc-Invoking-the-SCDAEMON" href="#toc-Invoking-the-SCDAEMON">6 Invoking the SCDAEMON</a></li>
+<li><a name="stoc-How-to-Specify-a-User-Id" href="#toc-How-to-Specify-a-User-Id">7 How to Specify a User Id</a></li>
+<li><a name="stoc-Trust-Values-1" href="#toc-Trust-Values-1">8 Trust Values</a></li>
+<li><a name="stoc-Helper-Tools-1" href="#toc-Helper-Tools-1">9 Helper Tools</a></li>
+<li><a name="stoc-Web-Key-Service-1" href="#toc-Web-Key-Service-1">10 Web Key Service</a></li>
+<li><a name="stoc-How-to-do-certain-things" href="#toc-How-to-do-certain-things">11 How to do certain things</a></li>
+<li><a name="stoc-Notes-pertaining-to-certain-OSes" href="#toc-Notes-pertaining-to-certain-OSes">12 Notes pertaining to certain OSes</a></li>
+<li><a name="stoc-How-to-solve-problems" href="#toc-How-to-solve-problems">13 How to solve problems</a></li>
+<li><a name="stoc-GNU-General-Public-License" href="#toc-GNU-General-Public-License">GNU General Public License</a></li>
+<li><a name="stoc-Contributors-to-GnuPG" href="#toc-Contributors-to-GnuPG">Contributors to GnuPG</a></li>
+<li><a name="stoc-Glossary-1" href="#toc-Glossary-1">Glossary</a></li>
+<li><a name="stoc-Option-Index-1" href="#toc-Option-Index-1">Option Index</a></li>
+<li><a name="stoc-Environment-Variable-and-File-Index" href="#toc-Environment-Variable-and-File-Index">Environment Variable and File Index</a></li>
+<li><a name="stoc-Index-1" href="#toc-Index-1">Index</a></li>
+</ul>
+</div>
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-A-short-installation-guide" href="Installation.html#Installation">1 A short installation guide</a></li>
+  <li><a name="toc-Invoking-GPG_002dAGENT-1" href="Invoking-GPG_002dAGENT.html#Invoking-GPG_002dAGENT">2 Invoking GPG-AGENT</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Commands" href="Agent-Commands.html#Agent-Commands">2.1 Commands</a></li>
+    <li><a name="toc-Option-Summary" href="Agent-Options.html#Agent-Options">2.2 Option Summary</a></li>
+    <li><a name="toc-Configuration" href="Agent-Configuration.html#Agent-Configuration">2.3 Configuration</a></li>
+    <li><a name="toc-Use-of-some-signals" href="Agent-Signals.html#Agent-Signals">2.4 Use of some signals</a></li>
+    <li><a name="toc-Examples" href="Agent-Examples.html#Agent-Examples">2.5 Examples</a></li>
+    <li><a name="toc-Agent_0027s-Assuan-Protocol" href="Agent-Protocol.html#Agent-Protocol">2.6 Agent&rsquo;s Assuan Protocol</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Decrypting-a-session-key" href="Agent-PKDECRYPT.html#Agent-PKDECRYPT">2.6.1 Decrypting a session key</a></li>
+      <li><a name="toc-Signing-a-Hash" href="Agent-PKSIGN.html#Agent-PKSIGN">2.6.2 Signing a Hash</a></li>
+      <li><a name="toc-Generating-a-Key" href="Agent-GENKEY.html#Agent-GENKEY">2.6.3 Generating a Key</a></li>
+      <li><a name="toc-Importing-a-Secret-Key" href="Agent-IMPORT.html#Agent-IMPORT">2.6.4 Importing a Secret Key</a></li>
+      <li><a name="toc-Export-a-Secret-Key" href="Agent-EXPORT.html#Agent-EXPORT">2.6.5 Export a Secret Key</a></li>
+      <li><a name="toc-Importing-a-Root-Certificate" href="Agent-ISTRUSTED.html#Agent-ISTRUSTED">2.6.6 Importing a Root Certificate</a></li>
+      <li><a name="toc-Ask-for-a-passphrase" href="Agent-GET_005fPASSPHRASE.html#Agent-GET_005fPASSPHRASE">2.6.7 Ask for a passphrase</a></li>
+      <li><a name="toc-Remove-a-cached-passphrase" href="Agent-CLEAR_005fPASSPHRASE.html#Agent-CLEAR_005fPASSPHRASE">2.6.8 Remove a cached passphrase</a></li>
+      <li><a name="toc-Set-a-passphrase-for-a-keygrip" href="Agent-PRESET_005fPASSPHRASE.html#Agent-PRESET_005fPASSPHRASE">2.6.9 Set a passphrase for a keygrip</a></li>
+      <li><a name="toc-Ask-for-confirmation" href="Agent-GET_005fCONFIRMATION.html#Agent-GET_005fCONFIRMATION">2.6.10 Ask for confirmation</a></li>
+      <li><a name="toc-Check-whether-a-key-is-available" href="Agent-HAVEKEY.html#Agent-HAVEKEY">2.6.11 Check whether a key is available</a></li>
+      <li><a name="toc-Register-a-smartcard" href="Agent-LEARN.html#Agent-LEARN">2.6.12 Register a smartcard</a></li>
+      <li><a name="toc-Change-a-Passphrase" href="Agent-PASSWD.html#Agent-PASSWD">2.6.13 Change a Passphrase</a></li>
+      <li><a name="toc-Change-the-standard-display" href="Agent-UPDATESTARTUPTTY.html#Agent-UPDATESTARTUPTTY">2.6.14 Change the standard display</a></li>
+      <li><a name="toc-Get-the-Event-Counters" href="Agent-GETEVENTCOUNTER.html#Agent-GETEVENTCOUNTER">2.6.15 Get the Event Counters</a></li>
+      <li><a name="toc-Return-information-about-the-process" href="Agent-GETINFO.html#Agent-GETINFO">2.6.16 Return information about the process</a></li>
+      <li><a name="toc-Set-options-for-the-session" href="Agent-OPTION.html#Agent-OPTION">2.6.17 Set options for the session</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Invoking-DIRMNGR-1" href="Invoking-DIRMNGR.html#Invoking-DIRMNGR">3 Invoking DIRMNGR</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Commands-1" href="Dirmngr-Commands.html#Dirmngr-Commands">3.1 Commands</a></li>
+    <li><a name="toc-Option-Summary-1" href="Dirmngr-Options.html#Dirmngr-Options">3.2 Option Summary</a></li>
+    <li><a name="toc-Configuration-1" href="Dirmngr-Configuration.html#Dirmngr-Configuration">3.3 Configuration</a></li>
+    <li><a name="toc-Use-of-signals" href="Dirmngr-Signals.html#Dirmngr-Signals">3.4 Use of signals</a></li>
+    <li><a name="toc-Examples-1" href="Dirmngr-Examples.html#Dirmngr-Examples">3.5 Examples</a></li>
+    <li><a name="toc-Dirmngr_0027s-Assuan-Protocol" href="Dirmngr-Protocol.html#Dirmngr-Protocol">3.6 Dirmngr&rsquo;s Assuan Protocol</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Return-the-certificate_0028s_0029-found" href="Dirmngr-LOOKUP.html#Dirmngr-LOOKUP">3.6.1 Return the certificate(s) found</a></li>
+      <li><a name="toc-Validate-a-certificate-using-a-CRL-or-OCSP" href="Dirmngr-ISVALID.html#Dirmngr-ISVALID">3.6.2 Validate a certificate using a CRL or OCSP</a></li>
+      <li><a name="toc-Validate-a-certificate-using-a-CRL" href="Dirmngr-CHECKCRL.html#Dirmngr-CHECKCRL">3.6.3 Validate a certificate using a CRL</a></li>
+      <li><a name="toc-Validate-a-certificate-using-OCSP" href="Dirmngr-CHECKOCSP.html#Dirmngr-CHECKOCSP">3.6.4 Validate a certificate using OCSP</a></li>
+      <li><a name="toc-Put-a-certificate-into-the-internal-cache" href="Dirmngr-CACHECERT.html#Dirmngr-CACHECERT">3.6.5 Put a certificate into the internal cache</a></li>
+      <li><a name="toc-Validate-a-certificate-for-debugging" href="Dirmngr-VALIDATE.html#Dirmngr-VALIDATE">3.6.6 Validate a certificate for debugging</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Invoking-GPG-1" href="Invoking-GPG.html#Invoking-GPG">4 Invoking GPG</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Commands-2" href="GPG-Commands.html#GPG-Commands">4.1 Commands</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Commands-not-specific-to-the-function" href="General-GPG-Commands.html#General-GPG-Commands">4.1.1 Commands not specific to the function</a></li>
+      <li><a name="toc-Commands-to-select-the-type-of-operation" href="Operational-GPG-Commands.html#Operational-GPG-Commands">4.1.2 Commands to select the type of operation</a></li>
+      <li><a name="toc-How-to-manage-your-keys" href="OpenPGP-Key-Management.html#OpenPGP-Key-Management">4.1.3 How to manage your keys</a></li>
+    </ul></li>
+    <li><a name="toc-Option-Summary-2" href="GPG-Options.html#GPG-Options">4.2 Option Summary</a>
+    <ul class="no-bullet">
+      <li><a name="toc-How-to-change-the-configuration" href="GPG-Configuration-Options.html#GPG-Configuration-Options">4.2.1 How to change the configuration</a></li>
+      <li><a name="toc-Key-related-options" href="GPG-Key-related-Options.html#GPG-Key-related-Options">4.2.2 Key related options</a></li>
+      <li><a name="toc-Input-and-Output-1" href="GPG-Input-and-Output.html#GPG-Input-and-Output">4.2.3 Input and Output</a></li>
+      <li><a name="toc-OpenPGP-protocol-specific-options" href="OpenPGP-Options.html#OpenPGP-Options">4.2.4 OpenPGP protocol specific options</a></li>
+      <li><a name="toc-Compliance-options" href="Compliance-Options.html#Compliance-Options">4.2.5 Compliance options</a></li>
+      <li><a name="toc-Doing-things-one-usually-doesn_0027t-want-to-do" href="GPG-Esoteric-Options.html#GPG-Esoteric-Options">4.2.6 Doing things one usually doesn&rsquo;t want to do</a></li>
+      <li><a name="toc-Deprecated-options" href="Deprecated-Options.html#Deprecated-Options">4.2.7 Deprecated options</a></li>
+    </ul></li>
+    <li><a name="toc-Configuration-files" href="GPG-Configuration.html#GPG-Configuration">4.3 Configuration files</a></li>
+    <li><a name="toc-Examples-2" href="GPG-Examples.html#GPG-Examples">4.4 Examples</a></li>
+    <li><a name="toc-Unattended-Usage-1" href="Unattended-Usage-of-GPG.html#Unattended-Usage-of-GPG">4.5 Unattended Usage</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Programmatic-use-of-GnuPG-1" href="Programmatic-use-of-GnuPG.html#Programmatic-use-of-GnuPG">4.5.1 Programmatic use of GnuPG</a></li>
+      <li><a name="toc-Ephemeral-home-directories-1" href="Ephemeral-home-directories.html#Ephemeral-home-directories">4.5.2 Ephemeral home directories</a></li>
+      <li><a name="toc-The-quick-key-manipulation-interface-1" href="The-quick-key-manipulation-interface.html#The-quick-key-manipulation-interface">4.5.3 The quick key manipulation interface</a></li>
+      <li><a name="toc-Unattended-key-generation" href="Unattended-GPG-key-generation.html#Unattended-GPG-key-generation">4.5.4 Unattended key generation</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Invoking-GPGSM-1" href="Invoking-GPGSM.html#Invoking-GPGSM">5 Invoking GPGSM</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Commands-3" href="GPGSM-Commands.html#GPGSM-Commands">5.1 Commands</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Commands-not-specific-to-the-function-1" href="General-GPGSM-Commands.html#General-GPGSM-Commands">5.1.1 Commands not specific to the function</a></li>
+      <li><a name="toc-Commands-to-select-the-type-of-operation-1" href="Operational-GPGSM-Commands.html#Operational-GPGSM-Commands">5.1.2 Commands to select the type of operation</a></li>
+      <li><a name="toc-How-to-manage-the-certificates-and-keys" href="Certificate-Management.html#Certificate-Management">5.1.3 How to manage the certificates and keys</a></li>
+    </ul></li>
+    <li><a name="toc-Option-Summary-3" href="GPGSM-Options.html#GPGSM-Options">5.2 Option Summary</a>
+    <ul class="no-bullet">
+      <li><a name="toc-How-to-change-the-configuration-1" href="Configuration-Options.html#Configuration-Options">5.2.1 How to change the configuration</a></li>
+      <li><a name="toc-Certificate-related-options" href="Certificate-Options.html#Certificate-Options">5.2.2 Certificate related options</a></li>
+      <li><a name="toc-Input-and-Output-2" href="Input-and-Output.html#Input-and-Output">5.2.3 Input and Output</a></li>
+      <li><a name="toc-How-to-change-how-the-CMS-is-created" href="CMS-Options.html#CMS-Options">5.2.4 How to change how the CMS is created</a></li>
+      <li><a name="toc-Doing-things-one-usually-do-not-want-to-do" href="Esoteric-Options.html#Esoteric-Options">5.2.5 Doing things one usually do not want to do</a></li>
+    </ul></li>
+    <li><a name="toc-Configuration-files-1" href="GPGSM-Configuration.html#GPGSM-Configuration">5.3 Configuration files</a></li>
+    <li><a name="toc-Examples-3" href="GPGSM-Examples.html#GPGSM-Examples">5.4 Examples</a></li>
+    <li><a name="toc-Unattended-Usage-2" href="Unattended-Usage.html#Unattended-Usage">5.5 Unattended Usage</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Automated-signature-checking-1" href="Automated-signature-checking.html#Automated-signature-checking">5.5.1 Automated signature checking</a></li>
+      <li><a name="toc-CSR-and-certificate-creation-1" href="CSR-and-certificate-creation.html#CSR-and-certificate-creation">5.5.2 CSR and certificate creation</a></li>
+    </ul></li>
+    <li><a name="toc-The-Protocol-the-Server-Mode-Uses" href="GPGSM-Protocol.html#GPGSM-Protocol">5.6 The Protocol the Server Mode Uses</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Encrypting-a-Message" href="GPGSM-ENCRYPT.html#GPGSM-ENCRYPT">5.6.1 Encrypting a Message</a></li>
+      <li><a name="toc-Decrypting-a-message" href="GPGSM-DECRYPT.html#GPGSM-DECRYPT">5.6.2 Decrypting a message</a></li>
+      <li><a name="toc-Signing-a-Message" href="GPGSM-SIGN.html#GPGSM-SIGN">5.6.3 Signing a Message</a></li>
+      <li><a name="toc-Verifying-a-Message" href="GPGSM-VERIFY.html#GPGSM-VERIFY">5.6.4 Verifying a Message</a></li>
+      <li><a name="toc-Generating-a-Key-1" href="GPGSM-GENKEY.html#GPGSM-GENKEY">5.6.5 Generating a Key</a></li>
+      <li><a name="toc-List-available-keys" href="GPGSM-LISTKEYS.html#GPGSM-LISTKEYS">5.6.6 List available keys</a></li>
+      <li><a name="toc-Export-certificates" href="GPGSM-EXPORT.html#GPGSM-EXPORT">5.6.7 Export certificates</a></li>
+      <li><a name="toc-Import-certificates" href="GPGSM-IMPORT.html#GPGSM-IMPORT">5.6.8 Import certificates</a></li>
+      <li><a name="toc-Delete-certificates" href="GPGSM-DELETE.html#GPGSM-DELETE">5.6.9 Delete certificates</a></li>
+      <li><a name="toc-Retrieve-an-audit-log" href="GPGSM-GETAUDITLOG.html#GPGSM-GETAUDITLOG">5.6.10 Retrieve an audit log</a></li>
+      <li><a name="toc-Return-information-about-the-process-1" href="GPGSM-GETINFO.html#GPGSM-GETINFO">5.6.11 Return information about the process</a></li>
+      <li><a name="toc-Session-options" href="GPGSM-OPTION.html#GPGSM-OPTION">5.6.12 Session options</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Invoking-the-SCDAEMON" href="Invoking-SCDAEMON.html#Invoking-SCDAEMON">6 Invoking the SCDAEMON</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Commands-4" href="Scdaemon-Commands.html#Scdaemon-Commands">6.1 Commands</a></li>
+    <li><a name="toc-Option-Summary-4" href="Scdaemon-Options.html#Scdaemon-Options">6.2 Option Summary</a></li>
+    <li><a name="toc-Description-of-card-applications" href="Card-applications.html#Card-applications">6.3 Description of card applications</a>
+    <ul class="no-bullet">
+      <li><a name="toc-The-OpenPGP-card-application-_0060_0060openpgp_0027_0027" href="OpenPGP-Card.html#OpenPGP-Card">6.3.1 The OpenPGP card application &ldquo;openpgp&rdquo;</a></li>
+      <li><a name="toc-The-Telesec-NetKey-card-_0060_0060nks_0027_0027" href="NKS-Card.html#NKS-Card">6.3.2 The Telesec NetKey card &ldquo;nks&rdquo;</a></li>
+      <li><a name="toc-The-DINSIG-card-application-_0060_0060dinsig_0027_0027" href="DINSIG-Card.html#DINSIG-Card">6.3.3 The DINSIG card application &ldquo;dinsig&rdquo;</a></li>
+      <li><a name="toc-The-PKCS_002315-card-application-_0060_0060p15_0027_0027" href="PKCS_002315-Card.html#PKCS_002315-Card">6.3.4 The PKCS#15 card application &ldquo;p15&rdquo;</a></li>
+      <li><a name="toc-The-Geldkarte-card-application-_0060_0060geldkarte_0027_0027" href="Geldkarte-Card.html#Geldkarte-Card">6.3.5 The Geldkarte card application &ldquo;geldkarte&rdquo;</a></li>
+      <li><a name="toc-The-SmartCard_002dHSM-card-application-_0060_0060sc_002dhsm_0027_0027" href="SmartCard_002dHSM.html#SmartCard_002dHSM">6.3.6 The SmartCard-HSM card application &ldquo;sc-hsm&rdquo;</a></li>
+      <li><a name="toc-The-Undefined-card-application-_0060_0060undefined_0027_0027" href="Undefined-Card.html#Undefined-Card">6.3.7 The Undefined card application &ldquo;undefined&rdquo;</a></li>
+    </ul></li>
+    <li><a name="toc-Configuration-files-2" href="Scdaemon-Configuration.html#Scdaemon-Configuration">6.4 Configuration files</a></li>
+    <li><a name="toc-Examples-4" href="Scdaemon-Examples.html#Scdaemon-Examples">6.5 Examples</a></li>
+    <li><a name="toc-Scdaemon_0027s-Assuan-Protocol" href="Scdaemon-Protocol.html#Scdaemon-Protocol">6.6 Scdaemon&rsquo;s Assuan Protocol</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Return-the-serial-number" href="Scdaemon-SERIALNO.html#Scdaemon-SERIALNO">6.6.1 Return the serial number</a></li>
+      <li><a name="toc-Read-all-useful-information-from-the-card" href="Scdaemon-LEARN.html#Scdaemon-LEARN">6.6.2 Read all useful information from the card</a></li>
+      <li><a name="toc-Return-a-certificate" href="Scdaemon-READCERT.html#Scdaemon-READCERT">6.6.3 Return a certificate</a></li>
+      <li><a name="toc-Return-a-public-key" href="Scdaemon-READKEY.html#Scdaemon-READKEY">6.6.4 Return a public key</a></li>
+      <li><a name="toc-Signing-data-with-a-Smartcard" href="Scdaemon-PKSIGN.html#Scdaemon-PKSIGN">6.6.5 Signing data with a Smartcard</a></li>
+      <li><a name="toc-Decrypting-data-with-a-Smartcard" href="Scdaemon-PKDECRYPT.html#Scdaemon-PKDECRYPT">6.6.6 Decrypting data with a Smartcard</a></li>
+      <li><a name="toc-Read-an-attribute_0027s-value" href="Scdaemon-GETATTR.html#Scdaemon-GETATTR">6.6.7 Read an attribute&rsquo;s value</a></li>
+      <li><a name="toc-Update-an-attribute_0027s-value" href="Scdaemon-SETATTR.html#Scdaemon-SETATTR">6.6.8 Update an attribute&rsquo;s value</a></li>
+      <li><a name="toc-Write-a-key-to-a-card" href="Scdaemon-WRITEKEY.html#Scdaemon-WRITEKEY">6.6.9 Write a key to a card</a></li>
+      <li><a name="toc-Generate-a-new-key-on_002dcard" href="Scdaemon-GENKEY.html#Scdaemon-GENKEY">6.6.10 Generate a new key on-card</a></li>
+      <li><a name="toc-Return-random-bytes-generated-on_002dcard" href="Scdaemon-RANDOM.html#Scdaemon-RANDOM">6.6.11 Return random bytes generated on-card</a></li>
+      <li><a name="toc-Change-PINs" href="Scdaemon-PASSWD.html#Scdaemon-PASSWD">6.6.12 Change PINs</a></li>
+      <li><a name="toc-Perform-a-VERIFY-operation" href="Scdaemon-CHECKPIN.html#Scdaemon-CHECKPIN">6.6.13 Perform a VERIFY operation</a></li>
+      <li><a name="toc-Perform-a-RESTART-operation" href="Scdaemon-RESTART.html#Scdaemon-RESTART">6.6.14 Perform a RESTART operation</a></li>
+      <li><a name="toc-Send-a-verbatim-APDU-to-the-card" href="Scdaemon-APDU.html#Scdaemon-APDU">6.6.15 Send a verbatim APDU to the card</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-How-to-Specify-a-User-Id" href="Specify-a-User-ID.html#Specify-a-User-ID">7 How to Specify a User Id</a></li>
+  <li><a name="toc-Trust-Values-1" href="Trust-Values.html#Trust-Values">8 Trust Values</a></li>
+  <li><a name="toc-Helper-Tools-1" href="Helper-Tools.html#Helper-Tools">9 Helper Tools</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Read-logs-from-a-socket" href="watchgnupg.html#watchgnupg">9.1 Read logs from a socket</a></li>
+    <li><a name="toc-Verify-OpenPGP-signatures" href="gpgv.html#gpgv">9.2 Verify OpenPGP signatures</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Examples-5" href="gpgv.html#Examples-5">9.2.1 Examples</a></li>
+      <li><a name="toc-Environment" href="gpgv.html#Environment">9.2.2 Environment</a></li>
+      <li><a name="toc-FILES" href="gpgv.html#FILES">9.2.3 FILES</a></li>
+    </ul></li>
+    <li><a name="toc-Create-_002egnupg-home-directories" href="addgnupghome.html#addgnupghome">9.3 Create .gnupg home directories</a></li>
+    <li><a name="toc-Modify-_002egnupg-home-directories" href="gpgconf.html#gpgconf">9.4 Modify .gnupg home directories</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Invoking-gpgconf-1" href="Invoking-gpgconf.html#Invoking-gpgconf">9.4.1 Invoking gpgconf</a></li>
+      <li><a name="toc-Format-conventions-1" href="Format-conventions.html#Format-conventions">9.4.2 Format conventions</a></li>
+      <li><a name="toc-Listing-components-1" href="Listing-components.html#Listing-components">9.4.3 Listing components</a></li>
+      <li><a name="toc-Checking-programs-1" href="Checking-programs.html#Checking-programs">9.4.4 Checking programs</a></li>
+      <li><a name="toc-Listing-options-1" href="Listing-options.html#Listing-options">9.4.5 Listing options</a></li>
+      <li><a name="toc-Changing-options-1" href="Changing-options.html#Changing-options">9.4.6 Changing options</a></li>
+      <li><a name="toc-Listing-global-options-1" href="Listing-global-options.html#Listing-global-options">9.4.7 Listing global options</a></li>
+      <li><a name="toc-Get-and-compare-software-versions_002e" href="Querying-versions.html#Querying-versions">9.4.8 Get and compare software versions.</a></li>
+      <li><a name="toc-Files-used-by-gpgconf-1" href="Files-used-by-gpgconf.html#Files-used-by-gpgconf">9.4.9 Files used by gpgconf</a></li>
+    </ul></li>
+    <li><a name="toc-Run-gpgconf-for-all-users" href="applygnupgdefaults.html#applygnupgdefaults">9.5 Run gpgconf for all users</a></li>
+    <li><a name="toc-Put-a-passphrase-into-the-cache" href="gpg_002dpreset_002dpassphrase.html#gpg_002dpreset_002dpassphrase">9.6 Put a passphrase into the cache</a>
+    <ul class="no-bullet">
+      <li><a name="toc-List-of-all-commands-and-options" href="Invoking-gpg_002dpreset_002dpassphrase.html#Invoking-gpg_002dpreset_002dpassphrase">9.6.1 List of all commands and options</a></li>
+    </ul></li>
+    <li><a name="toc-Communicate-with-a-running-agent" href="gpg_002dconnect_002dagent.html#gpg_002dconnect_002dagent">9.7 Communicate with a running agent</a>
+    <ul class="no-bullet">
+      <li><a name="toc-List-of-all-options" href="Invoking-gpg_002dconnect_002dagent.html#Invoking-gpg_002dconnect_002dagent">9.7.1 List of all options</a></li>
+      <li><a name="toc-Control-commands" href="Controlling-gpg_002dconnect_002dagent.html#Controlling-gpg_002dconnect_002dagent">9.7.2 Control commands</a></li>
+    </ul></li>
+    <li><a name="toc-The-Dirmngr-Client-Tool" href="dirmngr_002dclient.html#dirmngr_002dclient">9.8 The Dirmngr Client Tool</a></li>
+    <li><a name="toc-Parse-a-mail-message-into-an-annotated-format" href="gpgparsemail.html#gpgparsemail">9.9 Parse a mail message into an annotated format</a></li>
+    <li><a name="toc-Call-a-simple-symmetric-encryption-tool" href="symcryptrun.html#symcryptrun">9.10 Call a simple symmetric encryption tool</a>
+    <ul class="no-bullet">
+      <li><a name="toc-List-of-all-commands-and-options-1" href="Invoking-symcryptrun.html#Invoking-symcryptrun">9.10.1 List of all commands and options</a></li>
+    </ul></li>
+    <li><a name="toc-Encrypt-or-sign-files-into-an-archive" href="gpgtar.html#gpgtar">9.11 Encrypt or sign files into an archive</a></li>
+  </ul></li>
+  <li><a name="toc-Web-Key-Service-1" href="Web-Key-Service.html#Web-Key-Service">10 Web Key Service</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Send-requests-via-WKS" href="gpg_002dwks_002dclient.html#gpg_002dwks_002dclient">10.1 Send requests via WKS</a></li>
+    <li><a name="toc-Provide-the-Web-Key-Service" href="gpg_002dwks_002dserver.html#gpg_002dwks_002dserver">10.2 Provide the Web Key Service</a></li>
+  </ul></li>
+  <li><a name="toc-How-to-do-certain-things" href="Howtos.html#Howtos">11 How to do certain things</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Creating-a-TLS-server-certificate" href="Howto-Create-a-Server-Cert.html#Howto-Create-a-Server-Cert">11.1 Creating a TLS server certificate</a></li>
+  </ul></li>
+  <li><a name="toc-Notes-pertaining-to-certain-OSes" href="System-Notes.html#System-Notes">12 Notes pertaining to certain OSes</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Microsoft-Windows-Notes" href="W32-Notes.html#W32-Notes">12.1 Microsoft Windows Notes</a></li>
+  </ul></li>
+  <li><a name="toc-How-to-solve-problems" href="Debugging.html#Debugging">13 How to solve problems</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Debugging-Tools-1" href="Debugging-Tools.html#Debugging-Tools">13.1 Debugging Tools</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Scrutinizing-a-keybox-file" href="kbxutil.html#kbxutil">13.1.1 Scrutinizing a keybox file</a></li>
+    </ul></li>
+    <li><a name="toc-Various-hints-on-debugging" href="Debugging-Hints.html#Debugging-Hints">13.2 Various hints on debugging</a></li>
+    <li><a name="toc-Commonly-Seen-Problems" href="Common-Problems.html#Common-Problems">13.3 Commonly Seen Problems</a></li>
+    <li><a name="toc-How-the-whole-thing-works-internally" href="Architecture-Details.html#Architecture-Details">13.4 How the whole thing works internally</a>
+    <ul class="no-bullet">
+      <li><a name="toc-How-the-components-work-together" href="Component-interaction.html#Component-interaction">13.4.1 How the components work together</a></li>
+      <li><a name="toc-Relationship-between-GnuPG-1_002e4-and-2_002ex" href="GnuPG_002d1-and-GnuPG_002d2.html#GnuPG_002d1-and-GnuPG_002d2">13.4.2 Relationship between GnuPG 1.4 and 2.x</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-GNU-General-Public-License" href="Copying.html#Copying">GNU General Public License</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Preamble" href="Copying.html#Preamble">Preamble</a></li>
+    <li><a name="toc-How-to-Apply-These-Terms-to-Your-New-Programs" href="Copying.html#How-to-Apply-These-Terms-to-Your-New-Programs">How to Apply These Terms to Your New Programs</a></li>
+  </ul></li>
+  <li><a name="toc-Contributors-to-GnuPG" href="Contributors.html#Contributors">Contributors to GnuPG</a></li>
+  <li><a name="toc-Glossary-1" href="Glossary.html#Glossary">Glossary</a></li>
+  <li><a name="toc-Option-Index-1" href="Option-Index.html#Option-Index">Option Index</a></li>
+  <li><a name="toc-Environment-Variable-and-File-Index" href="Environment-Index.html#Environment-Index">Environment Variable and File Index</a></li>
+  <li><a name="toc-Index-1" href="Index.html#Index">Index</a></li>
+</ul>
+</div>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Installation.html#Installation" accesskey="n" rel="next">Installation</a>, Up: <a href="../dir/index.html" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Option-Index.html#Option-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

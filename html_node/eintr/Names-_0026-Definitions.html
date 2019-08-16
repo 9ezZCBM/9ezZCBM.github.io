@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Names &amp; Definitions - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Names-%26-Definitions"></a>
+<a name="Names-_0026-Definitions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Lisp-Interpreter.html#Lisp-Interpreter">Lisp Interpreter</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Making-Errors.html#Making-Errors">Making Errors</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="List-Processing.html#List-Processing">List Processing</a>
+
+</div>
+
+<h3 class="section">1.4 Symbol Names and Function Definitions</h3>
+
+<p><a name="index-Symbol-names-29"></a>
+We can articulate another characteristic of Lisp based on what we have
+discussed so far&mdash;an important characteristic: a symbol, like
+<code>+</code>, is not itself the set of instructions for the computer to
+carry out.  Instead, the symbol is used, perhaps temporarily, as a way
+of locating the definition or set of instructions.  What we see is the
+name through which the instructions can be found.  Names of people
+work the same way.  I can be referred to as &lsquo;<samp><span class="samp">Bob</span></samp>&rsquo;; however, I am
+not the letters &lsquo;<samp><span class="samp">B</span></samp>&rsquo;, &lsquo;<samp><span class="samp">o</span></samp>&rsquo;, &lsquo;<samp><span class="samp">b</span></samp>&rsquo; but am, or was, the
+consciousness consistently associated with a particular life-form. 
+The name is not me, but it can be used to refer to me.
+
+   <p>In Lisp, one set of instructions can be attached to several names. 
+For example, the computer instructions for adding numbers can be
+linked to the symbol <code>plus</code> as well as to the symbol <code>+</code>
+(and are in some dialects of Lisp).  Among humans, I can be referred
+to as &lsquo;<samp><span class="samp">Robert</span></samp>&rsquo; as well as &lsquo;<samp><span class="samp">Bob</span></samp>&rsquo; and by other words as well.
+
+   <p>On the other hand, a symbol can have only one function definition
+attached to it at a time.  Otherwise, the computer would be confused as
+to which definition to use.  If this were the case among people, only
+one person in the world could be named &lsquo;<samp><span class="samp">Bob</span></samp>&rsquo;.  However, the function
+definition to which the name refers can be changed readily. 
+(See <a href="Install.html#Install">Install a Function Definition</a>.)
+
+   <p>Since Emacs Lisp is large, it is customary to name symbols in a way
+that identifies the part of Emacs to which the function belongs. 
+Thus, all the names for functions that deal with Texinfo start with
+&lsquo;<samp><span class="samp">texinfo-</span></samp>&rsquo; and those for functions that deal with reading mail
+start with &lsquo;<samp><span class="samp">rmail-</span></samp>&rsquo;.
+
+   </body></html>
+

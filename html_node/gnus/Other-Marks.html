@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Other Marks - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Other-Marks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Setting-Marks.html#Setting-Marks">Setting Marks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Read-Articles.html#Read-Articles">Read Articles</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Marking-Articles.html#Marking-Articles">Marking Articles</a>
+
+</div>
+
+<h4 class="subsection">3.7.3 Other Marks</h4>
+
+<p><a name="index-process-mark-778"></a><a name="index-bookmarks-779"></a>
+There are some marks that have nothing to do with whether the article is
+read or not.
+
+     <ul>
+<li>You can set a bookmark in the current article.  Say you are reading a
+long thesis on cats' urinary tracts, and have to go home for dinner
+before you've finished reading the thesis.  You can then set a bookmark
+in the article, and Gnus will jump to this bookmark the next time it
+encounters the article.  See <a href="Setting-Marks.html#Setting-Marks">Setting Marks</a>.
+
+     <li><a name="index-gnus_002dreplied_002dmark-780"></a>All articles that you have replied to or made a followup to (i.e., have
+answered) will be marked with an &lsquo;<samp><span class="samp">A</span></samp>&rsquo; in the second column
+(<code>gnus-replied-mark</code>).
+
+     <li><a name="index-gnus_002dforwarded_002dmark-781"></a>All articles that you have forwarded will be marked with an &lsquo;<samp><span class="samp">F</span></samp>&rsquo; in
+the second column (<code>gnus-forwarded-mark</code>).
+
+     <li><a name="index-gnus_002dcached_002dmark-782"></a>Articles stored in the article cache will be marked with an &lsquo;<samp><span class="samp">*</span></samp>&rsquo; in
+the second column (<code>gnus-cached-mark</code>).  See <a href="Article-Caching.html#Article-Caching">Article Caching</a>.
+
+     <li><a name="index-gnus_002dsaved_002dmark-783"></a>Articles &ldquo;saved&rdquo; (in some manner or other; not necessarily
+religiously) are marked with an &lsquo;<samp><span class="samp">S</span></samp>&rsquo; in the second column
+(<code>gnus-saved-mark</code>).
+
+     <li><a name="index-gnus_002dunseen_002dmark-784"></a>Articles that haven't been seen before in Gnus by the user are marked
+with a &lsquo;<samp><span class="samp">.</span></samp>&rsquo; in the second column (<code>gnus-unseen-mark</code>).
+
+     <li><a name="index-gnus_002ddownloaded_002dmark-785"></a>When using the Gnus agent (see <a href="Agent-Basics.html#Agent-Basics">Agent Basics</a>), articles may be
+downloaded for unplugged (offline) viewing.  If you are using the
+&lsquo;<samp><span class="samp">%O</span></samp>&rsquo; spec, these articles get the &lsquo;<samp><span class="samp">+</span></samp>&rsquo; mark in that spec. 
+(The variable <code>gnus-downloaded-mark</code> controls which character to
+use.)
+
+     <li><a name="index-gnus_002dundownloaded_002dmark-786"></a>When using the Gnus agent (see <a href="Agent-Basics.html#Agent-Basics">Agent Basics</a>), some articles might
+not have been downloaded.  Such articles cannot be viewed while you
+are unplugged (offline).  If you are using the &lsquo;<samp><span class="samp">%O</span></samp>&rsquo; spec, these
+articles get the &lsquo;<samp><span class="samp">-</span></samp>&rsquo; mark in that spec.  (The variable
+<code>gnus-undownloaded-mark</code> controls which character to use.)
+
+     <li><a name="index-gnus_002ddownloadable_002dmark-787"></a>The Gnus agent (see <a href="Agent-Basics.html#Agent-Basics">Agent Basics</a>) downloads some articles
+automatically, but it is also possible to explicitly mark articles for
+download, even if they would not be downloaded automatically.  Such
+explicitly-marked articles get the &lsquo;<samp><span class="samp">%</span></samp>&rsquo; mark in the first column. 
+(The variable <code>gnus-downloadable-mark</code> controls which character to
+use.)
+
+     <li><a name="index-gnus_002dnot_002dempty_002dthread_002dmark-788"></a><a name="index-gnus_002dempty_002dthread_002dmark-789"></a>If the &lsquo;<samp><span class="samp">%e</span></samp>&rsquo; spec is used, the presence of threads or not will be
+marked with <code>gnus-not-empty-thread-mark</code> and
+<code>gnus-empty-thread-mark</code> in the third column, respectively.
+
+     <li><a name="index-gnus_002dprocess_002dmark-790"></a>Finally we have the <dfn>process mark</dfn> (<code>gnus-process-mark</code>).  A
+variety of commands react to the presence of the process mark.  For
+instance, <kbd>X u</kbd> (<code>gnus-uu-decode-uu</code>) will uudecode and view
+all articles that have been marked with the process mark.  Articles
+marked with the process mark have a &lsquo;<samp><span class="samp">#</span></samp>&rsquo; in the second column.
+
+   </ul>
+
+   <p>You might have noticed that most of these &ldquo;non-readedness&rdquo; marks
+appear in the second column by default.  So if you have a cached, saved,
+replied article that you have process-marked, what will that look like?
+
+   <p>Nothing much.  The precedence rules go as follows: process -&gt; cache -&gt;
+replied -&gt; saved.  So if the article is in the cache and is replied,
+you'll only see the cache mark and not the replied mark.
+
+   </body></html>
+

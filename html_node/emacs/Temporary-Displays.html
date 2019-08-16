@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Temporary Displays - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Temporary-Displays"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Window-Choice.html#Window-Choice">Window Choice</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Displaying-Buffers.html#Displaying-Buffers">Displaying Buffers</a>
+
+</div>
+
+<h4 class="subsection">20.6.2 Displaying non-editable buffers.</h4>
+
+<p><a name="index-temporary-windows-1617"></a>
+Some buffers are shown in windows for perusal rather than for editing. 
+Help commands (see <a href="Help.html#Help">Help</a>) typically use a buffer called <samp><span class="file">*Help*</span></samp>
+for that purpose, minibuffer completion (see <a href="Completion.html#Completion">Completion</a>) uses a
+buffer called <samp><span class="file">*Completions*</span></samp>, etc.  Such buffers are usually
+displayed only for a short period of time.
+
+   <p>Normally, Emacs chooses the window for such temporary displays via
+<code>display-buffer</code>, as described in the previous subsection.  The
+<samp><span class="file">*Completions*</span></samp> buffer, on the other hand, is normally displayed
+in a window at the bottom of the selected frame, regardless of the
+number of windows already shown on that frame.
+
+   <p>If you prefer Emacs to display a temporary buffer in a different
+fashion, customize the variable <code>display-buffer-alist</code>
+(see <a href="../elisp/Choosing-Window.html#Choosing-Window">Choosing a Window for Displaying a Buffer</a>) appropriately.  For example,
+to display <samp><span class="file">*Completions*</span></samp> always below the selected window, use
+the following form in your initialization file (see <a href="Init-File.html#Init-File">Init File</a>):
+
+<pre class="example">     (customize-set-variable
+      'display-buffer-alist
+      '(("\\*Completions\\*" display-buffer-below-selected)))
+</pre>
+   <p><a name="index-temp_002dbuffer_002dresize_002dmode-1618"></a>  The <samp><span class="file">*Completions*</span></samp> buffer is also special in the sense that
+Emacs usually tries to make its window just as large as necessary to
+display all of its contents.  To resize windows showing other
+temporary displays, like, for example, the <samp><span class="file">*Help*</span></samp> buffer, turn
+on the minor mode (see <a href="Minor-Modes.html#Minor-Modes">Minor Modes</a>) <code>temp-buffer-resize-mode</code>
+(see <a href="../elisp/Temporary-Displays.html#Temporary-Displays">Temporary Displays</a>).
+
+   <p><a name="index-temp_002dbuffer_002dmax_002dheight-1619"></a><a name="index-temp_002dbuffer_002dmax_002dwidth-1620"></a>  The maximum size of windows resized by <code>temp-buffer-resize-mode</code>
+can be controlled by customizing the options
+<code>temp-buffer-max-height</code> and <code>temp-buffer-max-width</code>
+(see <a href="../elisp/Temporary-Displays.html#Temporary-Displays">Temporary Displays</a>), and cannot exceed the size of the containing frame.
+
+   </body></html>
+

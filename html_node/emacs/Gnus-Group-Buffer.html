@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Gnus Group Buffer - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Gnus-Group-Buffer"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Gnus-Summary-Buffer.html#Gnus-Summary-Buffer">Gnus Summary Buffer</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Gnus-Startup.html#Gnus-Startup">Gnus Startup</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Gnus.html#Gnus">Gnus</a>
+
+</div>
+
+<h3 class="section">34.3 Using the Gnus Group Buffer</h3>
+
+<p>The following commands are available in the Gnus group buffer:
+
+     
+<a name="index-SPC-_0040r_007b_0028Gnus-Group-mode_0029_007d-4184"></a>
+<a name="index-gnus_002dgroup_002dread_002dgroup-4185"></a>
+<dl><dt><kbd>&lt;SPC&gt;</kbd><dd>Switch to the summary buffer for the group on the current line
+(<code>gnus-group-read-group</code>).
+
+     <p><a name="index-l-_0040r_007b_0028Gnus-Group-mode_0029_007d-4186"></a><a name="index-A-s-_0040r_007b_0028Gnus-Group-mode_0029_007d-4187"></a><a name="index-gnus_002dgroup_002dlist_002dgroups-4188"></a><br><dt><kbd>l</kbd><dt><kbd>A s</kbd><dd>In the group buffer, list only the groups to which you subscribe and
+which contain unread articles (<code>gnus-group-list-groups</code>; this is
+the default listing).
+
+     <p><a name="index-L-_0040r_007b_0028Gnus-Group-mode_0029_007d-4189"></a><a name="index-A-u-_0040r_007b_0028Gnus-Group-mode_0029_007d-4190"></a><a name="index-gnus_002dgroup_002dlist_002dall_002dgroups-4191"></a><br><dt><kbd>L</kbd><dt><kbd>A u</kbd><dd>List all subscribed and unsubscribed groups, but not killed or zombie
+groups (<code>gnus-group-list-all-groups</code>).
+
+     <p><a name="index-A-k-_0040r_007b_0028Gnus-Group-mode_0029_007d-4192"></a><a name="index-gnus_002dgroup_002dlist_002dkilled-4193"></a><br><dt><kbd>A k</kbd><dd>List killed groups (<code>gnus-group-list-killed</code>).
+
+     <p><a name="index-A-z-_0040r_007b_0028Gnus-Group-mode_0029_007d-4194"></a><a name="index-gnus_002dgroup_002dlist_002dzombies-4195"></a><br><dt><kbd>A z</kbd><dd>List zombie groups (<code>gnus-group-list-zombies</code>).
+
+     <p><a name="index-u-_0040r_007b_0028Gnus-Group-mode_0029_007d-4196"></a><a name="index-gnus_002dgroup_002dunsubscribe_002dcurrent_002dgroup-4197"></a><a name="index-subscribe-groups-4198"></a><a name="index-unsubscribe-groups-4199"></a><br><dt><kbd>u</kbd><dd>Toggle the subscription status of the group
+(<code>gnus-group-unsubscribe-current-group</code>) on the current line
+(i.e., turn a subscribed group into an unsubscribed group, or vice
+versa).  Invoking this on a killed or zombie group turns it into an
+unsubscribed group.
+
+     <p><a name="index-C_002dk-_0040r_007b_0028Gnus-Group-mode_0029_007d-4200"></a><a name="index-gnus_002dgroup_002dkill_002dgroup-4201"></a><br><dt><kbd>C-k</kbd><dd>Kill the group on the current line (<code>gnus-group-kill-group</code>). 
+Killed groups are not recorded in the <samp><span class="file">.newsrc</span></samp> file, and they
+are not shown in the <kbd>l</kbd> or <kbd>L</kbd> listings.
+
+     <p><a name="index-DEL-_0040r_007b_0028Gnus-Group-mode_0029_007d-4202"></a><br><dt><kbd>&lt;DEL&gt;</kbd><dd>Move point to the previous group containing unread articles
+(<code>gnus-group-prev-unread-group</code>).
+
+     <p><a name="index-n-_0040r_007b_0028Gnus-Group-mode_0029_007d-4203"></a><a name="index-gnus_002dgroup_002dnext_002dunread_002dgroup-4204"></a><br><dt><kbd>n</kbd><dd>Move point to the next unread group
+(<code>gnus-group-next-unread-group</code>).
+
+     <p><a name="index-p-_0040r_007b_0028Gnus-Group-mode_0029_007d-4205"></a><a name="index-gnus_002dgroup_002dprev_002dunread_002dgroup-4206"></a><br><dt><kbd>p</kbd><dd>Move point to the previous unread group
+(<code>gnus-group-prev-unread-group</code>).
+
+     <p><a name="index-q-_0040r_007b_0028Gnus-Group-mode_0029_007d-4207"></a><a name="index-gnus_002dgroup_002dexit-4208"></a><br><dt><kbd>q</kbd><dd>Update your Gnus settings, and quit Gnus (<code>gnus-group-exit</code>). 
+</dl>
+
+   </body></html>
+

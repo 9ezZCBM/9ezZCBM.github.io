@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>no-expand - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="no-expand"></a>
+<a name="no_002dexpand"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="session.html#session">session</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="padline.html#padline">padline</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Specific-header-arguments.html#Specific-header-arguments">Specific header arguments</a>
+
+</div>
+
+<h5 class="subsubsection">14.8.2.13 <code>:no-expand</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003ano_002dexpand_007d_002c-src-header-argument-2140"></a>
+By default Org expands &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks during tangling.  The
+<code>:no-expand</code> header argument turns off such expansions.  Note that one
+side-effect of expansion by <code>org-babel-expand-src-block</code> also assigns
+values to <code>:var</code> (see <a href="var.html#var">var</a>) variables.  Expansions also replace Noweb
+references with their targets (see <a href="Noweb-reference-syntax.html#Noweb-reference-syntax">Noweb reference syntax</a>).  Some of
+these expansions may cause premature assignment, hence this option.  This
+option makes a difference only for tangling.  It has no effect when exporting
+since &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks for execution have to be expanded anyway.
+
+   </body></html>
+

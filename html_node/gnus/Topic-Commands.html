@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Topic Commands - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Topic-Commands"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Topic-Variables.html#Topic-Variables">Topic Variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Group-Topics.html#Group-Topics">Group Topics</a>
+
+</div>
+
+<h4 class="subsection">2.16.1 Topic Commands</h4>
+
+<p><a name="index-topic-commands-408"></a>
+When the topic minor mode is turned on, a new <kbd>T</kbd> submap will be
+available.  In addition, a few of the standard keys change their
+definitions slightly.
+
+   <p>In general, the following kinds of operations are possible on topics. 
+First of all, you want to create topics.  Secondly, you want to put
+groups in topics and to move them around until you have an order you
+like.  The third kind of operation is to show/hide parts of the whole
+shebang.  You might want to hide a topic including its subtopics and
+groups, to get a better overview of the other groups.
+
+   <p>Here is a list of the basic keys that you might need to set up topics
+the way you like.
+
+     <dl>
+<dt><kbd>T n</kbd><dd><a name="index-T-n-_0040r_007b_0028Topic_0029_007d-409"></a><a name="index-gnus_002dtopic_002dcreate_002dtopic-410"></a>Prompt for a new topic name and create it
+(<code>gnus-topic-create-topic</code>).
+
+     <br><dt><kbd>T &lt;TAB&gt;</kbd><dt><kbd>&lt;TAB&gt;</kbd><dd><a name="index-T-TAB-_0040r_007b_0028Topic_0029_007d-411"></a><a name="index-TAB-_0040r_007b_0028Topic_0029_007d-412"></a><a name="index-gnus_002dtopic_002dindent-413"></a>&ldquo;Indent&rdquo; the current topic so that it becomes a sub-topic of the
+previous topic (<code>gnus-topic-indent</code>).  If given a prefix,
+&ldquo;un-indent&rdquo; the topic instead.
+
+     <br><dt><kbd>M-&lt;TAB&gt;</kbd><dd><a name="index-M_002dTAB-_0040r_007b_0028Topic_0029_007d-414"></a><a name="index-gnus_002dtopic_002dunindent-415"></a>&ldquo;Un-indent&rdquo; the current topic so that it becomes a sub-topic of the
+parent of its current parent (<code>gnus-topic-unindent</code>).
+
+   </dl>
+
+   <p>The following two keys can be used to move groups and topics around. 
+They work like the well-known cut and paste.  <kbd>C-k</kbd> is like cut and
+<kbd>C-y</kbd> is like paste.  Of course, this being Emacs, we use the terms
+kill and yank rather than cut and paste.
+
+     <dl>
+<dt><kbd>C-k</kbd><dd><a name="index-C_002dk-_0040r_007b_0028Topic_0029_007d-416"></a><a name="index-gnus_002dtopic_002dkill_002dgroup-417"></a>Kill a group or topic (<code>gnus-topic-kill-group</code>).  All groups in the
+topic will be removed along with the topic.
+
+     <br><dt><kbd>C-y</kbd><dd><a name="index-C_002dy-_0040r_007b_0028Topic_0029_007d-418"></a><a name="index-gnus_002dtopic_002dyank_002dgroup-419"></a>Yank the previously killed group or topic
+(<code>gnus-topic-yank-group</code>).  Note that all topics will be yanked
+before all groups.
+
+     <p>So, to move a topic to the beginning of the list of topics, just hit
+<kbd>C-k</kbd> on it.  This is like the &ldquo;cut&rdquo; part of cut and paste.  Then,
+move the cursor to the beginning of the buffer (just below the &ldquo;Gnus&rdquo;
+topic) and hit <kbd>C-y</kbd>.  This is like the &ldquo;paste&rdquo; part of cut and
+paste.  Like I said&mdash;E-Z.
+
+     <p>You can use <kbd>C-k</kbd> and <kbd>C-y</kbd> on groups as well as on topics.  So
+you can move topics around as well as groups.
+
+   </dl>
+
+   <p>After setting up the topics the way you like them, you might wish to
+hide a topic, or to show it again.  That's why we have the following
+key.
+
+     <dl>
+<dt><kbd>&lt;RET&gt;</kbd><dd><a name="index-RET-_0040r_007b_0028Topic_0029_007d-420"></a><a name="index-gnus_002dtopic_002dselect_002dgroup-421"></a><dt><kbd>&lt;SPC&gt;</kbd><dd>Either select a group or fold a topic (<code>gnus-topic-select-group</code>). 
+When you perform this command on a group, you'll enter the group, as
+usual.  When done on a topic line, the topic will be folded (if it was
+visible) or unfolded (if it was folded already).  So it's basically a
+toggling command on topics.  In addition, if you give a numerical
+prefix, group on that level (and lower) will be displayed.
+
+   </dl>
+
+   <p>Now for a list of other commands, in no particular order.
+
+     <dl>
+<dt><kbd>T m</kbd><dd><a name="index-T-m-_0040r_007b_0028Topic_0029_007d-422"></a><a name="index-gnus_002dtopic_002dmove_002dgroup-423"></a>Move the current group to some other topic
+(<code>gnus-topic-move-group</code>).  This command uses the process/prefix
+convention (see <a href="Process_002fPrefix.html#Process_002fPrefix">Process/Prefix</a>).
+
+     <br><dt><kbd>T j</kbd><dd><a name="index-T-j-_0040r_007b_0028Topic_0029_007d-424"></a><a name="index-gnus_002dtopic_002djump_002dto_002dtopic-425"></a>Go to a topic (<code>gnus-topic-jump-to-topic</code>).
+
+     <br><dt><kbd>T c</kbd><dd><a name="index-T-c-_0040r_007b_0028Topic_0029_007d-426"></a><a name="index-gnus_002dtopic_002dcopy_002dgroup-427"></a>Copy the current group to some other topic
+(<code>gnus-topic-copy-group</code>).  This command uses the process/prefix
+convention (see <a href="Process_002fPrefix.html#Process_002fPrefix">Process/Prefix</a>).
+
+     <br><dt><kbd>T h</kbd><dd><a name="index-T-h-_0040r_007b_0028Topic_0029_007d-428"></a><a name="index-gnus_002dtopic_002dhide_002dtopic-429"></a>Hide the current topic (<code>gnus-topic-hide-topic</code>).  If given
+a prefix, hide the topic permanently.
+
+     <br><dt><kbd>T s</kbd><dd><a name="index-T-s-_0040r_007b_0028Topic_0029_007d-430"></a><a name="index-gnus_002dtopic_002dshow_002dtopic-431"></a>Show the current topic (<code>gnus-topic-show-topic</code>).  If given
+a prefix, show the topic permanently.
+
+     <br><dt><kbd>T D</kbd><dd><a name="index-T-D-_0040r_007b_0028Topic_0029_007d-432"></a><a name="index-gnus_002dtopic_002dremove_002dgroup-433"></a>Remove a group from the current topic (<code>gnus-topic-remove-group</code>). 
+This command is mainly useful if you have the same group in several
+topics and wish to remove it from one of the topics.  You may also
+remove a group from all topics, but in that case, Gnus will add it to
+the root topic the next time you start Gnus.  In fact, all new groups
+(which, naturally, don't belong to any topic) will show up in the root
+topic.
+
+     <p>This command uses the process/prefix convention
+(see <a href="Process_002fPrefix.html#Process_002fPrefix">Process/Prefix</a>).
+
+     <br><dt><kbd>T M</kbd><dd><a name="index-T-M-_0040r_007b_0028Topic_0029_007d-434"></a><a name="index-gnus_002dtopic_002dmove_002dmatching-435"></a>Move all groups that match some regular expression to a topic
+(<code>gnus-topic-move-matching</code>).
+
+     <br><dt><kbd>T C</kbd><dd><a name="index-T-C-_0040r_007b_0028Topic_0029_007d-436"></a><a name="index-gnus_002dtopic_002dcopy_002dmatching-437"></a>Copy all groups that match some regular expression to a topic
+(<code>gnus-topic-copy-matching</code>).
+
+     <br><dt><kbd>T H</kbd><dd><a name="index-T-H-_0040r_007b_0028Topic_0029_007d-438"></a><a name="index-gnus_002dtopic_002dtoggle_002ddisplay_002dempty_002dtopics-439"></a>Toggle hiding empty topics
+(<code>gnus-topic-toggle-display-empty-topics</code>).
+
+     <br><dt><kbd>T #</kbd><dd><a name="index-T-_0023-_0040r_007b_0028Topic_0029_007d-440"></a><a name="index-gnus_002dtopic_002dmark_002dtopic-441"></a>Mark all groups in the current topic with the process mark
+(<code>gnus-topic-mark-topic</code>).  This command works recursively on
+sub-topics unless given a prefix.
+
+     <br><dt><kbd>T M-#</kbd><dd><a name="index-T-M_002d_0023-_0040r_007b_0028Topic_0029_007d-442"></a><a name="index-gnus_002dtopic_002dunmark_002dtopic-443"></a>Remove the process mark from all groups in the current topic
+(<code>gnus-topic-unmark-topic</code>).  This command works recursively on
+sub-topics unless given a prefix.
+
+     <br><dt><kbd>C-c C-x</kbd><dd><a name="index-C_002dc-C_002dx-_0040r_007b_0028Topic_0029_007d-444"></a><a name="index-gnus_002dtopic_002dexpire_002darticles-445"></a><a name="index-expiring-mail-446"></a>Run all expirable articles in the current group or topic through the
+expiry process (if any)
+(<code>gnus-topic-expire-articles</code>).  (see <a href="Expiring-Mail.html#Expiring-Mail">Expiring Mail</a>).
+
+     <br><dt><kbd>T r</kbd><dd><a name="index-T-r-_0040r_007b_0028Topic_0029_007d-447"></a><a name="index-gnus_002dtopic_002drename-448"></a>Rename a topic (<code>gnus-topic-rename</code>).
+
+     <br><dt><kbd>T &lt;DEL&gt;</kbd><dd><a name="index-T-DEL-_0040r_007b_0028Topic_0029_007d-449"></a><a name="index-gnus_002dtopic_002ddelete-450"></a>Delete an empty topic (<code>gnus-topic-delete</code>).
+
+     <br><dt><kbd>A T</kbd><dd><a name="index-A-T-_0040r_007b_0028Topic_0029_007d-451"></a><a name="index-gnus_002dtopic_002dlist_002dactive-452"></a>List all groups that Gnus knows about in a topics-ified way
+(<code>gnus-topic-list-active</code>).
+
+     <br><dt><kbd>T M-n</kbd><dd><a name="index-T-M_002dn-_0040r_007b_0028Topic_0029_007d-453"></a><a name="index-gnus_002dtopic_002dgoto_002dnext_002dtopic-454"></a>Go to the next topic (<code>gnus-topic-goto-next-topic</code>).
+
+     <br><dt><kbd>T M-p</kbd><dd><a name="index-T-M_002dp-_0040r_007b_0028Topic_0029_007d-455"></a><a name="index-gnus_002dtopic_002dgoto_002dprevious_002dtopic-456"></a>Go to the previous topic (<code>gnus-topic-goto-previous-topic</code>).
+
+     <br><dt><kbd>G p</kbd><dd><a name="index-G-p-_0040r_007b_0028Topic_0029_007d-457"></a><a name="index-gnus_002dtopic_002dedit_002dparameters-458"></a><a name="index-group-parameters-459"></a><a name="index-topic-parameters-460"></a><a name="index-parameters-461"></a>Edit the topic parameters (<code>gnus-topic-edit-parameters</code>). 
+See <a href="Topic-Parameters.html#Topic-Parameters">Topic Parameters</a>.
+
+   </dl>
+
+   </body></html>
+

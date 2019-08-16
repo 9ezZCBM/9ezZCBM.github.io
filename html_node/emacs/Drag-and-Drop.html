@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Drag and Drop - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Drag-and-Drop"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Menu-Bars.html#Menu-Bars">Menu Bars</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Window-Dividers.html#Window-Dividers">Window Dividers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Frames.html#Frames">Frames</a>
+
+</div>
+
+<h3 class="section">21.14 Drag and Drop</h3>
+
+<p><a name="index-drag-and-drop-1736"></a>
+  In most graphical desktop environments, Emacs has basic support for
+<dfn>drag and drop</dfn> operations.  For instance, dropping text onto an
+Emacs frame inserts the text where it is dropped.  Dropping a file
+onto an Emacs frame visits that file.  As a special case, dropping the
+file on a Dired buffer moves or copies the file (according to the
+conventions of the application it came from) into the directory
+displayed in that buffer.
+
+   <p><a name="index-dnd_002dopen_002dfile_002dother_002dwindow-1737"></a>  Dropping a file normally visits it in the window you drop it on.  If
+you prefer to visit the file in a new window in such cases, customize
+the variable <code>dnd-open-file-other-window</code>.
+
+   <p>The XDND and Motif drag and drop protocols, and the old KDE 1.x
+protocol, are currently supported.
+
+   <p><a name="index-mouse_002ddrag_002dand_002ddrop_002dregion-1738"></a>  Emacs can also optionally drag the region with the mouse into
+another portion of this or another buffer.  To enable that, customize
+the variable <code>mouse-drag-and-drop-region</code> to a non-<code>nil</code>
+value.  Normally, the text is moved, i.e. cut and pasted, when the
+destination is the same buffer as the origin; dropping the region on
+another buffer copies the text instead.  If the value of this variable
+names a modifier key, such as &lsquo;<samp><span class="samp">shift</span></samp>&rsquo;, &lsquo;<samp><span class="samp">control</span></samp>&rsquo; or
+&lsquo;<samp><span class="samp">alt</span></samp>&rsquo;, then pressing that modifier key when dropping the text
+will copy it instead of cutting it, even if you drop on the same
+buffer as the one from which the text came.
+
+   <p><a name="index-mouse_002ddrag_002dand_002ddrop_002dregion_002dcut_002dwhen_002dbuffers_002ddiffer-1739"></a><a name="index-mouse_002ddrag_002dand_002ddrop_002dregion_002dshow_002dtooltip-1740"></a><a name="index-mouse_002ddrag_002dand_002ddrop_002dregion_002dshow_002dcursor-1741"></a>In order to cut text even when source and destination buffers differ,
+set the option
+<code>mouse-drag-and-drop-region-cut-when-buffers-differ</code> to a
+non-<code>nil</code> value.  By default, on a graphic display the selected
+text is shown in a tooltip and point moves together with the mouse
+cursor during dragging.  To suppress such behavior, set the options
+<code>mouse-drag-and-drop-region-show-tooltip</code> and/or
+<code>mouse-drag-and-drop-region-show-cursor</code> to <code>nil</code>.
+
+   </body></html>
+

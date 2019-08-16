@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Mail in a Newsreader - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Mail-in-a-Newsreader"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Getting-Started-Reading-Mail.html#Getting-Started-Reading-Mail">Getting Started Reading Mail</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Getting-Mail.html#Getting-Mail">Getting Mail</a>
+
+</div>
+
+<h4 class="subsection">6.4.1 Mail in a Newsreader</h4>
+
+<p>If you are used to traditional mail readers, but have decided to switch
+to reading mail with Gnus, you may find yourself experiencing something
+of a culture shock.
+
+   <p>Gnus does not behave like traditional mail readers.  If you want to make
+it behave that way, you can, but it's an uphill battle.
+
+   <p>Gnus, by default, handles all its groups using the same approach.  This
+approach is very newsreaderly&mdash;you enter a group, see the new/unread
+messages, and when you read the messages, they get marked as read, and
+you don't see them any more.  (Unless you explicitly ask for them.)
+
+   <p>In particular, you do not do anything explicitly to delete messages.
+
+   <p>Does this mean that all the messages that have been marked as read are
+deleted?  How awful!
+
+   <p>But, no, it means that old messages are <dfn>expired</dfn> according to some
+scheme or other.  For news messages, the expire process is controlled by
+the news administrator; for mail, the expire process is controlled by
+you.  The expire process for mail is covered in depth in <a href="Expiring-Mail.html#Expiring-Mail">Expiring Mail</a>.
+
+   <p>What many Gnus users find, after using it a while for both news and
+mail, is that the transport mechanism has very little to do with how
+they want to treat a message.
+
+   <p>Many people subscribe to several mailing lists.  These are transported
+via <acronym>SMTP</acronym>, and are therefore mail.  But we might go for weeks without
+answering, or even reading these messages very carefully.  We may not
+need to save them because if we should need to read one again, they are
+archived somewhere else.
+
+   <p>Some people have local news groups which have only a handful of readers. 
+These are transported via <acronym>NNTP</acronym>, and are therefore news.  But we may need
+to read and answer a large fraction of the messages very carefully in
+order to do our work.  And there may not be an archive, so we may need
+to save the interesting messages the same way we would personal mail.
+
+   <p>The important distinction turns out to be not the transport mechanism,
+but other factors such as how interested we are in the subject matter,
+or how easy it is to retrieve the message if we need to read it again.
+
+   <p>Gnus provides many options for sorting mail into &ldquo;groups&rdquo; which behave
+like newsgroups, and for treating each group (whether mail or news)
+differently.
+
+   <p>Some users never get comfortable using the Gnus (ahem) paradigm and wish
+that Gnus should grow up and be a male, er, mail reader.  It is possible
+to whip Gnus into a more mailreaderly being, but, as said before, it's
+not easy.  People who prefer proper mail readers should try <span class="sc">vm</span>
+instead, which is an excellent, and proper, mail reader.
+
+   <p>I don't mean to scare anybody off, but I want to make it clear that you
+may be required to learn a new way of thinking about messages.  After
+you've been subjected to The Gnus Way, you will come to love it.  I can
+guarantee it.  (At least the guy who sold me the Emacs Subliminal
+Brain-Washing Functions that I've put into Gnus did guarantee it.  You
+Will Be Assimilated.  You Love Gnus.  You Love The Gnus Mail Way. 
+You Do.)
+
+   </body></html>
+

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Complete copy-region-as-kill - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Complete-copy-region-as-kill"></a>
+<a name="Complete-copy_002dregion_002das_002dkill"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="copy_002dregion_002das_002dkill-body.html#copy_002dregion_002das_002dkill-body">copy-region-as-kill body</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="copy_002dregion_002das_002dkill.html#copy_002dregion_002das_002dkill">copy-region-as-kill</a>
+
+</div>
+
+<h4 class="unnumberedsubsec">The complete <code>copy-region-as-kill</code> function definition</h4>
+
+   <p>Here is the complete text of the version 22 <code>copy-region-as-kill</code>
+function:
+
+<pre class="smallexample">     (defun copy-region-as-kill (beg end)
+       "Save the region as if killed, but don't kill it.
+     In Transient Mark mode, deactivate the mark.
+     If `interprogram-cut-function' is non-nil, also save the text for a window
+     system cut and paste."
+       (interactive "r")
+       (if (eq last-command 'kill-region)
+           (kill-append (filter-buffer-substring beg end) (&lt; end beg))
+         (kill-new (filter-buffer-substring beg end)))
+       (if transient-mark-mode
+           (setq deactivate-mark t))
+       nil)
+</pre>
+   <p>As usual, this function can be divided into its component parts:
+
+<pre class="smallexample">     (defun copy-region-as-kill (<var>argument-list</var>)
+       "<var>documentation</var>..."
+       (interactive "r")
+       <var>body</var>...)
+</pre>
+   <p>The arguments are <code>beg</code> and <code>end</code> and the function is
+interactive with <code>"r"</code>, so the two arguments must refer to the
+beginning and end of the region.  If you have been reading through this
+document from the beginning, understanding these parts of a function is
+almost becoming routine.
+
+   <p>The documentation is somewhat confusing unless you remember that the
+word &ldquo;kill&rdquo; has a meaning different from usual.  The Transient Mark
+and <code>interprogram-cut-function</code> comments explain certain
+side-effects.
+
+   <p>After you once set a mark, a buffer always contains a region.  If you
+wish, you can use Transient Mark mode to highlight the region
+temporarily.  (No one wants to highlight the region all the time, so
+Transient Mark mode highlights it only at appropriate times.  Many
+people turn off Transient Mark mode, so the region is never
+highlighted.)
+
+   <p>Also, a windowing system allows you to copy, cut, and paste among
+different programs.  In the X windowing system, for example, the
+<code>interprogram-cut-function</code> function is <code>x-select-text</code>,
+which works with the windowing system's equivalent of the Emacs kill
+ring.
+
+   <p>The body of the <code>copy-region-as-kill</code> function starts with an
+<code>if</code> clause.  What this clause does is distinguish between two
+different situations: whether or not this command is executed
+immediately after a previous <code>kill-region</code> command.  In the first
+case, the new region is appended to the previously copied text. 
+Otherwise, it is inserted into the beginning of the kill ring as a
+separate piece of text from the previous piece.
+
+   <p>The last two lines of the function prevent the region from lighting up
+if Transient Mark mode is turned on.
+
+   <p>The body of <code>copy-region-as-kill</code> merits discussion in detail.
+
+   </body></html>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Global and local cycling - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Global-and-local-cycling"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Initial-visibility.html#Initial-visibility">Initial visibility</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Visibility-cycling.html#Visibility-cycling">Visibility cycling</a>
+
+</div>
+
+<h4 class="subsection">2.3.1 Global and local cycling</h4>
+
+<p>Outlines make it possible to hide parts of the text in the buffer. 
+Org uses just two commands, bound to &lt;TAB&gt; and
+<kbd>S-&lt;TAB&gt;</kbd> to change the visibility in the buffer.
+
+   <p><a name="index-subtree-visibility-states-42"></a><a name="index-subtree-cycling-43"></a><a name="index-folded_002c-subtree-visibility-state-44"></a><a name="index-children_002c-subtree-visibility-state-45"></a><a name="index-subtree_002c-subtree-visibility-state-46"></a>
+     
+<a name="index-g_t_0040key_007bTAB_007d-47"></a>
+<a name="index-org_002dcycle-48"></a>
+<dl><dt><kbd>&lt;TAB&gt;</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-cycle</code>)<dd>
+<em>Subtree cycling</em>: Rotate current subtree among the states
+
+     <pre class="example">          ,-&gt; FOLDED -&gt; CHILDREN -&gt; SUBTREE --.
+          '-----------------------------------'
+</pre>
+     <p><a name="index-org_002dcycle_002demulate_002dtab-49"></a>The cursor must be on a headline for this to work<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.
+
+     <p><a name="index-global-visibility-states-50"></a><a name="index-global-cycling-51"></a><a name="index-overview_002c-global-visibility-state-52"></a><a name="index-contents_002c-global-visibility-state-53"></a><a name="index-show-all_002c-global-visibility-state-54"></a><a name="index-S_002d_0040key_007bTAB_007d-55"></a><a name="index-org_002dglobal_002dcycle-56"></a><br><dt><kbd>S-&lt;TAB&gt;</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-global-cycle</code>)
+<dt>C-u &lt;TAB&gt;<dd><em>Global cycling</em>: Rotate the entire buffer among the states
+
+     <pre class="example">          ,-&gt; OVERVIEW -&gt; CONTENTS -&gt; SHOW ALL --.
+          '--------------------------------------'
+</pre>
+     <p>When <kbd>S-&lt;TAB&gt;</kbd> is called with a numeric prefix argument N, the
+CONTENTS view up to headlines of level N will be shown.  Note that inside
+tables, <kbd>S-&lt;TAB&gt;</kbd> jumps to the previous field.
+
+     <p><a name="index-org_002dcycle_002dglobal_002dat_002dbob-57"></a>You can run global cycling using &lt;TAB&gt; only if point is at the very
+beginning of the buffer, but not on a headline, and
+<code>org-cycle-global-at-bob</code> is set to a non-<code>nil</code> value.
+
+     <p><a name="index-set-startup-visibility_002c-command-58"></a><a name="index-C_002du-C_002du-_0040key_007bTAB_007d-59"></a><a name="index-org_002dset_002dstartup_002dvisibility-60"></a><br><dt><kbd>C-u C-u &lt;TAB&gt;</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-set-startup-visibility</code>)<dd>
+Switch back to the startup visibility of the buffer (see <a href="Initial-visibility.html#Initial-visibility">Initial visibility</a>). 
+<a name="index-show-all_002c-command-61"></a><a name="index-C_002du-C_002du-C_002du-_0040key_007bTAB_007d-62"></a><a name="index-outline_002dshow_002dall-63"></a><br><dt><kbd>C-u C-u C-u &lt;TAB&gt;</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>outline-show-all</code>)<dd>
+Show all, including drawers. 
+<a name="index-revealing-context-64"></a><a name="index-C_002dc-C_002dr-65"></a><a name="index-org_002dreveal-66"></a><br><dt><kbd>C-c C-r</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-reveal</code>)<dd>
+Reveal context around point, showing the current entry, the following heading
+and the hierarchy above.  Useful for working near a location that has been
+exposed by a sparse tree command (see <a href="Sparse-trees.html#Sparse-trees">Sparse trees</a>) or an agenda command
+(see <a href="Agenda-commands.html#Agenda-commands">Agenda commands</a>).  With a prefix argument show, on each
+level, all sibling headings.  With a double prefix argument, also show the
+entire subtree of the parent. 
+<a name="index-show-branches_002c-command-67"></a><a name="index-C_002dc-C_002dk-68"></a><a name="index-outline_002dshow_002dbranches-69"></a><br><dt><kbd>C-c C-k</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>outline-show-branches</code>)<dd>
+Expose all the headings of the subtree, CONTENTS view for just one subtree. 
+<a name="index-show-children_002c-command-70"></a><a name="index-C_002dc-_0040key_007bTAB_007d-71"></a><a name="index-outline_002dshow_002dchildren-72"></a><br><dt><kbd>C-c &lt;TAB&gt;</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>outline-show-children</code>)<dd>
+Expose all direct children of the subtree.  With a numeric prefix argument N,
+expose all children down to level N. 
+<a name="index-C_002dc-C_002dx-b-73"></a><a name="index-org_002dtree_002dto_002dindirect_002dbuffer-74"></a><br><dt><kbd>C-c C-x b</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-tree-to-indirect-buffer</code>)<dd>
+Show the current subtree in an indirect buffer<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.  With a numeric prefix argument N, go up to level N and
+then take that tree.  If N is negative then go up that many levels.  With
+a <kbd>C-u</kbd> prefix, do not remove the previously used indirect buffer. 
+<a name="index-C_002dc-C_002dx-v-75"></a><a name="index-org_002dcopy_002dvisible-76"></a><br><dt><kbd>C-c C-x v</kbd> &nbsp;&nbsp;&nbsp;&nbsp;(<code>org-copy-visible</code>)<dd>
+Copy the <i>visible</i> text in the region into the kill ring. 
+</dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> see, however,
+the option <code>org-cycle-emulate-tab</code>.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> The indirect buffer
+(see <a href="../emacs/Indirect-Buffers.html#Indirect-Buffers">Indirect Buffers</a>) will contain the entire
+buffer, but will be narrowed to the current tree.  Editing the indirect
+buffer will also change the original buffer, but without affecting visibility
+in that buffer.</p>
+
+   <hr></div>
+
+   </body></html>
+

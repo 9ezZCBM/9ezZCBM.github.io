@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>last-command &amp; this-command - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="last-command-%26-this-command"></a>
+<a name="last_002dcommand-_0026-this_002dcommand"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="kill_002dappend-function.html#kill_002dappend-function">kill-append function</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="copy_002dregion_002das_002dkill-body.html#copy_002dregion_002das_002dkill-body">copy-region-as-kill body</a>
+
+</div>
+
+<h5 class="unnumberedsubsubsec"><code>last-command</code> and <code>this-command</code></h5>
+
+   <p>Normally, whenever a function is executed, Emacs sets the value of
+<code>this-command</code> to the function being executed (which in this case
+would be <code>copy-region-as-kill</code>).  At the same time, Emacs sets
+the value of <code>last-command</code> to the previous value of
+<code>this-command</code>.
+
+   <p>In the first part of the body of the <code>copy-region-as-kill</code>
+function, an <code>if</code> expression determines whether the value of
+<code>last-command</code> is <code>kill-region</code>.  If so, the then-part of
+the <code>if</code> expression is evaluated; it uses the <code>kill-append</code>
+function to concatenate the text copied at this call to the function
+with the text already in the first element (the <span class="sc">car</span>) of the kill
+ring.  On the other hand, if the value of <code>last-command</code> is not
+<code>kill-region</code>, then the <code>copy-region-as-kill</code> function
+attaches a new element to the kill ring using the <code>kill-new</code>
+function.
+
+   <p>The <code>if</code> expression reads as follows; it uses <code>eq</code>:
+
+<pre class="smallexample">       (if (eq last-command 'kill-region)
+           ;; <span class="roman">then-part</span>
+           (kill-append  (filter-buffer-substring beg end) (&lt; end beg))
+         ;; <span class="roman">else-part</span>
+         (kill-new  (filter-buffer-substring beg end)))
+</pre>
+   <p><a name="index-filter_002dbuffer_002dsubstring-199"></a>(The <code>filter-buffer-substring</code> function returns a filtered
+substring of the buffer, if any.  Optionally&mdash;the arguments are not
+here, so neither is done&mdash;the function may delete the initial text or
+return the text without its properties; this function is a replacement
+for the older <code>buffer-substring</code> function, which came before text
+properties were implemented.)
+
+   <p><a name="index-eq-_0040r_007b_0028example-of-use_0029_007d-200"></a>The <code>eq</code> function tests whether its first argument is the same Lisp
+object as its second argument.  The <code>eq</code> function is similar to the
+<code>equal</code> function in that it is used to test for equality, but
+differs in that it determines whether two representations are actually
+the same object inside the computer, but with different names. 
+<code>equal</code> determines whether the structure and contents of two
+expressions are the same.
+
+   <p>If the previous command was <code>kill-region</code>, then the Emacs Lisp
+interpreter calls the <code>kill-append</code> function
+
+   </body></html>
+

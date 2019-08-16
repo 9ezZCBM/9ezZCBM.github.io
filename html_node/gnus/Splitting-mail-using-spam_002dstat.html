@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Splitting mail using spam-stat - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Splitting-mail-using-spam-stat"></a>
+<a name="Splitting-mail-using-spam_002dstat"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Low_002dlevel-interface-to-the-spam_002dstat-dictionary.html#Low_002dlevel-interface-to-the-spam_002dstat-dictionary">Low-level interface to the spam-stat dictionary</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Creating-a-spam_002dstat-dictionary.html#Creating-a-spam_002dstat-dictionary">Creating a spam-stat dictionary</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Spam-Statistics-Package.html#Spam-Statistics-Package">Spam Statistics Package</a>
+
+</div>
+
+<h5 class="subsubsection">9.17.8.2 Splitting mail using spam-stat</h5>
+
+<p>This section describes how to use the Spam statistics
+<em>independently</em> of the See <a href="Spam-Package.html#Spam-Package">Spam Package</a>.
+
+   <p>First, add the following to your <samp><span class="file">~/.gnus.el</span></samp> file:
+
+<pre class="lisp">     (require 'spam-stat)
+     (spam-stat-load)
+</pre>
+   <p>This will load the necessary Gnus code, and the dictionary you
+created.
+
+   <p>Next, you need to adapt your fancy splitting rules:  You need to
+determine how to use <code>spam-stat</code>.  The following examples are for
+the nnml back end.  Using the nnimap back end works just as well.  Just
+use <code>nnimap-split-fancy</code> instead of <code>nnmail-split-fancy</code>.
+
+   <p>In the simplest case, you only have two groups, &lsquo;<samp><span class="samp">mail.misc</span></samp>&rsquo; and
+&lsquo;<samp><span class="samp">mail.spam</span></samp>&rsquo;.  The following expression says that mail is either
+spam or it should go into &lsquo;<samp><span class="samp">mail.misc</span></samp>&rsquo;.  If it is spam, then
+<code>spam-stat-split-fancy</code> will return &lsquo;<samp><span class="samp">mail.spam</span></samp>&rsquo;.
+
+<pre class="lisp">     (setq nnmail-split-fancy
+           `(| (: spam-stat-split-fancy)
+               "mail.misc"))
+</pre>
+   <div class="defun">
+&mdash; Variable: <b>spam-stat-split-fancy-spam-group</b><var><a name="index-spam_002dstat_002dsplit_002dfancy_002dspam_002dgroup-2848"></a></var><br>
+<blockquote><p>The group to use for spam.  Default is &lsquo;<samp><span class="samp">mail.spam</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+   <p>If you also filter mail with specific subjects into other groups, use
+the following expression.  Only mails not matching the regular
+expression are considered potential spam.
+
+<pre class="lisp">     (setq nnmail-split-fancy
+           `(| ("Subject" "\\bspam-stat\\b" "mail.emacs")
+               (: spam-stat-split-fancy)
+               "mail.misc"))
+</pre>
+   <p>If you want to filter for spam first, then you must be careful when
+creating the dictionary.  Note that <code>spam-stat-split-fancy</code> must
+consider both mails in &lsquo;<samp><span class="samp">mail.emacs</span></samp>&rsquo; and in &lsquo;<samp><span class="samp">mail.misc</span></samp>&rsquo; as
+non-spam, therefore both should be in your collection of non-spam
+mails, when creating the dictionary!
+
+<pre class="lisp">     (setq nnmail-split-fancy
+           `(| (: spam-stat-split-fancy)
+               ("Subject" "\\bspam-stat\\b" "mail.emacs")
+               "mail.misc"))
+</pre>
+   <p>You can combine this with traditional filtering.  Here, we move all
+HTML-only mails into the &lsquo;<samp><span class="samp">mail.spam.filtered</span></samp>&rsquo; group.  Note that since
+<code>spam-stat-split-fancy</code> will never see them, the mails in
+&lsquo;<samp><span class="samp">mail.spam.filtered</span></samp>&rsquo; should be neither in your collection of spam mails,
+nor in your collection of non-spam mails, when creating the
+dictionary!
+
+<pre class="lisp">     (setq nnmail-split-fancy
+           `(| ("Content-Type" "text/html" "mail.spam.filtered")
+               (: spam-stat-split-fancy)
+               ("Subject" "\\bspam-stat\\b" "mail.emacs")
+               "mail.misc"))
+</pre>
+   </body></html>
+

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Built-in Styles - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Built-in-Styles"></a>
+<a name="Built_002din-Styles"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Choosing-a-Style.html#Choosing-a-Style">Choosing a Style</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Styles.html#Styles">Styles</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Styles.html#Styles">Styles</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h4 class="subsection">6.3.1 Built-in Styles</h4>
+
+<p><a name="index-styles_002c-built_002din-291"></a><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+   <p>If you're lucky, one of CC Mode's built-in styles might be just
+what you're looking for.  These are:
+
+     <dl>
+<dt><code>gnu</code><dd><a name="index-GNU-style-292"></a>Coding style blessed by the Free Software Foundation
+for C code in GNU programs.
+
+     <br><dt><code>k&amp;r</code><dd><a name="index-K_0026R-style-293"></a>The classic Kernighan and Ritchie style for C code. If you're looking
+for the style used in the 2nd edition of their book &ldquo;The C
+Programming Language&rdquo;, then check out the <code>stroustrup</code> style.
+
+     <br><dt><code>bsd</code><dd><a name="index-BSD-style-294"></a>Also known as &ldquo;Allman style&rdquo; after Eric Allman.
+
+     <br><dt><code>whitesmith</code><dd><a name="index-Whitesmith-style-295"></a>Popularized by the examples that came with Whitesmiths C, an early
+commercial C compiler.
+
+     <br><dt><code>stroustrup</code><dd><a name="index-Stroustrup-style-296"></a>The classic Stroustrup style for C++ code.
+
+     <br><dt><code>ellemtel</code><dd><a name="index-Ellemtel-style-297"></a>Popular C++ coding standards as defined by &ldquo;Programming in C++, Rules
+and Recommendations,&rdquo; Erik Nyquist and Mats Henricson,
+Ellemtel<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>. 
+<!-- N.B.  This URL was still valid at 2005/8/28  (ACM). -->
+
+     <br><dt><code>linux</code><dd><a name="index-Linux-style-298"></a>C coding standard for Linux (the kernel).
+
+     <br><dt><code>python</code><dd><a name="index-Python-style-299"></a>C coding standard for Python extension modules<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.
+
+     <br><dt><code>java</code><dd><a name="index-Java-style-300"></a>The style for editing Java code.  Note that the default
+value for <code>c-default-style</code> installs this style when you enter
+<code>java-mode</code>.
+
+     <br><dt><code>awk</code><dd><a name="index-AWK-style-301"></a>The style for editing AWK code.  Note that the default value for
+<code>c-default-style</code> installs this style when you enter
+<code>awk-mode</code>.
+
+     <br><dt><code>user</code><dd><a name="index-User-style-302"></a>This is a special style created by you.  It consists of the factory
+defaults for all the style variables as modified by the customizations
+you do either with the Customization interface or by writing
+<code>setq</code>s and <code>c-set-offset</code>s at the top level of your
+<samp><span class="file">.emacs</span></samp> file (see <a href="Config-Basics.html#Config-Basics">Config Basics</a>).  The style system creates
+this style as part of its initialization and doesn't modify it
+afterwards. 
+</dl>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> This document is available at
+<a href="http://www.doc.ic.ac.uk/lab/cplus/c++.rules/">http://www.doc.ic.ac.uk/lab/cplus/c++.rules/</a> among other
+places.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> Python is a
+high level scripting language with a C/C++ foreign function interface. 
+For more information, see <a href="http://www.python.org/">http://www.python.org/</a>.</p>
+
+   <hr></div>
+
+   </body></html>
+

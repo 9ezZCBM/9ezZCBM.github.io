@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Pulling / Pushing - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Pulling-%2f-Pushing"></a>
+<a name="Pulling-_002f-Pushing"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Merging.html#Merging">Merging</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Switching-Branches.html#Switching-Branches">Switching Branches</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Branches.html#Branches">Branches</a>
+
+</div>
+
+<h5 class="subsubsection">28.1.11.2 Pulling/Pushing Changes into/from a Branch</h5>
+
+     <dl>
+<dt><kbd>C-x v P</kbd><dd>On a decentralized version control system, update another location
+with changes from the current branch (a.k.a. &ldquo;push&rdquo; changes).  This
+concept does not exist for centralized version control systems
+
+     <br><dt><kbd>C-x v +</kbd><dd>On a decentralized version control system, update the current branch
+by &ldquo;pulling in&rdquo; changes from another location.
+
+     <p>On a centralized version control system, update the current VC
+fileset. 
+</dl>
+
+   <p><a name="index-C_002dx-v-P-3138"></a><a name="index-vc_002dpush-3139"></a>On a decentralized version control system, the command <kbd>C-x v P</kbd>
+(<code>vc-push</code>) updates another location with changes from the
+current branch.  With a prefix argument, it prompts for the exact
+version control command to run, which lets you specify where to push
+changes; the default is <samp><span class="command">bzr push</span></samp> with Bazaar, <samp><span class="command">git
+push</span></samp> with Git, and <samp><span class="command">hg push</span></samp> with Mercurial.  The default
+commands always push to a default location determined by the version
+control system from your branch configuration.
+
+   <p>Prior to pushing, you can use <kbd>C-x v O</kbd> (<code>vc-log-outgoing</code>)
+to view a log buffer of the changes to be sent.  See <a href="VC-Change-Log.html#VC-Change-Log">VC Change Log</a>.
+
+   <p><a name="index-bound-branch-_0028Bazaar-VCS_0029-3140"></a>This command is currently supported only by Bazaar, Git, and Mercurial. 
+The concept of &ldquo;pushing&rdquo; does not exist for centralized version
+control systems, where this operation is a part of committing a
+changeset, so invoking this command on a centralized VCS signals an
+error.  This command also signals an error when attempted in a Bazaar
+<dfn>bound branch</dfn>, where committing a changeset automatically pushes
+the changes to the remote repository to which the local branch is
+bound.
+
+   <p><a name="index-C_002dx-v-_002b-3141"></a><a name="index-vc_002dpull-3142"></a>  On a decentralized version control system, the command <kbd>C-x v +</kbd>
+(<code>vc-pull</code>) updates the current branch and working tree.  It is
+typically used to update a copy of a remote branch.  If you supply a
+prefix argument, the command prompts for the exact version control
+command to use, which lets you specify where to pull changes from. 
+Otherwise, it pulls from a default location determined by the version
+control system.
+
+   <p>Amongst decentralized version control systems, <kbd>C-x v +</kbd> is
+currently supported only by Bazaar, Git, and Mercurial.  With Bazaar,
+it calls <samp><span class="command">bzr pull</span></samp> for ordinary branches (to pull from a
+master branch into a mirroring branch), and <samp><span class="command">bzr update</span></samp> for a
+bound branch (to pull from a central repository).  With Git, it calls
+<samp><span class="command">git pull</span></samp> to fetch changes from a remote repository and merge
+it into the current branch.  With Mercurial, it calls <samp><span class="command">hg pull
+-u</span></samp> to fetch changesets from the default remote repository and update
+the working directory.
+
+   <p>Prior to pulling, you can use <kbd>C-x v I</kbd> (<code>vc-log-incoming</code>)
+to view a log buffer of the changes to be applied.  See <a href="VC-Change-Log.html#VC-Change-Log">VC Change Log</a>.
+
+   <p>On a centralized version control system like CVS, <kbd>C-x v +</kbd>
+updates the current VC fileset from the repository.
+
+   </body></html>
+

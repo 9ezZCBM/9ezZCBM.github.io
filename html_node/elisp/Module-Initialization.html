@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Module Initialization - GNU Emacs Lisp Reference Manual</title>
+<!--
+This is the `GNU Emacs Lisp Reference Manual'
+corresponding to Emacs version 26.2.
+
+Copyright (C) 1990--1996, 1998--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``GNU General Public
+     License,'' with the Front-Cover Texts being ``A GNU Manual,'' and
+     with the Back-Cover Texts as in (a) below.  A copy of the license
+     is included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Module-Initialization"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Module-Functions.html#Module-Functions">Module Functions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Dynamic-Modules.html#Writing-Dynamic-Modules">Writing Dynamic Modules</a>
+
+</div>
+
+<h4 class="subsection">E.8.1 Module Initialization Code</h4>
+
+<p><a name="index-module-initialization-5390"></a>
+  Begin your module by including the header file <samp><span class="file">emacs-module.h</span></samp>
+and defining the GPL compatibility symbol:
+
+<pre class="example">     #include &lt;emacs-module.h&gt;
+     
+     int plugin_is_GPL_compatible;
+</pre>
+   <p>The <samp><span class="file">emacs-module.h</span></samp> file is installed into your system's include
+tree as part of the Emacs installation.  Alternatively, you can find
+it in the Emacs source tree.
+
+   <p><a name="module-initialization-function"></a>Next, write an initialization function for the module.
+
+<div class="defun">
+&mdash; Function: int <b>emacs_module_init</b> (<var>struct emacs_runtime *runtime</var>)<var><a name="index-emacs_005fmodule_005finit-5391"></a></var><br>
+<blockquote><p>Emacs calls this function when it loads a module.  If a module does
+not export a function named <code>emacs_module_init</code>, trying to load
+the module will signal an error.  The initialization function should
+return zero if the initialization succeeds, non-zero otherwise.  In
+the latter case, Emacs will signal an error, and the loading of the
+module will fail.  If the user presses <kbd>C-g</kbd> during the
+initialization, Emacs ignores the return value of the initialization
+function and quits (see <a href="Quitting.html#Quitting">Quitting</a>).  (If needed, you can catch user
+quitting inside the initialization function, see <a href="should_005fquit.html#should_005fquit">should_quit</a>.)
+
+        <p>The argument <var>runtime</var> is a pointer to a C <code>struct</code> that
+includes 2 public fields: <code>size</code>, which provides the size of the
+structure in bytes; and <code>get_environment</code>, which provides a
+pointer to a function that allows the module initialization function
+access to the Emacs environment object and its interfaces.
+
+        <p>The initialization function should perform whatever initialization is
+required for the module.  In addition, it can perform the following
+tasks:
+
+          
+<a name="index-compatibility_002c-between-modules-and-Emacs-5392"></a>
+<dl><dt>Compatibility verification<dd>A module can verify that the Emacs executable which loads the module
+is compatible with the module, by comparing the <code>size</code> member of
+the <var>runtime</var> structure with the value compiled into the module:
+
+          <pre class="example">               int
+               emacs_module_init (struct emacs_runtime *ert)
+               {
+                 if (ert-&gt;size &lt; sizeof (*ert))
+                   return 1;
+               }
+</pre>
+          <p class="noindent">If the size of the runtime object passed to the module is smaller than
+what it expects, it means the module was compiled for an Emacs version
+newer (later) than the one which attempts to load it, i.e. the
+module might be incompatible with the Emacs binary.
+
+          <p>In addition, a module can verify the compatibility of the module
+<acronym>API</acronym> with what the module expects.  The following sample code
+assumes it is part of the <code>emacs_module_init</code> function shown
+above:
+
+          <pre class="example">                 emacs_env *env = ert-&gt;get_environment (ert);
+                 if (env-&gt;size &lt; sizeof (*env))
+                   return 2;
+</pre>
+          <p class="noindent"><a name="index-module-runtime-environment-5393"></a>This calls the <code>get_environment</code> function using the pointer
+provided in the <code>runtime</code> structure to retrieve a pointer to the
+<acronym>API</acronym>'s <dfn>environment</dfn>, a C <code>struct</code> which also has a
+<code>size</code> field holding the size of the structure in bytes.
+
+          <p>Finally, you can write a module that will work with older versions of
+Emacs, by comparing the size of the environment passed by Emacs with
+known sizes, like this:
+
+          <pre class="example">                 emacs_env *env = ert-&gt;get_environment (ert);
+                 if (env-&gt;size &gt;= sizeof (struct emacs_env_26))
+                   emacs_version = 26;  /* Emacs 26 or later.  */
+                 else if (env-&gt;size &gt;= sizeof (struct emacs_env_25))
+                   emacs_version = 25;
+                 else
+                   return 2; /* Unknown or unsupported version.  */
+</pre>
+          <p class="noindent">This works because later Emacs versions always <em>add</em> members to
+the environment, never <em>remove</em> any members, so the size can only
+grow with new Emacs releases.  Given the version of Emacs, the module
+can use only the parts of the module <acronym>API</acronym> that existed in
+that version, since those parts are identical in later versions.
+
+          <p>We recommend that modules always perform the compatibility
+verification, unless they do their job entirely in the initialization
+function, and don't access any Lisp objects or use any Emacs functions
+accessible through the environment structure.
+
+          <br><dt>Binding module functions to Lisp symbols<dd>This gives the module functions names so that Lisp code could call it
+by that name.  We describe how to do this in <a href="Module-Functions.html#Module-Functions">Module Functions</a>
+below. 
+</dl>
+        </p></blockquote></div>
+
+   </body></html>
+

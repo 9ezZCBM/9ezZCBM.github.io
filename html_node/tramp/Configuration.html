@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Configuration - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Configuration"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Usage.html#Usage">Usage</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Quick-Start-Guide.html#Quick-Start-Guide">Quick Start Guide</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 Configuring <span class="sc">Tramp</span></h2>
+
+<p><a name="index-configuration-40"></a><a name="index-default-configuration-41"></a>
+<span class="sc">Tramp</span> is initially configured to use the <samp><span class="command">scp</span></samp> program
+to connect to the remote host.  Just type <kbd>C-x C-f</kbd> and then enter
+file name <samp><span class="file">/scp:user@host:/path/to/file</span></samp>.  For details,
+See <a href="Default-Method.html#Default-Method">Default Method</a>, See <a href="Default-User.html#Default-User">Default User</a>, See <a href="Default-Host.html#Default-Host">Default Host</a>.
+
+   <p>For problems related to the behavior of the remote shell, See <a href="Remote-shell-setup.html#Remote-shell-setup">Remote shell setup</a>.
+
+   <p>For changing the connection type and file access method from the
+defaults to one of several other options, See <a href="Connection-types.html#Connection-types">Connection types</a>.
+
+   <p><strong>Note</strong> that some user options described in these examples are
+not auto loaded by Emacs.  All examples require <span class="sc">Tramp</span> is
+installed and loaded:
+
+<pre class="lisp">     (customize-set-variable 'tramp-verbose 6 "Enable remote command traces")
+</pre>
+   <ul class="menu">
+<li><a accesskey="1" href="Connection-types.html#Connection-types">Connection types</a>:             Types of connections to remote hosts. 
+<li><a accesskey="2" href="Inline-methods.html#Inline-methods">Inline methods</a>:               Inline methods. 
+<li><a accesskey="3" href="External-methods.html#External-methods">External methods</a>:             External methods. 
+<li><a accesskey="4" href="GVFS-based-methods.html#GVFS-based-methods">GVFS based methods</a>:           GVFS based external methods. 
+<li><a accesskey="5" href="Default-Method.html#Default-Method">Default Method</a>:               Selecting a default method. 
+                                  Here we also try to help those who
+                                  don't have the foggiest which method
+                                  is right for them. 
+<li><a accesskey="6" href="Default-User.html#Default-User">Default User</a>:                 Selecting a default user. 
+<li><a accesskey="7" href="Default-Host.html#Default-Host">Default Host</a>:                 Selecting a default host. 
+<li><a accesskey="8" href="Multi_002dhops.html#Multi_002dhops">Multi-hops</a>:                   Connecting to a remote host using multiple hops. 
+<li><a accesskey="9" href="Firewalls.html#Firewalls">Firewalls</a>:                    Passing firewalls. 
+<li><a href="Customizing-Methods.html#Customizing-Methods">Customizing Methods</a>:          Using Non-Standard Methods. 
+<li><a href="Customizing-Completion.html#Customizing-Completion">Customizing Completion</a>:       Selecting config files for user/host name completion. 
+<li><a href="Password-handling.html#Password-handling">Password handling</a>:            Reusing passwords for several connections. 
+<li><a href="Connection-caching.html#Connection-caching">Connection caching</a>:           Reusing connection related information. 
+<li><a href="Predefined-connection-information.html#Predefined-connection-information">Predefined connection information</a>
+                                Setting own connection related information. 
+<li><a href="Remote-programs.html#Remote-programs">Remote programs</a>:              How <span class="sc">Tramp</span> finds and uses programs on the remote host. 
+<li><a href="Remote-shell-setup.html#Remote-shell-setup">Remote shell setup</a>:           Remote shell setup hints. 
+<li><a href="Android-shell-setup.html#Android-shell-setup">Android shell setup</a>:          Android shell setup hints. 
+<li><a href="Auto_002dsave-and-Backup.html#Auto_002dsave-and-Backup">Auto-save and Backup</a>:         Auto-save and Backup. 
+<li><a href="Windows-setup-hints.html#Windows-setup-hints">Windows setup hints</a>:          Issues with Cygwin ssh. 
+</ul>
+
+   </body></html>
+

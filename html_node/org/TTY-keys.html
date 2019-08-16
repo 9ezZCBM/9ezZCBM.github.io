@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>TTY keys - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="TTY-keys"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Interaction.html#Interaction">Interaction</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Clean-view.html#Clean-view">Clean view</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Miscellaneous.html#Miscellaneous">Miscellaneous</a>
+
+</div>
+
+<h3 class="section">15.9 Using Org on a tty</h3>
+
+<p><a name="index-tty-key-bindings-2340"></a>
+Org provides alternative key bindings for TTY and modern mobile devices that
+cannot handle cursor keys and complex modifier key chords.  Some of these
+workarounds may be more cumbersome than necessary.  Users should look into
+customizing these further based on their usage needs.  For example, the
+normal <kbd>S-&lt;cursor&gt;</kbd> for editing timestamp might be better with
+<kbd>C-c .</kbd> chord.
+
+   <p><table summary=""><tr align="left"><td valign="top" width="15%"><b>Default</b> </td><td valign="top" width="20%"><b>Alternative 1</b> </td><td valign="top" width="10%"><b>Speed key</b> </td><td valign="top" width="20%"><b>Alternative 2</b>
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>S-&lt;TAB&gt;</kbd>     </td><td valign="top" width="20%"><kbd>C-u &lt;TAB&gt;</kbd>       </td><td valign="top" width="10%"><kbd>C</kbd> </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-&lt;LEFT&gt;</kbd>    </td><td valign="top" width="20%"><kbd>C-c C-x l</kbd>           </td><td valign="top" width="10%"><kbd>l</kbd> </td><td valign="top" width="20%"><kbd>&lt;Esc&gt; &lt;LEFT&gt;</kbd>
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-S-&lt;LEFT&gt;</kbd>  </td><td valign="top" width="20%"><kbd>C-c C-x L</kbd>           </td><td valign="top" width="10%"><kbd>L</kbd> </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-&lt;RIGHT&gt;</kbd>   </td><td valign="top" width="20%"><kbd>C-c C-x r</kbd>           </td><td valign="top" width="10%"><kbd>r</kbd> </td><td valign="top" width="20%"><kbd>&lt;Esc&gt; &lt;RIGHT&gt;</kbd>
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-S-&lt;RIGHT&gt;</kbd> </td><td valign="top" width="20%"><kbd>C-c C-x R</kbd>           </td><td valign="top" width="10%"><kbd>R</kbd> </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-&lt;UP&gt;</kbd>      </td><td valign="top" width="20%"><kbd>C-c C-x u</kbd>           </td><td valign="top" width="10%">  </td><td valign="top" width="20%"><kbd>&lt;Esc&gt; &lt;UP&gt;</kbd>
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-S-&lt;UP&gt;</kbd>    </td><td valign="top" width="20%"><kbd>C-c C-x U</kbd>           </td><td valign="top" width="10%"><kbd>U</kbd> </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-&lt;DOWN&gt;</kbd>    </td><td valign="top" width="20%"><kbd>C-c C-x d</kbd>           </td><td valign="top" width="10%">  </td><td valign="top" width="20%"><kbd>&lt;Esc&gt; &lt;DOWN&gt;</kbd>
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-S-&lt;DOWN&gt;</kbd>  </td><td valign="top" width="20%"><kbd>C-c C-x D</kbd>           </td><td valign="top" width="10%"><kbd>D</kbd> </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>S-&lt;RET&gt;</kbd>     </td><td valign="top" width="20%"><kbd>C-c C-x c</kbd>           </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-&lt;RET&gt;</kbd>     </td><td valign="top" width="20%"><kbd>C-c C-x m</kbd>           </td><td valign="top" width="10%">  </td><td valign="top" width="20%"><kbd>&lt;Esc&gt; &lt;RET&gt;</kbd>
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>M-S-&lt;RET&gt;</kbd>   </td><td valign="top" width="20%"><kbd>C-c C-x M</kbd>           </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>S-&lt;LEFT&gt;</kbd>    </td><td valign="top" width="20%"><kbd>C-c &lt;LEFT&gt;</kbd>      </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>S-&lt;RIGHT&gt;</kbd>   </td><td valign="top" width="20%"><kbd>C-c &lt;RIGHT&gt;</kbd>     </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>S-&lt;UP&gt;</kbd>      </td><td valign="top" width="20%"><kbd>C-c &lt;UP&gt;</kbd>        </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>S-&lt;DOWN&gt;</kbd>    </td><td valign="top" width="20%"><kbd>C-c &lt;DOWN&gt;</kbd>      </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>C-S-&lt;LEFT&gt;</kbd>  </td><td valign="top" width="20%"><kbd>C-c C-x &lt;LEFT&gt;</kbd>  </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+<br></td></tr><tr align="left"><td valign="top" width="15%"><kbd>C-S-&lt;RIGHT&gt;</kbd> </td><td valign="top" width="20%"><kbd>C-c C-x &lt;RIGHT&gt;</kbd> </td><td valign="top" width="10%">  </td><td valign="top" width="20%">
+   <br></td></tr></table>
+
+   </body></html>
+

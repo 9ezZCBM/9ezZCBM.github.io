@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Ad-hoc multi-hops - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Ad-hoc-multi-hops"></a>
+<a name="Ad_002dhoc-multi_002dhops"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Remote-processes.html#Remote-processes">Remote processes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="File-name-completion.html#File-name-completion">File name completion</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Usage.html#Usage">Usage</a>
+
+</div>
+
+<h3 class="section">6.4 Declaring multiple hops in the file name</h3>
+
+<p><a name="index-multi_002dhop_002c-ad_002dhoc-238"></a><a name="index-proxy-hosts_002c-ad_002dhoc-239"></a>
+<span class="sc">Tramp</span> file name syntax can accommodate ad hoc specification of
+multiple proxies without using <code>tramp-default-proxies-alist</code>
+configuration setup(see <a href="Multi_002dhops.html#Multi_002dhops">Multi-hops</a>).
+
+   <p>Each proxy is specified using the same syntax as the remote host
+specification minus the file name part.  Each hop is separated by a
+&lsquo;<samp><span class="samp">|</span></samp>&rsquo;.  Chain the proxies from the starting host to the destination
+remote host name and file name.  For example, hopping over a single
+proxy &lsquo;<samp><span class="samp">bird@bastion</span></samp>&rsquo; to a remote file on &lsquo;<samp><span class="samp">you@remotehost</span></samp>&rsquo;:
+
+<pre class="example">     <!-- @kbd{C-x C-f @trampfn{ssh@value{postfixhop}bird@@bastion|ssh,you,remotehost,/path} @key{RET}} -->
+     <kbd>C-x C-f /ssh:bird@bastion|ssh:you@remotehost:/path &lt;RET&gt;</kbd>
+</pre>
+   <p>Each involved method must be an inline method (see <a href="Inline-methods.html#Inline-methods">Inline methods</a>).
+
+   <p>Proxies can take patterns <code>%h</code> or <code>%u</code>.
+
+   <p><span class="sc">Tramp</span> adds the ad-hoc definitions on the fly to
+<code>tramp-default-proxies-alist</code> and is available for re-use
+during that Emacs session.  Subsequent <span class="sc">Tramp</span> connections to
+the same remote host can then use the shortcut form:
+&lsquo;<samp><span class="samp">/ssh:you@remotehost:/path</span></samp>&rsquo;.
+
+<div class="defun">
+&mdash; User Option: <b>tramp-save-ad-hoc-proxies</b><var><a name="index-tramp_002dsave_002dad_002dhoc_002dproxies-240"></a></var><br>
+<blockquote><p>For ad-hoc definitions to be saved automatically in
+<code>tramp-default-proxies-alist</code> for future Emacs sessions, set
+<code>tramp-save-ad-hoc-proxies</code> to non-<code>nil</code>.
+
+     <pre class="lisp">          (customize-set-variable 'tramp-save-ad-hoc-proxies t)
+</pre>
+        </blockquote></div>
+
+   </body></html>
+

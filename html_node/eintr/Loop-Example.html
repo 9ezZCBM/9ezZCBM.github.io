@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Loop Example - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Loop-Example"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="print_002delements_002dof_002dlist.html#print_002delements_002dof_002dlist">print-elements-of-list</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Looping-with-while.html#Looping-with-while">Looping with while</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="while.html#while">while</a>
+
+</div>
+
+<h4 class="subsection">11.1.1 A <code>while</code> Loop and a List</h4>
+
+<p>A common way to control a <code>while</code> loop is to test whether a list
+has any elements.  If it does, the loop is repeated; but if it does not,
+the repetition is ended.  Since this is an important technique, we will
+create a short example to illustrate it.
+
+   <p>A simple way to test whether a list has elements is to evaluate the
+list: if it has no elements, it is an empty list and will return the
+empty list, <code>()</code>, which is a synonym for <code>nil</code> or false.  On
+the other hand, a list with elements will return those elements when it
+is evaluated.  Since Emacs Lisp considers as true any value that is not
+<code>nil</code>, a list that returns elements will test true in a
+<code>while</code> loop.
+
+   <p>For example, you can set the variable <code>empty-list</code> to <code>nil</code> by
+evaluating the following <code>setq</code> expression:
+
+<pre class="smallexample">     (setq empty-list ())
+</pre>
+   <p class="noindent">After evaluating the <code>setq</code> expression, you can evaluate the
+variable <code>empty-list</code> in the usual way, by placing the cursor after
+the symbol and typing <kbd>C-x C-e</kbd>; <code>nil</code> will appear in your
+echo area:
+
+<pre class="smallexample">     empty-list
+</pre>
+   <p>On the other hand, if you set a variable to be a list with elements, the
+list will appear when you evaluate the variable, as you can see by
+evaluating the following two expressions:
+
+<pre class="smallexample">     (setq animals '(gazelle giraffe lion tiger))
+     
+     animals
+</pre>
+   <p>Thus, to create a <code>while</code> loop that tests whether there are any
+items in the list <code>animals</code>, the first part of the loop will be
+written like this:
+
+<pre class="smallexample">     (while animals
+            ...
+</pre>
+   <p class="noindent">When the <code>while</code> tests its first argument, the variable
+<code>animals</code> is evaluated.  It returns a list.  So long as the list
+has elements, the <code>while</code> considers the results of the test to be
+true; but when the list is empty, it considers the results of the test
+to be false.
+
+   <p>To prevent the <code>while</code> loop from running forever, some mechanism
+needs to be provided to empty the list eventually.  An oft-used
+technique is to have one of the subsequent forms in the <code>while</code>
+expression set the value of the list to be the <span class="sc">cdr</span> of the list. 
+Each time the <code>cdr</code> function is evaluated, the list will be made
+shorter, until eventually only the empty list will be left.  At this
+point, the test of the <code>while</code> loop will return false, and the
+arguments to the <code>while</code> will no longer be evaluated.
+
+   <p>For example, the list of animals bound to the variable <code>animals</code>
+can be set to be the <span class="sc">cdr</span> of the original list with the
+following expression:
+
+<pre class="smallexample">     (setq animals (cdr animals))
+</pre>
+   <p class="noindent">If you have evaluated the previous expressions and then evaluate this
+expression, you will see <code>(giraffe lion tiger)</code> appear in the echo
+area.  If you evaluate the expression again, <code>(lion tiger)</code> will
+appear in the echo area.  If you evaluate it again and yet again,
+<code>(tiger)</code> appears and then the empty list, shown by <code>nil</code>.
+
+   <p>A template for a <code>while</code> loop that uses the <code>cdr</code> function
+repeatedly to cause the true-or-false-test eventually to test false
+looks like this:
+
+<pre class="smallexample">     (while <var>test-whether-list-is-empty</var>
+       <var>body</var>...
+       <var>set-list-to-cdr-of-list</var>)
+</pre>
+   <p>This test and use of <code>cdr</code> can be put together in a function that
+goes through a list and prints each element of the list on a line of its
+own.
+
+   </body></html>
+

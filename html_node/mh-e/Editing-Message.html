@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Editing Message - The MH-E Manual</title>
+<!--
+This is version 8.6 of `The MH-E
+Manual', last updated 2016-04-29.
+
+Copyright (C) 1995, 2001--2003, 2005--2019 Free Software
+Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of either:
+
+       a. the GNU Free Documentation License, Version 1.3 or any later
+          version published by the Free Software Foundation; with no
+          Invariant Sections, with the Front-Cover Texts being ``A GNU
+          Manual,'' and with the Back-Cover Texts as in (a) below. A
+          copy of the license is included in the section entitled ``GNU
+          Free Documentation License.''
+
+          (a) The FSF's Back-Cover Text is: ``You have the freedom to
+          copy and modify this GNU manual.''
+
+       b. the GNU General Public License as published by the Free
+          Software Foundation; either version 3, or (at your option)
+          any later version. A copy of the license is included in the
+          section entitled ``GNU General Public License.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Editing-Message"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Inserting-Letter.html#Inserting-Letter">Inserting Letter</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Editing-Drafts.html#Editing-Drafts">Editing Drafts</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Editing-Drafts.html#Editing-Drafts">Editing Drafts</a>
+
+</div>
+
+<h3 class="section">9.1 Editing the Message</h3>
+
+<p><a name="index-g_t_0040samp_007bBcc_007d-header-field-1265"></a><a name="index-g_t_0040samp_007bCc_007d-header-field-1266"></a><a name="index-g_t_0040samp_007bDcc_007d-header-field-1267"></a><a name="index-g_t_0040samp_007bFrom_007d-header-field-1268"></a><a name="index-g_t_0040samp_007bMail_002dFollowup_002dTo_007d-header-field-1269"></a><a name="index-g_t_0040samp_007bMail_002dReply_002dTo_007d-header-field-1270"></a><a name="index-g_t_0040samp_007bReply_002dTo_007d-header-field-1271"></a><a name="index-g_t_0040samp_007bSubject_007d-header-field-1272"></a><a name="index-g_t_0040samp_007bTo_007d-header-field-1273"></a><a name="index-editing-header-1274"></a><a name="index-header-field_002c-_0040samp_007bBcc_007d-1275"></a><a name="index-header-field_002c-_0040samp_007bCc_007d-1276"></a><a name="index-header-field_002c-_0040samp_007bDcc_007d-1277"></a><a name="index-header-field_002c-_0040samp_007bFrom_007d-1278"></a><a name="index-header-field_002c-_0040samp_007bMail_002dFollowup_002dTo_007d-1279"></a><a name="index-header-field_002c-_0040samp_007bMail_002dReply_002dTo_007d-1280"></a><a name="index-header-field_002c-_0040samp_007bReply_002dTo_007d-1281"></a><a name="index-header-field_002c-_0040samp_007bSubject_007d-1282"></a><a name="index-header-field_002c-_0040samp_007bTo_007d-1283"></a><a name="index-mh_002dto_002dfield-1284"></a><a name="index-C_002dc-C_002df-C_002dt-1285"></a><a name="index-C_002dc-C_002df-t-1286"></a>
+Because the header is part of the message, you can edit the header
+fields as you wish. However, several convenience commands exist to
+help you create and edit them. For example, the command <kbd>C-c C-f
+C-t</kbd> (<code>mh-to-field</code>; alternatively, <kbd>C-c C-f t</kbd>) moves the
+cursor to the &lsquo;<samp><span class="samp">To:</span></samp>&rsquo; header field, creating it if necessary. The
+commands for moving to the &lsquo;<samp><span class="samp">Cc:</span></samp>&rsquo;, &lsquo;<samp><span class="samp">Subject:</span></samp>&rsquo;, &lsquo;<samp><span class="samp">From:</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">Reply-To:</span></samp>&rsquo;, &lsquo;<samp><span class="samp">Mail-Reply-To:</span></samp>&rsquo;, &lsquo;<samp><span class="samp">Mail-Followup-To</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">Bcc:</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">Dcc:</span></samp>&rsquo; header fields are similar.
+
+   <p><a name="index-mh_002dto_002dfcc-1287"></a><a name="index-C_002dc-C_002df-C_002df-1288"></a><a name="index-C_002dc-C_002df-f-1289"></a>
+One command behaves differently from the others, namely, <kbd>C-c C-f
+C-f</kbd> (<code>mh-to-fcc</code>; alternatively, <kbd>C-c C-f f</kbd>). This command
+will prompt you for the folder name in which to file a copy of the
+draft. See <a href="Folder-Selection.html#Folder-Selection">Folder Selection</a>.
+
+   <p><a name="index-indent_002drelative-1290"></a><a name="index-mh_002dletter_002dnext_002dheader_002dfield_002dor_002dindent-1291"></a><a name="index-mh_002dletter_002dprevious_002dheader_002dfield-1292"></a><a name="index-TAB-1293"></a><a name="index-S_002dTAB-1294"></a><a name="index-mh_002dcompose_002dskipped_002dheader_002dfields-1295"></a><a name="index-mh_002dletter_002dheader_002dfield-1296"></a>
+Within the header of the message, the command<br> &lt;TAB&gt;
+(<code>mh-letter-next-header-field-or-indent</code>) moves between fields
+that are highlighted with the face <code>mh-letter-header-field</code>,
+skipping those fields listed in
+<code>mh-compose-skipped-header-fields</code>. After the last field, this
+command then moves point to the message body before cycling back to
+the first field. If point is already past the first line of the
+message body, then this command indents by calling
+<code>indent-relative</code> with the given prefix argument. The command
+<kbd>S-&lt;TAB&gt;</kbd> (<code>mh-letter-previous-header-field</code>) moves
+backwards between the fields and cycles to the body of the message
+after the first field. Unlike the command &lt;TAB&gt;, it will always
+take point to the last field from anywhere in the body.
+
+   <p><a name="index-alias-completion-1297"></a><a name="index-completion-1298"></a><a name="index-spell-check-1299"></a><a name="index-ispell_002dcomplete_002dword-1300"></a><a name="index-mh_002dletter_002dcomplete-1301"></a><a name="index-mh_002dletter_002dcomplete_002dor_002dspace-1302"></a><a name="index-mh_002dletter_002dconfirm_002daddress-1303"></a><a name="index-g_t_002c-_0040r_007b_0028comma_0029_007d-1304"></a><a name="index-SPC-1305"></a><a name="index-M_002dTAB-1306"></a><a name="index-mh_002dalias_002dflash_002don_002dcomma-1307"></a><a name="index-mh_002dcompose_002dspace_002ddoes_002dcompletion_002dflag-1308"></a><a name="index-mh_002dletter_002dcomplete_002dfunction-1309"></a>
+If the field contains addresses (for example, &lsquo;<samp><span class="samp">To:</span></samp>&rsquo; or
+&lsquo;<samp><span class="samp">Cc:</span></samp>&rsquo;) or folders (for example, &lsquo;<samp><span class="samp">Fcc:</span></samp>&rsquo;) then the command
+<kbd>M-&lt;TAB&gt;</kbd> (<code>mh-letter-complete</code>) will provide alias
+completion (see <a href="Aliases.html#Aliases">Aliases</a>). In the body of the message,
+<kbd>M-&lt;TAB&gt;</kbd> runs <code>mh-letter-complete-function</code> instead,
+which is set to &lsquo;<samp><span class="samp">'ispell-complete-word</span></samp>&rsquo; by default. The command
+<kbd>M-&lt;TAB&gt;</kbd> (<code>mh-letter-complete</code>) takes a prefix argument
+that is passed to the <code>mh-letter-complete-function</code>. In addition,
+turn on the option <code>mh-compose-space-does-completion-flag</code> to use
+the command &lt;SPC&gt; (<code>mh-letter-complete-or-space</code>) to perform
+completion in the header as well; use a prefix argument to specify
+more than one space. Addresses are separated by a comma; when you
+press the comma, the command <code>mh-letter-confirm-address</code> flashes
+the alias expansion in the minibuffer if
+<code>mh-alias-flash-on-comma</code> is turned on.
+
+<!-- XXX Document the replacement for the inaccessible 'long argument. -->
+   <p><a name="index-mh_002dletter_002dtoggle_002dheader_002dfield_002ddisplay-1310"></a><a name="index-C_002dc-C_002dt-1311"></a>
+Use the command <kbd>C-c C-t</kbd>
+<code>mh-letter-toggle-header-field-display</code> to display truncated
+header fields. This command is a toggle so entering it again will hide
+the field. This command takes a prefix argument: if negative then the
+field is hidden, if positive then the field is displayed (for example,
+<kbd>C-u C-c C-t</kbd>).
+
+   <p>Be sure to leave a row of dashes or a blank line between the header
+and the body of the message.
+
+   <p><a name="index-mh_002dletter_002dfill_002dcolumn-1312"></a>
+The body of the message is edited as you would edit any Emacs buffer
+although there are a few commands and options to assist you. You can
+change the fill column in MH-Letter mode with the option
+<code>mh-letter-fill-column</code>. By default, this option is 72 to allow
+others to quote your message without line wrapping.
+
+   <p><a name="index-filling-paragraphs-1313"></a><a name="index-paragraphs_002c-filling-1314"></a><a name="index-fill_002dparagraph-1315"></a><a name="index-M_002dq-1316"></a><a name="index-mh_002dins_002dbuf_002dprefix-1317"></a>
+You'll often include messages that were sent from user agents that
+haven't yet realized that paragraphs consist of more than a single
+line. This makes for long lines that wrap in an ugly fashion. You'll
+find that <kbd>M-q</kbd> (<code>fill-paragraph</code>) works well even on these
+quoted messages, even if they are nested, just as long as all of the
+quotes match the value of <code>mh-ins-buf-prefix</code> (see <a href="Inserting-Letter.html#Inserting-Letter">Inserting Letter</a>). For example, let's assume you have the following in your
+draft:
+
+<pre class="smallexample">     &gt; Hopefully this gives you an idea of what I'm currently doing. I'm \
+     not sure yet whether I'm completely satisfied with my setup, but    \
+     it's worked okay for me so far.
+</pre>
+   <p>Running <kbd>M-q</kbd> on this paragraph produces:
+
+<pre class="smallexample">     &gt; Hopefully this gives you an idea of what I'm currently doing. I'm not
+     &gt; sure yet whether I'm completely satisfied with my setup, but it's
+     &gt; worked okay for me so far.
+</pre>
+   <p><a name="index-mh_002dopen_002dline-1318"></a><a name="index-open_002dline-1319"></a><a name="index-C_002dc-C_002do-1320"></a><a name="index-C_002do-1321"></a>
+The command <kbd>C-c C-o</kbd> (<code>mh-open-line</code>) is similar to the
+command <kbd>C-o</kbd> (<code>open-line</code>) in that it inserts a newline
+after point. It differs in that it also inserts the right number of
+quoting characters and spaces so that the next line begins in the same
+column as it was. This is useful when breaking up paragraphs in
+replies. For example, if this command was used when point was after
+the first period in the paragraph above, the result would be this:
+
+<pre class="smallexample">     &gt; Hopefully this gives you an idea of what I'm currently doing.
+     
+     &gt;                                                               I'm not
+     &gt; sure yet whether I'm completely satisfied with my setup, but it's
+     &gt; worked okay for me so far.
+</pre>
+   </body></html>
+

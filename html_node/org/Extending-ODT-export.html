@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Extending ODT export - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Extending-ODT-export"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Applying-custom-styles.html#Applying-custom-styles">Applying custom styles</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ODT-specific-export-settings.html#ODT-specific-export-settings">ODT specific export settings</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="OpenDocument-Text-export.html#OpenDocument-Text-export">OpenDocument Text export</a>
+
+</div>
+
+<h4 class="subsection">12.12.4 Extending ODT export</h4>
+
+<p>The ODT export back-end can produce documents in other formats besides ODT
+using a specialized ODT converter process.  Its common interface works with
+popular converters to produce formats such as &lsquo;<samp><span class="samp">doc</span></samp>&rsquo;, or convert a
+document from one format, say &lsquo;<samp><span class="samp">csv</span></samp>&rsquo;, to another format, say &lsquo;<samp><span class="samp">xls</span></samp>&rsquo;.
+
+   <p><a name="index-g_t_0040file_007bunoconv_007d-1910"></a><a name="index-LibreOffice-1911"></a>
+Customize <code>org-odt-convert-process</code> variable to point to <code>unoconv</code>,
+which is the ODT's preferred converter.  Working installations of LibreOffice
+would already have <code>unoconv</code> installed.  Alternatively, other converters
+may be substituted here.  See <a href="Configuring-a-document-converter.html#Configuring-a-document-converter">Configuring a document converter</a>.
+
+<h5 class="subsubheading">Automatically exporting to other formats</h5>
+
+<p><a name="x_002dexport_002dto_002dother_002dformats"></a><a name="index-org_002dodt_002dpreferred_002doutput_002dformat-1912"></a>If ODT format is just an intermediate step to get to other formats, such as
+&lsquo;<samp><span class="samp">doc</span></samp>&rsquo;, &lsquo;<samp><span class="samp">docx</span></samp>&rsquo;, &lsquo;<samp><span class="samp">rtf</span></samp>&rsquo;, or &lsquo;<samp><span class="samp">pdf</span></samp>&rsquo;, etc., then extend the ODT
+export back-end to directly produce that format.  Specify the final format in
+the <code>org-odt-preferred-output-format</code> variable.  This is one way to
+extend (see <a href="x_002dexport_002dto_002dodt.html#x_002dexport_002dto_002dodt">Exporting to ODT</a>).
+
+<h5 class="subsubheading">Converting between document formats</h5>
+
+<p><a name="x_002dconvert_002dto_002dother_002dformats"></a>The Org export back-end is made to be inter-operable with a wide range of text
+document format converters.  Newer generation converters, such as LibreOffice
+and Pandoc, can handle hundreds of formats at once.  Org provides a
+consistent interaction with whatever converter is installed.  Here are some
+generic commands:
+
+   <p><a name="index-org_002dodt_002dconvert-1913"></a>
+     <dl>
+<dt><kbd>M-x org-odt-convert &lt;RET&gt;</kbd><dd>Convert an existing document from one format to another.  With a prefix
+argument, opens the newly produced file. 
+</dl>
+
+   </body></html>
+

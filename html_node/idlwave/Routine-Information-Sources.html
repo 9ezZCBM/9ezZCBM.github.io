@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Routine Information Sources - IDLWAVE User Manual</title>
+<!--
+This file documents IDLWAVE, a major mode for editing IDL files with
+Emacs, and interacting with an IDL shell run as a subprocess.
+
+This is edition 6.1 of the IDLWAVE User Manual for IDLWAVE
+6.1.
+
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Routine-Information-Sources"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Catalogs.html#Catalogs">Catalogs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Routine-Definitions.html#Routine-Definitions">Routine Definitions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Sources-of-Routine-Info.html#Sources-of-Routine-Info">Sources of Routine Info</a>
+
+</div>
+
+<h3 class="appendixsec">A.2 Routine Information Sources</h3>
+
+<p><a name="index-Routine-info-sources-348"></a><a name="index-Builtin-list-of-routines-349"></a><a name="index-Updating-routine-info-350"></a><a name="index-Scanning-buffers-for-routine-info-351"></a><a name="index-Buffers_002c-scanning-for-routine-info-352"></a><a name="index-Shell_002c-querying-for-routine-info-353"></a>
+To maintain the most comprehensive information about all IDL
+routines on a system, IDLWAVE collects data from many sources:
+
+     <ol type=1 start=1>
+
+     <li>It has a <em>builtin list</em> with information about the routines IDL
+ships with.  IDLWAVE 6.1 is distributed with a list of
+4346 routines and object methods, reflecting IDL version
+6.3.  As of IDL v6.2, the routine info is distributed
+directly with IDL in the form of an XML catalog which IDLWAVE scans. 
+Formerly, this list was created by scanning the IDL manuals to produce
+the file <samp><span class="file">idlw-rinfo.el</span></samp>.
+
+     <li>IDLWAVE <em>scans</em> all its <em>buffers</em> in the current Emacs session
+for routine definitions.  This is done automatically when routine
+information or completion is first requested by the user.  Each new
+buffer and each buffer saved after making changes is also scanned. The
+command <kbd>C-c C-i</kbd> (<code>idlwave-update-routine-info</code>) can be used
+at any time to rescan all buffers.
+
+     <li>If you have an IDLWAVE-Shell running in the Emacs session, IDLWAVE will
+<em>query the shell</em> for compiled routines and their arguments.  This
+happens automatically when routine information or completion is first
+requested by the user.  Each time an Emacs buffer is compiled with
+<kbd>C-c C-d C-c</kbd>, the routine info for that file is queried.  Though
+rarely necessary, the command <kbd>C-c C-i</kbd>
+(<code>idlwave-update-routine-info</code>) can be used to explicitly update
+the shell routine data.
+
+     <li>Many popular libraries are distributed with routine information already
+scanned into <em>library catalogs</em> (see <a href="Library-Catalogs.html#Library-Catalogs">Library Catalogs</a>).  These
+per-directory catalog files can also be built by the user with the
+supplied <samp><span class="file">idlwave_catalog</span></samp> tool.  They are automatically discovered
+by IDLWAVE.
+
+     <li>IDLWAVE can scan selected directories of source files and store the
+result in a single <em>user catalog</em> file which will be
+automatically loaded just like <samp><span class="file">idlw-rinfo.el</span></samp>. See <a href="User-Catalog.html#User-Catalog">User Catalog</a>, for information on how to scan files in this way.
+        </ol>
+
+   <p>Loading all the routine and catalog information can be a time consuming
+process, especially over slow networks.  Depending on the system and
+network configuration it could take up to 30 seconds (though locally on
+fast systems is usually only a few seconds).  In order to minimize the
+wait time upon your first completion or routine info command in a
+session, IDLWAVE uses Emacs idle time to do the initialization in six
+steps, yielding to user input in between.  If this gets into your way,
+set the variable <code>idlwave-init-rinfo-when-idle-after</code> to 0 (zero). 
+The more routines documented in library and user catalogs, the slower
+the loading will be, so reducing this number can help alleviate any long
+load times.
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-init-rinfo-when-idle-after</b> (<code>10</code>)<var><a name="index-idlwave_002dinit_002drinfo_002dwhen_002didle_002dafter-354"></a></var><br>
+<blockquote><p>Seconds of idle time before routine info is automatically initialized. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-scan-all-buffers-for-routine-info</b> (<code>t</code>)<var><a name="index-idlwave_002dscan_002dall_002dbuffers_002dfor_002droutine_002dinfo-355"></a></var><br>
+<blockquote><p>Non-<code>nil</code> means scan all buffers for IDL programs when updating
+info. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-query-shell-for-routine-info</b> (<code>t</code>)<var><a name="index-idlwave_002dquery_002dshell_002dfor_002droutine_002dinfo-356"></a></var><br>
+<blockquote><p>Non-<code>nil</code> means query the shell for info about compiled routines. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-auto-routine-info-updates</b><var><a name="index-idlwave_002dauto_002droutine_002dinfo_002dupdates-357"></a></var><br>
+<blockquote><p>Controls under what circumstances routine info is updated automatically. 
+</p></blockquote></div>
+
+   <p><A NAME="CATALOGS"></A>
+
+   </body></html>
+

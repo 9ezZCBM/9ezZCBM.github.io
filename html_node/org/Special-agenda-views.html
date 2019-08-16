@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Special agenda views - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Special-agenda-views"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Speeding-up-your-agendas.html#Speeding-up-your-agendas">Speeding up your agendas</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Dynamic-blocks.html#Dynamic-blocks">Dynamic blocks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hacking.html#Hacking">Hacking</a>
+
+</div>
+
+<h3 class="section">A.8 Special agenda views</h3>
+
+<p><a name="index-agenda-views_002c-user_002ddefined-2412"></a>
+<a name="index-org_002dagenda_002dskip_002dfunction-2413"></a><a name="index-org_002dagenda_002dskip_002dfunction_002dglobal-2414"></a>Org provides a special hook to further limit items in agenda views:
+<code>agenda</code>, <code>agenda*</code><a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>, <code>todo</code>, <code>alltodo</code>, <code>tags</code>,
+<code>tags-todo</code>, <code>tags-tree</code>.  Specify a custom function that tests
+inclusion of every matched item in the view.  This function can also
+skip as much as is needed.
+
+   <p>For a global condition applicable to agenda views, use the
+<code>org-agenda-skip-function-global</code> variable.  Org uses a global condition
+with <code>org-agenda-skip-function</code> for custom searching.
+
+   <p>This example defines a function for a custom view showing TODO items with
+WAITING status.  Manually this is a multi step search process, but with a
+custom view, this can be automated as follows:
+
+   <p>The custom function searches the subtree for the WAITING tag and returns
+<code>nil</code> on match.  Otherwise it gives the location from where the search
+continues.
+
+<pre class="lisp">     (defun my-skip-unless-waiting ()
+       "Skip trees that are not waiting"
+       (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+         (if (re-search-forward ":waiting:" subtree-end t)
+             nil          ; tag found, do not skip
+           subtree-end))) ; tag not found, continue after end of subtree
+</pre>
+   <p>To use this custom function in a custom agenda command:
+
+<pre class="lisp">     (org-add-agenda-custom-command
+      '("b" todo "PROJECT"
+        ((org-agenda-skip-function 'my-skip-unless-waiting)
+         (org-agenda-overriding-header "Projects waiting for something: "))))
+</pre>
+   <p><a name="index-org_002dagenda_002doverriding_002dheader-2415"></a>Note that this also binds <code>org-agenda-overriding-header</code> to a more
+meaningful string suitable for the agenda view.
+
+   <p><a name="index-org_002dodd_002dlevels_002donly-2416"></a><a name="index-org_002dagenda_002dskip_002dfunction-2417"></a>
+Search for entries with a limit set on levels for the custom search.  This is
+a general approach to creating custom searches in Org.  To include all
+levels, use &lsquo;<samp><span class="samp">LEVEL&gt;0</span></samp>&rsquo;<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.  Then to selectively pick the
+matched entries, use <code>org-agenda-skip-function</code>, which also accepts Lisp
+forms, such as <code>org-agenda-skip-entry-if</code> and
+<code>org-agenda-skip-subtree-if</code>.  For example:
+
+     <dl>
+<dt><code>(org-agenda-skip-entry-if 'scheduled)</code><dd>Skip current entry if it has been scheduled. 
+<br><dt><code>(org-agenda-skip-entry-if 'notscheduled)</code><dd>Skip current entry if it has not been scheduled. 
+<br><dt><code>(org-agenda-skip-entry-if 'deadline)</code><dd>Skip current entry if it has a deadline. 
+<br><dt><code>(org-agenda-skip-entry-if 'scheduled 'deadline)</code><dd>Skip current entry if it has a deadline, or if it is scheduled. 
+<br><dt><code>(org-agenda-skip-entry-if 'todo '("TODO" "WAITING"))</code><dd>Skip current entry if the TODO keyword is TODO or WAITING. 
+<br><dt><code>(org-agenda-skip-entry-if 'todo 'done)</code><dd>Skip current entry if the TODO keyword marks a DONE state. 
+<br><dt><code>(org-agenda-skip-entry-if 'timestamp)</code><dd>Skip current entry if it has any timestamp, may also be deadline or scheduled. 
+<a name="x_002dagenda_002dskip_002dentry_002dregexp"></a><br><dt><code>(org-agenda-skip-entry-if 'regexp "regular expression")</code><dd>Skip current entry if the regular expression matches in the entry. 
+<br><dt><code>(org-agenda-skip-entry-if 'notregexp "regular expression")</code><dd>Skip current entry unless the regular expression matches. 
+<br><dt><code>(org-agenda-skip-subtree-if 'regexp "regular expression")</code><dd>Same as above, but check and skip the entire subtree. 
+</dl>
+
+   <p>The following is an example of a search for &lsquo;<samp><span class="samp">WAITING</span></samp>&rsquo; without the
+special function:
+
+<pre class="lisp">     (org-add-agenda-custom-command
+      '("b" todo "PROJECT"
+        ((org-agenda-skip-function '(org-agenda-skip-subtree-if
+                                     'regexp ":waiting:"))
+         (org-agenda-overriding-header "Projects waiting for something: "))))
+</pre>
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> The <code>agenda*</code> view is the same as
+<code>agenda</code> except that it only considers <em>appointments</em>, i.e.,
+scheduled and deadline items that have a time specification &lsquo;<samp><span class="samp">[h]h:mm</span></samp>&rsquo; in
+their time-stamps.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> Note that, for
+<code>org-odd-levels-only</code>, a level number corresponds to order in the
+hierarchy, not to the number of stars.</p>
+
+   <hr></div>
+
+   </body></html>
+

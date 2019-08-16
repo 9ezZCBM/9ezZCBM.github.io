@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Properties and columns - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Properties-and-columns"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Dates-and-times.html#Dates-and-times">Dates and times</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Tags.html#Tags">Tags</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">7 Properties and columns</h2>
+
+<p><a name="index-properties-689"></a>
+A property is a key-value pair associated with an entry.  Properties can be
+set so they are associated with a single entry, with every entry in a tree,
+or with every entry in an Org mode file.
+
+   <p>There are two main applications for properties in Org mode.  First,
+properties are like tags, but with a value.  Imagine maintaining a file where
+you document bugs and plan releases for a piece of software.  Instead of
+using tags like <code>:release_1:</code>, <code>:release_2:</code>, you can use a
+property, say <code>:Release:</code>, that in different subtrees has different
+values, such as <code>1.0</code> or <code>2.0</code>.  Second, you can use properties to
+implement (very basic) database capabilities in an Org buffer.  Imagine
+keeping track of your music CDs, where properties could be things such as the
+album, artist, date of release, number of tracks, and so on.
+
+   <p>Properties can be conveniently edited and viewed in column view
+(see <a href="Column-view.html#Column-view">Column view</a>).
+
+<ul class="menu">
+<li><a accesskey="1" href="Property-syntax.html#Property-syntax">Property syntax</a>:              How properties are spelled out
+<li><a accesskey="2" href="Special-properties.html#Special-properties">Special properties</a>:           Access to other Org mode features
+<li><a accesskey="3" href="Property-searches.html#Property-searches">Property searches</a>:            Matching property values
+<li><a accesskey="4" href="Property-inheritance.html#Property-inheritance">Property inheritance</a>:         Passing values down the tree
+<li><a accesskey="5" href="Column-view.html#Column-view">Column view</a>:                  Tabular viewing and editing
+<li><a accesskey="6" href="Property-API.html#Property-API">Property API</a>:                 Properties for Lisp programmers
+</ul>
+
+   </body></html>
+

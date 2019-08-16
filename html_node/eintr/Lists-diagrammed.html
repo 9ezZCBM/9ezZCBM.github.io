@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Lists diagrammed - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Lists-diagrammed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Symbols-as-Chest.html#Symbols-as-Chest">Symbols as Chest</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="List-Implementation.html#List-Implementation">List Implementation</a>
+
+</div>
+
+<h3 class="unnumberedsec">Lists diagrammed</h3>
+
+   <p>For example, the list <code>(rose violet buttercup)</code> has three elements,
+&lsquo;<samp><span class="samp">rose</span></samp>&rsquo;, &lsquo;<samp><span class="samp">violet</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">buttercup</span></samp>&rsquo;.  In the computer, the
+electronic address of &lsquo;<samp><span class="samp">rose</span></samp>&rsquo; is recorded in a segment of computer
+memory along with the address that gives the electronic address of where
+the atom &lsquo;<samp><span class="samp">violet</span></samp>&rsquo; is located; and that address (the one that tells
+where &lsquo;<samp><span class="samp">violet</span></samp>&rsquo; is located) is kept along with an address that tells
+where the address for the atom &lsquo;<samp><span class="samp">buttercup</span></samp>&rsquo; is located.
+
+   <p>This sounds more complicated than it is and is easier seen in a diagram:
+
+<!-- clear print-postscript-figures -->
+<!-- !!! cons-cell-diagram #1 -->
+<pre class="smallexample">         ___ ___      ___ ___      ___ ___
+        |___|___|--&gt; |___|___|--&gt; |___|___|--&gt; nil
+          |            |            |
+          |            |            |
+           --&gt; rose     --&gt; violet   --&gt; buttercup
+</pre>
+   <pre class="sp">
+
+</pre>
+   <pre class="sp">
+
+</pre>
+
+In the diagram, each box represents a word of computer memory that
+holds a Lisp object, usually in the form of a memory address.  The boxes,
+i.e., the addresses, are in pairs.  Each arrow points to what the address
+is the address of, either an atom or another pair of addresses.  The
+first box is the electronic address of &lsquo;<samp><span class="samp">rose</span></samp>&rsquo; and the arrow points
+to &lsquo;<samp><span class="samp">rose</span></samp>&rsquo;; the second box is the address of the next pair of boxes,
+the first part of which is the address of &lsquo;<samp><span class="samp">violet</span></samp>&rsquo; and the second
+part of which is the address of the next pair.  The very last box
+points to the symbol <code>nil</code>, which marks the end of the list.
+
+   <p>When a variable is set to a list with a function such as <code>setq</code>,
+it stores the address of the first box in the variable.  Thus,
+evaluation of the expression
+
+<pre class="smallexample">     (setq bouquet '(rose violet buttercup))
+</pre>
+   <p class="noindent">creates a situation like this:
+
+<!-- cons-cell-diagram #2 -->
+<pre class="smallexample">     bouquet
+          |
+          |     ___ ___      ___ ___      ___ ___
+           --&gt; |___|___|--&gt; |___|___|--&gt; |___|___|--&gt; nil
+                 |            |            |
+                 |            |            |
+                  --&gt; rose     --&gt; violet   --&gt; buttercup
+</pre>
+   <pre class="sp">
+
+</pre>
+   <pre class="sp">
+
+</pre>
+
+In this example, the symbol <code>bouquet</code> holds the address of the first
+pair of boxes.
+
+   <p>This same list can be illustrated in a different sort of box notation
+like this:
+
+<!-- cons-cell-diagram #2a -->
+<pre class="smallexample">     bouquet
+      |
+      |    --------------       ---------------       ----------------
+      |   | car   | cdr  |     | car    | cdr  |     | car     | cdr  |
+       --&gt;| rose  |   o-------&gt;| violet |   o-------&gt;| butter- |  nil |
+          |       |      |     |        |      |     | cup     |      |
+           --------------       ---------------       ----------------
+</pre>
+   <pre class="sp">
+
+</pre>
+   <pre class="sp">
+
+</pre>
+
+(Symbols consist of more than pairs of addresses, but the structure of
+a symbol is made up of addresses.  Indeed, the symbol <code>bouquet</code>
+consists of a group of address-boxes, one of which is the address of
+the printed word &lsquo;<samp><span class="samp">bouquet</span></samp>&rsquo;, a second of which is the address of a
+function definition attached to the symbol, if any, a third of which
+is the address of the first pair of address-boxes for the list
+<code>(rose violet buttercup)</code>, and so on.  Here we are showing that
+the symbol's third address-box points to the first pair of
+address-boxes for the list.)
+
+   <p>If a symbol is set to the <span class="sc">cdr</span> of a list, the list itself is not
+changed; the symbol simply has an address further down the list.  (In
+the jargon, <span class="sc">car</span> and <span class="sc">cdr</span> are &ldquo;non-destructive&rdquo;.)  Thus,
+evaluation of the following expression
+
+<pre class="smallexample">     (setq flowers (cdr bouquet))
+</pre>
+   <p class="noindent">produces this:
+
+<!-- cons-cell-diagram #3 -->
+   <pre class="sp">
+
+</pre>
+<pre class="smallexample">     bouquet        flowers
+       |              |
+       |     ___ ___  |     ___ ___      ___ ___
+        --&gt; |   |   |  --&gt; |   |   |    |   |   |
+            |___|___|----&gt; |___|___|--&gt; |___|___|--&gt; nil
+              |              |            |
+              |              |            |
+               --&gt; rose       --&gt; violet   --&gt; buttercup
+</pre>
+   <pre class="sp">
+
+</pre>
+   <pre class="sp">
+
+</pre>
+   <pre class="sp">
+
+</pre>
+
+The value of <code>flowers</code> is <code>(violet buttercup)</code>, which is
+to say, the symbol <code>flowers</code> holds the address of the pair of
+address-boxes, the first of which holds the address of <code>violet</code>,
+and the second of which holds the address of <code>buttercup</code>.
+
+   <p>A pair of address-boxes is called a <dfn>cons cell</dfn> or <dfn>dotted
+pair</dfn>.  See <a href="../elisp/Cons-Cell-Type.html#Cons-Cell-Type">Cons Cell and List Types</a>, and <a href="../elisp/Dotted-Pair-Notation.html#Dotted-Pair-Notation">Dotted Pair Notation</a>, for more
+information about cons cells and dotted pairs.
+
+   <p>The function <code>cons</code> adds a new pair of addresses to the front of
+a series of addresses like that shown above.  For example, evaluating
+the expression
+
+<pre class="smallexample">     (setq bouquet (cons 'lily bouquet))
+</pre>
+   <p class="noindent">produces:
+
+<!-- cons-cell-diagram #4 -->
+   <pre class="sp">
+
+</pre>
+<pre class="smallexample">     bouquet                       flowers
+       |                             |
+       |     ___ ___        ___ ___  |     ___ ___       ___ ___
+        --&gt; |   |   |      |   |   |  --&gt; |   |   |     |   |   |
+            |___|___|----&gt; |___|___|----&gt; |___|___|----&gt;|___|___|--&gt; nil
+              |              |              |             |
+              |              |              |             |
+               --&gt; lily      --&gt; rose       --&gt; violet    --&gt; buttercup
+</pre>
+   <pre class="sp">
+
+</pre>
+   <pre class="sp">
+
+</pre>
+   <pre class="sp">
+
+</pre>
+
+However, this does not change the value of the symbol
+<code>flowers</code>, as you can see by evaluating the following,
+
+<pre class="smallexample">     (eq (cdr (cdr bouquet)) flowers)
+</pre>
+   <p class="noindent">which returns <code>t</code> for true.
+
+   <p>Until it is reset, <code>flowers</code> still has the value
+<code>(violet buttercup)</code>; that is, it has the address of the cons
+cell whose first address is of <code>violet</code>.  Also, this does not
+alter any of the pre-existing cons cells; they are all still there.
+
+   <p>Thus, in Lisp, to get the <span class="sc">cdr</span> of a list, you just get the address
+of the next cons cell in the series; to get the <span class="sc">car</span> of a list,
+you get the address of the first element of the list; to <code>cons</code> a
+new element on a list, you add a new cons cell to the front of the list. 
+That is all there is to it!  The underlying structure of Lisp is
+brilliantly simple!
+
+   <p>And what does the last address in a series of cons cells refer to?  It
+is the address of the empty list, of <code>nil</code>.
+
+   <p>In summary, when a Lisp variable is set to a value, it is provided with
+the address of the list to which the variable refers.
+
+   </body></html>
+

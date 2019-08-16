@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Agenda views - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Agenda-views"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Markup.html#Markup">Markup</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Capture-_002d-Refile-_002d-Archive.html#Capture-_002d-Refile-_002d-Archive">Capture - Refile - Archive</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">10 Agenda views</h2>
+
+<p><a name="index-agenda-views-1120"></a>
+Due to the way Org works, TODO items, time-stamped items, and
+tagged headlines can be scattered throughout a file or even a number of
+files.  To get an overview of open action items, or of events that are
+important for a particular date, this information must be collected,
+sorted and displayed in an organized way.
+
+   <p>Org can select items based on various criteria and display them
+in a separate buffer.  Six different view types are provided:
+
+     <ul>
+<li>an <em>agenda</em> that is like a calendar and shows information
+for specific dates,
+<li>a <em>TODO list</em> that covers all unfinished
+action items,
+<li>a <em>match view</em>, showings headlines based on the tags, properties, and
+TODO state associated with them,
+<li>a <em>text search view</em> that shows all entries from multiple files
+that contain specified keywords,
+<li>a <em>stuck projects view</em> showing projects that currently don't move
+along, and
+<li><em>custom views</em> that are special searches and combinations of different
+views. 
+</ul>
+
+<p class="noindent">The extracted information is displayed in a special <em>agenda
+buffer</em>.  This buffer is read-only, but provides commands to visit the
+corresponding locations in the original Org files, and even to
+edit these files remotely.
+
+   <p><a name="index-org_002dagenda_002dskip_002dcomment_002dtrees-1121"></a><a name="index-org_002dagenda_002dskip_002darchived_002dtrees-1122"></a><a name="index-commented-entries_002c-in-agenda-views-1123"></a><a name="index-archived-entries_002c-in-agenda-views-1124"></a>By default, the report ignores commented (see <a href="Comment-lines.html#Comment-lines">Comment lines</a>) and archived
+(see <a href="Internal-archiving.html#Internal-archiving">Internal archiving</a>) entries.  You can override this by setting
+<code>org-agenda-skip-comment-trees</code> and
+<code>org-agenda-skip-archived-trees</code> to <code>nil</code>.
+
+   <p><a name="index-org_002dagenda_002dwindow_002dsetup-1125"></a><a name="index-org_002dagenda_002drestore_002dwindows_002dafter_002dquit-1126"></a>Two variables control how the agenda buffer is displayed and whether the
+window configuration is restored when the agenda exits:
+<code>org-agenda-window-setup</code> and
+<code>org-agenda-restore-windows-after-quit</code>.
+
+<ul class="menu">
+<li><a accesskey="1" href="Agenda-files.html#Agenda-files">Agenda files</a>:                 Files being searched for agenda information
+<li><a accesskey="2" href="Agenda-dispatcher.html#Agenda-dispatcher">Agenda dispatcher</a>:            Keyboard access to agenda views
+<li><a accesskey="3" href="Built_002din-agenda-views.html#Built_002din-agenda-views">Built-in agenda views</a>:        What is available out of the box? 
+<li><a accesskey="4" href="Presentation-and-sorting.html#Presentation-and-sorting">Presentation and sorting</a>:     How agenda items are prepared for display
+<li><a accesskey="5" href="Agenda-commands.html#Agenda-commands">Agenda commands</a>:              Remote editing of Org trees
+<li><a accesskey="6" href="Custom-agenda-views.html#Custom-agenda-views">Custom agenda views</a>:          Defining special searches and views
+<li><a accesskey="7" href="Exporting-agenda-views.html#Exporting-agenda-views">Exporting agenda views</a>:       Writing a view to a file
+<li><a accesskey="8" href="Agenda-column-view.html#Agenda-column-view">Agenda column view</a>:           Using column view for collected entries
+</ul>
+
+   </body></html>
+

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Arguments - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Arguments"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="set-_0026-setq.html#set-_0026-setq">set &amp; setq</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Variables.html#Variables">Variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="List-Processing.html#List-Processing">List Processing</a>
+
+</div>
+
+<h3 class="section">1.8 Arguments</h3>
+
+<p><a name="index-Arguments-47"></a><a name="index-Passing-information-to-functions-48"></a>
+To see how information is passed to functions, let's look again at
+our old standby, the addition of two plus two.  In Lisp, this is written
+as follows:
+
+<pre class="smallexample">     (+ 2 2)
+</pre>
+   <p>If you evaluate this expression, the number 4 will appear in your echo
+area.  What the Lisp interpreter does is add the numbers that follow
+the <code>+</code>.
+
+   <p><a name="index-g_t_0040samp_007bargument_007d-defined-49"></a>The numbers added by <code>+</code> are called the <dfn>arguments</dfn> of the
+function <code>+</code>.  These numbers are the information that is given to
+or <dfn>passed</dfn> to the function.
+
+   <p>The word &ldquo;argument&rdquo; comes from the way it is used in mathematics and
+does not refer to a disputation between two people; instead it refers to
+the information presented to the function, in this case, to the
+<code>+</code>.  In Lisp, the arguments to a function are the atoms or lists
+that follow the function.  The values returned by the evaluation of
+these atoms or lists are passed to the function.  Different functions
+require different numbers of arguments; some functions require none at
+all.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+<ul class="menu">
+<li><a accesskey="1" href="Data-types.html#Data-types">Data types</a>:                   Types of data passed to a function. 
+<li><a accesskey="2" href="Args-as-Variable-or-List.html#Args-as-Variable-or-List">Args as Variable or List</a>:     An argument can be the value
+                                  of a variable or list. 
+<li><a accesskey="3" href="Variable-Number-of-Arguments.html#Variable-Number-of-Arguments">Variable Number of Arguments</a>:   Some functions may take a
+                                  variable number of arguments. 
+<li><a accesskey="4" href="Wrong-Type-of-Argument.html#Wrong-Type-of-Argument">Wrong Type of Argument</a>:       Passing an argument of the wrong type
+                                  to a function. 
+<li><a accesskey="5" href="message.html#message">message</a>:                      A useful function for sending messages. 
+</ul>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> It is curious to track the path by which the word &ldquo;argument&rdquo;
+came to have two different meanings, one in mathematics and the other in
+everyday English.  According to the <cite>Oxford English Dictionary</cite>,
+the word derives from the Latin for &lsquo;<samp><span class="samp">to make clear, prove</span></samp>&rsquo;; thus it
+came to mean, by one thread of derivation, &ldquo;the evidence offered as
+proof&rdquo;, which is to say, &ldquo;the information offered&rdquo;, which led to its
+meaning in Lisp.  But in the other thread of derivation, it came to mean
+&ldquo;to assert in a manner against which others may make counter
+assertions&rdquo;, which led to the meaning of the word as a disputation. 
+(Note here that the English word has two different definitions attached
+to it at the same time.  By contrast, in Emacs Lisp, a symbol cannot
+have two different function definitions at the same time.)</p>
+
+   <hr></div>
+
+   </body></html>
+

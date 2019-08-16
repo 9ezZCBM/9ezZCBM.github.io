@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Ranges - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Ranges"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Group-Info.html#Group-Info">Group Info</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Headers.html#Headers">Headers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Gnus-Reference-Guide.html#Gnus-Reference-Guide">Gnus Reference Guide</a>
+
+</div>
+
+<h4 class="subsection">11.7.5 Ranges</h4>
+
+<p><span class="sc">gnus</span> introduced a concept that I found so useful that I've started
+using it a lot and have elaborated on it greatly.
+
+   <p>The question is simple: If you have a large amount of objects that are
+identified by numbers (say, articles, to take a <em>wild</em> example)
+that you want to qualify as being &ldquo;included&rdquo;, a normal sequence isn't
+very useful.  (A 200,000 length sequence is a bit long-winded.)
+
+   <p>The solution is as simple as the question: You just collapse the
+sequence.
+
+<pre class="example">     (1 2 3 4 5 6 10 11 12)
+</pre>
+   <p>is transformed into
+
+<pre class="example">     ((1 . 6) (10 . 12))
+</pre>
+   <p>To avoid having those nasty &lsquo;<samp><span class="samp">(13 . 13)</span></samp>&rsquo; elements to denote a
+lonesome object, a &lsquo;<samp><span class="samp">13</span></samp>&rsquo; is a valid element:
+
+<pre class="example">     ((1 . 6) 7 (10 . 12))
+</pre>
+   <p>This means that comparing two ranges to find out whether they are equal
+is slightly tricky:
+
+<pre class="example">     ((1 . 5) 7 8 (10 . 12))
+</pre>
+   <p>and
+
+<pre class="example">     ((1 . 5) (7 . 8) (10 . 12))
+</pre>
+   <p>are equal.  In fact, any non-descending list is a range:
+
+<pre class="example">     (1 2 3 4 5)
+</pre>
+   <p>is a perfectly valid range, although a pretty long-winded one.  This is
+also valid:
+
+<pre class="example">     (1 . 5)
+</pre>
+   <p>and is equal to the previous range.
+
+   <p>Here's a BNF definition of ranges.  Of course, one must remember the
+semantic requirement that the numbers are non-descending.  (Any number
+of repetition of the same number is allowed, but apt to disappear in
+range handling.)
+
+<pre class="example">     range           = simple-range / normal-range
+     simple-range    = "(" number " . " number ")"
+     normal-range    = "(" start-contents ")"
+     contents        = "" / simple-range *[ " " contents ] /
+                       number *[ " " contents ]
+</pre>
+   <p>Gnus currently uses ranges to keep track of read articles and article
+marks.  I plan on implementing a number of range operators in C if The
+Powers That Be are willing to let me.  (I haven't asked yet, because I
+need to do some more thinking on what operators I need to make life
+totally range-based without ever having to convert back to normal
+sequences.)
+
+   </body></html>
+

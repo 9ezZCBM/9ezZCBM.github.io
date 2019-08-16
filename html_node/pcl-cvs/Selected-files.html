@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Selected files - PCL-CVS--Emacs Front-End to CVS</title>
+<!--
+Copyright (C) 1991--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Selected-files"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Commands.html#Commands">Commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Buffer-contents.html#Buffer-contents">Buffer contents</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Selected files</h2>
+
+<p><a name="index-Selected-files-9"></a><a name="index-Marked-files-10"></a><a name="index-File-selection-11"></a><a name="index-Active-files-12"></a><a name="index-Applicable-13"></a>
+Many of the commands work on the current set of <dfn>selected</dfn> files
+which can be either the set of marked files (if any file is marked and
+marks are not ignored) or whichever file or directory the cursor is on.
+
+   <p>If a directory is selected but the command cannot be applied to a
+directory, then it will be applied to the set of files under this
+directory which are in the <samp><span class="file">*cvs*</span></samp> buffer.
+
+   <p><a name="index-cvs_002dmode_002dforce_002dcommand-14"></a><a name="index-cvs_002dallow_002ddir_002dcommit-15"></a>Furthermore, each command only operates on a subset of the selected
+files, depending on whether or not the command is <dfn>applicable</dfn> to
+each file (based on the file's status).  For example,
+<code>cvs-mode-commit</code> is not applicable to a file whose status is
+&lsquo;<samp><span class="samp">Need-Update</span></samp>&rsquo;.  If it should happen that PCL-CVS guesses the
+applicability wrong, you can override it with the special prefix
+<code>cvs-mode-force-command</code> normally bound to <kbd>M-f</kbd> (and file a
+bug report).  The applicability rule can be slightly changed with
+<code>cvs-allow-dir-commit</code> and <code>cvs-force-dir-tag</code>.
+
+   <p>By default, marks are always in effect (you may change this, however, by
+setting the variable <code>cvs-default-ignore-marks</code>) except for the
+commands that &lsquo;<samp><span class="samp">tag</span></samp>&rsquo; or &lsquo;<samp><span class="samp">diff</span></samp>&rsquo; a file (which can be changed
+with the variable <code>cvs-invert-ignore-marks</code>).
+
+   <p>In addition, you may use the special prefix <code>cvs-mode-toggle-marks</code>
+normally bound to <kbd>T</kbd> to toggle the use of marks for the following
+command.
+
+   <p>This scheme might seem a little complicated, but once one gets used to
+it, it is quite powerful.
+
+   <p>For commands to mark and unmark files, see <a href="Marking-files.html#Marking-files">Marking files</a>.
+
+   </body></html>
+

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Symbolic Prefixes - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Symbolic-Prefixes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Formatting-Variables.html#Formatting-Variables">Formatting Variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Interactive.html#Interactive">Interactive</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Various.html#Various">Various</a>
+
+</div>
+
+<h3 class="section">9.3 Symbolic Prefixes</h3>
+
+<p><a name="index-symbolic-prefixes-2583"></a>
+Quite a lot of Emacs commands react to the (numeric) prefix.  For
+instance, <kbd>C-u 4 C-f</kbd> moves point four characters forward, and
+<kbd>C-u 9 0 0 I s s p</kbd> adds a permanent <code>Subject</code> substring score
+rule of 900 to the current article.
+
+   <p>This is all nice and well, but what if you want to give a command some
+additional information?  Well, what most commands do is interpret the
+&ldquo;raw&rdquo; prefix in some special way.  <kbd>C-u 0 C-x C-s</kbd> means that one
+doesn't want a backup file to be created when saving the current buffer,
+for instance.  But what if you want to save without making a backup
+file, and you want Emacs to flash lights and play a nice tune at the
+same time?  You can't, and you're probably perfectly happy that way.
+
+   <p><a name="index-M_002di-_0040r_007b_0028Summary_0029_007d-2584"></a><a name="index-gnus_002dsymbolic_002dargument-2585"></a>I'm not, so I've added a second prefix&mdash;the <dfn>symbolic prefix</dfn>.  The
+prefix key is <kbd>M-i</kbd> (<code>gnus-symbolic-argument</code>), and the next
+character typed in is the value.  You can stack as many <kbd>M-i</kbd>
+prefixes as you want.  <kbd>M-i a C-M-u</kbd> means &ldquo;feed the <kbd>C-M-u</kbd>
+command the symbolic prefix <code>a</code>&rdquo;.  <kbd>M-i a M-i b C-M-u</kbd> means
+&ldquo;feed the <kbd>C-M-u</kbd> command the symbolic prefixes <code>a</code> and
+<code>b</code>&rdquo;.  You get the drift.
+
+   <p>Typing in symbolic prefixes to commands that don't accept them doesn't
+hurt, but it doesn't do any good either.  Currently not many Gnus
+functions make use of the symbolic prefix.
+
+   <p>If you're interested in how Gnus implements this, see <a href="Extended-Interactive.html#Extended-Interactive">Extended Interactive</a>.
+
+   </body></html>
+

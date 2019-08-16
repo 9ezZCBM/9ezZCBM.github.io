@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Other Commands - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Other-Commands"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Subword-Movement.html#Subword-Movement">Subword Movement</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Commands.html#Commands">Commands</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h3 class="section">4.10 Other Commands</h3>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p>Here are the various other commands that didn't fit anywhere else:
+
+     <dl>
+<dt><kbd>C-c .</kbd> (<code>c-set-style</code>)<dd><a name="index-C_002dc-_002e-214"></a><a name="index-c_002dset_002dstyle-215"></a><a name="index-set_002dstyle-_0040r_007b_0028c_002d_0029_007d-216"></a>Switch to the specified style in the current buffer.  Use like this:
+
+     <pre class="example">          <kbd>C-c . </kbd><var>style-name</var><kbd> &lt;RET&gt;</kbd>
+</pre>
+     <p>You can use the &lt;TAB&gt; in the normal way to do completion on the
+style name.  Note that all style names are case insensitive, even the
+ones you define yourself.
+
+     <p>Setting a style in this way does <em>not</em> automatically reindent your
+file.  For commands that you can use to view the effect of your changes,
+see <a href="Indentation-Commands.html#Indentation-Commands">Indentation Commands</a> and <a href="Filling-and-Breaking.html#Filling-and-Breaking">Filling and Breaking</a>.
+
+     <p>For details of the CC Mode style system, see <a href="Styles.html#Styles">Styles</a>.
+
+     <br><dt><kbd>C-c :</kbd> (<code>c-scope-operator</code>)<dd><a name="index-C_002dc-_003a-217"></a><a name="index-c_002dscope_002doperator-218"></a><a name="index-scope_002doperator-_0040r_007b_0028c_002d_0029_007d-219"></a>In C++, it is also sometimes desirable to insert the double-colon scope
+operator without performing the electric behavior of colon insertion. 
+<kbd>C-c :</kbd> does just this.
+
+     <br><dt><kbd>C-c C-z</kbd> (<code>c-display-defun-name</code>)<dd><a name="index-C_002dc-C_002dz-220"></a><a name="index-c_002ddisplay_002ddefun_002dname-221"></a><a name="index-display_002ddefun_002dname-_0040r_007b_0028c_002d_0029_007d-222"></a>Display the current function name, if any, in the minibuffer. 
+Additionally, if a prefix argument is given, push the function name to
+the kill ring.  If there is no current function,
+<code>c-display-defun-name</code> does nothing.  In Emacs, you can use this
+command in the middle of an interactive search if you set the
+customizable option <code>isearch-allow-scroll</code> to non-<code>nil</code>. 
+See <a href="../emacs/Not-Exiting-Isearch.html#Not-Exiting-Isearch">Not Exiting Isearch</a>.
+
+     <br><dt><kbd>C-c C-\</kbd> (<code>c-backslash-region</code>)<dd><a name="index-C_002dc-C_002d_005c-223"></a><a name="index-c_002dbackslash_002dregion-224"></a><a name="index-backslash_002dregion-_0040r_007b_0028c_002d_0029_007d-225"></a>This function inserts and aligns or deletes end-of-line backslashes in
+the current region.  These are typically used in multi-line macros.
+
+     <p>With no prefix argument, it inserts any missing backslashes and aligns
+them according to the <code>c-backslash-column</code> and
+<code>c-backslash-max-column</code> variables.  With a prefix argument, it
+deletes any backslashes.
+
+     <p>The function does not modify blank lines at the start of the region.  If
+the region ends at the start of a line, it always deletes the backslash
+(if any) at the end of the previous line.
+
+     <p>To customize the precise workings of this command, <a href="Custom-Macros.html#Custom-Macros">Custom Macros</a>. 
+</dl>
+
+<p class="noindent">The recommended line breaking function, <code>c-context-line-break</code>
+(see <a href="Filling-and-Breaking.html#Filling-and-Breaking">Filling and Breaking</a>), is especially nice if you edit
+multiline macros frequently.  When used inside a macro, it
+automatically inserts and adjusts the mandatory backslash at the end
+of the line to keep the macro together, and it leaves the point at the
+right indentation column for the code.  Thus you can write code inside
+macros almost exactly as you can elsewhere, without having to bother
+with the trailing backslashes.
+
+     <dl>
+<dt><kbd>C-c C-e</kbd> (<code>c-macro-expand</code>)<dd><a name="index-C_002dc-C_002de-226"></a><a name="index-c_002dmacro_002dexpand-227"></a><a name="index-macro_002dexpand-_0040r_007b_0028c_002d_0029_007d-228"></a>This command expands C, C++, Objective C or Pike macros in the region,
+using an appropriate external preprocessor program.  Normally it
+displays its output in a temporary buffer, but if you give it a prefix
+arg (with <kbd>C-u C-c C-e</kbd>) it will overwrite the original region
+with the expansion.
+
+     <p>The command does not work in any of the other modes, and the key
+sequence is not bound in these other modes.
+
+     <p><code>c-macro-expand</code> isn't actually part of CC Mode, even though it
+is bound to a CC Mode key sequence.  If you need help setting it up
+or have other problems with it, you can either read its source code or
+ask for help in the standard (X)Emacs forums. 
+</dl>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   </body></html>
+

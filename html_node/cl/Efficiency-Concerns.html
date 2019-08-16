@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Efficiency Concerns - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Efficiency-Concerns"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Common-Lisp-Compatibility.html#Common-Lisp-Compatibility">Common Lisp Compatibility</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Assertions.html#Assertions">Assertions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="appendix">Appendix A Efficiency Concerns</h2>
+
+<h3 class="appendixsec">A.1 Macros</h3>
+
+<p class="noindent">Many of the advanced features of this package, such as <code>cl-defun</code>,
+<code>cl-loop</code>, etc., are implemented as Lisp macros.  In
+byte-compiled code, these complex notations will be expanded into
+equivalent Lisp code which is simple and efficient.  For example,
+the form
+
+<pre class="example">     (cl-incf i n)
+</pre>
+   <p class="noindent">is expanded at compile-time to the Lisp form
+
+<pre class="example">     (setq i (+ i n))
+</pre>
+   <p class="noindent">which is the most efficient way of doing this operation
+in Lisp.  Thus, there is no performance penalty for using the more
+readable <code>cl-incf</code> form in your compiled code.
+
+   <p><em>Interpreted</em> code, on the other hand, must expand these macros
+every time they are executed.  For this reason it is strongly
+recommended that code making heavy use of macros be compiled. 
+A loop using <code>cl-incf</code> a hundred times will execute considerably
+faster if compiled, and will also garbage-collect less because the
+macro expansion will not have to be generated, used, and thrown away a
+hundred times.
+
+   <p>You can find out how a macro expands by using the
+<code>cl-prettyexpand</code> function.
+
+<div class="defun">
+&mdash; Function: <b>cl-prettyexpand</b><var> form &amp;optional full<a name="index-cl_002dprettyexpand-195"></a></var><br>
+<blockquote><p>This function takes a single Lisp form as an argument and inserts
+a nicely formatted copy of it in the current buffer (which must be
+in Lisp mode so that indentation works properly).  It also expands
+all Lisp macros that appear in the form.  The easiest way to use
+this function is to go to the <samp><span class="file">*scratch*</span></samp> buffer and type, say,
+
+     <pre class="example">          (cl-prettyexpand '(cl-loop for x below 10 collect x))
+</pre>
+        <p class="noindent">and type <kbd>C-x C-e</kbd> immediately after the closing parenthesis;
+an expansion similar to:
+
+     <pre class="example">          (cl-block nil
+               (let* ((x 0)
+                      (G1004 nil))
+                 (while (&lt; x 10)
+                   (setq G1004 (cons x G1004))
+                   (setq x (+ x 1)))
+                 (nreverse G1004)))
+</pre>
+        <p class="noindent">will be inserted into the buffer.  (The <code>cl-block</code> macro is
+expanded differently in the interpreter and compiler, so
+<code>cl-prettyexpand</code> just leaves it alone.  The temporary
+variable <code>G1004</code> was created by <code>cl-gensym</code>.)
+
+        <p>If the optional argument <var>full</var> is true, then <em>all</em>
+macros are expanded, including <code>cl-block</code>, <code>cl-eval-when</code>,
+and compiler macros.  Expansion is done as if <var>form</var> were
+a top-level form in a file being compiled.
+
+     <!-- FIXME none of these examples are still applicable. -->
+        <p>Note that <code>cl-adjoin</code>, <code>cl-caddr</code>, and <code>cl-member</code> all
+have built-in compiler macros to optimize them in common cases. 
+</p></blockquote></div>
+
+<h3 class="appendixsec">A.2 Error Checking</h3>
+
+<p class="noindent">Common Lisp compliance has in general not been sacrificed for the
+sake of efficiency.  A few exceptions have been made for cases
+where substantial gains were possible at the expense of marginal
+incompatibility.
+
+   <p>The Common Lisp standard (as embodied in Steele's book) uses the
+phrase &ldquo;it is an error if&rdquo; to indicate a situation that is not
+supposed to arise in complying programs; implementations are strongly
+encouraged but not required to signal an error in these situations. 
+This package sometimes omits such error checking in the interest of
+compactness and efficiency.  For example, <code>cl-do</code> variable
+specifiers are supposed to be lists of one, two, or three forms; extra
+forms are ignored by this package rather than signaling a syntax
+error.  Functions taking keyword arguments will accept an odd number
+of arguments, treating the trailing keyword as if it were followed by
+the value <code>nil</code>.
+
+   <p>Argument lists (as processed by <code>cl-defun</code> and friends)
+<em>are</em> checked rigorously except for the minor point just
+mentioned; in particular, keyword arguments are checked for
+validity, and <code>&amp;allow-other-keys</code> and <code>:allow-other-keys</code>
+are fully implemented.  Keyword validity checking is slightly
+time consuming (though not too bad in byte-compiled code);
+you can use <code>&amp;allow-other-keys</code> to omit this check.  Functions
+defined in this package such as <code>cl-find</code> and <code>cl-member</code>
+do check their keyword arguments for validity.
+
+<h3 class="appendixsec">A.3 Compiler Optimizations</h3>
+
+<p class="noindent">Changing the value of <code>byte-optimize</code> from the default <code>t</code>
+is highly discouraged; many of the Common
+Lisp macros emit
+code that can be improved by optimization.  In particular,
+<code>cl-block</code>s (whether explicit or implicit in constructs like
+<code>cl-defun</code> and <code>cl-loop</code>) carry a fair run-time penalty; the
+byte-compiler removes <code>cl-block</code>s that are not actually
+referenced by <code>cl-return</code> or <code>cl-return-from</code> inside the block.
+
+   </body></html>
+

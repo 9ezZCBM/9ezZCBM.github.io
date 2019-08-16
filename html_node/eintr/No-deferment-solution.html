@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>No deferment solution - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="No-deferment-solution"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="No-Deferment.html#No-Deferment">No Deferment</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Recursion.html#Recursion">Recursion</a>
+
+</div>
+
+<h4 class="subsection">11.3.8 No Deferment Solution</h4>
+
+<p><a name="index-No-deferment-solution-253"></a><a name="index-Solution-without-deferment-254"></a>
+The solution to the problem of deferred operations is to write in a
+manner that does not defer operations<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.  This requires
+writing to a different pattern, often one that involves writing two
+function definitions, an initialization function and a helper
+function.
+
+   <p>The initialization function sets up the job; the helper function
+does the work.
+
+   <p>Here are the two function definitions for adding up numbers.  They are
+so simple, I find them hard to understand.
+
+<pre class="smallexample">     (defun triangle-initialization (number)
+       "Return the sum of the numbers 1 through NUMBER inclusive.
+     This is the initialization component of a two function
+     duo that uses recursion."
+       (triangle-recursive-helper 0 0 number))
+</pre>
+   <pre class="smallexample">     (defun triangle-recursive-helper (sum counter number)
+       "Return SUM, using COUNTER, through NUMBER inclusive.
+     This is the helper component of a two function duo
+     that uses recursion."
+       (if (&gt; counter number)
+           sum
+         (triangle-recursive-helper (+ sum counter)  ; <span class="roman">sum</span>
+                                    (1+ counter)     ; <span class="roman">counter</span>
+                                    number)))        ; <span class="roman">number</span>
+</pre>
+   <p>Install both function definitions by evaluating them, then call
+<code>triangle-initialization</code> with 2 rows:
+
+<pre class="smallexample">     (triangle-initialization 2)
+         &rArr; 3
+</pre>
+   <p>The initialization function calls the first instance of the helper
+function with three arguments: zero, zero, and a number which is the
+number of rows in the triangle.
+
+   <p>The first two arguments passed to the helper function are
+initialization values.  These values are changed when
+<code>triangle-recursive-helper</code> invokes new instances.<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>
+
+   <p>Let's see what happens when we have a triangle that has one row.  (This
+triangle will have one pebble in it!)
+
+   <p><code>triangle-initialization</code> will call its helper with
+the arguments <code>0&nbsp;0&nbsp;1</code><!-- /@w -->.  That function will run the conditional
+test whether <code>(&gt; counter number)</code>:
+
+<pre class="smallexample">     (&gt; 0 1)
+</pre>
+   <p class="noindent">and find that the result is false, so it will invoke
+the else-part of the <code>if</code> clause:
+
+<pre class="smallexample">         (triangle-recursive-helper
+          (+ sum counter)  ; <span class="roman">sum plus counter</span> &rArr; <span class="roman">sum</span>
+          (1+ counter)     ; <span class="roman">increment counter</span> &rArr; <span class="roman">counter</span>
+          number)          ; <span class="roman">number stays the same</span>
+</pre>
+   <p class="noindent">which will first compute:
+
+<pre class="smallexample">     (triangle-recursive-helper (+ 0 0)  ; <span class="roman">sum</span>
+                                (1+ 0)   ; <span class="roman">counter</span>
+                                1)       ; <span class="roman">number</span>
+<br>which is:<br>
+     
+     (triangle-recursive-helper 0 1 1)
+</pre>
+   <p>Again, <code>(&gt; counter number)</code> will be false, so again, the Lisp
+interpreter will evaluate <code>triangle-recursive-helper</code>, creating a
+new instance with new arguments.
+
+   <p>This new instance will be;
+
+<pre class="smallexample">         (triangle-recursive-helper
+          (+ sum counter)  ; <span class="roman">sum plus counter</span> &rArr; <span class="roman">sum</span>
+          (1+ counter)     ; <span class="roman">increment counter</span> &rArr; <span class="roman">counter</span>
+          number)          ; <span class="roman">number stays the same</span>
+     
+<br>which is:<br>
+     
+     (triangle-recursive-helper 1 2 1)
+</pre>
+   <p>In this case, the <code>(&gt; counter number)</code> test will be true!  So the
+instance will return the value of the sum, which will be 1, as
+expected.
+
+   <p>Now, let's pass <code>triangle-initialization</code> an argument
+of 2, to find out how many pebbles there are in a triangle with two rows.
+
+   <p>That function calls <code>(triangle-recursive-helper 0 0 2)</code>.
+
+   <p>In stages, the instances called will be:
+
+<pre class="smallexample">                               <span class="roman">sum counter number</span>
+     (triangle-recursive-helper 0    1       2)
+     
+     (triangle-recursive-helper 1    2       2)
+     
+     (triangle-recursive-helper 3    3       2)
+</pre>
+   <p>When the last instance is called, the <code>(&gt; counter number)</code> test
+will be true, so the instance will return the value of <code>sum</code>,
+which will be 3.
+
+   <p>This kind of pattern helps when you are writing functions that can use
+many resources in a computer.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> The phrase <dfn>tail
+recursive</dfn> is used to describe such a process, one that uses
+constant space.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> The
+jargon is mildly confusing:  <code>triangle-recursive-helper</code> uses a
+process that is iterative in a procedure that is recursive.  The
+process is called iterative because the computer need only record the
+three values, <code>sum</code>, <code>counter</code>, and <code>number</code>; the
+procedure is recursive because the function calls itself.  On the
+other hand, both the process and the procedure used by
+<code>triangle-recursively</code> are called recursive.  The word
+&ldquo;recursive&rdquo; has different meanings in the two contexts.</p>
+
+   <hr></div>
+
+   </body></html>
+

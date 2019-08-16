@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>dolist dotimes - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="dolist-dotimes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Recursion.html#Recursion">Recursion</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="while.html#while">while</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Loops-_0026-Recursion.html#Loops-_0026-Recursion">Loops &amp; Recursion</a>
+
+</div>
+
+<h3 class="section">11.2 Save your time: <code>dolist</code> and <code>dotimes</code></h3>
+
+<p>In addition to <code>while</code>, both <code>dolist</code> and <code>dotimes</code>
+provide for looping.  Sometimes these are quicker to write than the
+equivalent <code>while</code> loop.  Both are Lisp macros.  (See <a href="../elisp/Macros.html#Macros">Macros</a>. )
+
+   <p><code>dolist</code> works like a <code>while</code> loop that <span class="sc">cdr</span>s down a
+list:  <code>dolist</code> automatically shortens the list each time it
+loops&mdash;takes the <span class="sc">cdr</span> of the list&mdash;and binds the <span class="sc">car</span> of
+each shorter version of the list to the first of its arguments.
+
+   <p><code>dotimes</code> loops a specific number of times: you specify the number.
+
+<ul class="menu">
+<li><a accesskey="1" href="dolist.html#dolist">dolist</a>
+<li><a accesskey="2" href="dotimes.html#dotimes">dotimes</a>
+</ul>
+
+   </body></html>
+

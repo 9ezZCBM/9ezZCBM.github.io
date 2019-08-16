@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Insert or - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Insert-or"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Insert-let.html#Insert-let">Insert let</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="if-_0026-or.html#if-_0026-or">if &amp; or</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="insert_002dbuffer.html#insert_002dbuffer">insert-buffer</a>
+
+</div>
+
+<h4 class="subsection">5.2.4 The <code>or</code> in the Body</h4>
+
+<p>The purpose of the <code>or</code> expression in the <code>insert-buffer</code>
+function is to ensure that the argument <code>buffer</code> is bound to a
+buffer and not just to the name of a buffer.  The previous section shows
+how the job could have been done using an <code>if</code> expression. 
+However, the <code>insert-buffer</code> function actually uses <code>or</code>. 
+To understand this, it is necessary to understand how <code>or</code> works.
+
+   <p><a name="index-or-158"></a>An <code>or</code> function can have any number of arguments.  It evaluates
+each argument in turn and returns the value of the first of its
+arguments that is not <code>nil</code>.  Also, and this is a crucial feature
+of <code>or</code>, it does not evaluate any subsequent arguments after
+returning the first non-<code>nil</code> value.
+
+   <p>The <code>or</code> expression looks like this:
+
+<pre class="smallexample">     (or (bufferp buffer)
+         (setq buffer (get-buffer buffer)))
+</pre>
+   <p class="noindent">The first argument to <code>or</code> is the expression <code>(bufferp buffer)</code>. 
+This expression returns true (a non-<code>nil</code> value) if the buffer is
+actually a buffer, and not just the name of a buffer.  In the <code>or</code>
+expression, if this is the case, the <code>or</code> expression returns this
+true value and does not evaluate the next expression&mdash;and this is fine
+with us, since we do not want to do anything to the value of
+<code>buffer</code> if it really is a buffer.
+
+   <p>On the other hand, if the value of <code>(bufferp buffer)</code> is <code>nil</code>,
+which it will be if the value of <code>buffer</code> is the name of a buffer,
+the Lisp interpreter evaluates the next element of the <code>or</code>
+expression.  This is the expression <code>(setq buffer (get-buffer
+buffer))</code>.  This expression returns a non-<code>nil</code> value, which
+is the value to which it sets the variable <code>buffer</code>&mdash;and this
+value is a buffer itself, not the name of a buffer.
+
+   <p>The result of all this is that the symbol <code>buffer</code> is always
+bound to a buffer itself rather than to the name of a buffer.  All
+this is necessary because the <code>set-buffer</code> function in a
+following line only works with a buffer itself, not with the name to a
+buffer.
+
+   <p>Incidentally, using <code>or</code>, the situation with the usher would be
+written like this:
+
+<pre class="smallexample">     (or (holding-on-to-guest) (find-and-take-arm-of-guest))
+</pre>
+   </body></html>
+

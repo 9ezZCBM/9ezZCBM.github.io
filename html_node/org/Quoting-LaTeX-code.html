@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Quoting @LaTeX{} code - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Quoting-LaTeX-code"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Tables-in-LaTeX-export.html#Tables-in-LaTeX-export">Tables in LaTeX export</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="LaTeX-header-and-sectioning.html#LaTeX-header-and-sectioning">LaTeX header and sectioning</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="LaTeX-export.html#LaTeX-export">LaTeX export</a>
+
+</div>
+
+<h4 class="subsection">12.10.4 Quoting LaTeX code</h4>
+
+<p>The LaTeX export back-end can insert any arbitrary LaTeX code,
+see <a href="Embedded-LaTeX.html#Embedded-LaTeX">Embedded LaTeX</a>.  There are three ways to embed such code in the
+Org file and they all use different quoting syntax.
+
+   <p>Inserting in-line quoted with  symbols:
+<a name="index-inline_002c-in-_0040LaTeX_007b_007d-export-1856"></a>
+<pre class="example">     Code embedded in-line @@latex:any arbitrary LaTeX code@@ in a paragraph.
+</pre>
+   <p>Inserting as one or more keyword lines in the Org file:
+<a name="index-g_t_0040code_007b_0023_002bLATEX_007d-1857"></a>
+<pre class="example">     #+LATEX: any arbitrary LaTeX code
+</pre>
+   <p>Inserting as an export block in the Org file, where the back-end exports any
+code between begin and end markers:
+<a name="index-g_t_0040code_007b_0023_002bBEGIN_005fEXPORT-latex_007d-1858"></a>
+<pre class="example">     #+BEGIN_EXPORT latex
+     any arbitrary LaTeX code
+     #+END_EXPORT
+</pre>
+   </body></html>
+

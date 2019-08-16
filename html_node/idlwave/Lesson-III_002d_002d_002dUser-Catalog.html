@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Lesson III---User Catalog - IDLWAVE User Manual</title>
+<!--
+This file documents IDLWAVE, a major mode for editing IDL files with
+Emacs, and interacting with an IDL shell run as a subprocess.
+
+This is edition 6.1 of the IDLWAVE User Manual for IDLWAVE
+6.1.
+
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Lesson-III---User-Catalog"></a>
+<a name="Lesson-III_002d_002d_002dUser-Catalog"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Lesson-II_002d_002d_002dCustomization.html#Lesson-II_002d_002d_002dCustomization">Lesson II---Customization</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Getting-Started.html#Getting-Started">Getting Started</a>
+
+</div>
+
+<h3 class="section">3.3 Lesson III: User and Library Catalogs</h3>
+
+<p>We have already used the routine info display in the first part of this
+tutorial.  This was the invoked using <kbd>C-c ?</kbd>, and displays
+information about the IDL routine near the cursor position.  Wouldn't it
+be nice to have the same kind of information available for your own
+routines and for the huge amount of code in major libraries like JHUAPL
+or the IDL-Astro library?  In many cases, you may already have this
+information.  Files named <samp><span class="file">.idlwave_catalog</span></samp> in library directories
+contain scanned information on the routines in that directory; many
+popular libraries ship with these &ldquo;library catalogs&rdquo; pre-scanned. 
+Users can scan their own routines in one of two ways: either using the
+supplied tool to scan directories and build their own
+<samp><span class="file">.idlwave_catalog</span></samp> files, or using the built-in method to create a
+single &ldquo;user catalog&rdquo;, which we'll show here.  See <a href="Catalogs.html#Catalogs">Catalogs</a>, for
+more information on choosing which method to use.
+
+   <p>To build a user catalog, select <code>Routine Info/Select Catalog
+Directories</code> from the IDLWAVE entry in the menu bar.  If necessary,
+start the shell first with <kbd>C-c C-s</kbd> (see <a href="Starting-the-Shell.html#Starting-the-Shell">Starting the Shell</a>). 
+IDLWAVE will find out about the IDL <code>!PATH</code> variable and offer a
+list of directories on the path.  Simply select them all (or whichever
+you want; directories with existing library catalogs will not be
+selected by default) and click on the &lsquo;<samp><span class="samp">Scan&amp;Save</span></samp>&rsquo; button.  Then
+go for a cup of coffee while IDLWAVE collects information for each and
+every IDL routine on your search path.  All this information is
+written to the file <samp><span class="file">~/.emacs.d/idlwave/idlusercat.el</span></samp>
+and will from now on automatically load whenever you use
+IDLWAVE.  You may find it necessary to rebuild the catalog on occasion
+as your local libraries change, or build a library catalog for those
+directories instead.  Invoke routine info (<kbd>C-c ?</kbd>) or completion
+(<kbd>M-&lt;TAB&gt;</kbd>) on any routine or partial routine name you know to
+be located in the library.  E.g., if you have scanned the IDL-Astro
+library:
+
+<pre class="example">         a=readf<kbd>M-&lt;TAB&gt;</kbd>
+</pre>
+   <p>expands to &ldquo;readfits(&rdquo;.  Then try
+
+<pre class="example">         a=readfits(<kbd>C-c ?</kbd>
+</pre>
+   <p>and you get:
+
+<pre class="example">     Usage:    Result = READFITS(filename, header, heap)
+     ...
+</pre>
+   <p>I hope you made it until here.  Now you are set to work with IDLWAVE. 
+On the way you will want to change other things, and to learn more
+about the possibilities not discussed in this short tutorial.  Read
+the manual, look at the documentation strings of interesting variables
+(with <kbd>C-h v idlwave&lt;-variable-name&gt; &lt;RET&gt;</kbd>) and ask the
+remaining questions on the newsgroup <code>comp.lang.idl-pvwave</code>.
+
+   </body></html>
+

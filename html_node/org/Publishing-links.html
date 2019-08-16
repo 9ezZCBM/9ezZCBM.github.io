@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Publishing links - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Publishing-links"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Sitemap.html#Sitemap">Sitemap</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Publishing-options.html#Publishing-options">Publishing options</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h4 class="subsection">13.1.6 Links between published files</h4>
+
+<p><a name="index-links_002c-publishing-2062"></a>
+To create a link from one Org file to another, you would use something like
+&lsquo;<samp><span class="samp">[[file:foo.org][The foo]]</span></samp>&rsquo; or simply &lsquo;<samp><span class="samp">file:foo.org</span></samp>&rsquo;
+(see <a href="External-links.html#External-links">External links</a>).  When published, this link becomes a link to
+<samp><span class="file">foo.html</span></samp>.  You can thus interlink the pages of your &ldquo;org web&rdquo;
+project and the links will work as expected when you publish them to HTML. 
+If you also publish the Org source file and want to link to it, use an
+<code>http:</code> link instead of a <code>file:</code> link, because <code>file:</code> links
+are converted to link to the corresponding <samp><span class="file">html</span></samp> file.
+
+   <p>You may also link to related files, such as images.  Provided you are careful
+with relative file names, and provided you have also configured Org to upload
+the related files, these links will work too.  See <a href="Complex-example.html#Complex-example">Complex example</a>, for
+an example of this usage.
+
+   <p>Eventually, links between published documents can contain some search options
+(see <a href="Search-options.html#Search-options">Search options</a>), which will be resolved to the appropriate location
+in the linked file.  For example, once published to HTML, the following links
+all point to a dedicated anchor in <samp><span class="file">foo.html</span></samp>.
+
+<pre class="example">     [[file:foo.org::*heading]]
+     [[file:foo.org::#custom-id]]
+     [[file:foo.org::target]]
+</pre>
+   </body></html>
+

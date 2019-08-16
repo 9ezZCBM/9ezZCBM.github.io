@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Several defuns - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Several-defuns"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Find-a-File.html#Find-a-File">Find a File</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="count_002dwords_002din_002ddefun.html#count_002dwords_002din_002ddefun">count-words-in-defun</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Words-in-a-defun.html#Words-in-a-defun">Words in a defun</a>
+
+</div>
+
+<h3 class="section">14.4 Count Several <code>defuns</code> Within a File</h3>
+
+<p>A file such as <samp><span class="file">simple.el</span></samp> may have a hundred or more function
+definitions within it.  Our long term goal is to collect statistics on
+many files, but as a first step, our immediate goal is to collect
+statistics on one file.
+
+   <p>The information will be a series of numbers, each number being the
+length of a function definition.  We can store the numbers in a list.
+
+   <p>We know that we will want to incorporate the information regarding one
+file with information about many other files; this means that the
+function for counting definition lengths within one file need only
+return the list of lengths.  It need not and should not display any
+messages.
+
+   <p>The word count commands contain one expression to jump point forward
+word by word and another expression to count the jumps.  The function
+to return the lengths of definitions can be designed to work the same
+way, with one expression to jump point forward definition by
+definition and another expression to construct the lengths' list.
+
+   <p>This statement of the problem makes it elementary to write the
+function definition.  Clearly, we will start the count at the
+beginning of the file, so the first command will be <code>(goto-char
+(point-min))</code>.  Next, we start the <code>while</code> loop; and the
+true-or-false test of the loop can be a regular expression search for
+the next function definition&mdash;so long as the search succeeds, point
+is moved forward and then the body of the loop is evaluated.  The body
+needs an expression that constructs the lengths' list.  <code>cons</code>,
+the list construction command, can be used to create the list.  That
+is almost all there is to it.
+
+   <p>Here is what this fragment of code looks like:
+
+<pre class="smallexample">     (goto-char (point-min))
+     (while (re-search-forward "^(defun" nil t)
+       (setq lengths-list
+             (cons (count-words-in-defun) lengths-list)))
+</pre>
+   <p>What we have left out is the mechanism for finding the file that
+contains the function definitions.
+
+   <p>In previous examples, we either used this, the Info file, or we
+switched back and forth to some other buffer, such as the
+<samp><span class="file">*scratch*</span></samp> buffer.
+
+   <p>Finding a file is a new process that we have not yet discussed.
+
+   </body></html>
+

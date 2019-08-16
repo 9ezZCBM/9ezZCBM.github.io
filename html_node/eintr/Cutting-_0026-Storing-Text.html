@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Cutting &amp; Storing Text - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Cutting-%26-Storing-Text"></a>
+<a name="Cutting-_0026-Storing-Text"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="List-Implementation.html#List-Implementation">List Implementation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="car-cdr-_0026-cons.html#car-cdr-_0026-cons">car cdr &amp; cons</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">8 Cutting and Storing Text</h2>
+
+<p><a name="index-Cutting-and-storing-text-182"></a><a name="index-Storing-and-cutting-text-183"></a><a name="index-Killing-text-184"></a><a name="index-Clipping-text-185"></a><a name="index-Erasing-text-186"></a><a name="index-Deleting-text-187"></a>
+Whenever you cut or clip text out of a buffer with a <dfn>kill</dfn> command in
+GNU Emacs, it is stored in a list and you can bring it back with a
+<dfn>yank</dfn> command.
+
+   <p>(The use of the word &ldquo;kill&rdquo; in Emacs for processes which specifically
+<em>do not</em> destroy the values of the entities is an unfortunate
+historical accident.  A much more appropriate word would be &ldquo;clip&rdquo; since
+that is what the kill commands do; they clip text out of a buffer and
+put it into storage from which it can be brought back.  I have often
+been tempted to replace globally all occurrences of &ldquo;kill&rdquo; in the Emacs
+sources with &ldquo;clip&rdquo; and all occurrences of &ldquo;killed&rdquo; with &ldquo;clipped&rdquo;.)
+
+<ul class="menu">
+<li><a accesskey="1" href="Storing-Text.html#Storing-Text">Storing Text</a>:                 Text is stored in a list. 
+<li><a accesskey="2" href="zap_002dto_002dchar.html#zap_002dto_002dchar">zap-to-char</a>:                  Cutting out text up to a character. 
+<li><a accesskey="3" href="kill_002dregion.html#kill_002dregion">kill-region</a>:                  Cutting text out of a region. 
+<li><a accesskey="4" href="copy_002dregion_002das_002dkill.html#copy_002dregion_002das_002dkill">copy-region-as-kill</a>:          A definition for copying text. 
+<li><a accesskey="5" href="Digression-into-C.html#Digression-into-C">Digression into C</a>:            Minor note on C programming language macros. 
+<li><a accesskey="6" href="defvar.html#defvar">defvar</a>:                       How to give a variable an initial value. 
+<li><a accesskey="7" href="cons-_0026-search_002dfwd-Review.html#cons-_0026-search_002dfwd-Review">cons &amp; search-fwd Review</a>
+<li><a accesskey="8" href="search-Exercises.html#search-Exercises">search Exercises</a>
+</ul>
+
+   </body></html>
+

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Authentication - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Authentication"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Init-File.html#Init-File">Init File</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Customization.html#Customization">Customization</a>
+
+</div>
+
+<h3 class="section">49.5 Keeping Persistent Authentication Information</h3>
+
+<p>Some Emacs packages, which connect to other services, require
+authentication (see <a href="Passwords.html#Passwords">Passwords</a>), e.g., see <a href="../gnus/index.html#Top">Gnus</a>, or <a href="../tramp/index.html#Top">Tramp</a>.  Because
+it might be annoying to provide the same user name and password again
+and again, Emacs offers to keep this information persistent via the
+<samp><span class="file">auth-source</span></samp> library.
+
+   <p><a name="index-g_t_0040file_007b_007e_002f_002eauthinfo_007d-file-4870"></a><a name="index-g_t_0040file_007b_007e_002f_002eauthinfo_002egpg_007d-file-4871"></a><a name="index-g_t_007e_002f_002enetrc-file-4872"></a>  By default, the authentication information is taken from the file
+<samp><span class="file">~/.authinfo</span></samp> or <samp><span class="file">~/.authinfo.gpg</span></samp> or <samp><span class="file">~/.netrc</span></samp>. 
+These files have a syntax similar to netrc files as known from the
+<samp><span class="command">ftp</span></samp> program, like this:
+
+<pre class="example">     machine <var>mymachine</var> login <var>myloginname</var> password <var>mypassword</var> port <var>myport</var>
+</pre>
+   <p>Similarly, the <samp><span class="file">auth-source</span></samp> library supports multiple storage
+backend, currently either the classic netrc backend, JSON files, the
+Secret Service API, and pass, the standard unix password manager.
+
+   <p><a name="index-auth_002dsources-4873"></a>  All these alternatives can be customized via the user option
+<code>auth-sources</code>, see <a href="../auth/Help-for-users.html#Help-for-users">Emacs auth-source</a>.
+
+   <p><a name="index-auth_002dsource_002dsave_002dbehavior-4874"></a>  When a password is entered interactively, which is not found via the
+configured backend, some of the backends offer to save it
+persistently.  This can be changed by customizing the user option
+<code>auth-source-save-behavior</code>.
+
+<!-- This is part of the Emacs manual. -->
+<!-- Copyright (C) 1985-1987, 1993-1995, 1997, 2001-2019 Free Software -->
+<!-- Foundation, Inc. -->
+<!-- See file emacs.texi for copying conditions. -->
+   </body></html>
+

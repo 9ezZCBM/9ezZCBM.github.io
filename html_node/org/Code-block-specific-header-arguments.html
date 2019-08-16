@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Code block specific header arguments - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Code-block-specific-header-arguments"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Arguments-in-function-calls.html#Arguments-in-function-calls">Arguments in function calls</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Language_002dspecific-mode-properties.html#Language_002dspecific-mode-properties">Language-specific mode properties</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Using-header-arguments.html#Using-header-arguments">Using header arguments</a>
+
+</div>
+
+<h5 class="subsubheading">Code block specific header arguments</h5>
+
+<p>Header arguments are most commonly set at the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block level, on
+the <code>#+BEGIN_SRC</code> line.  Arguments set at this level take precedence
+over those set in the <code>org-babel-default-header-args</code> variable, and also
+those set as header properties.
+
+   <p>In the following example, setting <code>results</code> to <code>silent</code> makes it
+ignore results of the code execution.  Setting <code>:exports</code> to <code>code</code>
+exports only the body of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block to HTML or LaTeX.:
+
+<pre class="example">     #+NAME: factorial
+     #+BEGIN_SRC haskell :results silent :exports code :var n=0
+     fac 0 = 1
+     fac n = n * fac (n-1)
+     #+END_SRC
+</pre>
+   <p>The same header arguments in an inline &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block:
+
+<pre class="example">     src_haskell[:exports both]{fac 5}
+</pre>
+   <p>Code block header arguments can span multiple lines using <code>#+HEADER:</code> on
+each line.  Note that Org currently accepts the plural spelling of
+<code>#+HEADER:</code> only as a convenience for backward-compatibility.  It may be
+removed at some point.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bHEADER_003a_007d-2128"></a>
+Multi-line header arguments on an unnamed &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block:
+
+<pre class="example">     #+HEADER: :var data1=1
+     #+BEGIN_SRC emacs-lisp :var data2=2
+        (message "data1:%S, data2:%S" data1 data2)
+     #+END_SRC
+     
+     #+RESULTS:
+     : data1:1, data2:2
+</pre>
+   <p>Multi-line header arguments on a named &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block:
+
+<pre class="example">     #+NAME: named-block
+     #+HEADER: :var data=2
+     #+BEGIN_SRC emacs-lisp
+       (message "data:%S" data)
+     #+END_SRC
+     
+     #+RESULTS: named-block
+       : data:2
+</pre>
+   </body></html>
+

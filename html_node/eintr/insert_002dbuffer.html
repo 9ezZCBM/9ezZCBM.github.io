@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>insert-buffer - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="insert-buffer"></a>
+<a name="insert_002dbuffer"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="beginning_002dof_002dbuffer.html#beginning_002dof_002dbuffer">beginning-of-buffer</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="copy_002dto_002dbuffer.html#copy_002dto_002dbuffer">copy-to-buffer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="More-Complex.html#More-Complex">More Complex</a>
+
+</div>
+
+<h3 class="section">5.2 The Definition of <code>insert-buffer</code></h3>
+
+<p><a name="index-insert_002dbuffer-153"></a>
+<code>insert-buffer</code> is yet another buffer-related function.  This
+command copies another buffer <em>into</em> the current buffer.  It is the
+reverse of <code>append-to-buffer</code> or <code>copy-to-buffer</code>, since they
+copy a region of text <em>from</em> the current buffer to another buffer.
+
+   <p>Here is a discussion based on the original code.  The code was
+simplified in 2003 and is harder to understand.
+
+   <p>(See <a href="New-insert_002dbuffer.html#New-insert_002dbuffer">New Body for <code>insert-buffer</code></a>, to see
+a discussion of the new body.)
+
+   <p>In addition, this code illustrates the use of <code>interactive</code> with a
+buffer that might be <dfn>read-only</dfn> and the important distinction
+between the name of an object and the object actually referred to.
+
+<ul class="menu">
+<li><a accesskey="1" href="insert_002dbuffer-code.html#insert_002dbuffer-code">insert-buffer code</a>
+<li><a accesskey="2" href="insert_002dbuffer-interactive.html#insert_002dbuffer-interactive">insert-buffer interactive</a>:    When you can read, but not write. 
+<li><a accesskey="3" href="insert_002dbuffer-body.html#insert_002dbuffer-body">insert-buffer body</a>:           The body has an <code>or</code> and a <code>let</code>. 
+<li><a accesskey="4" href="if-_0026-or.html#if-_0026-or">if &amp; or</a>:                      Using an <code>if</code> instead of an <code>or</code>. 
+<li><a accesskey="5" href="Insert-or.html#Insert-or">Insert or</a>:                    How the <code>or</code> expression works. 
+<li><a accesskey="6" href="Insert-let.html#Insert-let">Insert let</a>:                   Two <code>save-excursion</code> expressions. 
+<li><a accesskey="7" href="New-insert_002dbuffer.html#New-insert_002dbuffer">New insert-buffer</a>
+</ul>
+
+   </body></html>
+

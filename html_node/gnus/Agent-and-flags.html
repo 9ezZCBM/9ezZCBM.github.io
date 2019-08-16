@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Agent and flags - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Agent-and-flags"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Agent-and-IMAP.html#Agent-and-IMAP">Agent and IMAP</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Agent-Regeneration.html#Agent-Regeneration">Agent Regeneration</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Gnus-Unplugged.html#Gnus-Unplugged">Gnus Unplugged</a>
+
+</div>
+
+<h4 class="subsection">6.9.8 Agent and flags</h4>
+
+<p>The Agent works with any Gnus back end including those, such as
+nnimap, that store flags (read, ticked, etc.) on the server.  Sadly,
+the Agent does not actually know which backends keep their flags in
+the backend server rather than in <samp><span class="file">.newsrc</span></samp>.  This means that the
+Agent, while unplugged or disconnected, will always record all changes
+to the flags in its own files.
+
+   <p>When you plug back in, Gnus will then check to see if you have any
+changed any flags and ask if you wish to synchronize these with the
+server.  This behavior is customizable by <code>gnus-agent-synchronize-flags</code>.
+
+   <p><a name="index-gnus_002dagent_002dsynchronize_002dflags-2383"></a>If <code>gnus-agent-synchronize-flags</code> is <code>nil</code>, the Agent will
+never automatically synchronize flags.  If it is <code>ask</code>, which is
+the default, the Agent will check if you made any changes and if so
+ask if you wish to synchronize these when you re-connect.  If it has
+any other value, all flags will be synchronized automatically.
+
+   <p>If you do not wish to synchronize flags automatically when you
+re-connect, you can do it manually with the
+<code>gnus-agent-synchronize-flags</code> command that is bound to <kbd>J Y</kbd>
+in the group buffer.
+
+   <p>Technical note: the synchronization algorithm does not work by &ldquo;pushing&rdquo;
+all local flags to the server, but rather by incrementally updated the
+server view of flags by changing only those flags that were changed by
+the user.  Thus, if you set one flag on an article, quit the group then
+re-select the group and remove the flag; the flag will be set and
+removed from the server when you &ldquo;synchronize&rdquo;.  The queued flag
+operations can be found in the per-server <code>flags</code> file in the Agent
+directory.  It's emptied when you synchronize flags.
+
+   </body></html>
+

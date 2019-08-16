@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>PCL-CVS--Emacs Front-End to CVS</title>
+<!--
+Copyright (C) 1991-2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being "A GNU Manual", and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     "GNU Free Documentation License".
+
+     (a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+     modify this GNU manual."
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div id="content" class="inner">
+
+<h2 class="unnumbered">PCL-CVS</h2>
+
+<p>This manual describes PCL-CVS, the GNU Emacs front-end to CVS.  It is
+nowhere near complete, so you are advised to use <kbd>M-x
+customize-group &lt;RET&gt; pcl-cvs &lt;RET&gt;</kbd> and to look at the
+documentation strings of the various commands and major modes for
+further information. 
+<!-- This manual is updated to release 2.5 of PCL-CVS. -->
+
+
+
+<table style="float:left" width="100%">
+  <tr>
+    <td><a accesskey="1" href="About-PCL_002dCVS.html#About-PCL_002dCVS">About PCL-CVS</a></td>
+    <td>Credits, history, ...</td>
+  </tr>
+  <tr>
+    <td><a accesskey="2" href="Getting-started.html#Getting-started">Getting started</a></td>
+    <td>An introduction with a walk-through example.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="3" href="Buffer-contents.html#Buffer-contents">Buffer contents</a></td>
+    <td>An explanation of the buffer contents.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="4" href="Selected-files.html#Selected-files">Selected files</a></td>
+    <td>To which files are commands applied.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="5" href="Commands.html#Commands">Commands</a></td>
+    <td>All commands, grouped by type.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="6" href="Log-Edit-Mode.html#Log-Edit-Mode">Log Edit Mode</a></td>
+    <td>Major mode to edit log messages.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="7" href="Log-View-Mode.html#Log-View-Mode">Log View Mode</a></td>
+    <td>Major mode to browse log changes. 
+<!-- * CVS Status Mode::             Major mode to view CVS' status output. --></td>
+  </tr>
+  <tr>
+    <td><a accesskey="8" href="Customization.html#Customization">Customization</a></td>
+    <td>How you can tailor PCL-CVS to suit your needs.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="9" href="Bugs.html#Bugs">Bugs</a></td>
+    <td>Bugs (known and unknown).</td>
+  </tr>
+  <tr>
+    <td><a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a></td>
+    <td>The license for this documentation.</td>
+  </tr>
+  <tr>
+    <td><a href="Function-and-Variable-Index.html#Function-and-Variable-Index">Function and Variable Index</a></td>
+    <td>List of functions and variables.</td>
+  </tr>
+  <tr>
+    <td><a href="Concept-Index.html#Concept-Index">Concept Index</a></td>
+    <td>List of concepts.</td>
+  </tr>
+  <tr>
+    <td><a href="Key-Index.html#Key-Index">Key Index</a></td>
+    <td>List of keystrokes.
+
+  </td></tr></table>
+
+<h3>Detailed Node Listing</h3></p>
+
+<table  style="float:left" width="100%">
+  <tr>
+    <th colspan="2" align="left" style="text-align:left">About PCL-CVS
+
+  </th></tr>
+  <tr>
+    <td><a href="Contributors.html#Contributors">Contributors</a></td>
+    <td>Contributors to PCL-CVS.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Commands
+
+  </th></tr>
+  <tr>
+    <td><a href="Entering-PCL_002dCVS.html#Entering-PCL_002dCVS">Entering PCL-CVS</a></td>
+    <td>Commands to invoke PCL-CVS</td>
+  </tr>
+  <tr>
+    <td><a href="Setting-flags.html#Setting-flags">Setting flags</a></td>
+    <td>Setting flags for CVS commands</td>
+  </tr>
+  <tr>
+    <td><a href="Updating-the-buffer.html#Updating-the-buffer">Updating the buffer</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="Movement-commands.html#Movement-commands">Movement commands</a></td>
+    <td>How to move up and down in the buffer</td>
+  </tr>
+  <tr>
+    <td><a href="Marking-files.html#Marking-files">Marking files</a></td>
+    <td>How to mark files that other commands
+                                will later operate on.</td>
+  </tr>
+  <tr>
+    <td><a href="Committing-changes.html#Committing-changes">Committing changes</a></td>
+    <td>Checking in your modifications to the
+                                CVS repository.</td>
+  </tr>
+  <tr>
+    <td><a href="Editing-files.html#Editing-files">Editing files</a></td>
+    <td>Loading files into Emacs.</td>
+  </tr>
+  <tr>
+    <td><a href="Getting-info-about-files.html#Getting-info-about-files">Getting info about files</a></td>
+    <td>Display the log and status of files.</td>
+  </tr>
+  <tr>
+    <td><a href="Adding-and-removing-files.html#Adding-and-removing-files">Adding and removing files</a></td>
+    <td>Adding and removing files</td>
+  </tr>
+  <tr>
+    <td><a href="Undoing-changes.html#Undoing-changes">Undoing changes</a></td>
+    <td>Undoing changes</td>
+  </tr>
+  <tr>
+    <td><a href="Removing-handled-entries.html#Removing-handled-entries">Removing handled entries</a></td>
+    <td>Uninteresting lines can easily be removed.</td>
+  </tr>
+  <tr>
+    <td><a href="Ignoring-files.html#Ignoring-files">Ignoring files</a></td>
+    <td>Telling CVS to ignore generated files.</td>
+  </tr>
+  <tr>
+    <td><a href="Viewing-differences.html#Viewing-differences">Viewing differences</a></td>
+    <td>Commands to &lsquo;<samp><span class="samp">diff</span></samp>&rsquo; different versions.</td>
+  </tr>
+  <tr>
+    <td><a href="Invoking-Ediff.html#Invoking-Ediff">Invoking Ediff</a></td>
+    <td>Running &lsquo;<samp><span class="samp">ediff</span></samp>&rsquo; from <samp><span class="file">*cvs*</span></samp> buffer.</td>
+  </tr>
+  <tr>
+    <td><a href="Updating-files.html#Updating-files">Updating files</a></td>
+    <td>Updating files that Need-update.</td>
+  </tr>
+  <tr>
+    <td><a href="Tagging-files.html#Tagging-files">Tagging files</a></td>
+    <td>Tagging files.</td>
+  </tr>
+  <tr>
+    <td><a href="Miscellaneous-commands.html#Miscellaneous-commands">Miscellaneous commands</a></td>
+    <td>Miscellaneous commands.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Customization
+
+  </th></tr>
+  <tr>
+    <td><a href="Customizing-Faces.html#Customizing-Faces">Customizing Faces</a></td>
+    <td>
+  </td></tr>
+</table>
+   <p>Copyright &copy; 1991&ndash;2019 Free Software Foundation, Inc.
+
+   <blockquote>
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being &ldquo;A GNU Manual&rdquo;,
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled &ldquo;GNU Free Documentation License&rdquo;.
+
+   <p>(a) The FSF's Back-Cover Text is: &ldquo;You have the freedom to copy and
+modify this GNU manual.&rdquo;
+</blockquote>
+</div>
+
+   </body></html>
+
+<!--
+
+Local Variables:
+coding: utf-8
+End:
+
+-->

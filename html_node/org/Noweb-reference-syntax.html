@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Noweb reference syntax - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Noweb-reference-syntax"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Key-bindings-and-useful-functions.html#Key-bindings-and-useful-functions">Key bindings and useful functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Results-of-evaluation.html#Results-of-evaluation">Results of evaluation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Working-with-source-code.html#Working-with-source-code">Working with source code</a>
+
+</div>
+
+<h3 class="section">14.10 Noweb reference syntax</h3>
+
+<p><a name="index-code-block_002c-noweb-reference-2163"></a><a name="index-syntax_002c-noweb-2164"></a><a name="index-source-code_002c-noweb-reference-2165"></a>
+Org supports named blocks in Noweb style syntax.  For Noweb literate
+programming details, see <a href="http://www.cs.tufts.edu/~nr/noweb/">http://www.cs.tufts.edu/~nr/noweb/</a>).
+
+<pre class="example">     &lt;&lt;code-block-name&gt;&gt;
+</pre>
+   <p>For the header argument <code>:noweb yes</code>, Org expands Noweb style references
+in the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block before evaluation.
+
+   <p>For the header argument <code>:noweb no</code>, Org does not expand Noweb style
+references in the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block before evaluation.
+
+   <p>The default is <code>:noweb no</code>.  Org defaults to <code>:noweb no</code> so as not
+to cause errors in languages where Noweb syntax is ambiguous.  Change Org's
+default to <code>:noweb yes</code> for languages where there is no risk of
+confusion.
+
+   <p>Org offers a more flexible way to resolve Noweb style references
+(see <a href="noweb_002dref.html#noweb_002dref">noweb-ref</a>).
+
+   <p>Org can include the <em>results</em> of a code block rather than its body.  To
+that effect, append parentheses, possibly including arguments, to the code
+block name, as show below.
+
+<pre class="example">     &lt;&lt;code-block-name(optional arguments)&gt;&gt;
+</pre>
+   <p>Note that when using the above approach to a code block's results, the code
+block name set by <code>#+NAME</code> keyword is required; the reference set by
+<code>:noweb-ref</code> will not work.
+
+   <p>Here is an example that demonstrates how the exported content changes when
+Noweb style references are used with parentheses versus without.
+
+   <p>With:
+
+<pre class="example">     #+NAME: some-code
+     #+BEGIN_SRC python :var num=0 :results output :exports none
+     print(num*10)
+     #+END_SRC
+</pre>
+   <p>this code block:
+
+<pre class="example">     #+BEGIN_SRC text :noweb yes
+     &lt;&lt;some-code&gt;&gt;
+     #+END_SRC
+</pre>
+   <p>expands to:
+
+<pre class="example">     print(num*10)
+</pre>
+   <p>Below, a similar Noweb style reference is used, but with parentheses, while
+setting a variable <code>num</code> to 10:
+
+<pre class="example">     #+BEGIN_SRC text :noweb yes
+     &lt;&lt;some-code(num=10)&gt;&gt;
+     #+END_SRC
+</pre>
+   <p>Note that now the expansion contains the <em>results</em> of the code block
+<code>some-code</code>, not the code block itself:
+
+<pre class="example">     100
+</pre>
+   <p>For faster tangling of large Org mode files, set
+<code>org-babel-use-quick-and-dirty-noweb-expansion</code> variable to <code>t</code>. 
+The speedup comes at the expense of not correctly resolving inherited values
+of the <code>:noweb-ref</code> header argument.
+
+   </body></html>
+

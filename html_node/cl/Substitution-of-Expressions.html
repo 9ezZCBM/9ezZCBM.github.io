@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Substitution of Expressions - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Substitution-of-Expressions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Lists-as-Sets.html#Lists-as-Sets">Lists as Sets</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="List-Functions.html#List-Functions">List Functions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Lists.html#Lists">Lists</a>
+
+</div>
+
+<h3 class="section">10.2 Substitution of Expressions</h3>
+
+<p class="noindent">These functions substitute elements throughout a tree of cons
+cells.  (See <a href="Sequence-Functions.html#Sequence-Functions">Sequence Functions</a>, for the <code>cl-substitute</code>
+function, which works on just the top-level elements of a list.)
+
+<div class="defun">
+&mdash; Function: <b>cl-subst</b><var> new old tree </var><tt>&amp;key :test :test-not :key</tt><var><a name="index-cl_002dsubst-158"></a></var><br>
+<blockquote><p>This function substitutes occurrences of <var>old</var> with <var>new</var>
+in <var>tree</var>, a tree of cons cells.  It returns a substituted
+tree, which will be a copy except that it may share storage with
+the argument <var>tree</var> in parts where no substitutions occurred. 
+The original <var>tree</var> is not modified.  This function recurses
+on, and compares against <var>old</var>, both <span class="sc">car</span>s and <span class="sc">cdr</span>s
+of the component cons cells.  If <var>old</var> is itself a cons cell,
+then matching cells in the tree are substituted as usual without
+recursively substituting in that cell.  Comparisons with <var>old</var>
+are done according to the specified test (<code>eql</code> by default). 
+The <code>:key</code> function is applied to the elements of the tree
+but not to <var>old</var>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-nsubst</b><var> new old tree </var><tt>&amp;key :test :test-not :key</tt><var><a name="index-cl_002dnsubst-159"></a></var><br>
+<blockquote><p>This function is like <code>cl-subst</code>, except that it works by
+destructive modification (by <code>setcar</code> or <code>setcdr</code>)
+rather than copying. 
+</p></blockquote></div>
+
+   <p><a name="index-cl_002dsubst_002dif-160"></a><a name="index-cl_002dsubst_002dif_002dnot-161"></a><a name="index-cl_002dnsubst_002dif-162"></a><a name="index-cl_002dnsubst_002dif_002dnot-163"></a>The <code>cl-subst-if</code>, <code>cl-subst-if-not</code>, <code>cl-nsubst-if</code>, and
+<code>cl-nsubst-if-not</code> functions are defined similarly.
+
+<div class="defun">
+&mdash; Function: <b>cl-sublis</b><var> alist tree </var><tt>&amp;key :test :test-not :key</tt><var><a name="index-cl_002dsublis-164"></a></var><br>
+<blockquote><p>This function is like <code>cl-subst</code>, except that it takes an
+association list <var>alist</var> of <var>old</var>-<var>new</var> pairs. 
+Each element of the tree (after applying the <code>:key</code>
+function, if any), is compared with the <span class="sc">car</span>s of
+<var>alist</var>; if it matches, it is replaced by the corresponding
+<span class="sc">cdr</span>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>cl-nsublis</b><var> alist tree </var><tt>&amp;key :test :test-not :key</tt><var><a name="index-cl_002dnsublis-165"></a></var><br>
+<blockquote><p>This is a destructive version of <code>cl-sublis</code>. 
+</p></blockquote></div>
+
+   </body></html>
+

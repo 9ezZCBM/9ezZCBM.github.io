@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Simple Extension - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Simple-Extension"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="X11-Colors.html#X11-Colors">X11 Colors</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Autoload.html#Autoload">Autoload</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a>
+
+</div>
+
+<h3 class="section">16.11 A Simple Extension: <code>line-to-top-of-window</code></h3>
+
+<p><a name="index-line_002dto_002dtop_002dof_002dwindow-341"></a><a name="index-Simple-extension-in-_0040file_007b_002eemacs_007d-file-342"></a>
+Here is a simple extension to Emacs that moves the line point is on to
+the top of the window.  I use this all the time, to make text easier
+to read.
+
+   <p>You can put the following code into a separate file and then load it
+from your <samp><span class="file">.emacs</span></samp> file, or you can include it within your
+<samp><span class="file">.emacs</span></samp> file.
+
+   <p>Here is the definition:
+
+<pre class="smallexample">     ;;; Line to top of window;
+     ;;; replace three keystroke sequence  C-u 0 C-l
+     (defun line-to-top-of-window ()
+       "Move the line point is on to top of window."
+       (interactive)
+       (recenter 0))
+</pre>
+   <p>Now for the keybinding.
+
+   <p>Nowadays, function keys as well as mouse button events and
+non-<span class="sc">ascii</span> characters are written within square brackets, without
+quotation marks.  (In Emacs version 18 and before, you had to write
+different function key bindings for each different make of terminal.)
+
+   <p>I bind <code>line-to-top-of-window</code> to my &lt;F6&gt; function key like
+this:
+
+<pre class="smallexample">     (global-set-key [f6] 'line-to-top-of-window)
+</pre>
+   <p>For more information, see <a href="../emacs/Init-Rebinding.html#Init-Rebinding">Rebinding Keys in Your Init File</a>.
+
+   <p><a name="index-Conditional-_0027twixt-two-versions-of-Emacs-343"></a><a name="index-Version-of-Emacs_002c-choosing-344"></a><a name="index-Emacs-version_002c-choosing-345"></a>If you run two versions of GNU Emacs, such as versions 22 and 23, and
+use one <samp><span class="file">.emacs</span></samp> file, you can select which code to evaluate with
+the following conditional:
+
+<pre class="smallexample">     (cond
+      ((= 22 emacs-major-version)
+       ;; evaluate version 22 code
+       ( ... ))
+      ((= 23 emacs-major-version)
+       ;; evaluate version 23 code
+       ( ... )))
+</pre>
+   <p>For example, recent versions blink
+their cursors by default.  I hate such blinking, as well as other
+features, so I placed the following in my <samp><span class="file">.emacs</span></samp>
+file<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>:
+
+<pre class="smallexample">     (when (&gt;= emacs-major-version 21)
+       (blink-cursor-mode 0)
+       ;; Insert newline when you press 'C-n' (next-line)
+       ;; at the end of the buffer
+       (setq next-line-add-newlines t)
+       ;; Turn on image viewing
+       (auto-image-file-mode t)
+       ;; Turn on menu bar (this bar has text)
+       ;; (Use numeric argument to turn on)
+       (menu-bar-mode 1)
+       ;; Turn off tool bar (this bar has icons)
+       ;; (Use numeric argument to turn on)
+       (tool-bar-mode nil)
+       ;; Turn off tooltip mode for tool bar
+       ;; (This mode causes icon explanations to pop up)
+       ;; (Use numeric argument to turn on)
+       (tooltip-mode nil)
+       ;; If tooltips turned on, make tips appear promptly
+       (setq tooltip-delay 0.1)  ; default is 0.7 second
+        )
+</pre>
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> When I start instances of Emacs that do not load my
+<samp><span class="file">.emacs</span></samp> file or any site file, I also turn off blinking:
+
+<pre class="smallexample">     emacs -q --no-site-file -eval '(blink-cursor-mode nil)'
+     
+<br>Or nowadays, using an even more sophisticated set of options,<br>
+     
+     emacs -Q -D
+</pre>
+   <p></p>
+
+   <hr></div>
+
+   </body></html>
+

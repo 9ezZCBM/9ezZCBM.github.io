@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Summary Buffer Format - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Summary-Buffer-Format"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Summary-Maneuvering.html#Summary-Maneuvering">Summary Maneuvering</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Summary-Buffer.html#Summary-Buffer">Summary Buffer</a>
+
+</div>
+
+<h3 class="section">3.1 Summary Buffer Format</h3>
+
+<p><a name="index-summary-buffer-format-569"></a>
+
+<ul class="menu">
+<li><a accesskey="1" href="Summary-Buffer-Lines.html#Summary-Buffer-Lines">Summary Buffer Lines</a>:         You can specify how summary lines should look. 
+<li><a accesskey="2" href="To-From-Newsgroups.html#To-From-Newsgroups">To From Newsgroups</a>:           How to not display your own name. 
+<li><a accesskey="3" href="Summary-Buffer-Mode-Line.html#Summary-Buffer-Mode-Line">Summary Buffer Mode Line</a>:     You can say how the mode line should look. 
+<li><a accesskey="4" href="Summary-Highlighting.html#Summary-Highlighting">Summary Highlighting</a>:         Making the summary buffer all pretty and nice. 
+</ul>
+
+   <p><a name="index-mail_002dextract_002daddress_002dcomponents-570"></a><a name="index-gnus_002dextract_002daddress_002dcomponents-571"></a><a name="index-gnus_002dextract_002daddress_002dcomponents-572"></a>Gnus will use the value of the <code>gnus-extract-address-components</code>
+variable as a function for getting the name and address parts of a
+<code>From</code> header.  Two pre-defined functions exist:
+<code>gnus-extract-address-components</code>, which is the default, quite
+fast, and too simplistic solution; and
+<code>mail-extract-address-components</code>, which works very nicely, but is
+slower.  The default function will return the wrong answer in 5% of the
+cases.  If this is unacceptable to you, use the other function instead:
+
+<pre class="lisp">     (setq gnus-extract-address-components
+           'mail-extract-address-components)
+</pre>
+   <p><a name="index-gnus_002dsummary_002dsame_002dsubject-573"></a><code>gnus-summary-same-subject</code> is a string indicating that the current
+article has the same subject as the previous.  This string will be used
+with those specs that require it.  The default is <code>""</code>.
+
+   </body></html>
+

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>kill-append function - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="kill-append-function"></a>
+<a name="kill_002dappend-function"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="kill_002dnew-function.html#kill_002dnew-function">kill-new function</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="last_002dcommand-_0026-this_002dcommand.html#last_002dcommand-_0026-this_002dcommand">last-command &amp; this-command</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="copy_002dregion_002das_002dkill-body.html#copy_002dregion_002das_002dkill-body">copy-region-as-kill body</a>
+
+</div>
+
+<h5 class="unnumberedsubsubsec">The <code>kill-append</code> function</h5>
+
+<p><a name="index-kill_002dappend-201"></a>
+The <code>kill-append</code> function looks like this:
+
+<!-- in GNU Emacs 22 -->
+<pre class="smallexample">     (defun kill-append (string before-p &amp;optional yank-handler)
+       "Append STRING to the end of the latest kill in the kill ring.
+     If BEFORE-P is non-nil, prepend STRING to the kill.
+     ... "
+       (let* ((cur (car kill-ring)))
+         (kill-new (if before-p (concat string cur) (concat cur string))
+                   (or (= (length cur) 0)
+                       (equal yank-handler
+                              (get-text-property 0 'yank-handler cur)))
+                   yank-handler)))
+</pre>
+   <p class="noindent">The <code>kill-append</code> function is fairly straightforward.  It uses
+the <code>kill-new</code> function, which we will discuss in more detail in
+a moment.
+
+   <p>(Also, the function provides an optional argument called
+<code>yank-handler</code>; when invoked, this argument tells the function
+how to deal with properties added to the text, such as bold or
+italics.)
+
+<!-- !!! bug in GNU Emacs 22 version of  kill-append ? -->
+   <p>It has a <code>let*</code> function to set the value of the first element of
+the kill ring to <code>cur</code>.  (I do not know why the function does not
+use <code>let</code> instead; only one value is set in the expression. 
+Perhaps this is a bug that produces no problems?)
+
+   <p>Consider the conditional that is one of the two arguments to
+<code>kill-new</code>.  It uses <code>concat</code> to concatenate the new text to
+the <span class="sc">car</span> of the kill ring.  Whether it prepends or appends the
+text depends on the results of an <code>if</code> expression:
+
+<pre class="smallexample">     (if before-p                            ; <span class="roman">if-part</span>
+         (concat string cur)                 ; <span class="roman">then-part</span>
+       (concat cur string))                  ; <span class="roman">else-part</span>
+</pre>
+   <p class="noindent">If the region being killed is before the region that was killed in the
+last command, then it should be prepended before the material that was
+saved in the previous kill; and conversely, if the killed text follows
+what was just killed, it should be appended after the previous text. 
+The <code>if</code> expression depends on the predicate <code>before-p</code> to
+decide whether the newly saved text should be put before or after the
+previously saved text.
+
+   <p>The symbol <code>before-p</code> is the name of one of the arguments to
+<code>kill-append</code>.  When the <code>kill-append</code> function is
+evaluated, it is bound to the value returned by evaluating the actual
+argument.  In this case, this is the expression <code>(&lt; end beg)</code>. 
+This expression does not directly determine whether the killed text in
+this command is located before or after the kill text of the last
+command; what it does is determine whether the value of the variable
+<code>end</code> is less than the value of the variable <code>beg</code>.  If it
+is, it means that the user is most likely heading towards the
+beginning of the buffer.  Also, the result of evaluating the predicate
+expression, <code>(&lt; end beg)</code>, will be true and the text will be
+prepended before the previous text.  On the other hand, if the value of
+the variable <code>end</code> is greater than the value of the variable
+<code>beg</code>, the text will be appended after the previous text.
+
+   <p>When the newly saved text will be prepended, then the string with the new
+text will be concatenated before the old text:
+
+<pre class="smallexample">     (concat string cur)
+</pre>
+   <p class="noindent">But if the text will be appended, it will be concatenated
+after the old text:
+
+<pre class="smallexample">     (concat cur string))
+</pre>
+   <p>To understand how this works, we first need to review the
+<code>concat</code> function.  The <code>concat</code> function links together or
+unites two strings of text.  The result is a string.  For example:
+
+<pre class="smallexample">     (concat "abc" "def")
+          &rArr; "abcdef"
+     
+     (concat "new "
+             (car '("first element" "second element")))
+          &rArr; "new first element"
+     
+     (concat (car
+             '("first element" "second element")) " modified")
+          &rArr; "first element modified"
+</pre>
+   <p>We can now make sense of <code>kill-append</code>: it modifies the contents
+of the kill ring.  The kill ring is a list, each element of which is
+saved text.  The <code>kill-append</code> function uses the <code>kill-new</code>
+function which in turn uses the <code>setcar</code> function.
+
+   </body></html>
+

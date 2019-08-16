@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>fwd-sentence while loops - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="fwd-sentence-while-loops"></a>
+<a name="fwd_002dsentence-while-loops"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="fwd_002dsentence-re_002dsearch.html#fwd_002dsentence-re_002dsearch">fwd-sentence re-search</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Complete-forward_002dsentence.html#Complete-forward_002dsentence">Complete forward-sentence</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="forward_002dsentence.html#forward_002dsentence">forward-sentence</a>
+
+</div>
+
+<h4 class="unnumberedsubsec">The <code>while</code> loops</h4>
+
+<p>Two <code>while</code> loops follow.  The first <code>while</code> has a
+true-or-false-test that tests true if the prefix argument for
+<code>forward-sentence</code> is a negative number.  This is for going
+backwards.  The body of this loop is similar to the body of the second
+<code>while</code> clause, but it is not exactly the same.  We will skip
+this <code>while</code> loop and concentrate on the second <code>while</code>
+loop.
+
+   <p>The second <code>while</code> loop is for moving point forward.  Its skeleton
+looks like this:
+
+<pre class="smallexample">     (while (&gt; arg 0)            ; <span class="roman">true-or-false-test</span>
+       (let <var>varlist</var>
+         (if (<var>true-or-false-test</var>)
+             <var>then-part</var>
+           <var>else-part</var>
+       (setq arg (1- arg))))     ; <code>while</code> <span class="roman">loop decrementer</span>
+</pre>
+   <p>The <code>while</code> loop is of the decrementing kind. 
+(See <a href="Decrementing-Loop.html#Decrementing-Loop">A Loop with a Decrementing Counter</a>.)  It
+has a true-or-false-test that tests true so long as the counter (in
+this case, the variable <code>arg</code>) is greater than zero; and it has a
+decrementer that subtracts 1 from the value of the counter every time
+the loop repeats.
+
+   <p>If no prefix argument is given to <code>forward-sentence</code>, which is
+the most common way the command is used, this <code>while</code> loop will
+run once, since the value of <code>arg</code> will be 1.
+
+   <p>The body of the <code>while</code> loop consists of a <code>let</code> expression,
+which creates and binds a local variable, and has, as its body, an
+<code>if</code> expression.
+
+   <p>The body of the <code>while</code> loop looks like this:
+
+<pre class="smallexample">     (let ((par-end
+            (save-excursion (end-of-paragraph-text) (point))))
+       (if (re-search-forward sentence-end par-end t)
+           (skip-chars-backward " \t\n")
+         (goto-char par-end)))
+</pre>
+   <p>The <code>let</code> expression creates and binds the local variable
+<code>par-end</code>.  As we shall see, this local variable is designed to
+provide a bound or limit to the regular expression search.  If the
+search fails to find a proper sentence ending in the paragraph, it will
+stop on reaching the end of the paragraph.
+
+   <p>But first, let us examine how <code>par-end</code> is bound to the value of
+the end of the paragraph.  What happens is that the <code>let</code> sets the
+value of <code>par-end</code> to the value returned when the Lisp interpreter
+evaluates the expression
+
+<pre class="smallexample">     (save-excursion (end-of-paragraph-text) (point))
+</pre>
+   <p class="noindent">In this expression, <code>(end-of-paragraph-text)</code> moves point to the
+end of the paragraph, <code>(point)</code> returns the value of point, and then
+<code>save-excursion</code> restores point to its original position.  Thus,
+the <code>let</code> binds <code>par-end</code> to the value returned by the
+<code>save-excursion</code> expression, which is the position of the end of
+the paragraph.  (The <code>end-of-paragraph-text</code> function uses
+<code>forward-paragraph</code>, which we will discuss shortly.)
+
+   <p>Emacs next evaluates the body of the <code>let</code>, which is an <code>if</code>
+expression that looks like this:
+
+<pre class="smallexample">     (if (re-search-forward sentence-end par-end t) ; <span class="roman">if-part</span>
+         (skip-chars-backward " \t\n")              ; <span class="roman">then-part</span>
+       (goto-char par-end)))                        ; <span class="roman">else-part</span>
+</pre>
+   <p>The <code>if</code> tests whether its first argument is true and if so,
+evaluates its then-part; otherwise, the Emacs Lisp interpreter
+evaluates the else-part.  The true-or-false-test of the <code>if</code>
+expression is the regular expression search.
+
+   <p>It may seem odd to have what looks like the real work of
+the <code>forward-sentence</code> function buried here, but this is a common
+way this kind of operation is carried out in Lisp.
+
+   </body></html>
+

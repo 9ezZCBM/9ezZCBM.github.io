@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Sectioning Frames and Blocks in Beamer - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Sectioning-Frames-and-Blocks-in-Beamer"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Beamer-specific-syntax.html#Beamer-specific-syntax">Beamer specific syntax</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Beamer-specific-export-settings.html#Beamer-specific-export-settings">Beamer specific export settings</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Beamer-export.html#Beamer-export">Beamer export</a>
+
+</div>
+
+<h4 class="subsection">12.8.3 Sectioning, Frames and Blocks in Beamer</h4>
+
+<p>Org transforms heading levels into Beamer's sectioning elements, frames and
+blocks.  Any Org tree with a not-too-deep-level nesting should in principle
+be exportable as a Beamer presentation.
+
+     <ul>
+<li><a name="index-org_002dbeamer_002dframe_002dlevel-1724"></a>Org headlines become Beamer frames when the heading level in Org is equal to
+<code>org-beamer-frame-level</code> or <code>H</code> value in an <code>OPTIONS</code> line
+(see <a href="Export-settings.html#Export-settings">Export settings</a>).
+
+     <p><a name="index-property_002c-_0040code_007bBEAMER_005fENV_007d-1725"></a>Org overrides headlines to frames conversion for the current tree of an Org
+file if it encounters the <code>BEAMER_ENV</code> property set to <code>frame</code> or
+<code>fullframe</code>.  Org ignores whatever <code>org-beamer-frame-level</code> happens
+to be for that headline level in the Org tree.  In Beamer terminology, a
+<code>fullframe</code> is a frame without its title.
+
+     <li><a name="index-org_002dbeamer_002denvironments_002ddefault-1726"></a><a name="index-org_002dbeamer_002denvironments_002dextra-1727"></a>Org exports a Beamer frame's objects as <code>block</code> environments.  Org can
+enforce wrapping in special block types when <code>BEAMER_ENV</code> property is
+set<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.  For valid values see
+<code>org-beamer-environments-default</code>.  To add more values, see
+<code>org-beamer-environments-extra</code>.
+
+     <li><a name="index-property_002c-_0040code_007bBEAMER_005fREF_007d-1728"></a>If <code>BEAMER_ENV</code> is set to <code>appendix</code>, Org exports the entry as an
+appendix.  When set to <code>note</code>, Org exports the entry as a note within
+the frame or between frames, depending on the entry's heading level.  When
+set to <code>noteNH</code>, Org exports the entry as a note without its title. 
+When set to <code>againframe</code>, Org exports the entry with <code>\againframe</code>
+command, which makes setting the <code>BEAMER_REF</code> property mandatory because
+<code>\againframe</code> needs frame to resume.
+
+     <p>When <code>ignoreheading</code> is set, Org export ignores the entry's headline but
+not its content.  This is useful for inserting content between frames.  It is
+also useful for properly closing a <code>column</code> environment. 
+</ul>
+
+   <p><a name="index-property_002c-_0040code_007bBEAMER_005fACT_007d-1729"></a><a name="index-property_002c-_0040code_007bBEAMER_005fOPT_007d-1730"></a>When <code>BEAMER_ACT</code> is set for a headline, Org export translates that
+headline as an overlay or action specification.  When enclosed in square
+brackets, Org export makes the overlay specification a default.  Use
+<code>BEAMER_OPT</code> to set any options applicable to the current Beamer frame
+or block.  The Beamer export back-end wraps with appropriate angular or
+square brackets.  It also adds the <code>fragile</code> option for any code that may
+require a verbatim block.
+
+   <p><a name="index-property_002c-_0040code_007bBEAMER_005fCOL_007d-1731"></a>To create a column on the Beamer slide, use the <code>BEAMER_COL</code> property
+for its headline in the Org file.  Set the value of <code>BEAMER_COL</code> to a
+decimal number representing the fraction of the total text width.  Beamer
+export uses this value to set the column's width and fills the column with
+the contents of the Org entry.  If the Org entry has no specific environment
+defined, Beamer export ignores the heading.  If the Org entry has a defined
+environment, Beamer export uses the heading as title.  Behind the scenes,
+Beamer export automatically handles LaTeX column separations for
+contiguous headlines.  To manually adjust them for any unique configurations
+needs, use the <code>BEAMER_ENV</code> property.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> If <code>BEAMER_ENV</code> is set, Org export adds
+<code>:B_environment:</code> tag to make it visible.  The tag serves as a visual
+aid and has no semantic relevance.</p>
+
+   <hr></div>
+
+   </body></html>
+

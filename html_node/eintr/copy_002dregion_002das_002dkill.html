@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>copy-region-as-kill - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="copy-region-as-kill"></a>
+<a name="copy_002dregion_002das_002dkill"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Digression-into-C.html#Digression-into-C">Digression into C</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="kill_002dregion.html#kill_002dregion">kill-region</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a>
+
+</div>
+
+<h3 class="section">8.3 <code>copy-region-as-kill</code></h3>
+
+<p><a name="index-copy_002dregion_002das_002dkill-197"></a><a name="index-nthcdr-198"></a>
+The <code>copy-region-as-kill</code> function copies a region of text from a
+buffer and (via either <code>kill-append</code> or <code>kill-new</code>) saves it
+in the <code>kill-ring</code>.
+
+   <p>If you call <code>copy-region-as-kill</code> immediately after a
+<code>kill-region</code> command, Emacs appends the newly copied text to the
+previously copied text.  This means that if you yank back the text, you
+get it all, from both this and the previous operation.  On the other
+hand, if some other command precedes the <code>copy-region-as-kill</code>,
+the function copies the text into a separate entry in the kill ring.
+
+<ul class="menu">
+<li><a accesskey="1" href="Complete-copy_002dregion_002das_002dkill.html#Complete-copy_002dregion_002das_002dkill">Complete copy-region-as-kill</a>:   The complete function definition. 
+<li><a accesskey="2" href="copy_002dregion_002das_002dkill-body.html#copy_002dregion_002das_002dkill-body">copy-region-as-kill body</a>:       The body of <code>copy-region-as-kill</code>. 
+</ul>
+
+   </body></html>
+

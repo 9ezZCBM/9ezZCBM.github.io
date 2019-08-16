@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>@code{store-link} protocol - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="%3ccode%3estore-link%3c%2fcode%3e-protocol"></a>
+<a name="g_t_003ccode_003estore_002dlink_003c_002fcode_003e-protocol"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="_003ccode_003ecapture_003c_002fcode_003e-protocol.html#g_t_003ccode_003ecapture_003c_002fcode_003e-protocol">&lt;code&gt;capture&lt;/code&gt; protocol</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Protocols.html#Protocols">Protocols</a>
+
+</div>
+
+<h4 class="subsection">9.4.1 <code>store-link</code> protocol</h4>
+
+<p><a name="index-store_002dlink-protocol-1041"></a><a name="index-protocol_002c-store_002dlink-1042"></a>
+Using <code>store-link</code> handler, you can copy links, insertable through
+<kbd>M-x org-insert-link</kbd> or yanking thereafter.  More precisely, the command
+
+<pre class="example">     emacsclient org-protocol://store-link?url=URL&amp;title=TITLE
+</pre>
+   <p class="noindent">stores the following link:
+
+<pre class="example">     [[URL][TITLE]]
+</pre>
+   <p>In addition, &lsquo;<samp><span class="samp">URL</span></samp>&rsquo; is pushed on the kill-ring for yanking.  You need to
+encode &lsquo;<samp><span class="samp">URL</span></samp>&rsquo; and &lsquo;<samp><span class="samp">TITLE</span></samp>&rsquo; if they contain slashes, and probably
+quote those for the shell.
+
+   <p>To use this feature from a browser, add a bookmark with an arbitrary name,
+e.g., &lsquo;<samp><span class="samp">Org: store-link</span></samp>&rsquo; and enter this as <em>Location</em>:
+
+<pre class="example">     javascript:location.href='org-protocol://store-link?url='+
+           encodeURIComponent(location.href);
+</pre>
+   </body></html>
+

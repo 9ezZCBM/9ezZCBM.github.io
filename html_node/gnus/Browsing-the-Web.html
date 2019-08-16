@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Browsing the Web - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Browsing-the-Web"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Other-Sources.html#Other-Sources">Other Sources</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Getting-Mail.html#Getting-Mail">Getting Mail</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Select-Methods.html#Select-Methods">Select Methods</a>
+
+</div>
+
+<h3 class="section">6.5 Browsing the Web</h3>
+
+<p><a name="index-web-2215"></a><a name="index-browsing-the-web-2216"></a><a name="index-www-2217"></a><a name="index-http-2218"></a>
+Web-based discussion forums are getting more and more popular.  On many
+subjects, the web-based forums have become the most important forums,
+eclipsing the importance of mailing lists and news groups.  The reason
+is easy to understand&mdash;they are friendly to new users; you just point
+and click, and there's the discussion.  With mailing lists, you have to
+go through a cumbersome subscription procedure, and most people don't
+even know what a news group is.
+
+   <p>The problem with this scenario is that web browsers are not very good at
+being newsreaders.  They do not keep track of what articles you've read;
+they do not allow you to score on subjects you're interested in; they do
+not allow off-line browsing; they require you to click around and drive
+you mad in the end.
+
+   <p>So&mdash;if web browsers suck at reading discussion forums, why not use Gnus
+to do it instead?
+
+   <p>Gnus has been getting a bit of a collection of back ends for providing
+interfaces to these sources.
+
+<ul class="menu">
+<li><a accesskey="1" href="Archiving-Mail.html#Archiving-Mail">Archiving Mail</a>
+<li><a accesskey="2" href="Web-Searches.html#Web-Searches">Web Searches</a>:                 Creating groups from articles that match a string. 
+<li><a accesskey="3" href="RSS.html#RSS">RSS</a>:                          Reading RDF site summary. 
+</ul>
+
+   <p>The main caveat with all these web sources is that they probably won't
+work for a very long time.  Gleaning information from the <acronym>HTML</acronym> data
+is guesswork at best, and when the layout is altered, the Gnus back end
+will fail.  If you have reasonably new versions of these back ends,
+though, you should be ok.
+
+   <p>One thing all these Web methods have in common is that the Web sources
+are often down, unavailable or just plain too slow to be fun.  In those
+cases, it makes a lot of sense to let the Gnus Agent (see <a href="Gnus-Unplugged.html#Gnus-Unplugged">Gnus Unplugged</a>) handle downloading articles, and then you can read them at
+leisure from your local disk.  No more World Wide Wait for you.
+
+   </body></html>
+

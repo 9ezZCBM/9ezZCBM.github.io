@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Member Buffers - A Class Browser for C++</title>
+<!--
+This file documents Ebrowse, a C++ class browser for GNU Emacs.
+
+Copyright (C) 2000--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Member-Buffers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Tags_002dlike-Functions.html#Tags_002dlike-Functions">Tags-like Functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Tree-Buffers.html#Tree-Buffers">Tree Buffers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 Member Buffers</h2>
+
+<p><a name="index-members-76"></a><a name="index-member-buffer-mode-77"></a>
+<a name="index-class-members_002c-types-78"></a><a name="index-types-of-class-members-79"></a><dfn>Member buffers</dfn> are used to operate on lists of members of a class. 
+Ebrowse distinguishes six kinds of lists:
+
+     <ul>
+<li>Instance variables (normal member variables);
+<li>Instance functions (normal member functions);
+<li>Static variables;
+<li>Static member functions;
+<li>Friend functions;
+<li>Types (<code>enum</code>s and <code>typedef</code>s defined with class scope. 
+Nested classes will be shown in the class tree like normal classes. 
+</ul>
+
+   <p>Like tree buffers, member buffers install their own major mode.  Also
+like in tree buffers, menus are provided for certain areas in the
+buffer: members, classes, and the buffer itself.
+
+<ul class="menu">
+<li><a accesskey="1" href="Switching-Member-Lists.html#Switching-Member-Lists">Switching Member Lists</a>:       Choosing which members to display
+<li><a accesskey="2" href="Finding_002fViewing.html#Finding_002fViewing">Finding/Viewing</a>:              Modifying source code
+<li><a accesskey="3" href="Inherited-Members.html#Inherited-Members">Inherited Members</a>:            Display of Inherited Members
+<li><a accesskey="4" href="Searching-Members.html#Searching-Members">Searching Members</a>:            Finding members in member buffer
+<li><a accesskey="5" href="Switching-to-Tree.html#Switching-to-Tree">Switching to Tree</a>:            Going back to the tree buffer
+<li><a accesskey="6" href="Filters.html#Filters">Filters</a>:                      Selective member display
+<li><a accesskey="7" href="Attributes.html#Attributes">Attributes</a>:                   Display of <code>virtual</code> etc. 
+<li><a accesskey="8" href="Long-and-Short-Display.html#Long-and-Short-Display">Long and Short Display</a>:       Comprehensive and verbose display
+<li><a accesskey="9" href="Regexp-Display.html#Regexp-Display">Regexp Display</a>:               Showing matching regular expressions
+<li><a href="Switching-Classes.html#Switching-Classes">Switching Classes</a>:            Displaying another class
+<li><a href="Killing_002fBurying.html#Killing_002fBurying">Killing/Burying</a>:              Getting rid of the member buffer
+<li><a href="Column-Width.html#Column-Width">Column Width</a>:                 Display style
+<li><a href="Redisplay.html#Redisplay">Redisplay</a>:                    Redrawing the member list
+<li><a href="Getting-Help.html#Getting-Help">Getting Help</a>:                 How to get help for key bindings
+</ul>
+
+   </body></html>
+

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Headlines - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Headlines"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Visibility-cycling.html#Visibility-cycling">Visibility cycling</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Outlines.html#Outlines">Outlines</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Document-structure.html#Document-structure">Document structure</a>
+
+</div>
+
+<h3 class="section">2.2 Headlines</h3>
+
+<p><a name="index-headlines-30"></a><a name="index-outline-tree-31"></a><a name="index-org_002dspecial_002dctrl_002da_002fe-32"></a><a name="index-org_002dspecial_002dctrl_002dk-33"></a><a name="index-org_002dctrl_002dk_002dprotect_002dsubtree-34"></a>
+Headlines define the structure of an outline tree.  The headlines in Org
+start with one or more stars, on the left margin<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> <a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.  For example:
+
+<pre class="example">     * Top level headline
+     ** Second level
+     *** 3rd level
+         some text
+     *** 3rd level
+         more text
+     
+     * Another top level headline
+</pre>
+   <p><a name="index-org_002dfootnote_002dsection-35"></a>Note that a headline named after <code>org-footnote-section</code>,
+which defaults to &lsquo;<samp><span class="samp">Footnotes</span></samp>&rsquo;, is considered as special.  A subtree with
+this headline will be silently ignored by exporting functions.
+
+   <p>Some people find the many stars too noisy and would prefer an
+outline that has whitespace followed by a single star as headline
+starters.  <a href="Clean-view.html#Clean-view">Clean view</a>, describes a setup to realize this.
+
+   <p><a name="index-org_002dcycle_002dseparator_002dlines-36"></a>An empty line after the end of a subtree is considered part of it and
+will be hidden when the subtree is folded.  However, if you leave at
+least two empty lines, one empty line will remain visible after folding
+the subtree, in order to structure the collapsed view.  See the
+variable <code>org-cycle-separator-lines</code> to modify this behavior.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> See the variables
+<code>org-special-ctrl-a/e</code>, <code>org-special-ctrl-k</code>, and
+<code>org-ctrl-k-protect-subtree</code> to configure special behavior of <kbd>C-a</kbd>,
+<kbd>C-e</kbd>, and <kbd>C-k</kbd> in headlines.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> Clocking only works with
+headings indented less than 30 stars.</p>
+
+   <hr></div>
+
+   </body></html>
+

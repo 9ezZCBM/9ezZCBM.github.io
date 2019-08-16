@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Quick Start Guide - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Quick-Start-Guide"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Configuration.html#Configuration">Configuration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="History.html#History">History</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Short introduction how to use <span class="sc">Tramp</span></h2>
+
+<p><a name="index-quick-start-guide-8"></a>
+<span class="sc">Tramp</span> extends the Emacs file name syntax by a remote
+component.  A remote file name looks always like
+<samp><span class="file">/method:user@host:/path/to/file</span></samp>.
+
+   <p>You can use remote files exactly like ordinary files, that means you
+could open a file or directory by <kbd>C-x C-f
+/method:user@host:/path/to/file &lt;RET&gt;</kbd>, edit the file,
+and save it.  You can also mix local files and remote files in file
+operations with two arguments, like <code>copy-file</code> or
+<code>rename-file</code>.  And finally, you can run even processes on a
+remote host, when the buffer you call the process from has a remote
+<code>default-directory</code>.
+
+   <p><a name="Quick-Start-Guide_003a-File-name-syntax"></a>
+
+<h3 class="section">4.1 File name syntax</h3>
+
+<p><a name="index-file-name-syntax-9"></a>
+Remote file names are prepended by the <code>method</code>, <code>user</code> and
+<code>host</code> parts.  All of them, and also the local file name part,
+are optional, in case of a missing part a default value is assumed. 
+The default value for an empty local file name part is the remote
+user's home directory.  The shortest remote file name is
+<samp><span class="file">/-::</span></samp>, therefore.  The &lsquo;<samp><span class="samp">-</span></samp>&rsquo; notation for the
+default host is used for syntactical reasons, <a href="Default-Host.html#Default-Host">Default Host</a>.
+
+   <p>The <code>method</code> part describes the connection method used to reach
+the remote host, see below.
+
+   <p>The <code>user</code> part is the user name for accessing the remote host. 
+For the <samp><span class="option">smb</span></samp> method, this could also require a domain name, in
+this case it is written as <code>user%domain</code>.
+
+   <p>The <code>host</code> part must be a host name which could be resolved on
+your local host.  It could be a short host name, a fully qualified
+domain name, an IPv4 or IPv6 address, <a href="File-name-syntax.html#File-name-syntax">File name syntax</a>.  Some
+connection methods support also a notation of the port to be used, in
+this case it is written as <code>host#port</code>.
+
+   <p><a name="Quick-Start-Guide_003a-_0040option_007bssh_007d-and-_0040option_007bplink_007d-methods"></a>
+
+<h3 class="section">4.2 Using <samp><span class="option">ssh</span></samp> and <samp><span class="option">plink</span></samp></h3>
+
+<p><a name="index-method-ssh-10"></a><a name="index-ssh-method-11"></a><a name="index-method-plink-12"></a><a name="index-plink-method-13"></a>
+If your local host runs an SSH client, and the remote host runs an SSH
+server, the most simple remote file name is
+<samp><span class="file">/ssh:user@host:/path/to/file</span></samp>.  The remote file name
+<samp><span class="file">/ssh::</span></samp> opens a remote connection to yourself on the
+local host, and is taken often for testing <span class="sc">Tramp</span>.
+
+   <p>On MS Windows, PuTTY is often used as SSH client.  Its <samp><span class="command">plink</span></samp>
+method can be used there to open a connection to a remote host running
+an <samp><span class="command">ssh</span></samp> server:
+<samp><span class="file">/plink:user@host:/path/to/file</span></samp>.
+
+   <p><a name="Quick-Start-Guide_003a-_0040option_007bsu_007d"></a> <samp><span class="option">sudo</span></samp> and <samp><span class="option">sg</span></samp> methods
+
+<h3 class="section">4.3 Using <samp><span class="option">su</span></samp>, <samp><span class="option">sudo</span></samp> and <samp><span class="option">sg</span></samp></h3>
+
+<p><a name="index-method-su-14"></a><a name="index-su-method-15"></a><a name="index-method-sudo-16"></a><a name="index-sudo-method-17"></a><a name="index-method-sg-18"></a><a name="index-sg-method-19"></a>
+Sometimes, it is necessary to work on your local host under different
+permissions.  For this, you could use the <samp><span class="option">su</span></samp> or <samp><span class="option">sudo</span></samp>
+connection method.  Both methods use &lsquo;<samp><span class="samp">root</span></samp>&rsquo; as default user name
+and the return value of <code>(system-name)</code> as default host name. 
+Therefore, it is convenient to open a file as
+<samp><span class="file">/sudo::/path/to/file</span></samp>.
+
+   <p>The method <samp><span class="option">sg</span></samp> stands for &ldquo;switch group&rdquo;; the changed group
+must be used here as user name.  The default host name is the same.
+
+   <p><a name="Quick-Start-Guide_003a-_0040option_007bsmb_007d-method"></a>
+
+<h3 class="section">4.4 Using <samp><span class="command">smbclient</span></samp></h3>
+
+<p><a name="index-method-smb-20"></a><a name="index-smb-method-21"></a><a name="index-ms-windows-_0028with-smb-method_0029-22"></a><a name="index-smbclient-23"></a>
+In order to access a remote MS Windows host or Samba server, the
+<samp><span class="command">smbclient</span></samp> client is used.  The remote file name syntax is
+<samp><span class="file">/smb:user%domain@host:/path/to/file</span></samp>.  The first part
+of the local file name is the share exported by the remote host,
+&lsquo;<samp><span class="samp">path</span></samp>&rsquo; in this example.
+
+   <p><a name="Quick-Start-Guide_003a-GVFS_002dbased-methods"></a>
+
+<h3 class="section">4.5 Using GVFS-based methods</h3>
+
+<p><a name="index-methods_002c-gvfs-24"></a><a name="index-gvfs-based-methods-25"></a><a name="index-method-sftp-26"></a><a name="index-sftp-method-27"></a><a name="index-method-afp-28"></a><a name="index-afp-method-29"></a><a name="index-method-dav-30"></a><a name="index-method-davs-31"></a><a name="index-dav-method-32"></a><a name="index-davs-method-33"></a>
+On systems, which have installed the virtual file system for the Gnome
+Desktop (GVFS), its offered methods could be used by <span class="sc">Tramp</span>. 
+Examples are <samp><span class="file">/sftp:user@host:/path/to/file</span></samp>,
+<samp><span class="file">/afp:user@host:/path/to/file</span></samp> (accessing Apple's AFP
+file system), <samp><span class="file">/dav:user@host:/path/to/file</span></samp> and
+<samp><span class="file">/davs:user@host:/path/to/file</span></samp> (for WebDAV shares).
+
+   <p><a name="Quick-Start-Guide_003a-Google-Drive"></a>
+
+<h3 class="section">4.6 Using Google Drive</h3>
+
+<p><a name="index-method-gdrive-34"></a><a name="index-gdrive-method-35"></a><a name="index-google-drive-36"></a>
+Another GVFS-based method allows to access a Google Drive file system. 
+The file name syntax is here always
+<samp><span class="file">/gdrive:john.doe@gmail.com:/path/to/file</span></samp>. 
+&lsquo;<samp><span class="samp">john.doe@gmail.com</span></samp>&rsquo; stands here for your Google Drive account.
+
+   <p><a name="Quick-Start-Guide_003a-Android"></a>
+
+<h3 class="section">4.7 Using Android</h3>
+
+<p><a name="index-method-adb-37"></a><a name="index-adb-method-38"></a><a name="index-android-39"></a>
+An Android device, which is connected via USB to your local host, can
+be accessed via the <samp><span class="command">adb</span></samp> command.  No user or host name is
+needed.  The file name syntax is <samp><span class="file">/adb::/path/to/file</span></samp>.
+
+   </body></html>
+

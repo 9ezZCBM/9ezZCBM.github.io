@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Height of label - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Height-of-label"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Compute-a-Remainder.html#Compute-a-Remainder">Compute a Remainder</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="print_002dY_002daxis-in-Detail.html#print_002dY_002daxis-in-Detail">print-Y-axis in Detail</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="print_002dY_002daxis.html#print_002dY_002daxis">print-Y-axis</a>
+
+</div>
+
+<h4 class="unnumberedsubsec">What height should the label be?</h4>
+
+   <p>The next issue is what height the label should be?  Suppose the maximum
+height of tallest column of the graph is seven.  Should the highest
+label on the Y axis be &lsquo;<samp><span class="samp">5 -</span></samp>&rsquo;, and should the graph stick up above
+the label?  Or should the highest label be &lsquo;<samp><span class="samp">7 -</span></samp>&rsquo;, and mark the peak
+of the graph?  Or should the highest label be <code>10 -</code>, which is a
+multiple of five, and be higher than the topmost value of the graph?
+
+   <p>The latter form is preferred.  Most graphs are drawn within rectangles
+whose sides are an integral number of steps long&mdash;5, 10, 15, and so
+on for a step distance of five.  But as soon as we decide to use a
+step height for the vertical axis, we discover that the simple
+expression in the varlist for computing the height is wrong.  The
+expression is <code>(apply 'max numbers-list)</code>.  This returns the
+precise height, not the maximum height plus whatever is necessary to
+round up to the nearest multiple of five.  A more complex expression
+is required.
+
+   <p>As usual in cases like this, a complex problem becomes simpler if it is
+divided into several smaller problems.
+
+   <p>First, consider the case when the highest value of the graph is an
+integral multiple of five&mdash;when it is 5, 10, 15, or some higher
+multiple of five.  We can use this value as the Y axis height.
+
+   <p>A fairly simply way to determine whether a number is a multiple of
+five is to divide it by five and see if the division results in a
+remainder.  If there is no remainder, the number is a multiple of
+five.  Thus, seven divided by five has a remainder of two, and seven
+is not an integral multiple of five.  Put in slightly different
+language, more reminiscent of the classroom, five goes into seven
+once, with a remainder of two.  However, five goes into ten twice,
+with no remainder: ten is an integral multiple of five.
+
+   </body></html>
+

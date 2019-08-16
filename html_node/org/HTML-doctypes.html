@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>HTML doctypes - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="HTML-doctypes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="HTML-preamble-and-postamble.html#HTML-preamble-and-postamble">HTML preamble and postamble</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="HTML-Specific-export-settings.html#HTML-Specific-export-settings">HTML Specific export settings</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="HTML-export.html#HTML-export">HTML export</a>
+
+</div>
+
+<h4 class="subsection">12.9.3 HTML doctypes</h4>
+
+<p>Org can export to various (X)HTML flavors.
+
+   <p><a name="index-org_002dhtml_002ddoctype-1760"></a><a name="index-org_002dhtml_002ddoctype_002dalist-1761"></a>Set the <code>org-html-doctype</code> variable for different (X)HTML variants. 
+Depending on the variant, the HTML exporter adjusts the syntax of HTML
+conversion accordingly.  Org includes the following ready-made variants:
+
+     <ul>
+<li>&ldquo;html4-strict&rdquo;
+<li>&ldquo;html4-transitional&rdquo;
+<li>&ldquo;html4-frameset&rdquo;
+<li>&ldquo;xhtml-strict&rdquo;
+<li>&ldquo;xhtml-transitional&rdquo;
+<li>&ldquo;xhtml-frameset&rdquo;
+<li>&ldquo;xhtml-11&rdquo;
+<li>&ldquo;html5&rdquo;
+<li>&ldquo;xhtml5&rdquo;
+</ul>
+
+<p class="noindent">See the variable <code>org-html-doctype-alist</code> for details. 
+The default is &ldquo;xhtml-strict&rdquo;.
+
+   <p><a name="index-org_002dhtml_002dhtml5_002dfancy-1762"></a><a name="index-HTML5_002c-export-new-elements-1763"></a>Org's HTML exporter does not by default enable new block elements introduced
+with the HTML5 standard.  To enable them, set <code>org-html-html5-fancy</code> to
+non-<code>nil</code>.  Or use an <code>OPTIONS</code> line in the file to set
+<code>html5-fancy</code>.  HTML5 documents can now have arbitrary <code>#+BEGIN</code>
+and <code>#+END</code> blocks.  For example:
+
+<pre class="example">     #+BEGIN_aside
+     Lorem ipsum
+     #+END_aside
+</pre>
+   <p>Will export to:
+
+<pre class="example">     &lt;aside&gt;
+       &lt;p&gt;Lorem ipsum&lt;/p&gt;
+     &lt;/aside&gt;
+</pre>
+   <p>While this:
+
+<pre class="example">     #+ATTR_HTML: :controls controls :width 350
+     #+BEGIN_video
+     #+HTML: &lt;source src="movie.mp4" type="video/mp4"&gt;
+     #+HTML: &lt;source src="movie.ogg" type="video/ogg"&gt;
+     Your browser does not support the video tag.
+     #+END_video
+</pre>
+   <p>Exports to:
+
+<pre class="example">     &lt;video controls="controls" width="350"&gt;
+       &lt;source src="movie.mp4" type="video/mp4"&gt;
+       &lt;source src="movie.ogg" type="video/ogg"&gt;
+       &lt;p&gt;Your browser does not support the video tag.&lt;/p&gt;
+     &lt;/video&gt;
+</pre>
+   <p><a name="index-org_002dhtml_002dhtml5_002delements-1764"></a>When special blocks do not have a corresponding HTML5 element, the HTML
+exporter reverts to standard translation (see
+<code>org-html-html5-elements</code>).  For example, <code>#+BEGIN_lederhosen</code>
+exports to &lsquo;<samp><span class="samp">&lt;div class="lederhosen"&gt;</span></samp>&rsquo;.
+
+   <p>Special blocks cannot have headlines.  For the HTML exporter to wrap the
+headline and its contents in &lsquo;<samp><span class="samp">&lt;section&gt;</span></samp>&rsquo; or &lsquo;<samp><span class="samp">&lt;article&gt;</span></samp>&rsquo; tags, set
+the <code>HTML_CONTAINER</code> property for the headline.
+
+   </body></html>
+

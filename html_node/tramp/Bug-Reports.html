@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Bug Reports - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Bug-Reports"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Frequently-Asked-Questions.html#Frequently-Asked-Questions">Frequently Asked Questions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Usage.html#Usage">Usage</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">7 Reporting Bugs and Problems</h2>
+
+<p><a name="index-bug-reports-261"></a>
+<span class="sc">Tramp</span>'s development team is actively engaged in solving bugs
+and problems and looks to feature requests and suggestions.
+
+   <p><span class="sc">Tramp</span>'s mailing list is the place for more advice and
+information on working with <span class="sc">Tramp</span>, solving problems,
+discussing, and general discussions about <span class="sc">Tramp</span>.
+
+   <p><span class="sc">Tramp</span>'s mailing list is moderated but even non-subscribers can
+post for moderator approval.  Sometimes this approval step may take as
+long as 48 hours due to public holidays.
+
+   <p><a href="mailto:tramp-devel@gnu.org">tramp-devel@gnu.org</a> is the mailing list.  Messages sent to
+this address go to all the subscribers.  This is <em>not</em> the
+address to send subscription requests to.
+
+   <p>To subscribe to the mailing list, visit:
+<a href="https://lists.gnu.org/mailman/listinfo/tramp-devel/">the <span class="sc">Tramp</span> Mail Subscription Page</a>.
+
+   <p><a name="index-tramp_002dbug-262"></a>Check if the bug or problem is already addressed in See <a href="Frequently-Asked-Questions.html#Frequently-Asked-Questions">Frequently Asked Questions</a>.
+
+   <p>Run <kbd>M-x tramp-bug &lt;RET&gt;</kbd> to generate a buffer with details of
+the system along with the details of the <span class="sc">Tramp</span> installation. 
+Please include these details with the bug report.
+
+   <p>The bug report must describe in as excruciating detail as possible the
+steps required to reproduce the problem.  These details must include
+the setup of the remote host and any special or unique conditions that
+exist.
+
+   <p>Include a minimal test case that reproduces the problem.  This will
+help the development team find the best solution and avoid unrelated
+detours.
+
+   <p>To exclude cache-related problems, flush all caches before running the
+test, <a href="Cleanup-remote-connections.html#Cleanup-remote-connections">Cleanup remote connections</a>.
+
+   <p>When including <span class="sc">Tramp</span>'s messages in the bug report, increase
+the verbosity level to 6 (see <a href="Traces-and-Profiles.html#Traces-and-Profiles">Traces</a>) in the
+<samp><span class="file">~/.emacs</span></samp> file before repeating steps to the bug.  Include the
+contents of the <samp><span class="file">*tramp/foo*</span></samp> and <samp><span class="file">*debug tramp/foo*</span></samp>
+buffers with the bug report.
+
+   <p><strong>Note</strong> that a verbosity level greater than 6 is not necessary
+at this stage.  Also note that a verbosity level of 6 or greater, the
+contents of files and directories will be included in the debug
+buffer.  Passwords typed in <span class="sc">Tramp</span> will never be included
+there.
+
+   </body></html>
+

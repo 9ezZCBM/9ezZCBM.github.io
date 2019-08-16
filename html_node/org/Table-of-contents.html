@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Table of contents - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Table-of-contents"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Include-files.html#Include-files">Include files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Export-settings.html#Export-settings">Export settings</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Exporting.html#Exporting">Exporting</a>
+
+</div>
+
+<h3 class="section">12.3 Table of contents</h3>
+
+<p><a name="index-table-of-contents-1663"></a><a name="index-list-of-tables-1664"></a><a name="index-list-of-listings-1665"></a>
+<a name="index-g_t_0040code_007b_0023_002bTOC_007d-1666"></a><a name="index-org_002dexport_002dwith_002dtoc-1667"></a>Org normally inserts the table of contents directly before the first headline
+of the file.  Org sets the TOC depth the same as the headline levels in the
+file.  Use a lower number for lower TOC depth.  To turn off TOC entirely, use
+<code>nil</code>.  This is configured in the <code>org-export-with-toc</code> variable or
+as keywords in an Org file as:
+
+<pre class="example">     #+OPTIONS: toc:2          <span class="roman">only include two levels in TOC</span>
+     #+OPTIONS: toc:nil        <span class="roman">no default TOC at all</span>
+</pre>
+   <p>To move the table of contents to a different location, first turn off the
+default with <code>org-export-with-toc</code> variable or with <code>#+OPTIONS:
+toc:nil</code>.  Then insert <code>#+TOC: headlines N</code> at the desired location(s).
+
+<pre class="example">     #+OPTIONS: toc:nil        <span class="roman">no default TOC</span>
+     ...
+     #+TOC: headlines 2        <span class="roman">insert TOC here, with two headline levels</span>
+</pre>
+   <p>To adjust the TOC depth for a specific section of the Org document, append an
+additional &lsquo;<samp><span class="samp">local</span></samp>&rsquo; parameter.  This parameter becomes a relative depth
+for the current level.
+
+   <p>Note that for this feature to work properly in LaTeX export, the Org file
+requires the inclusion of the <code>titletoc</code> package.  Because of
+compatibility issues, <code>titletoc</code> has to be loaded <em>before</em>
+<code>hyperref</code>.  Customize the <code>org-latex-default-packages-alist</code>
+variable.
+
+<pre class="example">     * Section #+TOC: headlines 1 local <span class="roman">insert local TOC, with direct children
+     only</span>
+</pre>
+   <p>Use the <code>TOC</code> keyword to generate list of tables (resp. all listings)
+with captions.
+
+<pre class="example">     #+TOC: listings           <span class="roman">build a list of listings</span>
+     #+TOC: tables             <span class="roman">build a list of tables</span>
+</pre>
+   <p><a name="index-property_002c-_0040code_007bALT_005fTITLE_007d-1668"></a>Normally Org uses the headline for its entry in the table of contents.  But
+with <code>ALT_TITLE</code> property, a different entry can be specified for the
+table of contents.
+
+   </body></html>
+

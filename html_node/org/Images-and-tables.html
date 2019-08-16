@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Images and tables - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Images-and-tables"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Literal-examples.html#Literal-examples">Literal examples</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Horizontal-rules.html#Horizontal-rules">Horizontal rules</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Markup.html#Markup">Markup</a>
+
+</div>
+
+<h3 class="section">11.4 Images and Tables</h3>
+
+<p><a name="index-tables_002c-markup-rules-1547"></a><a name="index-g_t_0040code_007b_0023_002bCAPTION_007d-1548"></a><a name="index-g_t_0040code_007b_0023_002bNAME_007d-1549"></a>Both the native Org mode tables (see <a href="Tables.html#Tables">Tables</a>) and tables formatted with
+the <samp><span class="file">table.el</span></samp> package will be exported properly.  For Org mode tables,
+the lines before the first horizontal separator line will become table header
+lines.  You can use the following lines somewhere before the table to assign
+a caption and a label for cross references, and in the text you can refer to
+the object with <code>[[tab:basic-data]]</code> (see <a href="Internal-links.html#Internal-links">Internal links</a>):
+
+<pre class="example">     #+CAPTION: This is the caption for the next table (or link)
+     #+NAME:   tab:basic-data
+        | ... | ...|
+        |-----|----|
+</pre>
+   <p>Optionally, the caption can take the form:
+<pre class="example">     #+CAPTION[Caption for list of tables]: Caption for table.
+</pre>
+   <p><a name="index-inlined-images_002c-markup-rules-1550"></a>Some back-ends allow you to directly include images into the exported
+document.  Org does this, if a link to an image files does not have
+a description part, for example <code>[[./img/a.jpg]]</code>.  If you wish to
+define a caption for the image and maybe a label for internal cross
+references, make sure that the link is on a line by itself and precede it
+with <code>#+CAPTION</code> and <code>#+NAME</code> as follows:
+
+<pre class="example">     #+CAPTION: This is the caption for the next figure link (or table)
+     #+NAME:   fig:SED-HR4049
+     [[./img/a.jpg]]
+</pre>
+   <p class="noindent">Such images can be displayed within the buffer.  See <a href="Handling-links.html#Handling-links">the discussion of image links</a>.
+
+   <p>Even though images and tables are prominent examples of captioned structures,
+the same caption mechanism can apply to many others (e.g., LaTeX
+equations, source code blocks).  Depending on the export back-end, those may
+or may not be handled.
+
+   </body></html>
+

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Condition Variables - GNU Emacs Lisp Reference Manual</title>
+<!--
+This is the `GNU Emacs Lisp Reference Manual'
+corresponding to Emacs version 26.2.
+
+Copyright (C) 1990--1996, 1998--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``GNU General Public
+     License,'' with the Front-Cover Texts being ``A GNU Manual,'' and
+     with the Back-Cover Texts as in (a) below.  A copy of the license
+     is included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Condition-Variables"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Mutexes.html#Mutexes">Mutexes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Threads.html#Threads">Threads</a>
+
+</div>
+
+<h3 class="section">37.3 Condition Variables</h3>
+
+<p>A <dfn>condition variable</dfn> is a way for a thread to block until some
+event occurs.  A thread can wait on a condition variable, to be woken
+up when some other thread notifies the condition.
+
+   <p>A condition variable is associated with a mutex and, conceptually,
+with some condition.  For proper operation, the mutex must be
+acquired, and then a waiting thread must loop, testing the condition
+and waiting on the condition variable.  For example:
+
+<pre class="example">     (with-mutex mutex
+       (while (not global-variable)
+         (condition-wait cond-var)))
+</pre>
+   <p>The mutex ensures atomicity, and the loop is for robustness&mdash;there
+may be spurious notifications.
+
+   <p>Similarly, the mutex must be held before notifying the condition. 
+The typical, and best, approach is to acquire the mutex, make the
+changes associated with this condition, and then notify it:
+
+<pre class="example">     (with-mutex mutex
+       (setq global-variable (some-computation))
+       (condition-notify cond-var))
+</pre>
+   <div class="defun">
+&mdash; Function: <b>make-condition-variable</b><var> mutex &amp;optional name<a name="index-make_002dcondition_002dvariable-4333"></a></var><br>
+<blockquote><p>Make a new condition variable associated with <var>mutex</var>.  If
+<var>name</var> is specified, it is a name given to the condition variable. 
+It must be a string.  The name is for debugging purposes only; it has
+no meaning to Emacs. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>condition-variable-p</b><var> object<a name="index-condition_002dvariable_002dp-4334"></a></var><br>
+<blockquote><p>This function returns <code>t</code> if <var>object</var> represents a condition
+variable, <code>nil</code> otherwise. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>condition-wait</b><var> cond<a name="index-condition_002dwait-4335"></a></var><br>
+<blockquote><p>Wait for another thread to notify <var>cond</var>, a condition variable. 
+This function will block until the condition is notified, or until a
+signal is delivered to this thread using <code>thread-signal</code>.
+
+        <p>It is an error to call <code>condition-wait</code> without holding the
+condition's associated mutex.
+
+        <p><code>condition-wait</code> releases the associated mutex while waiting. 
+This allows other threads to acquire the mutex in order to notify the
+condition. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>condition-notify</b><var> cond &amp;optional all<a name="index-condition_002dnotify-4336"></a></var><br>
+<blockquote><p>Notify <var>cond</var>.  The mutex with <var>cond</var> must be held before
+calling this.  Ordinarily a single waiting thread is woken by
+<code>condition-notify</code>; but if <var>all</var> is not <code>nil</code>, then all
+threads waiting on <var>cond</var> are notified.
+
+        <p><code>condition-notify</code> releases the associated mutex while waiting. 
+This allows other threads to acquire the mutex in order to wait on the
+condition. 
+<!-- why bother? -->
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>condition-name</b><var> cond<a name="index-condition_002dname-4337"></a></var><br>
+<blockquote><p>Return the name of <var>cond</var>, as passed to
+<code>make-condition-variable</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>condition-mutex</b><var> cond<a name="index-condition_002dmutex-4338"></a></var><br>
+<blockquote><p>Return the mutex associated with <var>cond</var>.  Note that the associated
+mutex cannot be changed. 
+</p></blockquote></div>
+   <!-- *-texinfo-*- -->
+<!-- This is part of the GNU Emacs Lisp Reference Manual. -->
+<!-- Copyright (C) 1990-1995, 1998-1999, 2001-2019 Free Software -->
+<!-- Foundation, Inc. -->
+<!-- See the file elisp.texi for copying conditions. -->
+
+   </body></html>
+

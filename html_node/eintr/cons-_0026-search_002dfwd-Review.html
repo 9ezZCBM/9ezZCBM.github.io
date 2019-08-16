@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>cons &amp; search-fwd Review - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="cons-%26-search-fwd-Review"></a>
+<a name="cons-_0026-search_002dfwd-Review"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="search-Exercises.html#search-Exercises">search Exercises</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="defvar.html#defvar">defvar</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Cutting-_0026-Storing-Text.html#Cutting-_0026-Storing-Text">Cutting &amp; Storing Text</a>
+
+</div>
+
+<h3 class="section">8.6 Review</h3>
+
+<p>Here is a brief summary of some recently introduced functions.
+
+     <dl>
+<dt><code>car</code><dt><code>cdr</code><dd><code>car</code> returns the first element of a list; <code>cdr</code> returns the
+second and subsequent elements of a list.
+
+     <p>For example:
+
+     <pre class="smallexample">          (car '(1 2 3 4 5 6 7))
+               &rArr; 1
+          (cdr '(1 2 3 4 5 6 7))
+               &rArr; (2 3 4 5 6 7)
+</pre>
+     <br><dt><code>cons</code><dd><code>cons</code> constructs a list by prepending its first argument to its
+second argument.
+
+     <p>For example:
+
+     <pre class="smallexample">          (cons 1 '(2 3 4))
+               &rArr; (1 2 3 4)
+</pre>
+     <br><dt><code>funcall</code><dd><code>funcall</code> evaluates its first argument as a function.  It passes
+its remaining arguments to its first argument.
+
+     <br><dt><code>nthcdr</code><dd>Return the result of taking <span class="sc">cdr</span> <var>n</var> times on a list. 
+The &ldquo;rest of the rest&rdquo;, as it were.
+
+     <p>For example:
+
+     <pre class="smallexample">          (nthcdr 3 '(1 2 3 4 5 6 7))
+               &rArr; (4 5 6 7)
+</pre>
+     <br><dt><code>setcar</code><dt><code>setcdr</code><dd><code>setcar</code> changes the first element of a list; <code>setcdr</code>
+changes the second and subsequent elements of a list.
+
+     <p>For example:
+
+     <pre class="smallexample">          (setq triple '(1 2 3))
+          
+          (setcar triple '37)
+          
+          triple
+               &rArr; (37 2 3)
+          
+          (setcdr triple '("foo" "bar"))
+          
+          triple
+               &rArr; (37 "foo" "bar")
+</pre>
+     <br><dt><code>progn</code><dd>Evaluate each argument in sequence and then return the value of the
+last.
+
+     <p>For example:
+
+     <pre class="smallexample">          (progn 1 2 3 4)
+               &rArr; 4
+</pre>
+     <br><dt><code>save-restriction</code><dd>Record whatever narrowing is in effect in the current buffer, if any,
+and restore that narrowing after evaluating the arguments.
+
+     <br><dt><code>search-forward</code><dd>Search for a string, and if the string is found, move point.  With a
+regular expression, use the similar <code>re-search-forward</code>. 
+(See <a href="Regexp-Search.html#Regexp-Search">Regular Expression Searches</a>, for an
+explanation of regular expression patterns and searches.)
+
+     <p class="noindent"><code>search-forward</code> and <code>re-search-forward</code> take four
+arguments:
+
+          <ol type=1 start=1>
+<li>The string or regular expression to search for.
+
+          <li>Optionally, the limit of the search.
+
+          <li>Optionally, what to do if the search fails, return <code>nil</code> or an
+error message.
+
+          <li>Optionally, how many times to repeat the search; if negative, the
+search goes backwards.
+          </ol>
+
+     <br><dt><code>kill-region</code><dt><code>delete-and-extract-region</code><dt><code>copy-region-as-kill</code><dd>
+<code>kill-region</code> cuts the text between point and mark from the
+buffer and stores that text in the kill ring, so you can get it back
+by yanking.
+
+     <p><code>copy-region-as-kill</code> copies the text between point and mark into
+the kill ring, from which you can get it by yanking.  The function
+does not cut or remove the text from the buffer. 
+</dl>
+
+   <p><code>delete-and-extract-region</code> removes the text between point and
+mark from the buffer and throws it away.  You cannot get it back. 
+(This is not an interactive command.)
+
+   </body></html>
+

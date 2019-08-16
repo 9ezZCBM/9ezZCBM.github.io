@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>External packages - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="External-packages"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Localname-deconstruction.html#Localname-deconstruction">Localname deconstruction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Files-directories-and-localnames.html#Files-directories-and-localnames">Files directories and localnames</a>
+
+</div>
+
+<h3 class="section">9.2 Integrating with external Lisp packages</h3>
+
+<h4 class="subsection">9.2.1 File name completion.</h4>
+
+<p>Sometimes, it is not convenient to open a new connection to a remote
+host, including entering the password and alike.  For example, this is
+nasty for packages providing file name completion. Such a package
+could signal to <span class="sc">Tramp</span>, that they don't want it to establish a
+new connection.  Use the variable <code>non-essential</code> temporarily and
+bind it to non-<code>nil</code> value.
+
+<pre class="lisp">     (let ((non-essential t))
+       ...)
+</pre>
+   <h4 class="subsection">9.2.2 File attributes cache.</h4>
+
+<p>Keeping a local cache of remote file attributes in sync with the
+remote host is a time-consuming operation.  Flushing and re-querying
+these attributes can tax <span class="sc">Tramp</span> to a grinding halt on busy
+remote servers.
+
+   <p>To get around these types of slow-downs in <span class="sc">Tramp</span>'s
+responsiveness, set the <code>process-file-side-effects</code> to <code>nil</code>
+to stop <span class="sc">Tramp</span> from flushing the cache.  This is helpful in
+situations where callers to <code>process-file</code> know there are no file
+attribute changes.  The let-bind form to accomplish this:
+
+<pre class="lisp">     (let (process-file-side-effects)
+       ...)
+</pre>
+   <p>For asynchronous processes, <span class="sc">Tramp</span> uses a process sentinel to
+flush file attributes cache.  When callers to <code>start-file-process</code>
+know beforehand no file attribute changes are expected, then the
+process sentinel should be set to the default state.  In cases where
+the caller defines its own process sentinel, <span class="sc">Tramp</span>'s process
+sentinel is overwritten.  The caller can still flush the file
+attributes cache in its process sentinel with this code:
+
+<pre class="lisp">     (unless (memq (process-status proc) '(run open))
+       (dired-uncache remote-directory))
+</pre>
+   <p>Since <span class="sc">Tramp</span> traverses subdirectories starting with the
+root-directory, it is most likely sufficient to make the
+<code>default-directory</code> of the process buffer as the root directory.
+
+   </body></html>
+

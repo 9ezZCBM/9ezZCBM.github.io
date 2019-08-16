@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Maildir - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Maildir"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="nnmaildir-Group-Parameters.html#nnmaildir-Group-Parameters">nnmaildir Group Parameters</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="MH-Spool.html#MH-Spool">MH Spool</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Choosing-a-Mail-Back-End.html#Choosing-a-Mail-Back-End">Choosing a Mail Back End</a>
+
+</div>
+
+<h5 class="subsubsection">6.4.13.5 Maildir</h5>
+
+<p><a name="index-nnmaildir-2199"></a><a name="index-maildir-2200"></a>
+<code>nnmaildir</code> stores mail in the maildir format, with each maildir
+corresponding to a group in Gnus.  This format is documented here:
+<a href="http://cr.yp.to/proto/maildir.html">http://cr.yp.to/proto/maildir.html</a> and here:
+<a href="http://www.qmail.org/man/man5/maildir.html">http://www.qmail.org/man/man5/maildir.html</a>.  <code>nnmaildir</code>
+also stores extra information in the <samp><span class="file">.nnmaildir/</span></samp> directory
+within a maildir.
+
+   <p>Maildir format was designed to allow concurrent deliveries and
+reading, without needing locks.  With other back ends, you would have
+your mail delivered to a spool of some kind, and then you would
+configure Gnus to split mail from that spool into your groups.  You
+can still do that with <code>nnmaildir</code>, but the more common
+configuration is to have your mail delivered directly to the maildirs
+that appear as group in Gnus.
+
+   <p><code>nnmaildir</code> is designed to be perfectly reliable: <kbd>C-g</kbd> will
+never corrupt its data in memory, and <code>SIGKILL</code> will never
+corrupt its data in the filesystem.
+
+   <p><code>nnmaildir</code> stores article marks and <acronym>NOV</acronym> data in each
+maildir.  So you can copy a whole maildir from one Gnus setup to
+another, and you will keep your marks.
+
+   <p>Virtual server settings:
+
+     <dl>
+<dt><code>directory</code><dd>For each of your <code>nnmaildir</code> servers (it's very unlikely that
+you'd need more than one), you need to create a directory and populate
+it with maildirs or symlinks to maildirs (and nothing else; do not
+choose a directory already used for other purposes).  Each maildir
+will be represented in Gnus as a newsgroup on that server; the
+filename of the symlink will be the name of the group.  Any filenames
+in the directory starting with &lsquo;<samp><span class="samp">.</span></samp>&rsquo; are ignored.  The directory is
+scanned when you first start Gnus, and each time you type <kbd>g</kbd> in
+the group buffer; if any maildirs have been removed or added,
+<code>nnmaildir</code> notices at these times.
+
+     <p>The value of the <code>directory</code> parameter should be a Lisp form
+which is processed by <code>eval</code> and <code>expand-file-name</code> to get
+the path of the directory for this server.  The form is <code>eval</code>ed
+only when the server is opened; the resulting string is used until the
+server is closed.  (If you don't know about forms and <code>eval</code>,
+don't worry&mdash;a simple string will work.)  This parameter is not
+optional; you must specify it.  I don't recommend using
+<code>"~/Mail"</code> or a subdirectory of it; several other parts of Gnus
+use that directory by default for various things, and may get confused
+if <code>nnmaildir</code> uses it too.  <code>"~/.nnmaildir"</code> is a typical
+value.
+
+     <br><dt><code>target-prefix</code><dd>This should be a Lisp form which is processed by <code>eval</code> and
+<code>expand-file-name</code>.  The form is <code>eval</code>ed only when the
+server is opened; the resulting string is used until the server is
+closed.
+
+     <p>When you create a group on an <code>nnmaildir</code> server, the maildir is
+created with <code>target-prefix</code> prepended to its name, and a symlink
+pointing to that maildir is created, named with the plain group name. 
+So if <code>directory</code> is <code>"~/.nnmaildir"</code> and
+<code>target-prefix</code> is <code>"../maildirs/"</code>, then when you create
+the group <code>foo</code>, <code>nnmaildir</code> will create
+<samp><span class="file">~/.nnmaildir/../maildirs/foo</span></samp> as a maildir, and will create
+<samp><span class="file">~/.nnmaildir/foo</span></samp> as a symlink pointing to
+<samp><span class="file">../maildirs/foo</span></samp>.
+
+     <p>You can set <code>target-prefix</code> to a string without any slashes to
+create both maildirs and symlinks in the same <code>directory</code>; in
+this case, any maildirs found in <code>directory</code> whose names start
+with <code>target-prefix</code> will not be listed as groups (but the
+symlinks pointing to them will be).
+
+     <p>As a special case, if <code>target-prefix</code> is <code>""</code> (the default),
+then when you create a group, the maildir will be created in
+<code>directory</code> without a corresponding symlink.  Beware that you
+cannot use <code>gnus-group-delete-group</code> on such groups without the
+<code>force</code> argument.
+
+     <br><dt><code>directory-files</code><dd>This should be a function with the same interface as
+<code>directory-files</code> (such as <code>directory-files</code> itself).  It is
+used to scan the server's <code>directory</code> for maildirs.  This
+parameter is optional; the default is
+<code>nnheader-directory-files-safe</code> if
+<code>nnheader-directory-files-is-safe</code> is <code>nil</code>, and
+<code>directory-files</code> otherwise. 
+(<code>nnheader-directory-files-is-safe</code> is checked only once when the
+server is opened; if you want to check it each time the directory is
+scanned, you'll have to provide your own function that does that.)
+
+     <br><dt><code>get-new-mail</code><dd>If non-<code>nil</code>, then after scanning for new mail in the group
+maildirs themselves as usual, this server will also incorporate mail
+the conventional Gnus way, from <code>mail-sources</code> according to
+<code>nnmail-split-methods</code> or <code>nnmail-split-fancy</code>.  The default
+value is <code>nil</code>.
+
+     <p>Do <em>not</em> use the same maildir both in <code>mail-sources</code> and as
+an <code>nnmaildir</code> group.  The results might happen to be useful, but
+that would be by chance, not by design, and the results might be
+different in the future.  If your split rules create new groups,
+remember to supply a <code>create-directory</code> server parameter. 
+</dl>
+
+   </body></html>
+

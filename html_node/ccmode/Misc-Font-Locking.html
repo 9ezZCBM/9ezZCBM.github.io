@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Misc Font Locking - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Misc-Font-Locking"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="AWK-Mode-Font-Locking.html#AWK-Mode-Font-Locking">AWK Mode Font Locking</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Doc-Comments.html#Doc-Comments">Doc Comments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Font-Locking.html#Font-Locking">Font Locking</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">5.4 Miscellaneous Font Locking</h3>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p>In some languages, particularly in C++, there are constructs which are
+syntactically ambiguous&mdash;they could be either declarations or
+expressions, and CC Mode cannot tell for sure which.  Often such a
+construct is one of the operators &lsquo;<samp><span class="samp">*</span></samp>&rsquo; or &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; surrounded by
+two identifiers.
+
+   <p>Experience shows that very often when such a construct is a
+declaration it will be written with the operator touching exactly one
+of the identifiers, like:
+
+<pre class="example">     foo *bar
+</pre>
+   <p>or
+<pre class="example">     foo&amp; bar
+</pre>
+   <p>.  Whether such code is fontified depends on the setting of
+<code>c-asymmetry-fontification-flag</code>.
+
+<div class="defun">
+&mdash; Variable: <b>c-asymmetry-fontification-flag</b><var><a name="index-c_002dasymmetry_002dfontification_002dflag-270"></a></var><br>
+<blockquote><p><a name="index-asymmetry_002dfontification_002dflag-_0040r_007b_0028c_002d_0029_007d-271"></a>When <code>c-asymmetry-fontification-flag</code> is non-nil (which it is by
+default), code like the above, with white space either before or after
+the operator, but not both, is fontified as a declaration.  When the
+variable is nil, such a construct gets the default face. 
+</p></blockquote></div>
+
+   <p>When the construct is an expression there will often be white space
+both before and after the operator or there will be no white space
+around it at all, like:
+
+<pre class="example">     foo * bar
+</pre>
+   <p>or
+<pre class="example">     foo&amp;bar
+</pre>
+   <p>.
+
+   <p>Such code is not fontified as a declaration.  (Typically, the
+identifiers don't get a non-default face.)
+
+   <p>For clarity's sake, we emphasize that the &ldquo;asymmetry&rdquo; rule in this
+section only applies when CC Mode cannot disambiguate a construct in
+any other way.
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   </body></html>
+

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Auto-save and Backup - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Auto-save-and-Backup"></a>
+<a name="Auto_002dsave-and-Backup"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Windows-setup-hints.html#Windows-setup-hints">Windows setup hints</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Android-shell-setup.html#Android-shell-setup">Android shell setup</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.18 Auto-save and Backup configuration</h3>
+
+<p><a name="index-auto_002dsave-210"></a><a name="index-backup-211"></a>
+<a name="index-backup_002ddirectory_002dalist-212"></a>To avoid <span class="sc">Tramp</span> from saving backup files owned by &lsquo;<samp><span class="samp">root</span></samp>&rsquo;
+to locations accessible to others, default backup settings in
+<code>backup-directory-alist</code> have to be altered.
+
+   <p>Here's a scenario where files could be inadvertently exposed.  Emacs
+by default writes backup files to the same directory as the original
+files unless changed to another location, such as
+<samp><span class="file">~/.emacs.d/backups/</span></samp>.  Such a directory will also be used by
+default by <span class="sc">Tramp</span> when using, say, a restricted file
+<samp><span class="file">/su:root@localhost:/etc/secretfile</span></samp>.  The backup file
+of the secretfile is now owned by the user logged in from
+<span class="sc">Tramp</span> and not &lsquo;<samp><span class="samp">root</span></samp>&rsquo;.
+
+   <p>When <code>backup-directory-alist</code> is <code>nil</code> (the default), such
+problems do not occur.
+
+   <p>To &ldquo;turn off&rdquo; the backup feature for remote files and stop
+<span class="sc">Tramp</span> from saving to the backup directory, use this:
+
+<pre class="lisp">     (add-to-list 'backup-directory-alist
+                  (cons tramp-file-name-regexp nil))
+</pre>
+   <p class="noindent">Disabling backups can be targeted to just the <samp><span class="option">su</span></samp> and
+<samp><span class="option">sudo</span></samp> methods:
+
+<pre class="lisp">     (setq backup-enable-predicate
+           (lambda (name)
+             (and (normal-backup-enable-predicate name)
+                  (not
+                   (let ((method (file-remote-p name 'method)))
+                     (when (stringp method)
+                       (member method '("su" "sudo"))))))))
+</pre>
+   <p><a name="index-tramp_002dbackup_002ddirectory_002dalist-213"></a>Another option is to create better backup file naming with user and
+host names prefixed to the file name.  For example, transforming
+<samp><span class="file">/etc/secretfile</span></samp> to
+<samp><span class="file">~/.emacs.d/backups/!su:root@localhost:!etc!secretfile</span></samp>, set the
+<span class="sc">Tramp</span> user option <code>tramp-backup-directory-alist</code> from
+the existing user option <code>backup-directory-alist</code>.
+
+   <p>Then <span class="sc">Tramp</span> backs up to a file name that is transformed with a
+prefix consisting of the DIRECTORY name.  This file name prefixing
+happens only when the DIRECTORY is an absolute local file name.
+
+<p class="noindent">Example:
+
+<pre class="lisp">     (add-to-list 'backup-directory-alist
+                  (cons "." "~/.emacs.d/backups/"))
+     (customize-set-variable
+      'tramp-backup-directory-alist backup-directory-alist)
+</pre>
+   <p class="noindent">The backup file name of
+<samp><span class="file">/su:root@localhost:/etc/secretfile</span></samp> would be
+<samp><span class="file">/su:root@localhost:~/.emacs.d/backups/!su:root@localhost:!etc!secretfile~</span></samp>
+
+   <p><a name="index-auto_002dsave_002dfile_002dname_002dtransforms-214"></a>Just as for backup files, similar issues of file naming affect
+auto-saving remote files.  Auto-saved files are saved in the directory
+specified by the user option <code>auto-save-file-name-transforms</code>. 
+By default this is set to the local temporary directory.  But in some
+versions of Debian GNU/Linux, this points to the source directory
+where the Emacs was compiled.  Reset such values to a valid directory.
+
+   <p>Set <code>auto-save-file-name-transforms</code> to <code>nil</code> to save
+auto-saved files to the same directory as the original file.
+
+   <p><a name="index-tramp_002dauto_002dsave_002ddirectory-215"></a>Alternatively, set the user option <code>tramp-auto-save-directory</code>
+to direct all auto saves to that location.
+
+   </body></html>
+

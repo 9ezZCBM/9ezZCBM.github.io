@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Pulling from the mobile application - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Pulling-from-the-mobile-application"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Pushing-to-the-mobile-application.html#Pushing-to-the-mobile-application">Pushing to the mobile application</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Org-Mobile.html#Org-Mobile">Org Mobile</a>
+
+</div>
+
+<h4 class="subsection">15.12.3 Pulling from the mobile application</h4>
+
+<p><a name="index-org_002dmobile_002dpull-2381"></a>The command <code>org-mobile-pull</code> synchronizes changes with the server. 
+More specifically, it first pulls the Org files for viewing.  It then
+appends captured entries and pointers to flagged or changed entries to
+the file &lsquo;<samp><span class="samp">mobileorg.org</span></samp>&rsquo; on the server.  Org ultimately integrates its
+data in an inbox file format, through the following steps:
+
+     <ol type=1 start=1>
+<li><a name="index-org_002dmobile_002dinbox_002dfor_002dpull-2382"></a>Org moves all entries found in &lsquo;<samp><span class="samp">mobileorg.org</span></samp>&rsquo;<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> and appends
+them to the file pointed to by the variable
+<code>org-mobile-inbox-for-pull</code>.  It should reside neither in the
+staging area nor on the server.  Each captured entry and each
+editing event is a top-level entry in the inbox file.
+
+     <li><a name="index-g_t_0040samp_007bFLAGGED_007d_002c-tag-2383"></a>After moving the entries, Org processes changes to the shared
+files.  Some of them are applied directly and without user
+interaction.  Examples include changes to tags, TODO state,
+headline and body text.  Entries requiring further action are
+tagged as &lsquo;<samp><span class="samp">FLAGGED</span></samp>&rsquo;.  Org marks entries with problems with an error
+message in the inbox.  They have to be resolved manually.
+
+     <li>Org generates an agenda view for flagged entries for user
+intervention to clean up.  For notes stored in flagged entries, Org
+displays them in the echo area when point is on the corresponding
+agenda item.
+
+          <dl>
+<dt><kbd>?</kbd><dd>Pressing <kbd>?</kbd> displays the entire flagged note in
+another window.  Org also pushes it to the kill ring.  To
+store flagged note as a normal note, use <kbd>? z C-y C-c C-c</kbd>.  Pressing <kbd>?</kbd> twice does these things: first
+it removes the &lsquo;<samp><span class="samp">FLAGGED</span></samp>&rsquo; tag; second, it removes the flagged
+note from the property drawer; third, it signals that manual
+editing of the flagged entry is now finished. 
+</dl>
+     </ol>
+
+   <p><a name="index-g_t_003f-_0040r_007b_0028Agenda-dispatcher_0029_007d-2384"></a>From the agenda dispatcher, <kbd>?</kbd> returns to the view to finish
+processing flagged entries.  Note that these entries may not be the
+most recent since the mobile application searches files that were last
+pulled.  To get an updated agenda view with changes since the last
+pull, pull again.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> The file will be empty after this operation.</p>
+
+   <hr></div>
+
+   </body></html>
+

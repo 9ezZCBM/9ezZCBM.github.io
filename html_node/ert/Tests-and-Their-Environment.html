@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Tests and Their Environment - Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Tests-and-Their-Environment"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Useful-Techniques.html#Useful-Techniques">Useful Techniques</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Expected-Failures.html#Expected-Failures">Expected Failures</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="How-to-Write-Tests.html#How-to-Write-Tests">How to Write Tests</a>
+
+</div>
+
+<h3 class="section">3.3 Tests and Their Environment</h3>
+
+<p><a name="index-skipping-tests-31"></a><a name="index-test-preconditions-32"></a><a name="index-preconditions-of-a-test-33"></a>Sometimes, it doesn't make sense to run a test due to missing
+preconditions.  A required Emacs feature might not be compiled in, the
+function to be tested could call an external binary which might not be
+available on the test machine, you name it.  In this case, the macro
+<code>skip-unless</code> could be used to skip the test:
+
+<pre class="lisp">     (ert-deftest test-dbus ()
+       "A test that checks D-BUS functionality."
+       (skip-unless (featurep 'dbusbind))
+       ...)
+</pre>
+   <p><a name="index-tests-and-their-environment-34"></a>The outcome of running a test should not depend on the current state
+of the environment, and each test should leave its environment in the
+same state it found it in.  In particular, a test should not depend on
+any Emacs customization variables or hooks, and if it has to make any
+changes to Emacs's state or state external to Emacs (such as the file
+system), it should undo these changes before it returns, regardless of
+whether it passed or failed.
+
+   <p>Tests should not depend on the environment because any such
+dependencies can make the test brittle or lead to failures that occur
+only under certain circumstances and are hard to reproduce.  Of
+course, the code under test may have settings that affect its
+behavior.  In that case, it is best to make the test <code>let</code>-bind
+all such setting variables to set up a specific configuration for the
+duration of the test.  The test can also set up a number of different
+configurations and run the code under test with each.
+
+   <p>Tests that have side effects on their environment should restore it to
+its original state because any side effects that persist after the
+test can disrupt the workflow of the programmer running the tests.  If
+the code under test has side effects on Emacs's current state, such as
+on the current buffer or window configuration, the test should create
+a temporary buffer for the code to manipulate (using
+<code>with-temp-buffer</code>), or save and restore the window configuration
+(using <code>save-window-excursion</code>), respectively.  For aspects of
+the state that can not be preserved with such macros, cleanup should
+be performed with <code>unwind-protect</code>, to ensure that the cleanup
+occurs even if the test fails.
+
+   <p>An exception to this are messages that the code under test prints with
+<code>message</code> and similar logging; tests should not bother restoring
+the <samp><span class="file">*Message*</span></samp> buffer to its original state.
+
+   <p>The above guidelines imply that tests should avoid calling highly
+customizable commands such as <code>find-file</code>, except, of course, if
+such commands are what they want to test.  The exact behavior of
+<code>find-file</code> depends on many settings such as
+<code>find-file-wildcards</code>, <code>enable-local-variables</code>, and
+<code>auto-mode-alist</code>.  It is difficult to write a meaningful test if
+its behavior can be affected by so many external factors.  Also,
+<code>find-file</code> has side effects that are hard to predict and thus
+hard to undo: It may create a new buffer or reuse an existing
+buffer if one is already visiting the requested file; and it runs
+<code>find-file-hook</code>, which can have arbitrary side effects.
+
+   <p>Instead, it is better to use lower-level mechanisms with simple and
+predictable semantics like <code>with-temp-buffer</code>, <code>insert</code> or
+<code>insert-file-contents-literally</code>, and to activate any desired mode
+by calling the corresponding function directly, after binding the
+hook variables to <code>nil</code>.  This avoids the above problems.
+
+   </body></html>
+

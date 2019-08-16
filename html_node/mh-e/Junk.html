@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Junk - The MH-E Manual</title>
+<!--
+This is version 8.6 of `The MH-E
+Manual', last updated 2016-04-29.
+
+Copyright (C) 1995, 2001--2003, 2005--2019 Free Software
+Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of either:
+
+       a. the GNU Free Documentation License, Version 1.3 or any later
+          version published by the Free Software Foundation; with no
+          Invariant Sections, with the Front-Cover Texts being ``A GNU
+          Manual,'' and with the Back-Cover Texts as in (a) below. A
+          copy of the license is included in the section entitled ``GNU
+          Free Documentation License.''
+
+          (a) The FSF's Back-Cover Text is: ``You have the freedom to
+          copy and modify this GNU manual.''
+
+       b. the GNU General Public License as published by the Free
+          Software Foundation; either version 3, or (at your option)
+          any later version. A copy of the license is included in the
+          section entitled ``GNU General Public License.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Junk"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Miscellaneous.html#Miscellaneous">Miscellaneous</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Sequences.html#Sequences">Sequences</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">19 Dealing With Junk Mail</h2>
+
+<p><a name="index-Marshall-Rose-1983"></a><a name="index-junk-mail-1984"></a><a name="index-spam-1985"></a>
+Marshall Rose once wrote a paper on MH entitled, <cite>How to process
+200 messages a day and still get some real work done</cite>. This chapter
+could be entitled, <cite>How to process 1000 spams a day and still get
+some real work done</cite>.
+
+   <p><a name="index-blacklisting-1986"></a><a name="index-ham-1987"></a><a name="index-viruses-1988"></a><a name="index-whitelisting-1989"></a><a name="index-worms-1990"></a>
+We use the terms <dfn>junk mail</dfn> and <dfn>spam</dfn> interchangeably for
+any unwanted message which includes spam, <dfn>viruses</dfn>, and
+<dfn>worms</dfn>. The opposite of spam is <dfn>ham</dfn>. The act of classifying
+a sender as one who sends junk mail is called <dfn>blacklisting</dfn>; the
+opposite is called <dfn>whitelisting</dfn>.
+
+     
+<a name="index-J-_003f-1991"></a>
+<a name="index-mh_002dprefix_002dhelp-1992"></a>
+<dl><dt><kbd>J ?</kbd><dd>Display cheat sheet for the commands of the current prefix in
+minibuffer (<code>mh-prefix-help</code>). 
+<!--  -->
+<a name="index-J-b-1993"></a><a name="index-mh_002djunk_002dblacklist-1994"></a><br><dt><kbd>J b</kbd><dd>Blacklist range as spam (<code>mh-junk-blacklist</code>). 
+<!--  -->
+<a name="index-J-w-1995"></a><a name="index-mh_002djunk_002dwhitelist-1996"></a><br><dt><kbd>J w</kbd><dd>Whitelist range as ham (<code>mh-junk-whitelist</code>). 
+<!--  -->
+<br><dt><code>mh-spamassassin-identify-spammers</code><dd>Identify spammers who are repeat offenders. 
+</dl>
+
+   <p><a name="index-g_t_0040samp_007bmh_002djunk_007d-customization-group-1997"></a><a name="index-customization-group_002c-_0040samp_007bmh_002djunk_007d-1998"></a>
+The following table lists the options from the &lsquo;<samp><span class="samp">mh-junk</span></samp>&rsquo;
+customization group.
+
+     <dl>
+<dt><code>mh-junk-background</code><a name="index-mh_002djunk_002dbackground-1999"></a><dd>If on, spam programs are run in background (default: &lsquo;<samp><span class="samp">off</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-junk-disposition</code><a name="index-mh_002djunk_002ddisposition-2000"></a><dd>Disposition of junk mail (default: &lsquo;<samp><span class="samp">Delete Spam</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-junk-program</code><a name="index-mh_002djunk_002dprogram-2001"></a><dd>Spam program that MH-E should use (default: &lsquo;<samp><span class="samp">Auto-detect</span></samp>&rsquo;). 
+</dl>
+
+   <p><a name="index-g_t_0040samp_007bmh_002dsequences_007d-customization-group-2002"></a><a name="index-customization-group_002c-_0040samp_007bmh_002dsequences_007d-2003"></a>
+The following option in the &lsquo;<samp><span class="samp">mh-sequences</span></samp>&rsquo; customization group is
+also available.
+
+     <dl>
+<dt><code>mh-whitelist-preserves-sequences-flag</code><a name="index-mh_002dwhitelist_002dpreserves_002dsequences_002dflag-2004"></a><dd>On means that sequences are preserved when messages are whitelisted
+(default: &lsquo;<samp><span class="samp">on</span></samp>&rsquo;). 
+</dl>
+
+   <p>The following hooks are available.
+
+     <dl>
+<dt><code>mh-blacklist-msg-hook</code><a name="index-mh_002dblacklist_002dmsg_002dhook-2005"></a><dd>Hook run by <kbd>J b</kbd> (<code>mh-junk-blacklist</code>) after marking each
+message for blacklisting (default: <code>nil</code>). 
+<!--  -->
+<br><dt><code>mh-whitelist-msg-hook</code><a name="index-mh_002dwhitelist_002dmsg_002dhook-2006"></a><dd>Hook run by <kbd>J w</kbd> (<code>mh-junk-whitelist</code>) after marking each
+message for whitelisting (default &lsquo;<samp><span class="samp">nil</span></samp>&rsquo;). 
+</dl>
+
+   <p>The following faces are available.
+
+     <dl>
+<dt><code>mh-folder-blacklisted</code><a name="index-mh_002dfolder_002dblacklisted-2007"></a><dd>Blacklisted message face. 
+<!--  -->
+<br><dt><code>mh-folder-whitelisted</code><a name="index-mh_002dfolder_002dwhitelisted-2008"></a><dd>Whitelisted message face
+</dl>
+
+   <p><a name="index-SpamProbe-2009"></a><a name="index-SpamAssassin-2010"></a><a name="index-bogofilter-2011"></a><a name="index-spam-filters_002c-SpamProbe-2012"></a><a name="index-spam-filters_002c-SpamAssassin-2013"></a><a name="index-spam-filters_002c-bogofilter-2014"></a>
+MH-E depends on <a href="http://spamassassin.apache.org/">SpamAssassin</a>,
+<a href="http://bogofilter.sourceforge.net/">bogofilter</a>, or
+<a href="http://spamprobe.sourceforge.net/">SpamProbe</a> to throw the dreck
+away. This chapter describes briefly how to configure these programs
+to work well with MH-E and how to use MH-E's interface that provides
+continuing education for these programs.
+
+   <p><a name="index-mh_002djunk_002dprogram-2015"></a>
+The default setting of the option <code>mh-junk-program</code> is
+&lsquo;<samp><span class="samp">Auto-detect</span></samp>&rsquo; which means that MH-E will automatically choose one
+of SpamAssassin, bogofilter, or SpamProbe in that order. If, for
+example, you have both SpamAssassin and bogofilter installed and you
+want to use bogofilter, then you can set this option to
+&lsquo;<samp><span class="samp">Bogofilter</span></samp>&rsquo;.
+
+   <p><a name="index-mh_002djunk_002dblacklist-2016"></a><a name="index-J-b-2017"></a><a name="index-mh_002djunk_002ddisposition-2018"></a>
+The command <kbd>J b</kbd> (<code>mh-junk-blacklist</code>) trains the spam
+program in use with the content of the range (see <a href="Ranges.html#Ranges">Ranges</a>) and then
+handles the message(s) as specified by the option
+<code>mh-junk-disposition</code>. By default, this option is set to
+&lsquo;<samp><span class="samp">Delete Spam</span></samp>&rsquo; but you can also specify the name of the folder
+which is useful for building a corpus of spam for training purposes.
+
+   <p><a name="index-mh_002djunk_002dwhitelist-2019"></a><a name="index-J-w-2020"></a>
+In contrast, the command <kbd>J w</kbd> (<code>mh-junk-whitelist</code>)
+reclassifies a range of messages (see <a href="Ranges.html#Ranges">Ranges</a>) as ham if it were
+incorrectly classified as spam. It then refiles the message into the
+<samp><span class="file">+inbox</span></samp> folder.
+
+   <p><a name="index-MH-profile-component_002c-_0040samp_007bPrevious_002dSequence_007d-2021"></a><a name="index-g_t_0040samp_007bcur_007d-sequence-2022"></a><a name="index-g_t_0040samp_007bPrevious_002dSequence_007d-MH-profile-component-2023"></a><a name="index-sequence_002c-_0040samp_007bcur_007d-2024"></a><a name="index-sequence_002c-_0040samp_007bPrevious_002dSequence_007d-2025"></a><a name="index-mh_002dwhitelist_002dpreserves_002dsequences_002dflag-2026"></a>
+If a message is in any sequence (except &lsquo;<samp><span class="samp">Previous-Sequence:</span></samp>&rsquo; and
+&lsquo;<samp><span class="samp">cur</span></samp>&rsquo;) when it is whitelisted, then it will still be in those
+sequences in the destination folder. If this behavior is not desired,
+then turn off the option <code>mh-whitelist-preserves-sequences-flag</code>.
+
+   <p><a name="index-g_t_0040file_007b_002aMH_002dE-Log_002a_007d-2027"></a><a name="index-buffers_002c-_0040file_007b_002aMH_002dE-Log_002a_007d-2028"></a><a name="index-call_002dprocess-2029"></a><a name="index-mh_002djunk_002dbackground-2030"></a>
+By default, the programs are run in the foreground, but this can be
+slow when junking large numbers of messages. If you have enough memory
+or don't junk that many messages at the same time, you might try
+turning on the option <code>mh-junk-background</code>. <a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+   <p>The following sections discuss the various counter-spam measures that
+MH-E can work with.
+
+   <p><a name="index-g_t_0040file_007b_002eprocmailrc_007d-2031"></a><a name="index-files_002c-_0040file_007b_002eprocmailrc_007d-2032"></a>
+
+<h4 class="subheading">SpamAssassin</h4>
+
+<p><a name="index-SpamAssassin-2033"></a><a name="index-spam-filters_002c-SpamAssassin-2034"></a>
+SpamAssassin is one of the more popular spam filtering programs. Get
+it from your local distribution or from the
+<a href="http://spamassassin.apache.org/">SpamAssassin web site</a>.
+
+   <p>To use SpamAssassin, add the following recipes to <samp><span class="file">~/.procmailrc</span></samp>:
+
+   <p><a name="index-g_t_0040command_007bspamc_007d-2035"></a><a name="index-g_t_0040samp_007bX_002dSpam_002dLevel_007d-header-field-2036"></a><a name="index-g_t_0040samp_007bX_002dSpam_002dStatus_007d-header-field-2037"></a><a name="index-header-field_002c-_0040samp_007bX_002dSpam_002dLevel_007d-2038"></a><a name="index-header-field_002c-_0040samp_007bX_002dSpam_002dStatus_007d-2039"></a>
+<pre class="smallexample">     PATH=$PATH:/usr/bin/mh
+     MAILDIR=$HOME/`mhparam Path`
+     
+     # Fight spam with SpamAssassin.
+     :0fw
+     | spamc
+     
+     # Anything with a spam level of 10 or more is junked immediately.
+     :0:
+     * ^X-Spam-Level: ..........
+     /dev/null
+     
+     :0:
+     * ^X-Spam-Status: Yes
+     spam/.
+</pre>
+   <p>If you don't use <samp><span class="command">spamc</span></samp>, use &lsquo;<samp><span class="samp">spamassassin -P -a</span></samp>&rsquo;.
+
+   <p>Note that one of the recipes above throws away messages with a score
+greater than or equal to 10. Here's how you can determine a value that
+works best for you.
+
+   <p>First, run &lsquo;<samp><span class="samp">spamassassin -t</span></samp>&rsquo; on every mail message in your
+archive and use <samp><span class="command">gnumeric</span></samp> to verify that the average plus the
+standard deviation of good mail is under 5, the SpamAssassin default
+for &ldquo;spam&rdquo;.
+
+   <p>Using <samp><span class="command">gnumeric</span></samp>, sort the messages by score and view the
+messages with the highest score. Determine the score which encompasses
+all of your interesting messages and add a couple of points to be
+conservative. Add that many dots to the &lsquo;<samp><span class="samp">X-Spam-Level:</span></samp>&rsquo; header
+field above to send messages with that score down the drain.
+
+   <p>In the example above, messages with a score of 5&ndash;9 are set aside in
+the &lsquo;<samp><span class="samp">+spam</span></samp>&rsquo; folder for later review. The major weakness of
+rules-based filters is a plethora of false positives so it is
+worthwhile to check.
+
+   <p><a name="index-mh_002djunk_002dblacklist-2040"></a><a name="index-mh_002djunk_002dwhitelist-2041"></a><a name="index-J-b-2042"></a><a name="index-J-w-2043"></a>
+If SpamAssassin classifies a message incorrectly, or is unsure, you can
+use the MH-E commands <kbd>J b</kbd> (<code>mh-junk-blacklist</code>) and
+<kbd>J w</kbd> (<code>mh-junk-whitelist</code>).
+
+   <p><a name="index-g_t_0040command_007bsa_002dlearn_007d-2044"></a><a name="index-g_t_0040file_007b_002espamassassin_002fuser_005fprefs_007d-2045"></a><a name="index-files_002c-_0040file_007b_002espamassassin_002fuser_005fprefs_007d-2046"></a>
+The command <kbd>J b</kbd> (<code>mh-junk-blacklist</code>) adds a
+&lsquo;<samp><span class="samp">blacklist_from</span></samp>&rsquo; entry to <samp><span class="file">~/spamassassin/user_prefs</span></samp>,
+deletes the message, and sends the message to the Razor, so that
+others might not see this spam. If the <samp><span class="command">sa-learn</span></samp> command is
+available, the message is also recategorized as spam.
+
+   <p>The command<kbd>J w</kbd> (<code>mh-junk-whitelist</code>) adds a
+&lsquo;<samp><span class="samp">whitelist_from</span></samp>&rsquo; rule to &lsquo;<samp><span class="samp">~/.spamassassin/user_prefs</span></samp>&rsquo;. If
+the <samp><span class="command">sa-learn</span></samp> command is available, the message is also
+recategorized as ham.
+
+   <p>Over time, you'll observe that the same host or domain occurs
+repeatedly in the &lsquo;<samp><span class="samp">blacklist_from</span></samp>&rsquo; entries, so you might think
+that you could avoid future spam by blacklisting all mail from a
+particular domain. The utility function
+<code>mh-spamassassin-identify-spammers</code> helps you do precisely that. 
+This function displays a frequency count of the hosts and domains in
+the &lsquo;<samp><span class="samp">blacklist_from</span></samp>&rsquo; entries from the last blank line in
+<samp><span class="file">~/.spamassassin/user_prefs</span></samp> to the end of the file. This
+information can be used so that you can replace multiple
+&lsquo;<samp><span class="samp">blacklist_from</span></samp>&rsquo; entries with a single wildcard entry such as:
+
+<pre class="smallexample">     blacklist_from *@*amazingoffersdirect2u.com
+</pre>
+   <p>In versions of SpamAssassin (2.50 and on) that support a Bayesian
+classifier, <kbd>J b</kbd> <code>(mh-junk-blacklist</code>) uses the program
+<samp><span class="command">sa-learn</span></samp> to recategorize the message as spam. Neither MH-E,
+nor SpamAssassin, rebuilds the database after adding words, so you
+will need to run &lsquo;<samp><span class="samp">sa-learn --rebuild</span></samp>&rsquo; periodically. This can be
+done by adding the following to your <samp><span class="file">crontab</span></samp>:
+
+<pre class="smallexample">     0 * * * *       sa-learn --rebuild &gt; /dev/null 2&gt;&amp;1
+</pre>
+   <h4 class="subheading">Bogofilter</h4>
+
+<p><a name="index-bogofilter-2047"></a><a name="index-spam-filters_002c-bogofilter-2048"></a>
+Bogofilter is a Bayesian spam filtering program. Get it from your
+local distribution or from the
+<a href="http://bogofilter.sourceforge.net/">bogofilter web site</a>.
+
+   <p>Bogofilter is taught by running:
+
+<pre class="smallexample">     bogofilter -n &lt; good-message
+</pre>
+   <p>on every good message, and
+
+<pre class="smallexample">     bogofilter -s &lt; spam-message
+</pre>
+   <p><a name="index-full-training-2049"></a>
+on every spam message. This is called a <dfn>full training</dfn>; three
+other training methods are described in the FAQ that is distributed
+with bogofilter. Note that most Bayesian filters need 1000 to 5000 of
+each type of message to start doing a good job.
+
+   <p>To use bogofilter, add the following recipes to <samp><span class="file">~/.procmailrc</span></samp>:
+
+   <p><a name="index-g_t_0040samp_007bX_002dBogosity_007d-header-field-2050"></a><a name="index-header-field_002c-_0040samp_007bX_002dBogosity_007d-2051"></a>
+<pre class="smallexample">     PATH=$PATH:/usr/bin/mh
+     MAILDIR=$HOME/`mhparam Path`
+     
+     # Fight spam with Bogofilter.
+     :0fw
+     | bogofilter -3 -e -p
+     
+     :0:
+     * ^X-Bogosity: Yes, tests=bogofilter
+     spam/.
+     
+     :0:
+     * ^X-Bogosity: Unsure, tests=bogofilter
+     spam/unsure/.
+</pre>
+   <p><a name="index-mh_002djunk_002dblacklist-2052"></a><a name="index-mh_002djunk_002dwhitelist-2053"></a><a name="index-J-b-2054"></a><a name="index-J-w-2055"></a>
+If bogofilter classifies a message incorrectly, or is unsure, you can
+use the MH-E commands <kbd>J b</kbd> (<code>mh-junk-blacklist</code>) and <kbd>J
+w</kbd> (<code>mh-junk-whitelist</code>) to update bogofilter's training.
+
+   <p>The <cite>Bogofilter FAQ</cite> suggests that you run the following
+occasionally to shrink the database:
+
+<pre class="smallexample">     bogoutil -d wordlist.db | bogoutil -l wordlist.db.new
+     mv wordlist.db wordlist.db.prv
+     mv wordlist.db.new wordlist.db
+</pre>
+   <p>The <cite>Bogofilter tuning HOWTO</cite> describes how you can fine-tune
+bogofilter.
+
+<h4 class="subheading">SpamProbe</h4>
+
+<p><a name="index-SpamProbe-2056"></a><a name="index-spam-filters_002c-SpamProbe-2057"></a>
+SpamProbe is a Bayesian spam filtering program. Get it from your local
+distribution or from the <a href="http://spamprobe.sourceforge.net">SpamProbe web site</a>.
+
+   <p>To use SpamProbe, add the following recipes to <samp><span class="file">~/.procmailrc</span></samp>:
+
+   <p><a name="index-g_t_0040command_007bformail_007d-2058"></a><a name="index-g_t_0040samp_007bX_002dSpamProbe_007d-header-field-2059"></a><a name="index-header-field_002c-_0040samp_007bX_002dSpamProbe_007d-2060"></a>
+<pre class="smallexample">     PATH=$PATH:/usr/bin/mh
+     MAILDIR=$HOME/`mhparam Path`
+     
+     # Fight spam with SpamProbe.
+     :0
+     SCORE=| spamprobe receive
+     
+     :0 wf
+     | formail -I "X-SpamProbe: $SCORE"
+     
+     :0:
+     *^X-SpamProbe: SPAM
+     spam/.
+</pre>
+   <p><a name="index-mh_002djunk_002dblacklist-2061"></a><a name="index-mh_002djunk_002dwhitelist-2062"></a><a name="index-J-b-2063"></a><a name="index-J-w-2064"></a>
+If SpamProbe classifies a message incorrectly, you can use the MH-E
+commands <kbd>J b</kbd> (<code>mh-junk-blacklist</code>) and <kbd>J w</kbd>
+(<code>mh-junk-whitelist</code>) to update SpamProbe's training.
+
+<h4 class="subheading">Other Things You Can Do</h4>
+
+<p>There are a couple of things that you can add to <samp><span class="file">~/.procmailrc</span></samp>
+in order to filter out a lot of spam and viruses. The first is to
+eliminate any message with a Windows executable (which is most likely
+a virus). The second is to eliminate mail in character sets that you
+can't read.
+
+   <p><a name="index-g_t_0040samp_007bContent_002dTransfer_002dEncoding_007d-header-field-2065"></a><a name="index-g_t_0040samp_007bContent_002dType_007d-header-field-2066"></a><a name="index-g_t_0040samp_007bSubject_007d-header-field-2067"></a><a name="index-header-field_002c-_0040samp_007bContent_002dTransfer_002dEncoding_007d-2068"></a><a name="index-header-field_002c-_0040samp_007bContent_002dType_007d-2069"></a><a name="index-header-field_002c-_0040samp_007bSubject_007d-2070"></a>
+<pre class="smallexample">     PATH=$PATH:/usr/bin/mh
+     MAILDIR=$HOME/`mhparam Path`
+     
+     #
+     # Filter messages with w32 executables/virii.
+     #
+     # These attachments are base64 and have a TVqQAAMAAAAEAAAA//8AALg
+     # pattern. The string "this program cannot be run in MS-DOS mode"
+     # encoded in base64 is 4fug4AtAnNIbg and helps to avoid false
+     # positives (Roland Smith via Pete from the bogofilter mailing list).
+     #
+     :0 B:
+     * ^Content-Transfer-Encoding:.*base64
+     * ^TVqQAAMAAAAEAAAA//8AALg
+     * 4fug4AtAnNIbg
+     spam/exe/.
+     
+     #
+     # Filter mail in unreadable character sets (from the Bogofilter FAQ).
+     #
+     UNREADABLE='[^?"]*big5|iso-2022-jp|ISO-2022-KR|euc-kr|gb2312|ks_c_5601-1987'
+     
+     :0:
+     * 1^0 $ ^Subject:.*=\?($UNREADABLE)
+     * 1^0 $ ^Content-Type:.*charset="?($UNREADABLE)
+     spam/unreadable/.
+     
+     :0:
+     * ^Content-Type:.*multipart
+     * B ?? $ ^Content-Type:.*^?.*charset="?($UNREADABLE)
+     spam/unreadable/.
+</pre>
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Note that
+the option <code>mh-junk-background</code> is used as the <code>display</code>
+argument in the call to <code>call-process</code>. Therefore, turning on
+this option means setting its value to &lsquo;<samp><span class="samp">0</span></samp>&rsquo;. You can also set its
+value to &lsquo;<samp><span class="samp">t</span></samp>&rsquo; to direct the programs' output to the <samp><span class="file">*MH-E
+Log*</span></samp> buffer; this may be useful for debugging.</p>
+
+   <hr></div>
+
+   </body></html>
+

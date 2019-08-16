@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Conventions - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Conventions"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Feedback.html#Feedback">Feedback</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Introduction.html#Introduction">Introduction</a>
+
+</div>
+
+<h3 class="section">1.5 Typesetting conventions used in this manual</h3>
+
+<h5 class="subsubheading">TODO keywords, tags, properties, etc.</h5>
+
+<p>Org mainly uses three types of keywords: TODO keywords, tags and property
+names.  In this manual we use the following conventions:
+
+     <dl>
+<dt><code>TODO</code><dt><code>WAITING</code><dd>TODO keywords are written with all capitals, even if they are
+user-defined. 
+<br><dt><code>boss</code><dt><code>ARCHIVE</code><dd>User-defined tags are written in lowercase; built-in tags with special
+meaning are written with all capitals. 
+<br><dt><code>Release</code><dt><code>PRIORITY</code><dd>User-defined properties are capitalized; built-in properties with
+special meaning are written with all capitals. 
+</dl>
+
+   <p>Moreover, Org uses <i>option keywords</i> (like <code>#+TITLE</code> to set the title)
+and <i>environment keywords</i> (like <code>#+BEGIN_EXPORT html</code> to start
+a <code>HTML</code> environment).  They are written in uppercase in the manual to
+enhance its readability, but you can use lowercase in your Org file.
+
+<h5 class="subsubheading">Key bindings and commands</h5>
+
+<p><a name="index-C_002dc-a-22"></a><a name="index-org_002dagenda-23"></a><a name="index-C_002dc-c-24"></a><a name="index-org_002dcapture-25"></a>
+The manual suggests a few global key bindings, in particular <kbd>C-c a</kbd> for
+<code>org-agenda</code> and <kbd>C-c c</kbd> for <code>org-capture</code>.  These are only
+suggestions, but the rest of the manual assumes that these key bindings are in
+place in order to list commands by key access.
+
+   <p>Also, the manual lists both the keys and the corresponding commands for
+accessing a functionality.  Org mode often uses the same key for different
+functions, depending on context.  The command that is bound to such keys has
+a generic name, like <code>org-metaright</code>.  In the manual we will, wherever
+possible, give the function that is internally called by the generic command. 
+For example, in the chapter on document structure, <kbd>M-&lt;RIGHT&gt;</kbd> will
+be listed to call <code>org-do-demote</code>, while in the chapter on tables, it
+will be listed to call <code>org-table-move-column-right</code>.  If you prefer,
+you can compile the manual without the command names by unsetting the flag
+<code>cmdnames</code> in <samp><span class="file">org.texi</span></samp>.
+
+   </body></html>
+

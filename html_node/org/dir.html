@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>dir - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="dir"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="exports.html#exports">exports</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="output_002ddir.html#output_002ddir">output-dir</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Specific-header-arguments.html#Specific-header-arguments">Specific header arguments</a>
+
+</div>
+
+<h5 class="subsubsection">14.8.2.7 <code>:dir</code> and remote execution</h5>
+
+<p><a name="index-g_t_0040code_007b_003adir_007d_002c-src-header-argument-2134"></a>
+While the <code>:file</code> header argument can be used to specify the path to the
+output file, <code>:dir</code> specifies the default directory during &lsquo;<samp><span class="samp">src</span></samp>&rsquo;
+code block execution.  If it is absent, then the directory associated with
+the current buffer is used.  In other words, supplying <code>:dir path</code>
+temporarily has the same effect as changing the current directory with
+<kbd>M-x cd path &lt;RET&gt;</kbd>, and then not supplying <code>:dir</code>.  Under the
+surface, <code>:dir</code> simply sets the value of the Emacs variable
+<code>default-directory</code>.
+
+   <p>When using <code>:dir</code>, relative paths (for example, <code>:file myfile.jpg</code>
+or <code>:file results/myfile.jpg</code>) become relative to the default directory.
+
+   <p>For example, to save the plot file in the &lsquo;<samp><span class="samp">Work</span></samp>&rsquo; folder of the home
+directory (notice tilde is expanded):
+
+<pre class="example">     #+BEGIN_SRC R :file myplot.png :dir ~/Work
+     matplot(matrix(rnorm(100), 10), type="l")
+     #+END_SRC
+</pre>
+   <h5 class="subsubheading">Remote execution</h5>
+
+<p>To evaluate the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block on a remote machine, supply a remote s
+directory name using &lsquo;<samp><span class="samp">Tramp</span></samp>&rsquo; syntax.  For example:
+
+<pre class="example">     #+BEGIN_SRC R :file plot.png :dir /scp:dand@yakuba.princeton.edu:
+     plot(1:10, main=system("hostname", intern=TRUE))
+     #+END_SRC
+</pre>
+   <p>Org first captures the text results as usual for insertion in the Org file. 
+Then Org also inserts a link to the remote file, thanks to Emacs
+&lsquo;<samp><span class="samp">Tramp</span></samp>&rsquo;.  Org constructs the remote path to the file name from
+<code>:dir</code> and <code>default-directory</code>, as illustrated here:
+
+<pre class="example">     [[file:/scp:dand@yakuba.princeton.edu:/home/dand/plot.png][plot.png]]
+</pre>
+   <h5 class="subsubheading">Some more warnings</h5>
+
+     <ul>
+<li>When <code>:dir</code> is used with <code>:session</code>, Org sets the starting
+directory for a new session.  But Org will not alter the directory of an
+already existing session. 
+<li>Do not use <code>:dir</code> with <code>:exports results</code> or with <code>:exports
+both</code> to avoid Org inserting incorrect links to remote files.  That is because
+Org does not expand <code>default directory</code> to avoid some underlying
+portability issues. 
+</ul>
+
+   </body></html>
+

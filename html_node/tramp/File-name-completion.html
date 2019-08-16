@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>File name completion - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="File-name-completion"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Ad_002dhoc-multi_002dhops.html#Ad_002dhoc-multi_002dhops">Ad-hoc multi-hops</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Change-file-name-syntax.html#Change-file-name-syntax">Change file name syntax</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Usage.html#Usage">Usage</a>
+
+</div>
+
+<h3 class="section">6.3 File name completion</h3>
+
+<p><a name="index-file-name-completion-236"></a>
+<span class="sc">Tramp</span> can complete the following <span class="sc">Tramp</span> file name
+components: method names, user names, host names, and file names
+located on remote hosts.  Enable this by activating partial completion
+in <samp><span class="file">.emacs</span></samp>.
+
+   <p>For example, type <kbd>C-x C-f / s &lt;TAB&gt;</kbd>,
+<span class="sc">Tramp</span> completion choices show up as
+
+<pre class="example">
+     <p><table summary=""><tr align="left"><td valign="top" width="20%">  sbin/ </td><td valign="top" width="20%">  scp: </td><td valign="top" width="20%">  scpx: </td><td valign="top" width="20%">  sftp: </td><td valign="top" width="20%">  sg:
+     <br></td></tr><tr align="left"><td valign="top" width="20%">  smb: </td><td valign="top" width="20%">  srv/ </td><td valign="top" width="20%">  ssh: </td><td valign="top" width="20%">  sshx: </td><td valign="top" width="20%">  su:
+     <br></td></tr><tr align="left"><td valign="top" width="20%">  sudo: </td><td valign="top" width="20%">  sys/
+     <br></td></tr></table>
+</pre>
+   <p>&lsquo;<samp><span class="samp">ssh:</span></samp>&rsquo; is a possible
+completion for the respective method, and &lsquo;<samp><span class="samp">sbin/</span></samp>&rsquo; stands for the
+directory <samp><span class="file">/sbin</span></samp> on your local host.
+
+   <p>Type <kbd>s h :</kbd> for the minibuffer completion to
+&lsquo;<samp><span class="samp">/ssh:</span></samp>&rsquo;.  Typing <kbd>&lt;TAB&gt;</kbd>
+shows host names <span class="sc">Tramp</span> extracts from <samp><span class="file">~/.ssh/config</span></samp>
+file, for example.
+
+<pre class="example">
+     <p><table summary=""><tr align="left"><td valign="top" width="50%">  ssh:127.0.0.1: </td><td valign="top" width="50%">  ssh:192.168.0.1:
+     <br></td></tr><tr align="left"><td valign="top" width="50%">  ssh:[::1]: </td><td valign="top" width="50%">  ssh:localhost:
+     <br></td></tr><tr align="left"><td valign="top" width="50%">  ssh:melancholia.danann.net: </td><td valign="top" width="50%">  ssh:melancholia:
+     <br></td></tr></table>
+</pre>
+   <p>Choose a host from the above list and then continue to complete file
+names on that host.
+
+   <p>When the configuration (see <a href="Customizing-Completion.html#Customizing-Completion">Customizing Completion</a>) includes user
+names, then the completion lists will account for the user names as well.
+
+   <p>Remote hosts previously visited or hosts whose connections are kept
+persistently (see <a href="Connection-caching.html#Connection-caching">Connection caching</a>) will be included in the
+completion lists.
+
+   <p>After remote host name completion comes completion of file names on
+the remote host.  It works the same as with local host file completion
+except that killing with double-slash <samp><span class="file">//</span></samp> kills only the file
+name part of the <span class="sc">Tramp</span> file name syntax.  A triple-slash
+stands for the default behavior.
+
+<p class="noindent">Example:
+
+<pre class="example">     <kbd>C-x C-f /ssh:melancholia:/usr/local/bin//etc &lt;TAB&gt;</kbd>
+          -| /ssh:melancholia:/etc
+     
+     <kbd>C-x C-f /ssh:melancholia://etc &lt;TAB&gt;</kbd>
+          -| /etc
+     
+     <kbd>C-x C-f /ssh:melancholia:/usr/local/bin///etc &lt;TAB&gt;</kbd>
+          -| /etc
+</pre>
+   <p>During file name completion, remote directory contents are re-read
+regularly to account for any changes in the filesystem that may affect
+the completion candidates.  Such re-reads can account for changes to
+the file system by applications outside Emacs (see <a href="Connection-caching.html#Connection-caching">Connection caching</a>).
+
+<div class="defun">
+&mdash; User Option: <b>tramp-completion-reread-directory-timeout</b><var><a name="index-tramp_002dcompletion_002dreread_002ddirectory_002dtimeout-237"></a></var><br>
+<blockquote><p>The timeout is number of seconds since last remote command for
+rereading remote directory contents.  A value of 0 re-reads
+immediately during file name completion, <code>nil</code> uses cached
+directory contents. 
+</p></blockquote></div>
+
+   </body></html>
+

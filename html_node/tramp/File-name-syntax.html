@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>File name syntax - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="File-name-syntax"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Change-file-name-syntax.html#Change-file-name-syntax">Change file name syntax</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Usage.html#Usage">Usage</a>
+
+</div>
+
+<h3 class="section">6.1 <span class="sc">Tramp</span> file name conventions</h3>
+
+<p><a name="index-file-name-syntax-228"></a><a name="index-file-name-examples-229"></a>
+<samp><span class="file">/method:host:/path/to/file</span></samp> opens file <var>/path/to/file</var>
+on the remote host <var>host</var>, using the method <var>method</var>.
+
+     <dl>
+<dt><samp><span class="file">/ssh:melancholia:.emacs</span></samp><dd>For the file <samp><span class="file">.emacs</span></samp> located in the home directory, on the host
+<code>melancholia</code>, using method <code>ssh</code>.
+
+     <br><dt><samp><span class="file">/ssh:melancholia.danann.net:.emacs</span></samp><dd>For the file <samp><span class="file">.emacs</span></samp> specified using the fully qualified domain name of
+the host.
+
+     <br><dt><samp><span class="file">/ssh:melancholia:~/.emacs</span></samp><dd>For the file <samp><span class="file">.emacs</span></samp> specified using the <samp><span class="file">~</span></samp>, which is expanded.
+
+     <br><dt><samp><span class="file">/ssh:melancholia:~daniel/.emacs</span></samp><dd>For the file <samp><span class="file">.emacs</span></samp> located in <code>daniel</code>'s home directory
+on the host, <code>melancholia</code>.  The <samp><span class="file">~&lt;user&gt;</span></samp> construct is
+expanded to the home directory of that user on the remote host.
+
+     <br><dt><samp><span class="file">/ssh:melancholia:/etc/squid.conf</span></samp><dd>For the file <samp><span class="file">/etc/squid.conf</span></samp> on the host <code>melancholia</code>.
+
+   </dl>
+
+   <p><var>host</var> can take IPv4 or IPv6 address, as in
+<samp><span class="file">/ssh:127.0.0.1:.emacs</span></samp> or
+<samp><span class="file">/ssh:[::1]:.emacs</span></samp>. 
+For syntactical reasons, IPv6 addresses must be embedded in square
+brackets <samp><span class="file">[</span></samp> and <samp><span class="file">]</span></samp>.
+
+   <p>By default, <span class="sc">Tramp</span> will use the current local user name as the
+remote user name for log in to the remote host.  Specifying a different
+name using the proper syntax will override this default behavior:
+
+<pre class="example">     /method:user@host:path/to/file
+</pre>
+   <p><samp><span class="file">/ssh:daniel@melancholia:.emacs</span></samp> is for file
+<samp><span class="file">.emacs</span></samp> in <code>daniel</code>'s home directory on the host,
+<code>melancholia</code>, accessing via method <code>ssh</code>.
+
+   <p>For specifying port numbers, affix <samp><span class="file">#&lt;port&gt;</span></samp> to the host
+name.  For example: <samp><span class="file">/ssh:daniel@melancholia#42:.emacs</span></samp>.
+
+   <p>All method, user name, host name, port number and local name parts are
+optional, See <a href="Default-Method.html#Default-Method">Default Method</a>, See <a href="Default-User.html#Default-User">Default User</a>, See <a href="Default-Host.html#Default-Host">Default Host</a>. 
+For syntactical reasons, the default method must be indicated by the
+pseudo method <samp><span class="file">-</span></samp>.
+
+   </body></html>
+

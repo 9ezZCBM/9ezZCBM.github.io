@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Remote programs - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Remote-programs"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Remote-shell-setup.html#Remote-shell-setup">Remote shell setup</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Predefined-connection-information.html#Predefined-connection-information">Predefined connection information</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.15 How <span class="sc">Tramp</span> finds and uses programs on the remote host</h3>
+
+<p><span class="sc">Tramp</span> requires access to and rights to several commands on
+remote hosts: <samp><span class="command">ls</span></samp>, <samp><span class="command">test</span></samp>, <samp><span class="command">find</span></samp> and
+<samp><span class="command">cat</span></samp>.
+
+   <p>Besides there are other required programs for <a href="Inline-methods.html#Inline-methods">Inline methods</a> and
+<a href="External-methods.html#External-methods">External methods</a> of connection.
+
+   <p>To improve performance and accuracy of remote file access,
+<span class="sc">Tramp</span> uses <samp><span class="command">perl</span></samp> (or <samp><span class="command">perl5</span></samp>) and
+<samp><span class="command">grep</span></samp> when available.
+
+<div class="defun">
+&mdash; User Option: <b>tramp-remote-path</b><var><a name="index-tramp_002dremote_002dpath-187"></a></var><br>
+<blockquote><p><code>tramp-remote-path</code> specifies which remote directory paths
+<span class="sc">Tramp</span> can search for <a href="Remote-programs.html#Remote-programs">Remote programs</a>.
+
+        <p><a name="index-tramp_002ddefault_002dremote_002dpath-188"></a><span class="sc">Tramp</span> uses standard defaults, such as <samp><span class="file">/bin</span></samp> and
+<samp><span class="file">/usr/bin</span></samp>, which are reasonable for most hosts.  To accommodate
+differences in hosts and paths, for example, <samp><span class="file">/bin:/usr/bin</span></samp> on
+Debian GNU/Linux or
+<samp><span class="file">/usr/xpg4/bin:/usr/ccs/bin:/usr/bin:/opt/SUNWspro/bin</span></samp> on
+Solaris, <span class="sc">Tramp</span> queries the remote host with <samp><span class="command">getconf
+PATH</span></samp> and updates the symbol <code>tramp-default-remote-path</code>.
+
+        <p>For instances where hosts keep obscure locations for paths for
+security reasons, manually add such paths to local <samp><span class="file">.emacs</span></samp> as
+shown below for <span class="sc">Tramp</span> to use when connecting.
+
+     <pre class="lisp">          (add-to-list 'tramp-remote-path "/usr/local/perl/bin")
+</pre>
+        <p><a name="index-tramp_002down_002dremote_002dpath-189"></a>Another way to find the remote path is to use the path assigned to the
+remote user by the remote host.  <span class="sc">Tramp</span> does not normally retain
+this remote path after login.  However, <code>tramp-own-remote-path</code>
+preserves the path value, which can be used to update
+<code>tramp-remote-path</code>.
+
+     <pre class="lisp">          (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+</pre>
+        <p><strong>Note</strong> that this works only if your remote <samp><span class="command">/bin/sh</span></samp>
+shell supports the login argument &lsquo;<samp><span class="samp">-l</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+   <p>When remote search paths are changed, local <span class="sc">Tramp</span> caches must
+be recomputed.  To force <span class="sc">Tramp</span> to recompute afresh, exit
+Emacs, remove the persistent file (see <a href="Connection-caching.html#Connection-caching">Connection caching</a>), and
+restart Emacs.
+
+   </body></html>
+

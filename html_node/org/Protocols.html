@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Protocols - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Protocols"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Refile-and-copy.html#Refile-and-copy">Refile and copy</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="RSS-feeds.html#RSS-feeds">RSS feeds</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Capture-_002d-Refile-_002d-Archive.html#Capture-_002d-Refile-_002d-Archive">Capture - Refile - Archive</a>
+
+</div>
+
+<h3 class="section">9.4 Protocols for external access</h3>
+
+<p><a name="index-protocols_002c-for-external-access-1036"></a>
+Org protocol is a mean to trigger custom actions in Emacs from external
+applications.  Any application that supports calling external programs with
+an URL as argument may be used with this functionality.  For example, you can
+configure bookmarks in your web browser to send a link to the current page to
+Org and create a note from it using capture (see <a href="Capture.html#Capture">Capture</a>).  You can also
+create a bookmark that tells Emacs to open the local source file of a remote
+website you are browsing.
+
+   <p><a name="index-Org-protocol_002c-set_002dup-1037"></a><a name="index-Installing-Org-protocol-1038"></a>In order to use Org protocol from an application, you need to register
+&lsquo;<samp><span class="samp">org-protocol://</span></samp>&rsquo; as a valid scheme-handler.  External calls are passed
+to Emacs through the <code>emacsclient</code> command, so you also need to ensure
+an Emacs server is running.  More precisely, when the application calls
+
+<pre class="example">     emacsclient org-protocol://PROTOCOL?key1=val1&amp;key2=val2
+</pre>
+   <p class="noindent">Emacs calls the handler associated to &lsquo;<samp><span class="samp">PROTOCOL</span></samp>&rsquo; with argument
+&lsquo;<samp><span class="samp">(:key1 val1 :key2 val2)</span></samp>&rsquo;.
+
+   <p><a name="index-protocol_002c-new-protocol-1039"></a><a name="index-defining-new-protocols-1040"></a>Org protocol comes with three predefined protocols, detailed in the following
+sections.  Configure <code>org-protocol-protocol-alist</code> to define your own.
+
+<ul class="menu">
+<li><a accesskey="1" href="_003ccode_003estore_002dlink_003c_002fcode_003e-protocol.html#g_t_003ccode_003estore_002dlink_003c_002fcode_003e-protocol"><code>store-link</code> protocol</a>:   Store a link, push URL to kill-ring. 
+<li><a accesskey="2" href="_003ccode_003ecapture_003c_002fcode_003e-protocol.html#g_t_003ccode_003ecapture_003c_002fcode_003e-protocol"><code>capture</code> protocol</a>:      Fill a buffer with external information. 
+<li><a accesskey="3" href="_003ccode_003eopen_002dsource_003c_002fcode_003e-protocol.html#g_t_003ccode_003eopen_002dsource_003c_002fcode_003e-protocol"><code>open-source</code> protocol</a>:   Edit published contents. 
+</ul>
+
+   </body></html>
+

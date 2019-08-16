@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Log Edit Mode - PCL-CVS--Emacs Front-End to CVS</title>
+<!--
+Copyright (C) 1991--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Log-Edit-Mode"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Log-View-Mode.html#Log-View-Mode">Log View Mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Commands.html#Commands">Commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">6 Editing a Log Message</h2>
+
+<p><a name="index-Log-Edit-mode-167"></a><a name="index-mode_002c-Log-Edit-168"></a>Buffers for entering/editing log messages for changes which are about
+to be committed are put into Log Edit mode.
+
+   <p>Sometimes the log buffer contains default text when you enter it,
+typically the last log message entered.  If it does, mark and point
+are set around the entire contents of the buffer so that it is easy to
+kill the contents of the buffer with <kbd>C-w</kbd>.
+
+   <p><a name="index-log_002dedit_002dinsert_002dchangelog-169"></a>If you work by writing entries in the <samp><span class="file">ChangeLog</span></samp>
+(see <a href="../emacs/Change-Log.html#Change-Log">Change Log</a>) and then commit the change under revision
+control, you can generate the Log Edit text from the ChangeLog using
+<kbd>C-c C-a</kbd> (<kbd>log-edit-insert-changelog</kbd>).  This looks for
+entries for the file(s) concerned in the top entry in the ChangeLog
+and uses those paragraphs as the log text.  This text is only inserted
+if the top entry was made under your user name on the current date. 
+See <a href="../emacs/Change-Logs-and-VC.html#Change-Logs-and-VC">Change Logs and VC</a>, for the opposite way of
+working&mdash;generating ChangeLog entries from the revision control log.
+
+   <p>In the Log Edit buffer, <kbd>C-c C-f</kbd> (<kbd>M-x log-edit-show-files</kbd>)
+shows the list of files to be committed in case you need to check
+that.
+
+   <p>When you have finished editing the log message, type <kbd>C-c C-c</kbd> to
+exit the buffer and commit the change.
+
+<!-- Fixme: customization variables -->
+   </body></html>
+

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Assignment - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Assignment"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Generalized-Variables.html#Generalized-Variables">Generalized Variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Control-Structure.html#Control-Structure">Control Structure</a>
+
+</div>
+
+<h3 class="section">4.1 Assignment</h3>
+
+<p class="noindent">The <code>cl-psetq</code> form is just like <code>setq</code>, except that multiple
+assignments are done in parallel rather than sequentially.
+
+<div class="defun">
+&mdash; Macro: <b>cl-psetq</b> [<var>symbol form</var>]<var><small class="dots">...</small><a name="index-cl_002dpsetq-16"></a></var><br>
+<blockquote><p>This special form (actually a macro) is used to assign to several
+variables simultaneously.  Given only one <var>symbol</var> and <var>form</var>,
+it has the same effect as <code>setq</code>.  Given several <var>symbol</var>
+and <var>form</var> pairs, it evaluates all the <var>form</var>s in advance
+and then stores the corresponding variables afterwards.
+
+     <pre class="example">          (setq x 2 y 3)
+          (setq x (+ x y)  y (* x y))
+          x
+               &rArr; 5
+          y                     ; <code>y</code><span class="roman"> was computed after </span><code>x</code><span class="roman"> was set.</span>
+               &rArr; 15
+          (setq x 2 y 3)
+          (cl-psetq x (+ x y)  y (* x y))
+          x
+               &rArr; 5
+          y                     ; <code>y</code><span class="roman"> was computed before </span><code>x</code><span class="roman"> was set.</span>
+               &rArr; 6
+</pre>
+        <p>The simplest use of <code>cl-psetq</code> is <code>(cl-psetq x y y x)</code>, which
+exchanges the values of two variables.  (The <code>cl-rotatef</code> form
+provides an even more convenient way to swap two variables;
+see <a href="Modify-Macros.html#Modify-Macros">Modify Macros</a>.)
+
+        <p><code>cl-psetq</code> always returns <code>nil</code>. 
+</p></blockquote></div>
+
+   </body></html>
+

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Mail - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Mail"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Posting-Server.html#Posting-Server">Posting Server</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Composing-Messages.html#Composing-Messages">Composing Messages</a>
+
+</div>
+
+<h3 class="section">5.1 Mail</h3>
+
+<p>Variables for customizing outgoing mail:
+
+     <dl>
+<dt><code>gnus-uu-digest-headers</code><dd><a name="index-gnus_002duu_002ddigest_002dheaders-1870"></a>List of regexps to match headers included in digested messages.  The
+headers will be included in the sequence they are matched.  If
+<code>nil</code> include all headers.
+
+     <br><dt><code>gnus-add-to-list</code><dd><a name="index-gnus_002dadd_002dto_002dlist-1871"></a>If non-<code>nil</code>, add a <code>to-list</code> group parameter to mail groups
+that have none when you do a <kbd>a</kbd>.
+
+     <br><dt><code>gnus-confirm-mail-reply-to-news</code><dd><a name="index-gnus_002dconfirm_002dmail_002dreply_002dto_002dnews-1872"></a>If non-<code>nil</code>, Gnus will ask you for a confirmation when you are
+about to reply to news articles by mail.  If it is <code>nil</code>, nothing
+interferes in what you want to do.  This can also be a function
+receiving the group name as the only parameter which should return
+non-<code>nil</code> if a confirmation is needed, or a regular expression
+matching group names, where confirmation should be asked for.
+
+     <p>If you find yourself never wanting to reply to mail, but occasionally
+press <kbd>R</kbd> anyway, this variable might be for you.
+
+     <br><dt><code>gnus-confirm-treat-mail-like-news</code><dd><a name="index-gnus_002dconfirm_002dtreat_002dmail_002dlike_002dnews-1873"></a>If non-<code>nil</code>, Gnus also requests confirmation according to
+<code>gnus-confirm-mail-reply-to-news</code> when replying to mail.  This is
+useful for treating mailing lists like newsgroups.
+
+   </dl>
+
+   </body></html>
+

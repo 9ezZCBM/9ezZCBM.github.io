@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>How to Write Tests - Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="How-to-Write-Tests"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="How-to-Debug-Tests.html#How-to-Debug-Tests">How to Debug Tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="How-to-Run-Tests.html#How-to-Run-Tests">How to Run Tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">3 How to Write Tests</h2>
+
+<p><a name="index-how-to-write-tests-23"></a>
+<a name="index-ert_002ddeftest-24"></a>ERT lets you define tests in the same way you define functions.  You
+can type <code>ert-deftest</code> forms in a buffer and evaluate them there
+with <code>eval-defun</code> or <code>compile-defun</code>, or you can save the
+file and load it, optionally byte-compiling it first.
+
+   <p>Just like <code>find-function</code> is only able to find where a function
+was defined if the function was loaded from a file, ERT is only able
+to find where a test was defined if the test was loaded from a file.
+
+<ul class="menu">
+<li><a accesskey="1" href="The-_003ccode_003eshould_003c_002fcode_003e-Macro.html#The-_003ccode_003eshould_003c_002fcode_003e-Macro">The <code>should</code> Macro</a>:           A powerful way to express assertions. 
+<li><a accesskey="2" href="Expected-Failures.html#Expected-Failures">Expected Failures</a>:            Tests for known bugs. 
+<li><a accesskey="3" href="Tests-and-Their-Environment.html#Tests-and-Their-Environment">Tests and Their Environment</a>:  Don't depend on customizations; no side effects. 
+<li><a accesskey="4" href="Useful-Techniques.html#Useful-Techniques">Useful Techniques</a>:            Some examples. 
+</ul>
+
+   </body></html>
+

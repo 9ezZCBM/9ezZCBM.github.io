@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>kill-new function - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="kill-new-function"></a>
+<a name="kill_002dnew-function"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="kill_002dappend-function.html#kill_002dappend-function">kill-append function</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="copy_002dregion_002das_002dkill-body.html#copy_002dregion_002das_002dkill-body">copy-region-as-kill body</a>
+
+</div>
+
+<h5 class="unnumberedsubsubsec">The <code>kill-new</code> function</h5>
+
+<p><a name="index-kill_002dnew-202"></a>
+In version 22 the <code>kill-new</code> function looks like this:
+
+<pre class="smallexample">     (defun kill-new (string &amp;optional replace yank-handler)
+       "Make STRING the latest kill in the kill ring.
+     Set `kill-ring-yank-pointer' to point to it.
+     
+     If `interprogram-cut-function' is non-nil, apply it to STRING.
+     Optional second argument REPLACE non-nil means that STRING will replace
+     the front of the kill ring, rather than being added to the list.
+     ..."
+       (if (&gt; (length string) 0)
+           (if yank-handler
+               (put-text-property 0 (length string)
+                                  'yank-handler yank-handler string))
+         (if yank-handler
+             (signal 'args-out-of-range
+                     (list string "yank-handler specified for empty string"))))
+       (if (fboundp 'menu-bar-update-yank-menu)
+           (menu-bar-update-yank-menu string (and replace (car kill-ring))))
+       (if (and replace kill-ring)
+           (setcar kill-ring string)
+         (push string kill-ring)
+         (if (&gt; (length kill-ring) kill-ring-max)
+             (setcdr (nthcdr (1- kill-ring-max) kill-ring) nil)))
+       (setq kill-ring-yank-pointer kill-ring)
+       (if interprogram-cut-function
+           (funcall interprogram-cut-function string (not replace))))
+</pre>
+   <p>(Notice that the function is not interactive.)
+
+   <p>As usual, we can look at this function in parts.
+
+   <p>The function definition has an optional <code>yank-handler</code> argument,
+which when invoked tells the function how to deal with properties
+added to the text, such as bold or italics.  We will skip that.
+
+   <p>The first line of the documentation makes sense:
+
+<pre class="smallexample">     Make STRING the latest kill in the kill ring.
+</pre>
+   <p class="noindent">Let's skip over the rest of the documentation for the moment.
+
+<p class="noindent">Also, let's skip over the initial <code>if</code> expression and those lines
+of code involving <code>menu-bar-update-yank-menu</code>.  We will explain
+them below.
+
+   <p>The critical lines are these:
+
+<pre class="smallexample">       (if (and replace kill-ring)
+           ;; <span class="roman">then</span>
+           (setcar kill-ring string)
+         ;; <span class="roman">else</span>
+         (push string kill-ring)
+         (if (&gt; (length kill-ring) kill-ring-max)
+             ;; <span class="roman">avoid overly long kill ring</span>
+             (setcdr (nthcdr (1- kill-ring-max) kill-ring) nil)))
+       (setq kill-ring-yank-pointer kill-ring)
+       (if interprogram-cut-function
+           (funcall interprogram-cut-function string (not replace))))
+</pre>
+   <p>The conditional test is <code>(and&nbsp;replace&nbsp;kill-ring)</code><!-- /@w -->. 
+This will be true when two conditions are met:  the kill ring has
+something in it, and the <code>replace</code> variable is true.
+
+   <p>When the <code>kill-append</code> function sets <code>replace</code> to be true
+and when the kill ring has at least one item in it, the <code>setcar</code>
+expression is executed:
+
+<pre class="smallexample">     (setcar kill-ring string)
+</pre>
+   <p>The <code>setcar</code> function actually changes the first element of the
+<code>kill-ring</code> list to the value of <code>string</code>.  It replaces the
+first element.
+
+   <p>On the other hand, if the kill ring is empty, or replace is false, the
+else-part of the condition is executed:
+
+<pre class="smallexample">     (push string kill-ring)
+</pre>
+   <p class="noindent"><code>push</code> puts its first argument onto the second.  It is similar to
+the older
+
+<pre class="smallexample">     (setq kill-ring (cons string kill-ring))
+</pre>
+   <p class="noindent">or the newer
+
+<pre class="smallexample">     (add-to-list kill-ring string)
+</pre>
+   <p class="noindent">When it is false, the expression first constructs a new version of the
+kill ring by prepending <code>string</code> to the existing kill ring as a
+new element (that is what the <code>push</code> does).  Then it executes a
+second <code>if</code> clause.  This second <code>if</code> clause keeps the kill
+ring from growing too long.
+
+   <p>Let's look at these two expressions in order.
+
+   <p>The <code>push</code> line of the else-part sets the new value of the kill
+ring to what results from adding the string being killed to the old
+kill ring.
+
+   <p>We can see how this works with an example.
+
+   <p>First,
+
+<pre class="smallexample">     (setq example-list '("here is a clause" "another clause"))
+</pre>
+   <p class="noindent">After evaluating this expression with <kbd>C-x C-e</kbd>, you can evaluate
+<code>example-list</code> and see what it returns:
+
+<pre class="smallexample">     example-list
+          &rArr; ("here is a clause" "another clause")
+</pre>
+   <p class="noindent">Now, we can add a new element on to this list by evaluating the
+following expression:
+<a name="index-push_0040r_007b_002c-example_007d-203"></a>
+<pre class="smallexample">     (push "a third clause" example-list)
+</pre>
+   <p class="noindent">When we evaluate <code>example-list</code>, we find its value is:
+
+<pre class="smallexample">     example-list
+          &rArr; ("a third clause" "here is a clause" "another clause")
+</pre>
+   <p class="noindent">Thus, the third clause is added to the list by <code>push</code>.
+
+   <p>Now for the second part of the <code>if</code> clause.  This expression
+keeps the kill ring from growing too long.  It looks like this:
+
+<pre class="smallexample">     (if (&gt; (length kill-ring) kill-ring-max)
+         (setcdr (nthcdr (1- kill-ring-max) kill-ring) nil))
+</pre>
+   <p>The code checks whether the length of the kill ring is greater than
+the maximum permitted length.  This is the value of
+<code>kill-ring-max</code> (which is 60, by default).  If the length of the
+kill ring is too long, then this code sets the last element of the
+kill ring to <code>nil</code>.  It does this by using two functions,
+<code>nthcdr</code> and <code>setcdr</code>.
+
+   <p>We looked at <code>setcdr</code> earlier (see <a href="setcdr.html#setcdr"><code>setcdr</code></a>). 
+It sets the <span class="sc">cdr</span> of a list, just as <code>setcar</code> sets the
+<span class="sc">car</span> of a list.  In this case, however, <code>setcdr</code> will not be
+setting the <span class="sc">cdr</span> of the whole kill ring; the <code>nthcdr</code>
+function is used to cause it to set the <span class="sc">cdr</span> of the next to last
+element of the kill ring&mdash;this means that since the <span class="sc">cdr</span> of the
+next to last element is the last element of the kill ring, it will set
+the last element of the kill ring.
+
+   <p><a name="index-nthcdr_0040r_007b_002c-example_007d-204"></a>The <code>nthcdr</code> function works by repeatedly taking the <span class="sc">cdr</span> of a
+list&mdash;it takes the <span class="sc">cdr</span> of the <span class="sc">cdr</span> of the <span class="sc">cdr</span>
+<small class="dots">...</small>  It does this <var>N</var> times and returns the results. 
+(See <a href="nthcdr.html#nthcdr"><code>nthcdr</code></a>.)
+
+   <p><a name="index-setcdr_0040r_007b_002c-example_007d-205"></a>Thus, if we had a four element list that was supposed to be three
+elements long, we could set the <span class="sc">cdr</span> of the next to last element
+to <code>nil</code>, and thereby shorten the list.  (If you set the last
+element to some other value than <code>nil</code>, which you could do, then
+you would not have shortened the list.  See <a href="setcdr.html#setcdr"><code>setcdr</code></a>.)
+
+   <p>You can see shortening by evaluating the following three expressions
+in turn.  First set the value of <code>trees</code> to <code>(maple oak pine
+birch)</code>, then set the <span class="sc">cdr</span> of its second <span class="sc">cdr</span> to <code>nil</code>
+and then find the value of <code>trees</code>:
+
+<pre class="smallexample">     (setq trees '(maple oak pine birch))
+          &rArr; (maple oak pine birch)
+     
+     (setcdr (nthcdr 2 trees) nil)
+          &rArr; nil
+     
+     trees
+          &rArr; (maple oak pine)
+</pre>
+   <p class="noindent">(The value returned by the <code>setcdr</code> expression is <code>nil</code> since
+that is what the <span class="sc">cdr</span> is set to.)
+
+   <p>To repeat, in <code>kill-new</code>, the <code>nthcdr</code> function takes the
+<span class="sc">cdr</span> a number of times that is one less than the maximum permitted
+size of the kill ring and <code>setcdr</code> sets the <span class="sc">cdr</span> of that
+element (which will be the rest of the elements in the kill ring) to
+<code>nil</code>.  This prevents the kill ring from growing too long.
+
+   <p>The next to last expression in the <code>kill-new</code> function is
+
+<pre class="smallexample">     (setq kill-ring-yank-pointer kill-ring)
+</pre>
+   <p>The <code>kill-ring-yank-pointer</code> is a global variable that is set to be
+the <code>kill-ring</code>.
+
+   <p>Even though the <code>kill-ring-yank-pointer</code> is called a
+&lsquo;<samp><span class="samp">pointer</span></samp>&rsquo;, it is a variable just like the kill ring.  However, the
+name has been chosen to help humans understand how the variable is used.
+
+   <p>Now, to return to an early expression in the body of the function:
+
+<pre class="smallexample">       (if (fboundp 'menu-bar-update-yank-menu)
+            (menu-bar-update-yank-menu string (and replace (car kill-ring))))
+</pre>
+   <p class="noindent">It starts with an <code>if</code> expression
+
+   <p>In this case, the expression tests first to see whether
+<code>menu-bar-update-yank-menu</code> exists as a function, and if so,
+calls it.  The <code>fboundp</code> function returns true if the symbol it
+is testing has a function definition that is not void.  If the
+symbol's function definition were void, we would receive an error
+message, as we did when we created errors intentionally (see <a href="Making-Errors.html#Making-Errors">Generate an Error Message</a>).
+
+<p class="noindent">The then-part contains an expression whose first element is the
+function <code>and</code>.
+
+   <p><a name="index-and-206"></a>The <code>and</code> special form evaluates each of its arguments until one
+of the arguments returns a value of <code>nil</code>, in which case the
+<code>and</code> expression returns <code>nil</code>; however, if none of the
+arguments returns a value of <code>nil</code>, the value resulting from
+evaluating the last argument is returned.  (Since such a value is not
+<code>nil</code>, it is considered true in Emacs Lisp.)  In other words, an
+<code>and</code> expression returns a true value only if all its arguments
+are true.  (See <a href="Second-Buffer-Related-Review.html#Second-Buffer-Related-Review">Second Buffer Related Review</a>.)
+
+   <p>The expression determines whether the second argument to
+<code>menu-bar-update-yank-menu</code> is true or not.
+
+   <p><code>menu-bar-update-yank-menu</code> is one of the functions that make it
+possible to use the &ldquo;Select and Paste&rdquo; menu in the Edit item of a menu
+bar; using a mouse, you can look at the various pieces of text you
+have saved and select one piece to paste.
+
+   <p>The last expression in the <code>kill-new</code> function adds the newly
+copied string to whatever facility exists for copying and pasting
+among different programs running in a windowing system.  In the X
+Windowing system, for example, the <code>x-select-text</code> function takes
+the string and stores it in memory operated by X.  You can paste the
+string in another program, such as an Xterm.
+
+   <p>The expression looks like this:
+
+<pre class="smallexample">       (if interprogram-cut-function
+           (funcall interprogram-cut-function string (not replace))))
+</pre>
+   <p>If an <code>interprogram-cut-function</code> exists, then Emacs executes
+<code>funcall</code>, which in turn calls its first argument as a function
+and passes the remaining arguments to it.  (Incidentally, as far as I
+can see, this <code>if</code> expression could be replaced by an <code>and</code>
+expression similar to the one in the first part of the function.)
+
+   <p>We are not going to discuss windowing systems and other programs
+further, but merely note that this is a mechanism that enables GNU
+Emacs to work easily and well with other programs.
+
+   <p>This code for placing text in the kill ring, either concatenated with
+an existing element or as a new element, leads us to the code for
+bringing back text that has been cut out of the buffer&mdash;the yank
+commands.  However, before discussing the yank commands, it is better
+to learn how lists are implemented in a computer.  This will make
+clear such mysteries as the use of the term &ldquo;pointer&rdquo;.  But before
+that, we will digress into C.
+
+   </body></html>
+

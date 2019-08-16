@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Working with source code - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Working-with-source-code"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Miscellaneous.html#Miscellaneous">Miscellaneous</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Publishing.html#Publishing">Publishing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">14 Working with source code</h2>
+
+<p><a name="index-Schulte_002c-Eric-2077"></a><a name="index-Davison_002c-Dan-2078"></a><a name="index-source-code_002c-working-with-2079"></a>
+Source code here refers to any code typed in Org mode documents.  Org can
+manage source code in any Org file once such code is tagged with begin and
+end markers.  Working with source code begins with tagging source code
+blocks.  Tagged &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks are not restricted to the preamble or
+the end of an Org document; they can go anywhere&mdash;with a few exceptions,
+such as not inside comments and fixed width areas.  Here's a sample
+&lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block in emacs-lisp:
+
+<pre class="example">     #+BEGIN_SRC emacs-lisp
+       (defun org-xor (a b)
+          "Exclusive or."
+          (if a (not b) b))
+     #+END_SRC
+</pre>
+   <p>Org can take the code in the block between the <code>#+BEGIN_SRC</code> and
+<code>#+END_SRC</code> tags, and format, compile, execute, and show the results. 
+Org can simplify many housekeeping tasks essential to modern code
+maintenance.  That's why these blocks in Org mode literature are sometimes
+referred to as &lsquo;<samp><span class="samp">live code</span></samp>&rsquo; blocks (as compared to the static text and
+documentation around it).  Users can control how &lsquo;<samp><span class="samp">live</span></samp>&rsquo; they want each
+block by tweaking the headers for compiling, execution, extraction.
+
+   <p>Org's &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block type is one of many block types, such as quote,
+export, verse, latex, example, and verbatim.  This section pertains to
+<code>src</code> code blocks between <code>#+BEGIN_SRC</code> and <code>#+END_SRC</code>
+
+   <p>For editing &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks, Org provides native Emacs major-modes. 
+That leverages the latest Emacs features for that source code language mode.
+
+   <p>For exporting, Org can then extract &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks into compilable
+source files (in a conversion process known as <dfn>tangling</dfn> in literate
+programming terminology).
+
+   <p>For publishing, Org's back-ends can handle the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks and the
+text for output to a variety of formats with native syntax highlighting.
+
+   <p>For executing the source code in the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks, Org provides
+facilities that glue the tasks of compiling, collecting the results of the
+execution, and inserting them back to the Org file.  Besides text output,
+results may include links to other data types that Emacs can handle: audio,
+video, and graphics.
+
+   <p>An important feature of Org's execution of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks is
+passing variables, functions, and results between &lsquo;<samp><span class="samp">src</span></samp>&rsquo; blocks.  Such
+interoperability uses a common syntax even if these &lsquo;<samp><span class="samp">src</span></samp>&rsquo; blocks are in
+different source code languages.  The integration extends to linking the
+debugger's error messages to the line in the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block in the Org
+file.  That should partly explain why this functionality by the original
+contributors, Eric Schulte and Dan Davison, was called &lsquo;<samp><span class="samp">Org Babel</span></samp>&rsquo;.
+
+   <p>In literate programming, the main appeal is code and documentation
+co-existing in one file.  Org mode takes this several steps further.  First
+by enabling execution, and then by inserting results of that execution back
+into the Org file.  Along the way, Org provides extensive formatting
+features, including handling tables.  Org handles multiple source code
+languages in one file, and provides a common syntax for passing variables,
+functions, and results between &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks.
+
+   <p>Org mode fulfills the promise of easy verification and maintenance of
+publishing reproducible research by keeping all these in the same file: text,
+data, code, configuration settings of the execution environment, the results
+of the execution, and associated narratives, claims, references, and internal
+and external links.
+
+   <p>Details of Org's facilities for working with source code are shown next.
+
+<ul class="menu">
+<li><a accesskey="1" href="Structure-of-code-blocks.html#Structure-of-code-blocks">Structure of code blocks</a>:     Code block syntax described
+<li><a accesskey="2" href="Editing-source-code.html#Editing-source-code">Editing source code</a>:          Language major-mode editing
+<li><a accesskey="3" href="Exporting-code-blocks.html#Exporting-code-blocks">Exporting code blocks</a>:        Export contents and/or results
+<li><a accesskey="4" href="Extracting-source-code.html#Extracting-source-code">Extracting source code</a>:       Create pure source code files
+<li><a accesskey="5" href="Evaluating-code-blocks.html#Evaluating-code-blocks">Evaluating code blocks</a>:       Place results of evaluation in the Org mode buffer
+<li><a accesskey="6" href="Library-of-Babel.html#Library-of-Babel">Library of Babel</a>:             Use and contribute to a library of useful code blocks
+<li><a accesskey="7" href="Languages.html#Languages">Languages</a>:                    List of supported code block languages
+<li><a accesskey="8" href="Header-arguments.html#Header-arguments">Header arguments</a>:             Configure code block functionality
+<li><a accesskey="9" href="Results-of-evaluation.html#Results-of-evaluation">Results of evaluation</a>:        How evaluation results are handled
+<li><a href="Noweb-reference-syntax.html#Noweb-reference-syntax">Noweb reference syntax</a>:       Literate programming in Org mode
+<li><a href="Key-bindings-and-useful-functions.html#Key-bindings-and-useful-functions">Key bindings and useful functions</a>:   Work quickly with code blocks
+<li><a href="Batch-execution.html#Batch-execution">Batch execution</a>:              Call functions from the command line
+</ul>
+
+   </body></html>
+

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Tag inheritance - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Tag-inheritance"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Setting-tags.html#Setting-tags">Setting tags</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Tags.html#Tags">Tags</a>
+
+</div>
+
+<h3 class="section">6.1 Tag inheritance</h3>
+
+<p><a name="index-tag-inheritance-650"></a><a name="index-inheritance_002c-of-tags-651"></a><a name="index-sublevels_002c-inclusion-into-tags-match-652"></a>
+<i>Tags</i> make use of the hierarchical structure of outline trees.  If a
+heading has a certain tag, all subheadings will inherit the tag as
+well.  For example, in the list
+
+<pre class="example">     * Meeting with the French group      :work:
+     ** Summary by Frank                  :boss:notes:
+     *** TODO Prepare slides for him      :action:
+</pre>
+   <p class="noindent">the final heading will have the tags &lsquo;<samp><span class="samp">:work:</span></samp>&rsquo;, &lsquo;<samp><span class="samp">:boss:</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">:notes:</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">:action:</span></samp>&rsquo; even though the final heading is not
+explicitly marked with all those tags.  You can also set tags that all
+entries in a file should inherit just as if these tags were defined in
+a hypothetical level zero that surrounds the entire file.  Use a line like
+this<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>:
+
+   <p><a name="index-g_t_0040code_007b_0023_002bFILETAGS_007d-653"></a>
+<pre class="example">     #+FILETAGS: :Peter:Boss:Secret:
+</pre>
+   <p class="noindent"><a name="index-org_002duse_002dtag_002dinheritance-654"></a><a name="index-org_002dtags_002dexclude_002dfrom_002dinheritance-655"></a>To limit tag inheritance to specific tags, use <code>org-tags-exclude-from-inheritance</code>. 
+To turn it off entirely, use <code>org-use-tag-inheritance</code>.
+
+   <p><a name="index-org_002dtags_002dmatch_002dlist_002dsublevels-656"></a>When a headline matches during a tags search while tag inheritance is turned
+on, all the sublevels in the same tree will (for a simple match form) match
+as well<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.  The list
+of matches may then become very long.  If you only want to see the first tags
+match in a subtree, configure <code>org-tags-match-list-sublevels</code> (not
+recommended).
+
+   <p><a name="index-org_002dagenda_002duse_002dtag_002dinheritance-657"></a>Tag inheritance is relevant when the agenda search tries to match a tag,
+either in the <code>tags</code> or <code>tags-todo</code> agenda types.  In other agenda
+types, <code>org-use-tag-inheritance</code> has no effect.  Still, you may want to
+have your tags correctly set in the agenda, so that tag filtering works fine,
+with inherited tags.  Set <code>org-agenda-use-tag-inheritance</code> to control
+this: the default value includes all agenda types, but setting this to <code>nil</code>
+can really speed up agenda generation.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> As with all these in-buffer settings, pressing <kbd>C-c C-c</kbd>
+activates any changes in the line.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> This is only true if the search does not involve more
+complex tests including properties (see <a href="Property-searches.html#Property-searches">Property searches</a>).</p>
+
+   <hr></div>
+
+   </body></html>
+

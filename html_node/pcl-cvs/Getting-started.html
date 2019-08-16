@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Getting started - PCL-CVS--Emacs Front-End to CVS</title>
+<!--
+Copyright (C) 1991--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Getting-started"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Buffer-contents.html#Buffer-contents">Buffer contents</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="About-PCL_002dCVS.html#About-PCL_002dCVS">About PCL-CVS</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Getting started</h2>
+
+<p><a name="index-Introduction-4"></a><a name="index-Example-run-5"></a><a name="index-Sample-session-6"></a>
+This document assumes that you know what CVS is, and that you at least
+know the fundamental concepts of CVS.  If that is not the case, you
+should read the CVS documentation.  Type <kbd>info -f cvs</kbd> or <kbd>man
+cvs</kbd>.
+
+   <p>PCL-CVS is only useful once you have checked out a module.  So before
+you invoke it, you must have a copy of a module somewhere in the file
+system.
+
+   <p>You can invoke PCL-CVS by typing <kbd>M-x cvs-examine &lt;RET&gt;</kbd>. 
+You can also invoke it via the menu bar, under &lsquo;<samp><span class="samp">Tools</span></samp>&rsquo;. 
+Or, if you prefer, you can also invoke PCL-CVS by simply visiting the
+CVS administrative subdirectory of your module, with a prefix argument. 
+For example, to invoke PCL-CVS in a separate frame, type <kbd>C-u C-x 5
+f ~/my/project/CVS &lt;RET&gt;</kbd>.
+
+   <p>The function <code>cvs-examine</code> will ask for a directory.  The command
+&lsquo;<samp><span class="samp">cvs -n update</span></samp>&rsquo; will be run in that directory.  (It should contain
+files that have been checked out from a CVS archive.)  The output from
+<code>cvs</code> will be parsed and presented in a table in a buffer called
+<samp><span class="file">*cvs*</span></samp>.  It might look something like this:
+
+<pre class="example">     Repository : /usr/CVSroot
+     Module     : test
+     Working dir: /users/ceder/FOO/test
+     
+     
+     In directory .:
+                Need-Update            bar
+                Need-Update            file.txt
+                Modified               namechange
+                Need-Update            newer
+     In directory sub:
+                Modified               ChangeLog
+     
+     --------------------- End ---------------------
+     -- last cmd: cvs -f -z6 -n update -d -P --
+</pre>
+   <p>In this example, your repository is in <samp><span class="file">/usr/CVSroot</span></samp> and CVS has
+been run in the directory <samp><span class="file">/users/ceder/FOO/test</span></samp>.  The three files
+(<samp><span class="file">bar</span></samp>, <samp><span class="file">file.txt</span></samp> and
+<samp><span class="file">newer</span></samp>) that are marked with &lsquo;<samp><span class="samp">Need-Update</span></samp>&rsquo; have been changed
+by someone else in the CVS repository.  Two files (<samp><span class="file">namechange</span></samp>
+and <samp><span class="file">sub/ChangeLog</span></samp>) have been modified locally, and need to be
+checked in.
+
+   <p>You can move the cursor up and down in the buffer with <kbd>C-n</kbd> and
+<kbd>C-p</kbd> or <kbd>n</kbd> and <kbd>p</kbd>.  If you press <kbd>c</kbd> on one of the
+&lsquo;<samp><span class="samp">Modified</span></samp>&rsquo; files, that file will be checked in to the CVS
+repository. See <a href="Committing-changes.html#Committing-changes">Committing changes</a>.  You can also press <kbd>O</kbd> to
+update any of the files that are marked &lsquo;<samp><span class="samp">Need-Update</span></samp>&rsquo;.  You can
+also run <kbd>M-x cvs-update &lt;RET&gt;</kbd> (bound to <kbd>M-u</kbd> in the
+<samp><span class="file">*cvs*</span></samp> buffer) to update all the files.
+
+   <p>You can then press <kbd>=</kbd> to easily get a &lsquo;<samp><span class="samp">diff</span></samp>&rsquo; between your
+modified file and the base version that you started from, or you can
+press <kbd>l</kbd> to get the output from &lsquo;<samp><span class="samp">cvs log</span></samp>&rsquo;.  Many more such
+commands are available simply by pressing a key (see <a href="Getting-info-about-files.html#Getting-info-about-files">Getting info about files</a>).
+
+   </body></html>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>New insert-buffer - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="New-insert-buffer"></a>
+<a name="New-insert_002dbuffer"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Insert-let.html#Insert-let">Insert let</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="insert_002dbuffer.html#insert_002dbuffer">insert-buffer</a>
+
+</div>
+
+<h4 class="subsection">5.2.6 New Body for <code>insert-buffer</code></h4>
+
+<p><a name="index-insert_002dbuffer_0040r_007b_002c-new-version-body_007d-159"></a><a name="index-new-version-body-for-_0040code_007binsert_002dbuffer_007d-160"></a>
+The body in the GNU Emacs 22 version is more confusing than the original.
+
+   <p>It consists of two expressions,
+
+<pre class="smallexample">       (push-mark
+        (save-excursion
+          (insert-buffer-substring (get-buffer buffer))
+          (point)))
+     
+        nil
+</pre>
+   <p class="noindent">except, and this is what confuses novices, very important work is done
+inside the <code>push-mark</code> expression.
+
+   <p>The <code>get-buffer</code> function returns a buffer with the name
+provided.  You will note that the function is <em>not</em> called
+<code>get-buffer-create</code>; it does not create a buffer if one does not
+already exist.  The buffer returned by <code>get-buffer</code>, an existing
+buffer, is passed to <code>insert-buffer-substring</code>, which inserts the
+whole of the buffer (since you did not specify anything else).
+
+   <p>The location into which the buffer is inserted is recorded by
+<code>push-mark</code>.  Then the function returns <code>nil</code>, the value of
+its last command.  Put another way, the <code>insert-buffer</code> function
+exists only to produce a side effect, inserting another buffer, not to
+return any value.
+
+   </body></html>
+

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Structure of code blocks - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Structure-of-code-blocks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Editing-source-code.html#Editing-source-code">Editing source code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Working-with-source-code.html#Working-with-source-code">Working with source code</a>
+
+</div>
+
+<h3 class="section">14.1 Structure of code blocks</h3>
+
+<p><a name="index-code-block_002c-structure-2080"></a><a name="index-source-code_002c-block-structure-2081"></a><a name="index-g_t_0040code_007b_0023_002bNAME_007d-2082"></a><a name="index-g_t_0040code_007b_0023_002bBEGIN_005fSRC_007d-2083"></a>
+Org offers two ways to structure source code in Org documents: in a
+&lsquo;<samp><span class="samp">src</span></samp>&rsquo; block, and directly inline.  Both specifications are shown below.
+
+   <p>A &lsquo;<samp><span class="samp">src</span></samp>&rsquo; block conforms to this structure:
+
+<pre class="example">     #+NAME: &lt;name&gt;
+     #+BEGIN_SRC &lt;language&gt; &lt;switches&gt; &lt;header arguments&gt;
+       &lt;body&gt;
+     #+END_SRC
+</pre>
+   <p>Org mode's templates system (see <a href="Easy-templates.html#Easy-templates">Easy templates</a>) speeds up creating
+&lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks with just three keystrokes.  Do not be put-off by
+having to remember the source block syntax.  Org also works with other
+completion systems in Emacs, some of which predate Org and have custom
+domain-specific languages for defining templates.  Regular use of templates
+reduces errors, increases accuracy, and maintains consistency.
+
+   <p><a name="index-source-code_002c-inline-2084"></a>An inline code block conforms to this structure:
+
+<pre class="example">     src_&lt;language&gt;{&lt;body&gt;}
+</pre>
+   <p>or
+
+<pre class="example">     src_&lt;language&gt;[&lt;header arguments&gt;]{&lt;body&gt;}
+</pre>
+     <dl>
+<dt><code>#+NAME: &lt;name&gt;</code><dd>Optional.  Names the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; block so it can be called, like a function,
+from other &lsquo;<samp><span class="samp">src</span></samp>&rsquo; blocks or inline blocks to evaluate or to capture the
+results.  Code from other blocks, other files, and from table formulas
+(see <a href="The-spreadsheet.html#The-spreadsheet">The spreadsheet</a>) can use the name to reference a &lsquo;<samp><span class="samp">src</span></samp>&rsquo; block. 
+This naming serves the same purpose as naming Org tables.  Org mode requires
+unique names.  For duplicate names, Org mode's behavior is undefined. 
+<a name="index-g_t_0040code_007b_0023_002bNAME_007d-2085"></a><br><dt><code>#+BEGIN_SRC</code><br><dt><code>#+END_SRC</code><dd>Mandatory.  They mark the start and end of a block that Org requires.  The
+<code>#+BEGIN_SRC</code> line takes additional arguments, as described next. 
+<a name="index-begin-block_002c-end-block-2086"></a><br><dt><code>&lt;language&gt;</code><dd>Mandatory for live code blocks.  It is the identifier of the source code
+language in the block.  See <a href="Languages.html#Languages">Languages</a>, for identifiers of supported
+languages. 
+<a name="index-source-code_002c-language-2087"></a><br><dt><code>&lt;switches&gt;</code><dd>Optional.  Switches provide finer control of the code execution, export, and
+format (see the discussion of switches in <a href="Literal-examples.html#Literal-examples">Literal examples</a>)
+<a name="index-source-code_002c-switches-2088"></a><br><dt><code>&lt;header arguments&gt;</code><dd>Optional.  Heading arguments control many aspects of evaluation, export and
+tangling of code blocks (see <a href="Header-arguments.html#Header-arguments">Header arguments</a>).  Using Org's properties
+feature, header arguments can be selectively applied to the entire buffer or
+specific sub-trees of the Org document. 
+<br><dt><code>source code, header arguments</code><br><dt><code>&lt;body&gt;</code><dd>Source code in the dialect of the specified language identifier. 
+</dl>
+
+   </body></html>
+

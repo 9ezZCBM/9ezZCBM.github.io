@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Invoking Ediff - PCL-CVS--Emacs Front-End to CVS</title>
+<!--
+Copyright (C) 1991--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Invoking-Ediff"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Updating-files.html#Updating-files">Updating files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Viewing-differences.html#Viewing-differences">Viewing differences</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Commands.html#Commands">Commands</a>
+
+</div>
+
+<h3 class="section">5.14 Running ediff</h3>
+
+<p><a name="index-Ediff-132"></a><a name="index-Invoking-ediff-133"></a><a name="index-Viewing-differences-134"></a><a name="index-Conflicts_002c-how-to-resolve-them-135"></a><a name="index-Resolving-conflicts-136"></a><a name="index-e_0040r_007b_002d_002dinvoke-_0040samp_007bediff_007d_007d-137"></a><a name="index-cvs_002dmode_002didiff-138"></a><a name="index-cvs_002dmode_002dimerge-139"></a>
+     
+<a name="index-cvs_002didiff_002dimerge_002dhandlers_0040r_007b-_0028variable_0029_007d-140"></a>
+<dl><dt><kbd>d e</kbd><dd>This uses <code>ediff</code> (or <code>emerge</code>, depending on
+&lsquo;<samp><span class="samp">cvs-idiff-imerge-handlers</span></samp>&rsquo;) to allow you to view diffs. 
+If a prefix argument is given, PCL-CVS will prompt for a revision against
+which the diff should be made, else the default will be to use the BASE
+revision.
+
+     <p><a name="index-Merging-with-_0040code_007bediff_007d-and-_0040code_007bemerge_007d-141"></a><br><dt><kbd>d E</kbd><dd>This command use <code>ediff</code> (or <code>emerge</code>, see above) to allow you
+to do an interactive 3-way merge.
+
+     <p><strong>Please note:</strong>  when the file status is &lsquo;<samp><span class="samp">Conflict</span></samp>&rsquo;,
+CVS has already performed a merge.  The resulting file is not used in
+any way if you use this command.  If you use the <kbd>q</kbd> command inside
+&lsquo;<samp><span class="samp">ediff</span></samp>&rsquo; (to successfully terminate a merge) the file that CVS
+created will be overwritten. 
+</dl>
+
+   </body></html>
+

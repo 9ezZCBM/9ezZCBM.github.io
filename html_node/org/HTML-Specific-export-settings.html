@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>HTML Specific export settings - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="HTML-Specific-export-settings"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="HTML-doctypes.html#HTML-doctypes">HTML doctypes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="HTML-Export-commands.html#HTML-Export-commands">HTML Export commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="HTML-export.html#HTML-export">HTML export</a>
+
+</div>
+
+<h4 class="subsection">12.9.2 HTML Specific export settings</h4>
+
+<p>HTML export has a number of keywords, similar to the general options settings
+described in <a href="Export-settings.html#Export-settings">Export settings</a>.
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">DESCRIPTION</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bDESCRIPTION_007d-_0028HTML_0029-1742"></a>This is the document's description, which the HTML exporter inserts it as a
+HTML meta tag in the HTML file.  For long descriptions, use multiple
+<code>#+DESCRIPTION</code> lines.  The exporter takes care of wrapping the lines
+properly.
+
+     <br><dt>&lsquo;<samp><span class="samp">HTML_DOCTYPE</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bHTML_005fDOCTYPE_007d-1743"></a><a name="index-org_002dhtml_002ddoctype-1744"></a>Specify the document type, for example: HTML5 (<code>org-html-doctype</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">HTML_CONTAINER</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bHTML_005fCONTAINER_007d-1745"></a><a name="index-org_002dhtml_002dcontainer_002delement-1746"></a>Specify the HTML container, such as &lsquo;<samp><span class="samp">div</span></samp>&rsquo;, for wrapping sections and
+elements (<code>org-html-container-element</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">HTML_LINK_HOME</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bHTML_005fLINK_005fHOME_007d-1747"></a><a name="index-org_002dhtml_002dlink_002dhome-1748"></a>The URL for home link (<code>org-html-link-home</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">HTML_LINK_UP</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bHTML_005fLINK_005fUP_007d-1749"></a><a name="index-org_002dhtml_002dlink_002dup-1750"></a>The URL for the up link of exported HTML pages (<code>org-html-link-up</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">HTML_MATHJAX</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bHTML_005fMATHJAX_007d-1751"></a><a name="index-org_002dhtml_002dmathjax_002doptions-1752"></a>Options for MathJax (<code>org-html-mathjax-options</code>).  MathJax is used to
+typeset LaTeX math in HTML documents.  See <a href="Math-formatting-in-HTML-export.html#Math-formatting-in-HTML-export">Math formatting in HTML export</a>, for an example.
+
+     <br><dt>&lsquo;<samp><span class="samp">HTML_HEAD</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bHTML_005fHEAD_007d-1753"></a><a name="index-org_002dhtml_002dhead-1754"></a>Arbitrary lines for appending to the HTML document's head
+(<code>org-html-head</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">HTML_HEAD_EXTRA</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bHTML_005fHEAD_005fEXTRA_007d-1755"></a><a name="index-org_002dhtml_002dhead_002dextra-1756"></a>More arbitrary lines for appending to the HTML document's head
+(<code>org-html-head-extra</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">KEYWORDS</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bKEYWORDS_007d-_0028HTML_0029-1757"></a>Keywords to describe the document's content.  HTML exporter inserts these
+keywords as HTML meta tags.  For long keywords, use multiple
+<code>#+KEYWORDS</code> lines.
+
+     <br><dt>&lsquo;<samp><span class="samp">LATEX_HEADER</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bLATEX_005fHEADER_007d-_0028HTML_0029-1758"></a>Arbitrary lines for appending to the preamble; HTML exporter appends when
+transcoding LaTeX fragments to images (see <a href="Math-formatting-in-HTML-export.html#Math-formatting-in-HTML-export">Math formatting in HTML export</a>).
+
+     <br><dt>&lsquo;<samp><span class="samp">SUBTITLE</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bSUBTITLE_007d-_0028HTML_0029-1759"></a>The document's subtitle.  HTML exporter formats subtitle if document type is
+&lsquo;<samp><span class="samp">HTML5</span></samp>&rsquo; and the CSS has a &lsquo;<samp><span class="samp">subtitle</span></samp>&rsquo; class. 
+</dl>
+
+   <p>Some of these keywords are explained in more detail in the following sections
+of the manual.
+
+   </body></html>
+

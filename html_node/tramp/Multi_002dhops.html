@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Multi-hops - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Multi-hops"></a>
+<a name="Multi_002dhops"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Firewalls.html#Firewalls">Firewalls</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Default-Host.html#Default-Host">Default Host</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.8 Connecting to a remote host using multiple hops</h3>
+
+<p><a name="index-multi_002dhop-154"></a><a name="index-proxy-hosts-155"></a>
+Multi-hops are methods to reach hosts behind firewalls or to reach the
+outside world from inside a bastion host.  With multi-hops,
+<span class="sc">Tramp</span> can negotiate these hops with the appropriate user/host
+authentication at each hop.  All methods until now have been the single
+hop kind, where the start and end points of the connection did not
+have intermediate check points.
+
+<div class="defun">
+&mdash; User Option: <b>tramp-default-proxies-alist</b><var><a name="index-tramp_002ddefault_002dproxies_002dalist-156"></a></var><br>
+<blockquote><p><code>tramp-default-proxies-alist</code> specifies proxy hosts to pass
+through.  This user option is list of triples consisting of
+<code>(</code><var>host</var> <var>user</var> <var>proxy</var><code>)</code>.
+
+        <p>The first match is the proxy host through which passes the file name
+and the target host matching <var>user</var>@<var>host</var>.  <var>host</var> and
+<var>user</var> are regular expressions or <code>nil</code>, interpreted as a
+regular expression which always matches.
+
+        <p><var>proxy</var> is a literal <span class="sc">Tramp</span> file name whose local name part
+is ignored, and the method and user name parts are optional.
+
+        <p>The method must be an inline method (see <a href="Inline-methods.html#Inline-methods">Inline methods</a>).  If
+<var>proxy</var> is <code>nil</code>, no additional hop is required reaching
+<var>user</var>@<var>host</var>.
+
+        <p>For example, to pass through the host &lsquo;<samp><span class="samp">bastion.your.domain</span></samp>&rsquo; as
+user &lsquo;<samp><span class="samp">bird</span></samp>&rsquo; to reach remote hosts outside the local domain:
+
+     <pre class="lisp">          (add-to-list 'tramp-default-proxies-alist
+                       '("\\." nil "/ssh:bird@bastion.your.domain:"))
+          (add-to-list 'tramp-default-proxies-alist
+                       '("\\.your\\.domain\\'" nil nil))
+</pre>
+        <p><strong>Note</strong>: <code>add-to-list</code> adds elements at the beginning of a
+list.  Therefore, most relevant rules must come last in the list.
+
+        <p>Proxy hosts can be cascaded in the alist.  If there is another host
+called &lsquo;<samp><span class="samp">jump.your.domain</span></samp>&rsquo;, which is the only host allowed to
+connect to &lsquo;<samp><span class="samp">bastion.your.domain</span></samp>&rsquo;, then:
+
+     <pre class="lisp">          (add-to-list 'tramp-default-proxies-alist
+                       '("\\`bastion\\.your\\.domain\\'"
+                         "\\`bird\\'"
+                         "/ssh:jump.your.domain:"))
+</pre>
+        <p><var>proxy</var> can take patterns <code>%h</code> or <code>%u</code> for <var>host</var> or
+<var>user</var> respectively.
+
+        <p>To login as &lsquo;<samp><span class="samp">root</span></samp>&rsquo; on remote hosts in the domain
+&lsquo;<samp><span class="samp">your.domain</span></samp>&rsquo;, but login as &lsquo;<samp><span class="samp">root</span></samp>&rsquo; is disabled for non-local
+access, then use this alist entry:
+
+     <pre class="lisp">          (add-to-list 'tramp-default-proxies-alist
+                       '("\\.your\\.domain\\'" "\\`root\\'" "/ssh:%h:"))
+</pre>
+        <p>Opening <samp><span class="file">/sudo:randomhost.your.domain:</span></samp> first connects
+to &lsquo;<samp><span class="samp">randomhost.your.domain</span></samp>&rsquo; via <code>ssh</code> under your account
+name, and then performs <code>sudo -u root</code> on that host.
+
+        <p>It is key for the sudo method in the above example to be applied on
+the host after reaching it and not on the local host.
+
+        <p><var>host</var>, <var>user</var> and <var>proxy</var> can also take Lisp forms.  These
+forms when evaluated must return either a string or <code>nil</code>.
+
+        <p>To generalize (from the previous example): For all hosts, except my
+local one, first connect via <samp><span class="command">ssh</span></samp>, and then apply
+<samp><span class="command">sudo -u root</span></samp>:
+
+     <pre class="lisp">          (add-to-list 'tramp-default-proxies-alist
+                       '(nil "\\`root\\'" "/ssh:%h:"))
+          (add-to-list 'tramp-default-proxies-alist
+                       '((regexp-quote (system-name)) nil nil))
+</pre>
+        </blockquote></div>
+
+   <p>Passing through hops involves dealing with restricted shells, such as
+<samp><span class="command">rbash</span></samp>.  If <span class="sc">Tramp</span> is made aware, then it would use
+them for proxies only.
+
+<div class="defun">
+&mdash; User Option: <b>tramp-restricted-shell-hosts-alist</b><var><a name="index-tramp_002drestricted_002dshell_002dhosts_002dalist-157"></a></var><br>
+<blockquote><p>An alist of regular expressions of hosts running restricted shells,
+such as <samp><span class="command">rbash</span></samp>.  <span class="sc">Tramp</span> will then use them only as
+proxies.
+
+        <p>To specify the bastion host from the example above as running a
+restricted shell:
+
+     <pre class="lisp">          (add-to-list 'tramp-restricted-shell-hosts-alist
+                       "\\`bastion\\.your\\.domain\\'")
+</pre>
+        </blockquote></div>
+
+   </body></html>
+

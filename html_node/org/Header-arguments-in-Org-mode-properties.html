@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Header arguments in Org mode properties - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Header-arguments-in-Org-mode-properties"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Language_002dspecific-mode-properties.html#Language_002dspecific-mode-properties">Language-specific mode properties</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Language_002dspecific-header-arguments.html#Language_002dspecific-header-arguments">Language-specific header arguments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Using-header-arguments.html#Using-header-arguments">Using header arguments</a>
+
+</div>
+
+<h5 class="subsubheading">Header arguments in Org mode properties</h5>
+
+<p>For header arguments applicable to the buffer, use <code>#+PROPERTY:</code> lines
+anywhere in the Org mode file (see <a href="Property-syntax.html#Property-syntax">Property syntax</a>).
+
+   <p>The following example sets only for &lsquo;<samp><span class="samp">R</span></samp>&rsquo; code blocks to <code>session</code>,
+making all the &lsquo;<samp><span class="samp">R</span></samp>&rsquo; code blocks execute in the same session.  Setting
+<code>results</code> to <code>silent</code> ignores the results of executions for all
+blocks, not just &lsquo;<samp><span class="samp">R</span></samp>&rsquo; code blocks; no results inserted for any block.
+
+<pre class="example">     #+PROPERTY: header-args:R  :session *R*
+     #+PROPERTY: header-args    :results silent
+</pre>
+   <p><a name="index-org_002duse_002dproperty_002dinheritance-2125"></a>Header arguments set through Org's property drawers (see <a href="Property-syntax.html#Property-syntax">Property syntax</a>)
+apply at the sub-tree level on down.  Since these property drawers can appear
+anywhere in the file hierarchy, Org uses outermost call or source block to
+resolve the values.  Org ignores <code>org-use-property-inheritance</code> setting.
+
+   <p>In this example, <code>:cache</code> defaults to <code>yes</code> for all code blocks in
+the sub-tree starting with &lsquo;<samp><span class="samp">sample header</span></samp>&rsquo;.
+
+<pre class="example">     * sample header
+       :PROPERTIES:
+       :header-args:    :cache yes
+       :END:
+</pre>
+   <p><a name="index-C_002dc-C_002dx-p-2126"></a><a name="index-org_002dbabel_002ddefault_002dheader_002dargs-2127"></a>Properties defined through <code>org-set-property</code> function, bound to
+<kbd>C-c C-x p</kbd>, apply to all active languages.  They override properties set
+in <code>org-babel-default-header-args</code>.
+
+   </body></html>
+

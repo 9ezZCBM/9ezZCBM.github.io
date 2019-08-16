@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Useful Techniques - Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Useful-Techniques"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Tests-and-Their-Environment.html#Tests-and-Their-Environment">Tests and Their Environment</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="How-to-Write-Tests.html#How-to-Write-Tests">How to Write Tests</a>
+
+</div>
+
+<h3 class="section">3.4 Useful Techniques when Writing Tests</h3>
+
+<p><a name="index-useful-techniques-35"></a><a name="index-tips-and-tricks-36"></a>
+Testing simple functions that have no side effects and no dependencies
+on their environment is easy.  Such tests often look like this:
+
+<pre class="lisp">     (ert-deftest ert-test-mismatch ()
+       (should (eql (cl-mismatch "" "") nil))
+       (should (eql (cl-mismatch "" "a") 0))
+       (should (eql (cl-mismatch "a" "a") nil))
+       (should (eql (cl-mismatch "ab" "a") 1))
+       (should (eql (cl-mismatch "Aa" "aA") 0))
+       (should (eql (cl-mismatch '(a b c) '(a b d)) 2)))
+</pre>
+   <p>This test calls the function <code>cl-mismatch</code> several times with
+various combinations of arguments and compares the return value to the
+expected return value.  (Some programmers prefer <code>(should (eql
+EXPECTED ACTUAL))</code> over the <code>(should (eql ACTUAL EXPECTED))</code>
+shown here.  ERT works either way.)
+
+   <p>Here's a more complicated test:
+
+<pre class="lisp">     (ert-deftest ert-test-record-backtrace ()
+       (let ((test (make-ert-test :body (lambda () (ert-fail "foo")))))
+         (let ((result (ert-run-test test)))
+           (should (ert-test-failed-p result))
+           (with-temp-buffer
+             (ert--print-backtrace (ert-test-failed-backtrace result))
+             (goto-char (point-min))
+             (end-of-line)
+             (let ((first-line (buffer-substring-no-properties
+                                (point-min) (point))))
+               (should (equal first-line
+                              "  signal(ert-test-failed (\"foo\"))")))))))
+</pre>
+   <p><a name="index-make_002dert_002dtest-37"></a><a name="index-ert_002dequal_002dincluding_002dproperties-38"></a>This test creates a test object using <code>make-ert-test</code> whose body
+will immediately signal failure.  It then runs that test and asserts
+that it fails.  Then, it creates a temporary buffer and invokes
+<code>ert--print-backtrace</code> to print the backtrace of the failed test
+to the current buffer.  Finally, it extracts the first line from the
+buffer and asserts that it matches what we expect.  It uses
+<code>buffer-substring-no-properties</code> and <code>equal</code> to ignore text
+properties; for a test that takes properties into account,
+<code>buffer-substring</code> and <code>ert-equal-including-properties</code>
+could be used instead.
+
+   <p>The reason why this test only checks the first line of the backtrace
+is that the remainder of the backtrace is dependent on ERT's internals
+as well as whether the code is running interpreted or compiled.  By
+looking only at the first line, the test checks a useful property&mdash;that
+the backtrace correctly captures the call to <code>signal</code> that
+results from the call to <code>ert-fail</code>&mdash;without being brittle.
+
+   <p>This example also shows that writing tests is much easier if the code
+under test was structured with testing in mind.
+
+   <p>For example, if <code>ert-run-test</code> accepted only symbols that name
+tests rather than test objects, the test would need a name for the
+failing test, which would have to be a temporary symbol generated with
+<code>make-symbol</code>, to avoid side effects on Emacs's state.  Choosing
+the right interface for <code>ert-run-tests</code> allows the test to be
+simpler.
+
+   <p>Similarly, if <code>ert--print-backtrace</code> printed the backtrace to a
+buffer with a fixed name rather than the current buffer, it would be
+much harder for the test to undo the side effect.  Of course, some
+code somewhere needs to pick the buffer name.  But that logic is
+independent of the logic that prints backtraces, and keeping them in
+separate functions allows us to test them independently.
+
+   <p>A lot of code that you will encounter in Emacs was not written with
+testing in mind.  Sometimes, the easiest way to write tests for such
+code is to restructure the code slightly to provide better interfaces
+for testing.  Usually, this makes the interfaces easier to use as
+well.
+
+   </body></html>
+

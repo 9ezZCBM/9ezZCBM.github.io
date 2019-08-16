@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Setting Marks - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Setting-Marks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Generic-Marking-Commands.html#Generic-Marking-Commands">Generic Marking Commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Other-Marks.html#Other-Marks">Other Marks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Marking-Articles.html#Marking-Articles">Marking Articles</a>
+
+</div>
+
+<h4 class="subsection">3.7.4 Setting Marks</h4>
+
+<p><a name="index-setting-marks-791"></a>
+All the marking commands understand the numeric prefix.
+
+     <dl>
+<dt><kbd>M c</kbd><dt><kbd>M-u</kbd><dd><a name="index-M-c-_0040r_007b_0028Summary_0029_007d-792"></a><a name="index-M_002du-_0040r_007b_0028Summary_0029_007d-793"></a><a name="index-gnus_002dsummary_002dclear_002dmark_002dforward-794"></a><a name="index-mark-as-unread-795"></a>Clear all readedness-marks from the current article
+(<code>gnus-summary-clear-mark-forward</code>).  In other words, mark the
+article as unread.
+
+     <br><dt><kbd>M t</kbd><dt><kbd>!</kbd><dd><a name="index-g_t_0021-_0040r_007b_0028Summary_0029_007d-796"></a><a name="index-M-t-_0040r_007b_0028Summary_0029_007d-797"></a><a name="index-gnus_002dsummary_002dtick_002darticle_002dforward-798"></a>Tick the current article (<code>gnus-summary-tick-article-forward</code>). 
+See <a href="Article-Caching.html#Article-Caching">Article Caching</a>.
+
+     <br><dt><kbd>M ?</kbd><dt><kbd>?</kbd><dd><a name="index-g_t_003f-_0040r_007b_0028Summary_0029_007d-799"></a><a name="index-M-_003f-_0040r_007b_0028Summary_0029_007d-800"></a><a name="index-gnus_002dsummary_002dmark_002das_002ddormant-801"></a>Mark the current article as dormant
+(<code>gnus-summary-mark-as-dormant</code>).  See <a href="Article-Caching.html#Article-Caching">Article Caching</a>.
+
+     <br><dt><kbd>M d</kbd><dt><kbd>d</kbd><dd><a name="index-M-d-_0040r_007b_0028Summary_0029_007d-802"></a><a name="index-d-_0040r_007b_0028Summary_0029_007d-803"></a><a name="index-gnus_002dsummary_002dmark_002das_002dread_002dforward-804"></a>Mark the current article as read
+(<code>gnus-summary-mark-as-read-forward</code>).
+
+     <br><dt><kbd>D</kbd><dd><a name="index-D-_0040r_007b_0028Summary_0029_007d-805"></a><a name="index-gnus_002dsummary_002dmark_002das_002dread_002dbackward-806"></a>Mark the current article as read and move point to the previous line
+(<code>gnus-summary-mark-as-read-backward</code>).
+
+     <br><dt><kbd>M k</kbd><dt><kbd>k</kbd><dd><a name="index-k-_0040r_007b_0028Summary_0029_007d-807"></a><a name="index-M-k-_0040r_007b_0028Summary_0029_007d-808"></a><a name="index-gnus_002dsummary_002dkill_002dsame_002dsubject_002dand_002dselect-809"></a>Mark all articles that have the same subject as the current one as read,
+and then select the next unread article
+(<code>gnus-summary-kill-same-subject-and-select</code>).
+
+     <br><dt><kbd>M K</kbd><dt><kbd>C-k</kbd><dd><a name="index-M-K-_0040r_007b_0028Summary_0029_007d-810"></a><a name="index-C_002dk-_0040r_007b_0028Summary_0029_007d-811"></a><a name="index-gnus_002dsummary_002dkill_002dsame_002dsubject-812"></a>Mark all articles that have the same subject as the current one as read
+(<code>gnus-summary-kill-same-subject</code>).
+
+     <br><dt><kbd>M C</kbd><dd><a name="index-M-C-_0040r_007b_0028Summary_0029_007d-813"></a><a name="index-gnus_002dsummary_002dcatchup-814"></a><!-- @icon{gnus-summary-catchup} -->
+Mark all unread articles as read (<code>gnus-summary-catchup</code>).
+
+     <br><dt><kbd>M C-c</kbd><dd><a name="index-M-C_002dc-_0040r_007b_0028Summary_0029_007d-815"></a><a name="index-gnus_002dsummary_002dcatchup_002dall-816"></a>Mark all articles in the group as read&mdash;even the ticked and dormant
+articles (<code>gnus-summary-catchup-all</code>).
+
+     <br><dt><kbd>M H</kbd><dd><a name="index-M-H-_0040r_007b_0028Summary_0029_007d-817"></a><a name="index-gnus_002dsummary_002dcatchup_002dto_002dhere-818"></a>Catchup the current group to point (before the point)
+(<code>gnus-summary-catchup-to-here</code>).
+
+     <br><dt><kbd>M h</kbd><dd><a name="index-M-h-_0040r_007b_0028Summary_0029_007d-819"></a><a name="index-gnus_002dsummary_002dcatchup_002dfrom_002dhere-820"></a>Catchup the current group from point (after the point)
+(<code>gnus-summary-catchup-from-here</code>).
+
+     <br><dt><kbd>C-w</kbd><dd><a name="index-C_002dw-_0040r_007b_0028Summary_0029_007d-821"></a><a name="index-gnus_002dsummary_002dmark_002dregion_002das_002dread-822"></a>Mark all articles between point and mark as read
+(<code>gnus-summary-mark-region-as-read</code>).
+
+     <br><dt><kbd>M V k</kbd><dd><a name="index-M-V-k-_0040r_007b_0028Summary_0029_007d-823"></a><a name="index-gnus_002dsummary_002dkill_002dbelow-824"></a>Kill all articles with scores below the default score (or below the
+numeric prefix) (<code>gnus-summary-kill-below</code>).
+
+     <br><dt><kbd>M e</kbd><dt><kbd>E</kbd><dd><a name="index-M-e-_0040r_007b_0028Summary_0029_007d-825"></a><a name="index-E-_0040r_007b_0028Summary_0029_007d-826"></a><a name="index-gnus_002dsummary_002dmark_002das_002dexpirable-827"></a>Mark the current article as expirable
+(<code>gnus-summary-mark-as-expirable</code>).
+
+     <br><dt><kbd>M b</kbd><dd><a name="index-M-b-_0040r_007b_0028Summary_0029_007d-828"></a><a name="index-gnus_002dsummary_002dset_002dbookmark-829"></a>Set a bookmark in the current article
+(<code>gnus-summary-set-bookmark</code>).
+
+     <br><dt><kbd>M B</kbd><dd><a name="index-M-B-_0040r_007b_0028Summary_0029_007d-830"></a><a name="index-gnus_002dsummary_002dremove_002dbookmark-831"></a>Remove the bookmark from the current article
+(<code>gnus-summary-remove-bookmark</code>).
+
+     <br><dt><kbd>M V c</kbd><dd><a name="index-M-V-c-_0040r_007b_0028Summary_0029_007d-832"></a><a name="index-gnus_002dsummary_002dclear_002dabove-833"></a>Clear all marks from articles with scores over the default score (or
+over the numeric prefix) (<code>gnus-summary-clear-above</code>).
+
+     <br><dt><kbd>M V u</kbd><dd><a name="index-M-V-u-_0040r_007b_0028Summary_0029_007d-834"></a><a name="index-gnus_002dsummary_002dtick_002dabove-835"></a>Tick all articles with scores over the default score (or over the
+numeric prefix) (<code>gnus-summary-tick-above</code>).
+
+     <br><dt><kbd>M V m</kbd><dd><a name="index-M-V-m-_0040r_007b_0028Summary_0029_007d-836"></a><a name="index-gnus_002dsummary_002dmark_002dabove-837"></a>Prompt for a mark, and mark all articles with scores over the default
+score (or over the numeric prefix) with this mark
+(<code>gnus-summary-clear-above</code>). 
+</dl>
+
+   <p><a name="index-gnus_002dsummary_002dgoto_002dunread-838"></a>The <code>gnus-summary-goto-unread</code> variable controls what action should
+be taken after setting a mark.  If non-<code>nil</code>, point will move to
+the next/previous unread article.  If <code>nil</code>, point will just move
+one line up or down.  As a special case, if this variable is
+<code>never</code>, all the marking commands as well as other commands (like
+<kbd>&lt;SPC&gt;</kbd>) will move to the next article, whether it is unread or not. 
+The default is <code>t</code>.
+
+   </body></html>
+

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Creating a project - Emacs Development Environment</title>
+<!--
+This file describes EDE, the Emacs Development Environment.
+
+Copyright (C) 1998--2001, 2004--2005, 2008--2019
+Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Creating-a-project"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Modifying-your-project.html#Modifying-your-project">Modifying your project</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Quick-Start.html#Quick-Start">Quick Start</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Creating a project</h2>
+
+<p>To create a new project, first visit a file that you want to include
+in that project.  If you have a hierarchy of directories, first visit
+a file in the topmost directory.  From this buffer, type <kbd>M-x
+ede-new</kbd>, or click on the &lsquo;<samp><span class="samp">Create Project</span></samp>&rsquo; item in the
+&lsquo;<samp><span class="samp">Development</span></samp>&rsquo; menu.
+
+   <p>The <samp><span class="command">ede-new</span></samp> command prompts for the type of project you
+would like to create.  Each project type has its own benefits or
+language specific enhancements.  Not all projects that <i>EDE</i> supports
+also allow creating a new project.  Projects such as <code>emacs</code>
+or <code>linux</code> are designed to recognize existing projects only. 
+Project types such as &lsquo;<samp><span class="samp">Make</span></samp>&rsquo; and &lsquo;<samp><span class="samp">Automake</span></samp>&rsquo; do support
+creating new project types with <samp><span class="command">ede-new</span></samp>.
+
+     <ul>
+<li>For the &lsquo;<samp><span class="samp">Make</span></samp>&rsquo; project type, <i>EDE</i> creates a <dfn>project file</dfn>,
+called <samp><span class="file">Project.ede</span></samp>, in each project directory.  Information
+about the project is stored in this file.  This project autogenerates
+a <samp><span class="file">Makefile</span></samp>.
+
+     <li>For the &lsquo;<samp><span class="samp">Automake</span></samp>&rsquo; project type, <i>EDE</i> creates a
+<samp><span class="file">Project.ede</span></samp> project file similar to a &lsquo;<samp><span class="samp">Make</span></samp>&rsquo; project. 
+Unlike a &lsquo;<samp><span class="samp">Make</span></samp>&rsquo; project, this project autogenerates a
+<samp><span class="file">Makefile.am</span></samp> file.  <i>EDE</i> handles the Automake bootstrapping
+routines, which import and maintain a <samp><span class="file">configure.am</span></samp> script and
+other required files. 
+</ul>
+
+   <p>A subproject is merely a project in a subdirectory of another project. 
+You can create a subproject by using the <samp><span class="command">ede-new</span></samp> command (or
+the &lsquo;<samp><span class="samp">Create Project</span></samp>&rsquo; menu item), while visiting a buffer in a
+subdirectory of the project root.  This new project is automatically
+added to the parent project, and will be automatically loaded when
+<i>EDE</i> reads the parent project.
+
+   <p>When using a project command that involves a makefile, <i>EDE</i> uses
+the top-most project's makefile as a starting place for the build.  How
+the toplevel project handles subprojects in the build process is
+dependent on that project's type.
+
+   </body></html>
+

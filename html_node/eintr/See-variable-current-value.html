@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>See variable current value - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="See-variable-current-value"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="defvar-and-asterisk.html#defvar-and-asterisk">defvar and asterisk</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="defvar.html#defvar">defvar</a>
+
+</div>
+
+<h4 class="unnumberedsubsec">Seeing the Current Value of a Variable</h4>
+
+   <p>You can see the current value of a variable, any variable, by using
+the <code>describe-variable</code> function, which is usually invoked by
+typing <kbd>C-h v</kbd>.  If you type <kbd>C-h v</kbd> and then <code>kill-ring</code>
+(followed by &lt;RET&gt;) when prompted, you will see what is in your
+current kill ring&mdash;this may be quite a lot!  Conversely, if you have
+been doing nothing this Emacs session except read this document, you
+may have nothing in it.  Also, you will see the documentation for
+<code>kill-ring</code>:
+
+<pre class="smallexample">     Documentation:
+     List of killed text sequences.
+     Since the kill ring is supposed to interact nicely with cut-and-paste
+     facilities offered by window systems, use of this variable should
+     interact nicely with `interprogram-cut-function' and
+     `interprogram-paste-function'.  The functions `kill-new',
+     `kill-append', and `current-kill' are supposed to implement this
+     interaction; you may want to use them instead of manipulating the kill
+     ring directly.
+</pre>
+   <p>The kill ring is defined by a <code>defvar</code> in the following way:
+
+<pre class="smallexample">     (defvar kill-ring nil
+       "List of killed text sequences.
+     ...")
+</pre>
+   <p class="noindent">In this variable definition, the variable is given an initial value of
+<code>nil</code>, which makes sense, since if you have saved nothing, you want
+nothing back if you give a <code>yank</code> command.  The documentation
+string is written just like the documentation string of a <code>defun</code>. 
+As with the documentation string of the <code>defun</code>, the first line of
+the documentation should be a complete sentence, since some commands,
+like <code>apropos</code>, print only the first line of documentation. 
+Succeeding lines should not be indented; otherwise they look odd when
+you use <kbd>C-h v</kbd> (<code>describe-variable</code>).
+
+   </body></html>
+

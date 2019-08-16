@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Multiple sets in one file - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Multiple-sets-in-one-file"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Fast-access-to-TODO-states.html#Fast-access-to-TODO-states">Fast access to TODO states</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="TODO-types.html#TODO-types">TODO types</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="TODO-extensions.html#TODO-extensions">TODO extensions</a>
+
+</div>
+
+<h4 class="subsection">5.2.3 Multiple keyword sets in one file</h4>
+
+<p><a name="index-TODO-keyword-sets-564"></a>
+Sometimes you may want to use different sets of TODO keywords in
+parallel.  For example, you may want to have the basic
+<code>TODO</code>/<code>DONE</code>, but also a workflow for bug fixing, and a
+separate state indicating that an item has been canceled (so it is not
+DONE, but also does not require action).  Your setup would then look
+like this:
+
+<pre class="lisp">     (setq org-todo-keywords
+           '((sequence "TODO" "|" "DONE")
+             (sequence "REPORT" "BUG" "KNOWNCAUSE" "|" "FIXED")
+             (sequence "|" "CANCELED")))
+</pre>
+   <p>The keywords should all be different, this helps Org mode to keep track
+of which subsequence should be used for a given entry.  In this setup,
+<kbd>C-c C-t</kbd> only operates within a subsequence, so it switches from
+<code>DONE</code> to (nothing) to <code>TODO</code>, and from <code>FIXED</code> to
+(nothing) to <code>REPORT</code>.  Therefore you need a mechanism to initially
+select the correct sequence.  Besides the obvious ways like typing a
+keyword or using completion, you may also apply the following commands:
+
+     
+<a name="index-C_002dS_002dRIGHT-565"></a>
+<a name="index-C_002dS_002dLEFT-566"></a>
+<a name="index-C_002du-C_002du-C_002dc-C_002dt-567"></a>
+<dl><dt><kbd>C-u C-u C-c C-t</kbd><dt><kbd>C-S-&lt;RIGHT&gt;</kbd><dt><kbd>C-S-&lt;LEFT&gt;</kbd><dd>These keys jump from one TODO subset to the next.  In the above example,
+<kbd>C-u C-u C-c C-t</kbd> or <kbd>C-S-&lt;RIGHT&gt;</kbd> would jump from <code>TODO</code> or
+<code>DONE</code> to <code>REPORT</code>, and any of the words in the second row to
+<code>CANCELED</code>.  Note that the <kbd>C-S-</kbd> key binding conflict with
+<code>shift-selection-mode</code> (see <a href="Conflicts.html#Conflicts">Conflicts</a>). 
+<a name="index-S_002dRIGHT-568"></a><a name="index-S_002dLEFT-569"></a><br><dt><kbd>S-&lt;RIGHT&gt;</kbd><dt><kbd>S-&lt;LEFT&gt;</kbd><dd><kbd>S-&lt;LEFT&gt;</kbd> and <kbd>S-&lt;RIGHT&gt;</kbd> and walk through <em>all</em>
+keywords from all sets, so for example <kbd>S-&lt;RIGHT&gt;</kbd> would switch
+from <code>DONE</code> to <code>REPORT</code> in the example above.  See also
+<a href="Conflicts.html#Conflicts">Conflicts</a>, for a discussion of the interaction with
+<code>shift-selection-mode</code>. 
+</dl>
+
+   </body></html>
+

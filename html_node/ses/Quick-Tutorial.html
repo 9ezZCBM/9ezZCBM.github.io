@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Quick Tutorial - SES: Simple Emacs Spreadsheet</title>
+<!--
+This file documents SES: the Simple Emacs Spreadsheet.
+
+Copyright (C) 2002--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Quick-Tutorial"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-Basics.html#The-Basics">The Basics</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Sales-Pitch.html#Sales-Pitch">Sales Pitch</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Quick Tutorial</h2>
+
+<p><a name="index-introduction-2"></a><a name="index-tutorial-3"></a>
+If you want to get started quickly and think that you know what to
+expect from a simple spreadsheet, this chapter may be all that you
+need.
+
+   <p>First, visit a new file with the <samp><span class="file">.ses</span></samp> extension. 
+Emacs presents you with an empty spreadsheet containing a single cell.
+
+   <p>Begin by inserting a headline: <kbd>"Income"&lt;RET&gt;</kbd>.  The double
+quotes indicate that this is a text cell.  (Notice that Emacs
+automatically inserts the closing quotation mark.)
+
+   <p>To insert your first income value, you must first resize the
+spreadsheet.  Press &lt;TAB&gt; to add a new cell and navigate back up
+to it.  Enter a number, such as &lsquo;<samp><span class="samp">2.23</span></samp>&rsquo;.  Then proceed to add a
+few more income entries, e.g.:
+
+<pre class="example">     A
+      Income
+        2.23
+        0.02
+       15.76
+       -4.00
+</pre>
+   <p>To add up the values, enter a Lisp expression:
+
+<pre class="example">     (+ A2 A3 A4 A5)
+</pre>
+   <p>Perhaps you want to add a cell to the right of cell A4 to explain
+why you have a negative entry.  Pressing <kbd>TAB</kbd> in that cell
+adds an entire new column &lsquo;<samp><span class="samp">B</span></samp>&rsquo;, where you can add such a note.
+
+   <p>The column is fairly narrow by default, but pressing <kbd>w</kbd> allows
+you to resize it as needed.  Make it 20 characters wide.  You can
+now add descriptive legends for all the entries, e.g.:
+
+<pre class="example">     A       B
+      Income
+        2.23       Consulting fee
+        0.02     Informed opinion
+       15.76       Lemonade stand
+          -4          Loan to Joe
+       14.01                Total
+</pre>
+   <p>By default, the labels in column B are right-justified.  To change
+that, you can enter a printer function for the whole column, using
+e.g., <kbd>M-p ("%s")</kbd>.  You can override a column's printer function
+in any individual cell using <kbd>p</kbd>.
+
+   <p>If Joe pays back his loan, you might blank that entry; e.g., by
+positioning the cursor in cell A5 and pressing <kbd>C-d</kbd> twice. 
+If you do that, the total cell will display &lsquo;<samp><span class="samp">######</span></samp>&rsquo;.  That is
+because the regular <code>+</code> operator does not handle a range that
+contains some empty cells.  Instead of emptying the cell, you could
+enter a literal &lsquo;<samp><span class="samp">0</span></samp>&rsquo;, or delete the entire row using <kbd>C-k</kbd>. 
+An alternative is to use the special function <code>ses+</code> instead of
+the regular <code>+</code>:
+
+<pre class="example">     (ses+ A2 A3 A4 A5)
+</pre>
+   <p>To make a formula robust against changes in the spreadsheet geometry,
+you can use the <code>ses-range</code> macro to refer to a range of cells by
+the end-points, e.g.:
+
+<pre class="example">     (apply 'ses+ (ses-range A2 A5))
+</pre>
+   <p>(The <code>apply</code> is necessary because <code>ses-range</code> produces a
+<em>list</em> of values.  This allows for more complex possibilities.)
+
+   <p>Alternatively you can use the <code>!</code> modifier of <code>ses-range</code> to
+remove blank cells from the returned list, which allows to use
+<code>+</code> instead of <code>ses+</code>:
+
+<pre class="lisp">     (apply '+ (ses-range A2 A5 !))
+</pre>
+   <!-- =================================================================== -->
+   </body></html>
+

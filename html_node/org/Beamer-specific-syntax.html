@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Beamer specific syntax - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Beamer-specific-syntax"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Editing-support.html#Editing-support">Editing support</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Sectioning-Frames-and-Blocks-in-Beamer.html#Sectioning-Frames-and-Blocks-in-Beamer">Sectioning Frames and Blocks in Beamer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Beamer-export.html#Beamer-export">Beamer export</a>
+
+</div>
+
+<h4 class="subsection">12.8.4 Beamer specific syntax</h4>
+
+<p>Since Org's Beamer export back-end is an extension of the LaTeX back-end,
+it recognizes other LaTeX specific syntax&mdash;for example, <code>#+LATEX:</code>
+or <code>#+ATTR_LATEX:</code>.  See <a href="LaTeX-export.html#LaTeX-export">LaTeX export</a>, for details.
+
+   <p>Beamer export wraps the table of contents generated with <code>toc:t</code>
+<code>OPTION</code> keyword in a <code>frame</code> environment.  Beamer export does not
+wrap the table of contents generated with <code>TOC</code> keyword (see <a href="Table-of-contents.html#Table-of-contents">Table of contents</a>).  Use square brackets for specifying options.
+
+<pre class="example">     #+TOC: headlines [currentsection]
+</pre>
+   <p>Insert Beamer-specific code using the following constructs:
+
+   <p><a name="index-g_t_0040code_007b_0023_002bBEAMER_007d-1732"></a><a name="index-g_t_0040code_007b_0023_002bBEGIN_005fEXPORT-beamer_007d-1733"></a>
+<pre class="example">     #+BEAMER: \pause
+     
+     #+BEGIN_EXPORT beamer
+     Only Beamer export back-end will export this line.
+     #+END_BEAMER
+     
+     Text @@beamer:some code@@ within a paragraph.
+</pre>
+   <p>Inline constructs, such as the last one above, are useful for adding overlay
+specifications to objects with <code>bold</code>, <code>item</code>, <code>link</code>,
+<code>radio-target</code> and <code>target</code> types.  Enclose the value in angular
+brackets and place the specification at the beginning the object as shown in
+this example:
+
+<pre class="example">     A *@@beamer:&lt;2-&gt;@@useful* feature
+</pre>
+   <p><a name="index-g_t_0040code_007b_0023_002bATTR_005fBEAMER_007d-1734"></a>Beamer export recognizes the <code>ATTR_BEAMER</code> keyword with the following
+attributes from Beamer configurations: <code>:environment</code> for changing local
+Beamer environment, <code>:overlay</code> for specifying Beamer overlays in angular
+or square brackets, and <code>:options</code> for inserting optional arguments.
+
+<pre class="example">     #+ATTR_BEAMER: :environment nonindentlist
+     - item 1, not indented
+     - item 2, not indented
+     - item 3, not indented
+</pre>
+   <pre class="example">     #+ATTR_BEAMER: :overlay &lt;+-&gt;
+     - item 1
+     - item 2
+</pre>
+   <pre class="example">     #+ATTR_BEAMER: :options [Lagrange]
+     Let $G$ be a finite group, and let $H$ be
+     a subgroup of $G$.  Then the order of $H$ divides the order of $G$.
+</pre>
+   </body></html>
+

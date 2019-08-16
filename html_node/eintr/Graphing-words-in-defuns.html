@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Graphing words in defuns - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Graphing-words-in-defuns"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lambda.html#lambda">lambda</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Test-print_002dgraph.html#Test-print_002dgraph">Test print-graph</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Print-Whole-Graph.html#Print-Whole-Graph">Print Whole Graph</a>
+
+</div>
+
+<h4 class="appendixsubsec">C.4.2 Graphing Numbers of Words and Symbols</h4>
+
+<p>Now for the graph for which all this code was written: a graph that
+shows how many function definitions contain fewer than 10 words and
+symbols, how many contain between 10 and 19 words and symbols, how
+many contain between 20 and 29 words and symbols, and so on.
+
+   <p>This is a multi-step process.  First make sure you have loaded all the
+requisite code.
+
+   <p>It is a good idea to reset the value of <code>top-of-ranges</code> in case
+you have set it to some different value.  You can evaluate the
+following:
+
+<pre class="smallexample">     (setq top-of-ranges
+      '(10  20  30  40  50
+        60  70  80  90 100
+       110 120 130 140 150
+       160 170 180 190 200
+       210 220 230 240 250
+       260 270 280 290 300)
+</pre>
+   <p class="noindent">Next create a list of the number of words and symbols in each range.
+
+<p class="noindent">Evaluate the following:
+
+<pre class="smallexample">     (setq list-for-graph
+            (defuns-per-range
+              (sort
+               (recursive-lengths-list-many-files
+                (directory-files "/usr/local/emacs/lisp"
+                                 t ".+el$"))
+               '&lt;)
+              top-of-ranges))
+</pre>
+   <p class="noindent">On my old machine, this took about an hour.  It looked though 303 Lisp
+files in my copy of Emacs version 19.23.  After all that computing,
+the <code>list-for-graph</code> had this value:
+
+<pre class="smallexample">     (537 1027 955 785 594 483 349 292 224 199 166 120 116 99
+     90 80 67 48 52 45 41 33 28 26 25 20 12 28 11 13 220)
+</pre>
+   <p class="noindent">This means that my copy of Emacs had 537 function definitions with
+fewer than 10 words or symbols in them, 1,027 function definitions
+with 10 to 19 words or symbols in them, 955 function definitions with
+20 to 29 words or symbols in them, and so on.
+
+   <p>Clearly, just by looking at this list we can see that most function
+definitions contain ten to thirty words and symbols.
+
+   <p>Now for printing.  We do <em>not</em> want to print a graph that is
+1,030 lines high <small class="dots">...</small>  Instead, we should print a graph that is
+fewer than twenty-five lines high.  A graph that height can be
+displayed on almost any monitor, and easily printed on a sheet of paper.
+
+   <p>This means that each value in <code>list-for-graph</code> must be reduced to
+one-fiftieth its present value.
+
+   <p>Here is a short function to do just that, using two functions we have
+not yet seen, <code>mapcar</code> and <code>lambda</code>.
+
+<pre class="smallexample">     (defun one-fiftieth (full-range)
+       "Return list, each number one-fiftieth of previous."
+      (mapcar (lambda (arg) (/ arg 50)) full-range))
+</pre>
+   </body></html>
+

@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Buffer Display Action Functions - GNU Emacs Lisp Reference Manual</title>
+<!--
+This is the `GNU Emacs Lisp Reference Manual'
+corresponding to Emacs version 26.2.
+
+Copyright (C) 1990--1996, 1998--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``GNU General Public
+     License,'' with the Front-Cover Texts being ``A GNU Manual,'' and
+     with the Back-Cover Texts as in (a) below.  A copy of the license
+     is included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Buffer-Display-Action-Functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Buffer-Display-Action-Alists.html#Buffer-Display-Action-Alists">Buffer Display Action Alists</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Choosing-Window.html#Choosing-Window">Choosing Window</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Displaying-Buffers.html#Displaying-Buffers">Displaying Buffers</a>
+
+</div>
+
+<h4 class="subsection">28.13.2 Action Functions for Buffer Display</h4>
+
+<p><a name="index-buffer-display-action-function-2793"></a><a name="index-action-function_002c-for-buffer-display-2794"></a>
+An <dfn>action function</dfn> is a function <code>display-buffer</code> calls for
+choosing a window to display a buffer.  Action functions take two
+arguments: <var>buffer</var>, the buffer to display, and <var>alist</var>, an
+action alist (see <a href="Buffer-Display-Action-Alists.html#Buffer-Display-Action-Alists">Buffer Display Action Alists</a>).  They are
+supposed to return a window displaying <var>buffer</var> if they succeed
+and <code>nil</code> if they fail.
+
+   <p>The following basic action functions are defined in Emacs.
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-same-window</b><var> buffer alist<a name="index-display_002dbuffer_002dsame_002dwindow-2795"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> in the selected window. 
+It fails if the selected window is a minibuffer window or is dedicated
+to another buffer (see <a href="Dedicated-Windows.html#Dedicated-Windows">Dedicated Windows</a>).  It also fails if
+<var>alist</var> has a non-<code>nil</code> <code>inhibit-same-window</code> entry. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-reuse-window</b><var> buffer alist<a name="index-display_002dbuffer_002dreuse_002dwindow-2796"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> by finding a window that
+is already displaying it.
+
+        <p>If <var>alist</var> has a non-<code>nil</code> <code>inhibit-same-window</code> entry,
+the selected window is not eligible for reuse.  The set of frames to
+search for a window already displaying <var>buffer</var> can be specified
+with the help of the <code>reusable-frames</code> action alist entry.  If
+<var>alist</var> contains no <code>reusable-frames</code> entry, this function
+searches just the selected frame.
+
+        <p>If this function chooses a window on another frame, it makes that
+frame visible and, unless <var>alist</var> contains an
+<code>inhibit-switch-frame</code> entry, raises that frame if necessary. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-reuse-mode-window</b><var> buffer alist<a name="index-display_002dbuffer_002dreuse_002dmode_002dwindow-2797"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> by finding a window
+that is displaying a buffer in a given mode.
+
+        <p>If <var>alist</var> contains a <code>mode</code> entry, its value specifes a
+major mode (a symbol) or a list of major modes.  If <var>alist</var>
+contains no <code>mode</code> entry, the current major mode of <var>buffer</var>
+is used instead.  A window is a candidate if it displays a buffer
+whose mode derives from one of the modes specified thusly.
+
+        <p>The behavior is also controlled by <var>alist</var> entries for
+<code>inhibit-same-window</code>, <code>reusable-frames</code> and
+<code>inhibit-switch-frame</code>, like <code>display-buffer-reuse-window</code>
+does. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-pop-up-window</b><var> buffer alist<a name="index-display_002dbuffer_002dpop_002dup_002dwindow-2798"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> by splitting the largest
+or least recently-used window (usually located on the selected frame). 
+It actually performs the split by calling the function specified by
+<code>split-window-preferred-function</code> (see <a href="Choosing-Window-Options.html#Choosing-Window-Options">Choosing Window Options</a>).
+
+        <p>The size of the new window can be adjusted by supplying
+<code>window-height</code> and <code>window-width</code> entries in <var>alist</var>. 
+If <var>alist</var> contains a <code>preserve-size</code> entry, Emacs will also
+try to preserve the size of the new window during future resize
+operations (see <a href="Preserving-Window-Sizes.html#Preserving-Window-Sizes">Preserving Window Sizes</a>).
+
+        <p>This function fails if no window can be split.  More often than not,
+this happens because no window is large enough to allow splitting. 
+Setting <code>split-height-threshold</code> or <code>split-width-threshold</code>
+to lower values may help in this regard.  Spliting also fails when the
+selected frame has an <code>unsplittable</code> frame parameter;
+see <a href="Buffer-Parameters.html#Buffer-Parameters">Buffer Parameters</a>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-in-previous-window</b><var> buffer alist<a name="index-display_002dbuffer_002din_002dprevious_002dwindow-2799"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> in a window where it was
+previously displayed.  If <var>alist</var> has a non-<code>nil</code>
+<code>inhibit-same-window</code> entry, the selected window is not eligible
+for reuse.  If <var>alist</var> contains a <code>reusable-frames</code> entry,
+its value determines which frames to search for a suitable window.
+
+        <p>If <var>alist</var> has a <code>previous-window</code> entry and the window
+specified by that entry is live and not dedicated to another buffer,
+that window will be preferred, even if it never showed <var>buffer</var>
+before. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-use-some-window</b><var> buffer alist<a name="index-display_002dbuffer_002duse_002dsome_002dwindow-2800"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> by choosing an existing
+window and displaying the buffer in that window.  It can fail if all
+windows are dedicated to other buffers (see <a href="Dedicated-Windows.html#Dedicated-Windows">Dedicated Windows</a>). 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-below-selected</b><var> buffer alist<a name="index-display_002dbuffer_002dbelow_002dselected-2801"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> in a window below the
+selected window.  If there is a window below the selected one and that
+window already displays <var>buffer</var>, it reuses that window.
+
+        <p>If there is no such window, this function tries to create a new window
+by splitting the selected one, and displays <var>buffer</var> there.  It will
+also try to adjust that window's size provided <var>alist</var> contains a
+suitable <code>window-height</code> or <code>window-width</code> entry, see above.
+
+        <p>If splitting the selected window fails and there is a non-dedicated
+window below the selected one showing some other buffer, this function
+tries to use that window for showing <var>buffer</var>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-at-bottom</b><var> buffer alist<a name="index-display_002dbuffer_002dat_002dbottom-2802"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> in a window at the bottom
+of the selected frame.
+
+        <p>This either tries to split the window at the bottom of the frame or
+the frame's root window, or to reuse an existing window at the bottom
+of the selected frame. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-pop-up-frame</b><var> buffer alist<a name="index-display_002dbuffer_002dpop_002dup_002dframe-2803"></a></var><br>
+<blockquote><p>This function creates a new frame, and displays the buffer in that
+frame's window.  It actually performs the frame creation by calling
+the function specified in <code>pop-up-frame-function</code>
+(see <a href="Choosing-Window-Options.html#Choosing-Window-Options">Choosing Window Options</a>).  If <var>alist</var> contains a
+<code>pop-up-frame-parameters</code> entry, the associated value is added to
+the newly created frame's parameters. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-in-child-frame</b><var> buffer alist<a name="index-display_002dbuffer_002din_002dchild_002dframe-2804"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> in a child frame
+(see <a href="Child-Frames.html#Child-Frames">Child Frames</a>) of the selected frame, either reusing an
+existing child frame or by making a new one.  If <var>alist</var> has a
+non-<code>nil</code> <code>child-frame-parameters</code> entry, the corresponding
+value is an alist of frame parameters to give the new frame.  A
+<code>parent-frame</code> parameter specifying the selected frame is
+provided by default.  If the child frame should become the child of
+another frame, a corresponding entry must be added to <var>alist</var>.
+
+        <p>The appearance of child frames is largely dependent on the parameters
+provided via <var>alist</var>.  It is advisable to use at least ratios to
+specify the size (see <a href="Size-Parameters.html#Size-Parameters">Size Parameters</a>) and the position
+(see <a href="Position-Parameters.html#Position-Parameters">Position Parameters</a>) of the child frame, and to add a
+<code>keep-ratio</code> parameter (see <a href="Frame-Interaction-Parameters.html#Frame-Interaction-Parameters">Frame Interaction Parameters</a>), in
+order to make sure that the child frame remains visible.  For other
+parameters that should be considered see <a href="Child-Frames.html#Child-Frames">Child Frames</a>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-use-some-frame</b><var> buffer alist<a name="index-display_002dbuffer_002duse_002dsome_002dframe-2805"></a></var><br>
+<blockquote><p>This function tries to display <var>buffer</var> by finding a frame that
+meets a predicate (by default any frame other than the selected
+frame).
+
+        <p>If this function chooses a window on another frame, it makes that
+frame visible and, unless <var>alist</var> contains an
+<code>inhibit-switch-frame</code> entry, raises that frame if necessary.
+
+        <p>If <var>alist</var> has a non-<code>nil</code> <code>frame-predicate</code> entry, its
+value is a function taking one argument (a frame), returning
+non-<code>nil</code> if the frame is a candidate; this function replaces the
+default predicate.
+
+        <p>If <var>alist</var> has a non-<code>nil</code> <code>inhibit-same-window</code> entry,
+the selected window is not used; thus if the selected frame has a
+single window, it is not used. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>display-buffer-no-window</b><var> buffer alist<a name="index-display_002dbuffer_002dno_002dwindow-2806"></a></var><br>
+<blockquote><p>If <var>alist</var> has a non-<code>nil</code> <code>allow-no-window</code> entry, then
+this function does not display <var>buffer</var> and returns the symbol
+<code>fail</code>.  This constitutes the only exception to the convention
+that an action function returns either <code>nil</code> or a window showing
+<var>buffer</var>.  If <var>alist</var> has no such <code>allow-no-window</code>
+entry, this function returns <code>nil</code>.
+
+        <p>If this function returns <code>fail</code>, <code>display-buffer</code> will skip
+the execution of any further display actions and return <code>nil</code>
+immediately.  If this function returns <code>nil</code>,
+<code>display-buffer</code> will continue with the next display action, if
+any.
+
+        <p>It is assumed that when a caller of <code>display-buffer</code> specifies a
+non-<code>nil</code> <code>allow-no-window</code> entry, it is also able to handle
+a <code>nil</code> return value. 
+</p></blockquote></div>
+
+   <p>Two other action functions are described in their proper
+sections&mdash;<code>display-buffer-in-side-window</code> (see <a href="Displaying-Buffers-in-Side-Windows.html#Displaying-Buffers-in-Side-Windows">Displaying Buffers in Side Windows</a>) and <code>display-buffer-in-atom-window</code>
+(see <a href="Atomic-Windows.html#Atomic-Windows">Atomic Windows</a>).
+
+   </body></html>
+

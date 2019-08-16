@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>print-elements-of-list - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="print-elements-of-list"></a>
+<a name="print_002delements_002dof_002dlist"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Incrementing-Loop.html#Incrementing-Loop">Incrementing Loop</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Loop-Example.html#Loop-Example">Loop Example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="while.html#while">while</a>
+
+</div>
+
+<h4 class="subsection">11.1.2 An Example: <code>print-elements-of-list</code></h4>
+
+<p><a name="index-print_002delements_002dof_002dlist-230"></a>
+The <code>print-elements-of-list</code> function illustrates a <code>while</code>
+loop with a list.
+
+   <p><a name="index-g_t_0040file_007b_002ascratch_002a_007d-buffer-231"></a>The function requires several lines for its output.  If you are
+reading this in a recent instance of GNU Emacs,
+<!-- GNU Emacs 21, GNU Emacs 22, or a later version, -->
+you can evaluate the following expression inside of Info, as usual.
+
+   <p>If you are using an earlier version of Emacs, you need to copy the
+necessary expressions to your <samp><span class="file">*scratch*</span></samp> buffer and evaluate
+them there.  This is because the echo area had only one line in the
+earlier versions.
+
+   <p>You can copy the expressions by marking the beginning of the region
+with <kbd>C-&lt;SPC&gt;</kbd> (<code>set-mark-command</code>), moving the cursor to
+the end of the region and then copying the region using <kbd>M-w</kbd>
+(<code>kill-ring-save</code>, which calls <code>copy-region-as-kill</code> and
+then provides visual feedback).  In the <samp><span class="file">*scratch*</span></samp>
+buffer, you can yank the expressions back by typing <kbd>C-y</kbd>
+(<code>yank</code>).
+
+   <p>After you have copied the expressions to the <samp><span class="file">*scratch*</span></samp> buffer,
+evaluate each expression in turn.  Be sure to evaluate the last
+expression, <code>(print-elements-of-list animals)</code>, by typing
+<kbd>C-u C-x C-e</kbd>, that is, by giving an argument to
+<code>eval-last-sexp</code>.  This will cause the result of the evaluation
+to be printed in the <samp><span class="file">*scratch*</span></samp> buffer instead of being printed
+in the echo area.  (Otherwise you will see something like this in your
+echo area: <code>^Jgazelle^J^Jgiraffe^J^Jlion^J^Jtiger^Jnil</code>, in which
+each &lsquo;<samp><span class="samp">^J</span></samp>&rsquo; stands for a newline.)
+
+   <p>In a recent instance of GNU Emacs, you can evaluate these expressions
+directly in the Info buffer, and the echo area will grow to show the
+results.
+
+<pre class="smallexample">     (setq animals '(gazelle giraffe lion tiger))
+     
+     (defun print-elements-of-list (list)
+       "Print each element of LIST on a line of its own."
+       (while list
+         (print (car list))
+         (setq list (cdr list))))
+     
+     (print-elements-of-list animals)
+</pre>
+   <p class="noindent">When you evaluate the three expressions in sequence, you will see
+this:
+
+<pre class="smallexample">     gazelle
+     
+     giraffe
+     
+     lion
+     
+     tiger
+     nil
+</pre>
+   <p>Each element of the list is printed on a line of its own (that is what
+the function <code>print</code> does) and then the value returned by the
+function is printed.  Since the last expression in the function is the
+<code>while</code> loop, and since <code>while</code> loops always return
+<code>nil</code>, a <code>nil</code> is printed after the last element of the list.
+
+   </body></html>
+

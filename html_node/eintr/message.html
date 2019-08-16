@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>message - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="message"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Wrong-Type-of-Argument.html#Wrong-Type-of-Argument">Wrong Type of Argument</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Arguments.html#Arguments">Arguments</a>
+
+</div>
+
+<h4 class="subsection">1.8.5 The <code>message</code> Function</h4>
+
+<p><a name="index-message-59"></a>
+Like <code>+</code>, the <code>message</code> function takes a variable number of
+arguments.  It is used to send messages to the user and is so useful
+that we will describe it here.
+
+   <p>A message is printed in the echo area.  For example, you can print a
+message in your echo area by evaluating the following list:
+
+<pre class="smallexample">     (message "This message appears in the echo area!")
+</pre>
+   <p>The whole string between double quotation marks is a single argument
+and is printed <i>in toto</i>.  (Note that in this example, the message
+itself will appear in the echo area within double quotes; that is
+because you see the value returned by the <code>message</code> function.  In
+most uses of <code>message</code> in programs that you write, the text will
+be printed in the echo area as a side-effect, without the quotes. 
+See <a href="multiply_002dby_002dseven-in-detail.html#multiply_002dby_002dseven-in-detail"><code>multiply-by-seven</code> in detail</a>, for an example of this.)
+
+   <p>However, if there is a &lsquo;<samp><span class="samp">%s</span></samp>&rsquo; in the quoted string of characters, the
+<code>message</code> function does not print the &lsquo;<samp><span class="samp">%s</span></samp>&rsquo; as such, but looks
+to the argument that follows the string.  It evaluates the second
+argument and prints the value at the location in the string where the
+&lsquo;<samp><span class="samp">%s</span></samp>&rsquo; is.
+
+   <p>You can see this by positioning the cursor after the following
+expression and typing <kbd>C-x C-e</kbd>:
+
+<pre class="smallexample">     (message "The name of this buffer is: %s." (buffer-name))
+</pre>
+   <p class="noindent">In Info, <code>"The name of this buffer is: *info*."</code> will appear in the
+echo area.  The function <code>buffer-name</code> returns the name of the
+buffer as a string, which the <code>message</code> function inserts in place
+of <code>%s</code>.
+
+   <p>To print a value as an integer, use &lsquo;<samp><span class="samp">%d</span></samp>&rsquo; in the same way as
+&lsquo;<samp><span class="samp">%s</span></samp>&rsquo;.  For example, to print a message in the echo area that
+states the value of the <code>fill-column</code>, evaluate the following:
+
+<pre class="smallexample">     (message "The value of fill-column is %d." fill-column)
+</pre>
+   <p class="noindent">On my system, when I evaluate this list, <code>"The value of
+fill-column is 72."</code> appears in my echo area<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.
+
+   <p>If there is more than one &lsquo;<samp><span class="samp">%s</span></samp>&rsquo; in the quoted string, the value of
+the first argument following the quoted string is printed at the
+location of the first &lsquo;<samp><span class="samp">%s</span></samp>&rsquo; and the value of the second argument is
+printed at the location of the second &lsquo;<samp><span class="samp">%s</span></samp>&rsquo;, and so on.
+
+   <p>For example, if you evaluate the following,
+
+<pre class="smallexample">     (message "There are %d %s in the office!"
+              (- fill-column 14) "pink elephants")
+</pre>
+   <p class="noindent">a rather whimsical message will appear in your echo area.  On my system
+it says, <code>"There are 58 pink elephants in the office!"</code>.
+
+   <p>The expression <code>(- fill-column 14)</code> is evaluated and the resulting
+number is inserted in place of the &lsquo;<samp><span class="samp">%d</span></samp>&rsquo;; and the string in double
+quotes, <code>"pink elephants"</code>, is treated as a single argument and
+inserted in place of the &lsquo;<samp><span class="samp">%s</span></samp>&rsquo;.  (That is to say, a string between
+double quotes evaluates to itself, like a number.)
+
+   <p>Finally, here is a somewhat complex example that not only illustrates
+the computation of a number, but also shows how you can use an
+expression within an expression to generate the text that is substituted
+for &lsquo;<samp><span class="samp">%s</span></samp>&rsquo;:
+
+<pre class="smallexample">     (message "He saw %d %s"
+              (- fill-column 32)
+              (concat "red "
+                      (substring
+                       "The quick brown foxes jumped." 16 21)
+                      " leaping."))
+</pre>
+   <p>In this example, <code>message</code> has three arguments: the string,
+<code>"He saw %d %s"</code>, the expression, <code>(- fill-column 32)</code>, and
+the expression beginning with the function <code>concat</code>.  The value
+resulting from the evaluation of <code>(- fill-column 32)</code> is inserted
+in place of the &lsquo;<samp><span class="samp">%d</span></samp>&rsquo;; and the value returned by the expression
+beginning with <code>concat</code> is inserted in place of the &lsquo;<samp><span class="samp">%s</span></samp>&rsquo;.
+
+   <p>When your fill column is 70 and you evaluate the expression, the
+message <code>"He saw 38 red foxes leaping."</code> appears in your echo
+area.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Actually, you
+can use <code>%s</code> to print a number.  It is non-specific.  <code>%d</code>
+prints only the part of a number left of a decimal point, and not
+anything that is not a number.</p>
+
+   <hr></div>
+
+   </body></html>
+

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Agent Regeneration - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Agent-Regeneration"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Agent-and-flags.html#Agent-and-flags">Agent and flags</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Agent-Expiry.html#Agent-Expiry">Agent Expiry</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Gnus-Unplugged.html#Gnus-Unplugged">Gnus Unplugged</a>
+
+</div>
+
+<h4 class="subsection">6.9.7 Agent Regeneration</h4>
+
+<p><a name="index-agent-regeneration-2378"></a><a name="index-Gnus-agent-regeneration-2379"></a><a name="index-regeneration-2380"></a>
+The local data structures used by <code>nnagent</code> may become corrupted
+due to certain exceptional conditions.  When this happens,
+<code>nnagent</code> functionality may degrade or even fail.  The solution
+to this problem is to repair the local data structures by removing all
+internal inconsistencies.
+
+   <p>For example, if your connection to your server is lost while
+downloaded articles into the agent, the local data structures will not
+know about articles successfully downloaded prior to the connection
+failure.  Running <code>gnus-agent-regenerate</code> or
+<code>gnus-agent-regenerate-group</code> will update the data structures
+such that you don't need to download these articles a second time.
+
+   <p><a name="index-gnus_002dagent_002dregenerate-2381"></a>The command <code>gnus-agent-regenerate</code> will perform
+<code>gnus-agent-regenerate-group</code> on every agentized group.  While
+you can run <code>gnus-agent-regenerate</code> in any buffer, it is strongly
+recommended that you first close all summary buffers.
+
+   <p><a name="index-gnus_002dagent_002dregenerate_002dgroup-2382"></a>The command <code>gnus-agent-regenerate-group</code> uses the local copies
+of individual articles to repair the local <acronym>NOV</acronym>(header) database.  It
+then updates the internal data structures that document which articles
+are stored locally.  An optional argument will mark articles in the
+agent as unread.
+
+   </body></html>
+

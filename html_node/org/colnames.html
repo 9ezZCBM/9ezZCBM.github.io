@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>colnames - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="colnames"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="rownames.html#rownames">rownames</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="hlines.html#hlines">hlines</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Specific-header-arguments.html#Specific-header-arguments">Specific header arguments</a>
+
+</div>
+
+<h5 class="subsubsection">14.8.2.21 <code>:colnames</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003acolnames_007d_002c-src-header-argument-2148"></a>
+The <code>:colnames</code> header argument accepts <code>yes</code>, <code>no</code>, or
+<code>nil</code> values.  The default value is <code>nil</code>, which is unassigned. 
+But this header argument behaves differently depending on the source code
+language.
+
+     <ul>
+<li><code>nil</code>
+If an input table has column names (because the second row is an hline), then
+Org removes the column names, processes the table, puts back the column
+names, and then writes the table to the results block.
+
+     <pre class="example">          #+NAME: less-cols
+          | a |
+          |---|
+          | b |
+          | c |
+          
+          #+NAME: echo-table-again
+          #+BEGIN_SRC python :var tab=less-cols
+            return [[val + '*' for val in row] for row in tab]
+          #+END_SRC
+          
+          #+RESULTS: echo-table-again
+          | a  |
+          |----|
+          | b* |
+          | c* |
+</pre>
+     <p>Note that column names have to accounted for when using variable indexing
+(see <a href="var.html#var">Indexable variable values</a>) because column names are not removed
+for indexing.
+
+     <li><code>no</code>
+Do not pre-process column names.
+
+     <li><code>yes</code>
+For an input table that has no hlines, process it like the <code>nil</code>
+value.  That is, Org removes the column names, processes the table, puts back
+the column names, and then writes the table to the results block. 
+</ul>
+
+   </body></html>
+

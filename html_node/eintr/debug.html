@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>debug - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="debug"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="debug_002don_002dentry.html#debug_002don_002dentry">debug-on-entry</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debugging.html#Debugging">Debugging</a>
+
+</div>
+
+<h3 class="section">17.1 <code>debug</code></h3>
+
+<p><a name="index-debug-352"></a>
+Suppose you have written a function definition that is intended to
+return the sum of the numbers 1 through a given number.  (This is the
+<code>triangle</code> function discussed earlier.  See <a href="Decrementing-Example.html#Decrementing-Example">Example with Decrementing Counter</a>, for a discussion.) 
+<!-- xref{Decrementing Loop,, Loop with a Decrementing Counter}, for a discussion.) -->
+
+   <p>However, your function definition has a bug.  You have mistyped
+&lsquo;<samp><span class="samp">1=</span></samp>&rsquo; for &lsquo;<samp><span class="samp">1-</span></samp>&rsquo;.  Here is the broken definition:
+
+   <p><a name="index-triangle_002dbugged-353"></a>
+<pre class="smallexample">     (defun triangle-bugged (number)
+       "Return sum of numbers 1 through NUMBER inclusive."
+       (let ((total 0))
+         (while (&gt; number 0)
+           (setq total (+ total number))
+           (setq number (1= number)))      ; <span class="roman">Error here.</span>
+         total))
+</pre>
+   <p>If you are reading this in Info, you can evaluate this definition in
+the normal fashion.  You will see <code>triangle-bugged</code> appear in the
+echo area.
+
+   <p>Now evaluate the <code>triangle-bugged</code> function with an
+argument of 4:
+
+<pre class="smallexample">     (triangle-bugged 4)
+</pre>
+   <p class="noindent">In a recent GNU Emacs, you will create and enter a <samp><span class="file">*Backtrace*</span></samp>
+buffer that says:
+
+<p class="noindent">
+<pre class="smallexample">     ---------- Buffer: *Backtrace* ----------
+     Debugger entered--Lisp error: (void-function 1=)
+       (1= number)
+       (setq number (1= number))
+       (while (&gt; number 0) (setq total (+ total number))
+             (setq number (1= number)))
+       (let ((total 0)) (while (&gt; number 0) (setq total ...)
+         (setq number ...)) total)
+       triangle-bugged(4)
+       eval((triangle-bugged 4) nil)
+       eval-expression((triangle-bugged 4) nil nil 127)
+       funcall-interactively(eval-expression (triangle-bugged 4) nil nil 127)
+       call-interactively(eval-expression nil nil)
+       command-execute(eval-expression)
+     ---------- Buffer: *Backtrace* ----------
+</pre>
+   <p class="noindent">(I have reformatted this example slightly; the debugger does not fold
+long lines.  As usual, you can quit the debugger by typing <kbd>q</kbd> in
+the <samp><span class="file">*Backtrace*</span></samp> buffer.)
+
+   <p>In practice, for a bug as simple as this, the Lisp error line will
+tell you what you need to know to correct the definition.  The
+function <code>1=</code> is void.
+
+   <p>However, suppose you are not quite certain what is going on? 
+You can read the complete backtrace.
+
+   <p>In this case, you need to run a recent GNU Emacs, which automatically
+starts the debugger that puts you in the <samp><span class="file">*Backtrace*</span></samp> buffer; or
+else, you need to start the debugger manually as described below.
+
+   <p>Read the <samp><span class="file">*Backtrace*</span></samp> buffer from the bottom up; it tells you
+what Emacs did that led to the error.  Emacs made an interactive call
+to <kbd>C-x C-e</kbd> (<code>eval-last-sexp</code>), which led to the evaluation
+of the <code>triangle-bugged</code> expression.  Each line above tells you
+what the Lisp interpreter evaluated next.
+
+   <p>The third line from the top of the buffer is
+
+<pre class="smallexample">     (setq number (1= number))
+</pre>
+   <p class="noindent">Emacs tried to evaluate this expression; in order to do so, it tried
+to evaluate the inner expression shown on the second line from the
+top:
+
+<pre class="smallexample">     (1= number)
+</pre>
+   <p class="noindent">This is where the error occurred; as the top line says:
+
+<pre class="smallexample">     Debugger entered--Lisp error: (void-function 1=)
+</pre>
+   <p class="noindent">You can correct the mistake, re-evaluate the function definition, and
+then run your test again.
+
+   </body></html>
+

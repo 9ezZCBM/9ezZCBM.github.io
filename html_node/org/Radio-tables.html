@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Radio tables - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Radio-tables"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="A-LaTeX-example.html#A-LaTeX-example">A LaTeX example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Tables-in-arbitrary-syntax.html#Tables-in-arbitrary-syntax">Tables in arbitrary syntax</a>
+
+</div>
+
+<h4 class="subsection">A.6.1 Radio tables</h4>
+
+<p><a name="index-radio-tables-2397"></a>
+Radio tables are target locations for translated tables that are not near
+their source.  Org finds the target location and inserts the translated
+table.
+
+   <p>The key to finding the target location are the magic words <code>BEGIN/END
+RECEIVE ORGTBL</code>.  They have to appear as comments in the current mode.  If
+the mode is C, then:
+
+<pre class="example">     /* BEGIN RECEIVE ORGTBL table_name */
+     /* END RECEIVE ORGTBL table_name */
+</pre>
+   <p class="noindent">At the location of source, Org needs a special line to direct Orgtbl to
+translate and to find the target for inserting the translated table.  For
+example:
+<a name="index-g_t_0040code_007b_0023_002bORGTBL_007d-2398"></a>
+<pre class="example">     #+ORGTBL: SEND table_name translation_function arguments...
+</pre>
+   <p class="noindent"><code>table_name</code> is the table's reference name, which is also used in the
+receiver lines, and the <code>translation_function</code> is the Lisp function that
+translates.  This line, in addition, may also contain alternating key and
+value arguments at the end.  The translation function gets these values as a
+property list.  A few standard parameters are already recognized and acted
+upon before the translation function is called:
+
+     <dl>
+<dt><code>:skip N</code><dd>Skip the first N lines of the table.  Hlines do count; include them if they
+are to be skipped.
+
+     <br><dt><code>:skipcols (n1 n2 ...)</code><dd>List of columns to be skipped.  First Org automatically discards columns with
+calculation marks and then sends the table to the translator function, which
+then skips columns as specified in &lsquo;<samp><span class="samp">skipcols</span></samp>&rsquo;. 
+</dl>
+
+<p class="noindent">To keep the source table intact in the buffer without being disturbed when
+the source file is compiled or otherwise being worked on, use one of these
+strategies:
+
+     <ul>
+<li>Place the table in a block comment.  For example, in C mode you could wrap
+the table between &lsquo;<samp><span class="samp">/*</span></samp>&rsquo; and &lsquo;<samp><span class="samp">*/</span></samp>&rsquo; lines. 
+<li>Put the table after an &lsquo;<samp><span class="samp">END</span></samp>&rsquo; statement.  For example &lsquo;<samp><span class="samp">\bye</span></samp>&rsquo; in
+TeX and &lsquo;<samp><span class="samp">\end{document}</span></samp>&rsquo; in LaTeX. 
+<li>Comment and uncomment each line of the table during edits.  The <kbd>M-x
+orgtbl-toggle-comment &lt;RET&gt;</kbd> command makes toggling easy. 
+</ul>
+
+   </body></html>
+

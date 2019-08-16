@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Primitive Functions - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Primitive-Functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="defun.html#defun">defun</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Defuns.html#Writing-Defuns">Writing Defuns</a>
+
+</div>
+
+<h3 class="unnumberedsec">An Aside about Primitive Functions</h3>
+
+   <p><a name="index-Primitive-functions-90"></a><a name="index-Functions_002c-primitive-91"></a>
+<a name="index-C-language-primitives-92"></a><a name="index-Primitives-written-in-C-93"></a>All functions are defined in terms of other functions, except for a few
+<dfn>primitive</dfn> functions that are written in the C programming
+language.  When you write functions' definitions, you will write them in
+Emacs Lisp and use other functions as your building blocks.  Some of the
+functions you will use will themselves be written in Emacs Lisp (perhaps
+by you) and some will be primitives written in C.  The primitive
+functions are used exactly like those written in Emacs Lisp and behave
+like them.  They are written in C so we can easily run GNU Emacs on any
+computer that has sufficient power and can run C.
+
+   <p>Let me re-emphasize this: when you write code in Emacs Lisp, you do not
+distinguish between the use of functions written in C and the use of
+functions written in Emacs Lisp.  The difference is irrelevant.  I
+mention the distinction only because it is interesting to know.  Indeed,
+unless you investigate, you won't know whether an already-written
+function is written in Emacs Lisp or C.
+
+   </body></html>
+

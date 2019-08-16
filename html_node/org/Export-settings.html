@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Export settings - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Export-settings"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Table-of-contents.html#Table-of-contents">Table of contents</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="The-export-dispatcher.html#The-export-dispatcher">The export dispatcher</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Exporting.html#Exporting">Exporting</a>
+
+</div>
+
+<h3 class="section">12.2 Export settings</h3>
+
+<p><a name="index-Export_002c-settings-1609"></a>
+<a name="index-g_t_0040code_007b_0023_002bOPTIONS_007d-1610"></a>Export options can be set: globally with variables; for an individual file by
+making variables buffer-local with in-buffer settings (see <a href="In_002dbuffer-settings.html#In_002dbuffer-settings">In-buffer settings</a>), by setting individual keywords, or by specifying them in a
+compact form with the <code>#+OPTIONS</code> keyword; or for a tree by setting
+properties (see <a href="Properties-and-columns.html#Properties-and-columns">Properties and columns</a>).  Options set at a specific level
+override options set at a more general level.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bSETUPFILE_007d-1611"></a>In-buffer settings may appear anywhere in the file, either directly or
+indirectly through a file included using &lsquo;<samp><span class="samp">#+SETUPFILE: filename or URL</span></samp>&rsquo;
+syntax.  Option keyword sets tailored to a particular back-end can be
+inserted from the export dispatcher (see <a href="The-export-dispatcher.html#The-export-dispatcher">The export dispatcher</a>) using the
+<code>Insert template</code> command by pressing <kbd>#</kbd>.  To insert keywords
+individually, a good way to make sure the keyword is correct is to type
+<code>#+</code> and then to use <kbd>M-&lt;TAB&gt;</kbd><a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> for completion.
+
+   <p>The export keywords available for every back-end, and their equivalent global
+variables, include:
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">AUTHOR</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bAUTHOR_007d-1612"></a><a name="index-user_002dfull_002dname-1613"></a>The document author (<code>user-full-name</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">CREATOR</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bCREATOR_007d-1614"></a><a name="index-org_002dexport_002dcreator_002dstring-1615"></a>Entity responsible for output generation (<code>org-export-creator-string</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">DATE</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bDATE_007d-1616"></a><a name="index-org_002dexport_002ddate_002dtimestamp_002dformat-1617"></a>A date or a time-stamp<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.
+
+     <br><dt>&lsquo;<samp><span class="samp">EMAIL</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bEMAIL_007d-1618"></a><a name="index-user_002dmail_002daddress-1619"></a>The email address (<code>user-mail-address</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">LANGUAGE</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bLANGUAGE_007d-1620"></a><a name="index-org_002dexport_002ddefault_002dlanguage-1621"></a>Language to use for translating certain strings
+(<code>org-export-default-language</code>).  With &lsquo;<samp><span class="samp">#+LANGUAGE: fr</span></samp>&rsquo;, for
+example, Org translates <em>Table of contents</em> to the French <em>Table
+des matières</em>.
+
+     <br><dt>&lsquo;<samp><span class="samp">SELECT_TAGS</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bSELECT_005fTAGS_007d-1622"></a><a name="index-org_002dexport_002dselect_002dtags-1623"></a>The default value is <code>:export:</code>.  When a tree is tagged with
+<code>:export:</code> (<code>org-export-select-tags</code>), Org selects that tree and
+its sub-trees for export.  Org excludes trees with <code>:noexport:</code> tags,
+see below.  When selectively exporting files with <code>:export:</code> tags set,
+Org does not export any text that appears before the first headline.
+
+     <br><dt>&lsquo;<samp><span class="samp">EXCLUDE_TAGS</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bEXCLUDE_005fTAGS_007d-1624"></a><a name="index-org_002dexport_002dexclude_002dtags-1625"></a>The default value is <code>:noexport:</code>.  When a tree is tagged with
+<code>:noexport:</code> (<code>org-export-exclude-tags</code>), Org excludes that tree
+and its sub-trees from export.  Entries tagged with <code>:noexport:</code> will be
+unconditionally excluded from the export, even if they have an
+<code>:export:</code> tag.  Even if a sub-tree is not exported, Org will execute any
+code blocks contained in them.
+
+     <br><dt>&lsquo;<samp><span class="samp">TITLE</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bTITLE_007d-1626"></a><a name="index-document-title-1627"></a>Org displays this title.  For long titles, use multiple <code>#+TITLE</code> lines.
+
+     <br><dt>&lsquo;<samp><span class="samp">EXPORT_FILE_NAME</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bEXPORT_005fFILE_005fNAME_007d-1628"></a>The name of the output file to be generated.  Otherwise, Org generates the
+file name based on the buffer name and the extension based on the back-end
+format. 
+</dl>
+
+   <p>The <code>#+OPTIONS</code> keyword is a compact form.  To configure multiple
+options, use several <code>#+OPTIONS</code> lines.  <code>#+OPTIONS</code> recognizes the
+following arguments.
+
+     <dl>
+<dt><code>':</code><dd><a name="index-org_002dexport_002dwith_002dsmart_002dquotes-1629"></a>Toggle smart quotes (<code>org-export-with-smart-quotes</code>).  Depending on the
+language used, when activated, Org treats pairs of double quotes as primary
+quotes, pairs of single quotes as secondary quotes, and single quote marks as
+apostrophes.
+
+     <br><dt><code>*:</code><dd>Toggle emphasized text (<code>org-export-with-emphasize</code>).
+
+     <br><dt><code>-:</code><dd><a name="index-org_002dexport_002dwith_002dspecial_002dstrings-1630"></a>Toggle conversion of special strings
+(<code>org-export-with-special-strings</code>).
+
+     <br><dt><code>::</code><dd><a name="index-org_002dexport_002dwith_002dfixed_002dwidth-1631"></a>Toggle fixed-width sections
+(<code>org-export-with-fixed-width</code>).
+
+     <br><dt><code>&lt;:</code><dd><a name="index-org_002dexport_002dwith_002dtimestamps-1632"></a>Toggle inclusion of time/date active/inactive stamps
+(<code>org-export-with-timestamps</code>).
+
+     <br><dt><code>\n:</code><dd><a name="index-org_002dexport_002dpreserve_002dbreaks-1633"></a>Toggles whether to preserve line breaks (<code>org-export-preserve-breaks</code>).
+
+     <br><dt><code>^:</code><dd><a name="index-org_002dexport_002dwith_002dsub_002dsuperscripts-1634"></a>Toggle TeX-like syntax for sub- and superscripts.  If you write "^:{}",
+&lsquo;<samp><span class="samp">a_{b}</span></samp>&rsquo; will be interpreted, but the simple &lsquo;<samp><span class="samp">a_b</span></samp>&rsquo; will be left as
+it is (<code>org-export-with-sub-superscripts</code>).
+
+     <br><dt><code>arch:</code><dd><a name="index-org_002dexport_002dwith_002darchived_002dtrees-1635"></a>Configure how archived trees are exported.  When set to <code>headline</code>, the
+export process skips the contents and processes only the headlines
+(<code>org-export-with-archived-trees</code>).
+
+     <br><dt><code>author:</code><dd><a name="index-org_002dexport_002dwith_002dauthor-1636"></a>Toggle inclusion of author name into exported file
+(<code>org-export-with-author</code>).
+
+     <br><dt><code>broken-links:</code><dd><a name="index-org_002dexport_002dwith_002dbroken_002dlinks-1637"></a>Toggles if Org should continue exporting upon finding a broken internal link. 
+When set to <code>mark</code>, Org clearly marks the problem link in the output
+(<code>org-export-with-broken-links</code>).
+
+     <br><dt><code>c:</code><dd><a name="index-org_002dexport_002dwith_002dclocks-1638"></a>Toggle inclusion of CLOCK keywords (<code>org-export-with-clocks</code>).
+
+     <br><dt><code>creator:</code><dd><a name="index-org_002dexport_002dwith_002dcreator-1639"></a>Toggle inclusion of creator information in the exported file
+(<code>org-export-with-creator</code>).
+
+     <br><dt><code>d:</code><dd><a name="index-org_002dexport_002dwith_002ddrawers-1640"></a>Toggles inclusion of drawers, or list of drawers to include, or list of
+drawers to exclude (<code>org-export-with-drawers</code>).
+
+     <br><dt><code>date:</code><dd><a name="index-org_002dexport_002dwith_002ddate-1641"></a>Toggle inclusion of a date into exported file (<code>org-export-with-date</code>).
+
+     <br><dt><code>e:</code><dd><a name="index-org_002dexport_002dwith_002dentities-1642"></a>Toggle inclusion of entities (<code>org-export-with-entities</code>).
+
+     <br><dt><code>email:</code><dd><a name="index-org_002dexport_002dwith_002demail-1643"></a>Toggle inclusion of the author's e-mail into exported file
+(<code>org-export-with-email</code>).
+
+     <br><dt><code>f:</code><dd><a name="index-org_002dexport_002dwith_002dfootnotes-1644"></a>Toggle the inclusion of footnotes (<code>org-export-with-footnotes</code>).
+
+     <br><dt><code>H:</code><dd><a name="index-org_002dexport_002dheadline_002dlevels-1645"></a>Set the number of headline levels for export
+(<code>org-export-headline-levels</code>).  Below that level, headlines are treated
+differently.  In most back-ends, they become list items.
+
+     <br><dt><code>inline:</code><dd><a name="index-org_002dexport_002dwith_002dinlinetasks-1646"></a>Toggle inclusion of inlinetasks (<code>org-export-with-inlinetasks</code>).
+
+     <br><dt><code>num:</code><dd><a name="index-org_002dexport_002dwith_002dsection_002dnumbers-1647"></a><a name="index-property_002c-_0040code_007bUNNUMBERED_007d-1648"></a>Toggle section-numbers (<code>org-export-with-section-numbers</code>).  When set to
+number &lsquo;<samp><span class="samp">n</span></samp>&rsquo;, Org numbers only those headlines at level &lsquo;<samp><span class="samp">n</span></samp>&rsquo; or above. 
+Setting <code>UNNUMBERED</code> property to non-<code>nil</code> disables numbering of
+a heading.  Since subheadings inherit from this property, it affects their
+numbering, too.
+
+     <br><dt><code>p:</code><dd><a name="index-org_002dexport_002dwith_002dplanning-1649"></a>Toggle export of planning information (<code>org-export-with-planning</code>). 
+&ldquo;Planning information&rdquo; comes from lines located right after the headline
+and contain any combination of these cookies: <code>SCHEDULED:</code>,
+<code>DEADLINE:</code>, or <code>CLOSED:</code>.
+
+     <br><dt><code>pri:</code><dd><a name="index-org_002dexport_002dwith_002dpriority-1650"></a>Toggle inclusion of priority cookies (<code>org-export-with-priority</code>).
+
+     <br><dt><code>prop:</code><dd><a name="index-org_002dexport_002dwith_002dproperties-1651"></a>Toggle inclusion of property drawers, or list the properties to include
+(<code>org-export-with-properties</code>).
+
+     <br><dt><code>stat:</code><dd><a name="index-org_002dexport_002dwith_002dstatistics_002dcookies-1652"></a>Toggle inclusion of statistics cookies
+(<code>org-export-with-statistics-cookies</code>).
+
+     <br><dt><code>tags:</code><dd><a name="index-org_002dexport_002dwith_002dtags-1653"></a>Toggle inclusion of tags, may also be <code>not-in-toc</code>
+(<code>org-export-with-tags</code>).
+
+     <br><dt><code>tasks:</code><dd><a name="index-org_002dexport_002dwith_002dtasks-1654"></a>Toggle inclusion of tasks (TODO items); or <code>nil</code> to remove all tasks; or
+<code>todo</code> to remove DONE tasks; or list the keywords to keep
+(<code>org-export-with-tasks</code>).
+
+     <br><dt><code>tex:</code><dd><a name="index-org_002dexport_002dwith_002dlatex-1655"></a><code>nil</code> does not export; <code>t</code> exports; <code>verbatim</code> keeps
+everything in verbatim (<code>org-export-with-latex</code>).
+
+     <br><dt><code>timestamp:</code><dd><a name="index-org_002dexport_002dtime_002dstamp_002dfile-1656"></a>Toggle inclusion of the creation time in the exported file
+(<code>org-export-time-stamp-file</code>).
+
+     <br><dt><code>title:</code><dd><a name="index-org_002dexport_002dwith_002dtitle-1657"></a>Toggle inclusion of title (<code>org-export-with-title</code>).
+
+     <br><dt><code>toc:</code><dd><a name="index-org_002dexport_002dwith_002dtoc-1658"></a>Toggle inclusion of the table of contents, or set the level limit
+(<code>org-export-with-toc</code>).
+
+     <br><dt><code>todo:</code><dd><a name="index-org_002dexport_002dwith_002dtodo_002dkeywords-1659"></a>Toggle inclusion of TODO keywords into exported text
+(<code>org-export-with-todo-keywords</code>).
+
+     <br><dt><code>|:</code><dd><a name="index-org_002dexport_002dwith_002dtables-1660"></a>Toggle inclusion of tables (<code>org-export-with-tables</code>).
+
+   </dl>
+
+   <p>When exporting sub-trees, special node properties in them can override the
+above keywords.  They are special because they have an &lsquo;<samp><span class="samp">EXPORT_</span></samp>&rsquo; prefix. 
+For example, &lsquo;<samp><span class="samp">DATE</span></samp>&rsquo; and &lsquo;<samp><span class="samp">EXPORT_FILE_NAME</span></samp>&rsquo; keywords become,
+respectively, &lsquo;<samp><span class="samp">EXPORT_DATE</span></samp>&rsquo; and &lsquo;<samp><span class="samp">EXPORT_FILE_NAME</span></samp>&rsquo;.  Except for
+&lsquo;<samp><span class="samp">SETUPFILE</span></samp>&rsquo;, all other keywords listed above have an &lsquo;<samp><span class="samp">EXPORT_</span></samp>&rsquo;
+equivalent.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bBIND_007d-1661"></a><a name="index-org_002dexport_002dallow_002dbind_002dkeywords-1662"></a>If <code>org-export-allow-bind-keywords</code> is non-<code>nil</code>, Emacs variables
+can become buffer-local during export by using the BIND keyword.  Its syntax
+is &lsquo;<samp><span class="samp">#+BIND: variable value</span></samp>&rsquo;.  This is particularly useful for in-buffer
+settings that cannot be changed using keywords.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Many desktops intercept
+<kbd>M-&lt;TAB&gt;</kbd> to switch windows.  Use <kbd>C-M-i</kbd> or <kbd>&lt;ESC&gt;
+&lt;TAB&gt;</kbd> instead.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> The variable
+<code>org-export-date-timestamp-format</code> defines how this time-stamp will be
+exported.</p>
+
+   <hr></div>
+
+   </body></html>
+

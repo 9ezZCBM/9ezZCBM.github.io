@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Context-sensitive commands - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Context-sensitive-commands"></a>
+<a name="Context_002dsensitive-commands"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Tables-in-arbitrary-syntax.html#Tables-in-arbitrary-syntax">Tables in arbitrary syntax</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Adding-export-back_002dends.html#Adding-export-back_002dends">Adding export back-ends</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hacking.html#Hacking">Hacking</a>
+
+</div>
+
+<h3 class="section">A.5 Context-sensitive commands</h3>
+
+<p><a name="index-context_002dsensitive-commands_002c-hooks-2391"></a><a name="index-add_002dons_002c-context_002dsensitive-commands-2392"></a><a name="index-org_002dctrl_002dc_002dctrl_002dc_002dhook-2393"></a>
+Org has facilities for building context sensitive commands.  Authors of Org
+add-ons can tap into this functionality.
+
+   <p>Some Org commands change depending on the context.  The most important
+example of this behavior is the <kbd>C-c C-c</kbd> (see <a href="The-very-busy-C_002dc-C_002dc-key.html#The-very-busy-C_002dc-C_002dc-key">The very busy C-c C-c key</a>).  Other examples are <kbd>M-cursor</kbd> and <kbd>M-S-cursor</kbd>.
+
+   <p>These context sensitive commands work by providing a function that detects
+special context for that add-on and executes functionality appropriate for
+that context.
+
+   </body></html>
+

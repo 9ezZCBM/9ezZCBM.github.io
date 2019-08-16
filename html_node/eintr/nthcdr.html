@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>nthcdr - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="nthcdr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="nth.html#nth">nth</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cons.html#cons">cons</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="car-cdr-_0026-cons.html#car-cdr-_0026-cons">car cdr &amp; cons</a>
+
+</div>
+
+<h3 class="section">7.3 <code>nthcdr</code></h3>
+
+<p><a name="index-nthcdr-178"></a>
+The <code>nthcdr</code> function is associated with the <code>cdr</code> function. 
+What it does is take the <span class="sc">cdr</span> of a list repeatedly.
+
+   <p>If you take the <span class="sc">cdr</span> of the list <code>(pine fir
+oak maple)</code>, you will be returned the list <code>(fir oak maple)</code>.  If you
+repeat this on what was returned, you will be returned the list
+<code>(oak maple)</code>.  (Of course, repeated <span class="sc">cdr</span>ing on the original
+list will just give you the original <span class="sc">cdr</span> since the function does
+not change the list.  You need to evaluate the <span class="sc">cdr</span> of the
+<span class="sc">cdr</span> and so on.)  If you continue this, eventually you will be
+returned an empty list, which in this case, instead of being shown as
+<code>()</code> is shown as <code>nil</code>.
+
+   <p>For review, here is a series of repeated <span class="sc">cdr</span>s, the text following
+the &lsquo;<samp><span class="samp">&rArr;</span></samp>&rsquo; shows what is returned.
+
+<pre class="smallexample">     (cdr '(pine fir oak maple))
+          &rArr;(fir oak maple)
+     
+     (cdr '(fir oak maple))
+          &rArr; (oak maple)
+     
+     (cdr '(oak maple))
+          &rArr;(maple)
+     
+     (cdr '(maple))
+          &rArr; nil
+     
+     (cdr 'nil)
+          &rArr; nil
+     
+     (cdr ())
+          &rArr; nil
+</pre>
+   <p>You can also do several <span class="sc">cdr</span>s without printing the values in
+between, like this:
+
+<pre class="smallexample">     (cdr (cdr '(pine fir oak maple)))
+          &rArr; (oak maple)
+</pre>
+   <p class="noindent">In this example, the Lisp interpreter evaluates the innermost list first. 
+The innermost list is quoted, so it just passes the list as it is to the
+innermost <code>cdr</code>.  This <code>cdr</code> passes a list made up of the
+second and subsequent elements of the list to the outermost <code>cdr</code>,
+which produces a list composed of the third and subsequent elements of
+the original list.  In this example, the <code>cdr</code> function is repeated
+and returns a list that consists of the original list without its
+first two elements.
+
+   <p>The <code>nthcdr</code> function does the same as repeating the call to
+<code>cdr</code>.  In the following example, the argument 2 is passed to the
+function <code>nthcdr</code>, along with the list, and the value returned is
+the list without its first two items, which is exactly the same
+as repeating <code>cdr</code> twice on the list:
+
+<pre class="smallexample">     (nthcdr 2 '(pine fir oak maple))
+          &rArr; (oak maple)
+</pre>
+   <p>Using the original four element list, we can see what happens when
+various numeric arguments are passed to <code>nthcdr</code>, including 0, 1,
+and 5:
+
+<pre class="smallexample">     ;; <span class="roman">Leave the list as it was.</span>
+     (nthcdr 0 '(pine fir oak maple))
+          &rArr; (pine fir oak maple)
+     
+     ;; <span class="roman">Return a copy without the first element.</span>
+     (nthcdr 1 '(pine fir oak maple))
+          &rArr; (fir oak maple)
+     
+     ;; <span class="roman">Return a copy of the list without three elements.</span>
+     (nthcdr 3 '(pine fir oak maple))
+          &rArr; (maple)
+     
+     ;; <span class="roman">Return a copy lacking all four elements.</span>
+     (nthcdr 4 '(pine fir oak maple))
+          &rArr; nil
+     
+     ;; <span class="roman">Return a copy lacking all elements.</span>
+     (nthcdr 5 '(pine fir oak maple))
+          &rArr; nil
+</pre>
+   </body></html>
+

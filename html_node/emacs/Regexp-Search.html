@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Regexp Search - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Regexp-Search"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Regexps.html#Regexps">Regexps</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Symbol-Search.html#Symbol-Search">Symbol Search</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Search.html#Search">Search</a>
+
+</div>
+
+<h3 class="section">15.5 Regular Expression Search</h3>
+
+<p><a name="index-regexp-search-987"></a><a name="index-search-for-a-regular-expression-988"></a>
+  A <dfn>regular expression</dfn> (or <dfn>regexp</dfn> for short) is a pattern
+that denotes a class of alternative strings to match.  Emacs
+provides both incremental and nonincremental ways to search for a
+match for a regexp.  The syntax of regular expressions is explained in
+the next section.
+
+     <dl>
+<dt><kbd>C-M-s</kbd><dd>Begin incremental regexp search (<code>isearch-forward-regexp</code>). 
+<br><dt><kbd>C-M-r</kbd><dd>Begin reverse incremental regexp search (<code>isearch-backward-regexp</code>). 
+</dl>
+
+   <p><a name="index-C_002dM_002ds-989"></a><a name="index-isearch_002dforward_002dregexp-990"></a><a name="index-C_002dM_002dr-991"></a><a name="index-isearch_002dbackward_002dregexp-992"></a>  Incremental search for a regexp is done by typing <kbd>C-M-s</kbd>
+(<code>isearch-forward-regexp</code>), by invoking <kbd>C-s</kbd> with a
+prefix argument (whose value does not matter), or by typing <kbd>M-r</kbd>
+within a forward incremental search.  This command reads a
+search string incrementally just like <kbd>C-s</kbd>, but it treats the
+search string as a regexp rather than looking for an exact match
+against the text in the buffer.  Each time you add text to the search
+string, you make the regexp longer, and the new regexp is searched
+for.  To search backward for a regexp, use <kbd>C-M-r</kbd>
+(<code>isearch-backward-regexp</code>), <kbd>C-r</kbd> with a prefix argument,
+or <kbd>M-r</kbd> within a backward incremental search.
+
+   <p><a name="index-regexp_002dsearch_002dring_002dmax-993"></a>  All of the special key sequences in an ordinary incremental search
+(see <a href="Special-Isearch.html#Special-Isearch">Special Isearch</a>) do similar things in an incremental regexp
+search.  For instance, typing <kbd>C-s</kbd> immediately after starting the
+search retrieves the last incremental search regexp used and searches
+forward for it.  Incremental regexp and non-regexp searches have
+independent defaults.  They also have separate search rings, which you
+can access with <kbd>M-p</kbd> and <kbd>M-n</kbd>.  The maximum number of search
+regexps saved in the search ring is determined by the value of
+<code>regexp-search-ring-max</code>, 16 by default.
+
+   <p>Unlike ordinary incremental search, incremental regexp search
+does not use lax space matching by default.  To toggle this feature
+use <kbd>M-s &lt;SPC&gt;</kbd> (<code>isearch-toggle-lax-whitespace</code>). 
+Then any &lt;SPC&gt; typed in incremental regexp search will match
+any sequence of one or more whitespace characters.  The variable
+<code>search-whitespace-regexp</code> specifies the regexp for the lax
+space matching.  See <a href="Special-Isearch.html#Special-Isearch">Special Isearch</a>.
+
+   <p>Also unlike ordinary incremental search, incremental regexp search
+cannot use character folding (see <a href="Lax-Search.html#Lax-Search">Lax Search</a>).  (If you toggle
+character folding during incremental regexp search with <kbd>M-s '</kbd>,
+the search becomes a non-regexp search and the search pattern you
+typed is interpreted as a literal string.)
+
+   <p>In some cases, adding characters to the regexp in an incremental
+regexp search can make the cursor move back and start again.  For
+example, if you have searched for &lsquo;<samp><span class="samp">foo</span></samp>&rsquo; and you add &lsquo;<samp><span class="samp">\|bar</span></samp>&rsquo;,
+the cursor backs up in case the first &lsquo;<samp><span class="samp">bar</span></samp>&rsquo; precedes the first
+&lsquo;<samp><span class="samp">foo</span></samp>&rsquo;.  See <a href="Regexps.html#Regexps">Regexps</a>.
+
+   <p>Forward and backward regexp search are not symmetrical, because
+regexp matching in Emacs always operates forward, starting with the
+beginning of the regexp.  Thus, forward regexp search scans forward,
+trying a forward match at each possible starting position.  Backward
+regexp search scans backward, trying a forward match at each possible
+starting position.  These search methods are not mirror images.
+
+   <p><a name="index-re_002dsearch_002dforward-994"></a><a name="index-re_002dsearch_002dbackward-995"></a>  Nonincremental search for a regexp is done with the commands
+<code>re-search-forward</code> and <code>re-search-backward</code>.  You can
+invoke these with <kbd>M-x</kbd>, or by way of incremental regexp search
+with <kbd>C-M-s &lt;RET&gt;</kbd> and <kbd>C-M-r &lt;RET&gt;</kbd>.  When you invoke
+these commands with <kbd>M-x</kbd>, they search for the exact regexp you
+specify, and thus don't support any lax-search features (see <a href="Lax-Search.html#Lax-Search">Lax Search</a>) except case folding.
+
+   <p>If you use the incremental regexp search commands with a prefix
+argument, they perform ordinary string search, like
+<code>isearch-forward</code> and <code>isearch-backward</code>.  See <a href="Incremental-Search.html#Incremental-Search">Incremental Search</a>.
+
+   </body></html>
+

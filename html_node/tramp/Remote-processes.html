@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Remote processes - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Remote-processes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Cleanup-remote-connections.html#Cleanup-remote-connections">Cleanup remote connections</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Ad_002dhoc-multi_002dhops.html#Ad_002dhoc-multi_002dhops">Ad-hoc multi-hops</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Usage.html#Usage">Usage</a>
+
+</div>
+
+<h3 class="section">6.5 Integration with other Emacs packages</h3>
+
+<p><a name="index-g_t_0040code_007bcompile_007d-241"></a><a name="index-g_t_0040code_007brecompile_007d-242"></a>
+<span class="sc">Tramp</span> supports starting new running processes on the remote
+host for discovering remote file names.  Emacs packages on the remote
+host need no specific modifications for <span class="sc">Tramp</span>'s use.
+
+   <p>This type of integration does not work with the <samp><span class="option">ftp</span></samp> method,
+and does not support the pty association as specified in
+<code>start-file-process</code>.
+
+   <p><code>process-file</code> and <code>start-file-process</code> work on the remote
+host when the variable <code>default-directory</code> is remote:
+
+<pre class="lisp">     (let ((default-directory "/ssh:remote.host:"))
+       (start-file-process "grep" (get-buffer-create "*grep*")
+                           "/bin/sh" "-c" "grep -e tramp *"))
+</pre>
+   <p>Remote processes do not apply to GVFS (see <a href="GVFS-based-methods.html#GVFS-based-methods">GVFS based methods</a>)
+because the remote file system is mounted on the local host and
+<span class="sc">Tramp</span> just accesses by changing the <code>default-directory</code>.
+
+   <p><span class="sc">Tramp</span> starts a remote process when a command is executed in a
+remote file or directory buffer.  As of now, these packages have been
+integrated to work with <span class="sc">Tramp</span>: <samp><span class="file">compile.el</span></samp> (commands
+like <code>compile</code> and <code>grep</code>) and <samp><span class="file">gud.el</span></samp> (<code>gdb</code> or
+<code>perldb</code>).
+
+   <p>For <span class="sc">Tramp</span> to find the command on the remote, it must be
+accessible through the default search path as setup by <span class="sc">Tramp</span>
+upon first connection.  Alternatively, use an absolute path or extend
+<code>tramp-remote-path</code> (see <a href="Remote-programs.html#Remote-programs">Remote programs</a>):
+
+<pre class="lisp">     (add-to-list 'tramp-remote-path "~/bin")
+     (add-to-list 'tramp-remote-path "/appli/pub/bin")
+</pre>
+   <p><a name="index-tramp_002dremote_002dprocess_002denvironment-243"></a>Customize user option <code>tramp-remote-process-environment</code> to
+suit the remote program's environment for the remote host. 
+<code>tramp-remote-process-environment</code> is a list of strings
+structured similar to <code>process-environment</code>, where each element
+is a string of the form &lsquo;<samp><span class="samp">ENVVARNAME=VALUE</span></samp>&rsquo;.
+
+   <p>To avoid any conflicts with local host environment variables set
+through local configuration files, such as <samp><span class="file">~/.profile</span></samp>, use
+&lsquo;<samp><span class="samp">ENVVARNAME=</span></samp>&rsquo; to unset them for the remote environment.
+
+<p class="noindent">Use <code>add-to-list</code> to add entries:
+
+<pre class="lisp">     (add-to-list 'tramp-remote-process-environment "JAVA_HOME=/opt/java")
+</pre>
+   <p><a name="index-HISTORY_0040r_007b_002c-environment-variable_007d-244"></a>Modifying or deleting already existing values in the
+<code>tramp-remote-process-environment</code> list may not be feasible on
+restricted remote hosts.  For example, some system administrators
+disallow changing <samp><span class="env">HISTORY</span></samp> environment variable.  To accommodate
+such restrictions when using <span class="sc">Tramp</span>, fix the
+<code>tramp-remote-process-environment</code> by the following code in the
+local <samp><span class="file">.emacs</span></samp> file:
+
+<pre class="lisp">     (let ((process-environment tramp-remote-process-environment))
+       (setenv "HISTORY" nil)
+       (setq tramp-remote-process-environment process-environment))
+</pre>
+   <p><a name="index-ENV_0040r_007b_002c-environment-variable_007d-245"></a>Setting the <samp><span class="env">ENV</span></samp> environment variable instructs some shells to
+read an initialization file.  Per default, <span class="sc">Tramp</span> has disabled
+this.  You could overwrite this behavior by evaluating
+
+<pre class="lisp">     (let ((process-environment tramp-remote-process-environment))
+       (setenv "ENV" "$HOME/.profile")
+       (setq tramp-remote-process-environment process-environment))
+</pre>
+   <p>In addition to <code>tramp-remote-process-environment</code>, you can set
+environment variables for individual remote process calls by
+let-binding <code>process-environment</code>.  <span class="sc">Tramp</span> applies any
+entries not present in the global default value of
+<code>process-environment</code> (overriding
+<code>tramp-remote-process-environment</code> settings, if they conflict). 
+For example:
+
+<pre class="lisp">     (let ((process-environment (cons "HGPLAIN=1" process-environment)))
+       (process-file ...))
+</pre>
+   <p><a name="index-HGPLAIN_0040r_007b_002c-environment-variable_007d-246"></a>Let-binding in this way works regardless of whether the process to be
+called is local or remote, since <span class="sc">Tramp</span> would add just the
+<samp><span class="env">HGPLAIN</span></samp> setting and local processes would take whole value of
+<code>process-environment</code> along with the new value of <samp><span class="env">HGPLAIN</span></samp>.
+
+   <p>For integrating other Emacs packages so <span class="sc">Tramp</span> can execute
+remotely, please file a bug report.  See <a href="Bug-Reports.html#Bug-Reports">Bug Reports</a>.
+
+<h4 class="subsection">6.5.1 Running remote programs that create local X11 windows</h4>
+
+<p><a name="index-DISPLAY_0040r_007b_002c-environment-variable_007d-247"></a>To allow a remote program to create an X11 window on the local host,
+set the <samp><span class="env">DISPLAY</span></samp> environment variable for the remote host as
+follows in the local <samp><span class="file">.emacs</span></samp> file:
+
+<pre class="lisp">     (add-to-list 'tramp-remote-process-environment
+                  (format "DISPLAY=%s" (getenv "DISPLAY")))
+</pre>
+   <p class="noindent"><code>(getenv "DISPLAY")</code> should return a recognizable name for the
+local host that the remote host can redirect X11 window
+interactions.  If querying for a recognizable name is not possible for
+whatever reason, then replace <code>(getenv "DISPLAY")</code> with a
+hard-coded, fixed name.  Note that using <code>:0</code> for X11 display name
+here will not work as expected.
+
+   <p>An alternate approach is specify <code>ForwardX11 yes</code> or
+<code>ForwardX11Trusted yes</code> in <samp><span class="file">~/.ssh/config</span></samp> on the local
+host.
+
+<h4 class="subsection">6.5.2 Running <code>shell</code> on a remote host</h4>
+
+<p><a name="index-g_t_0040code_007bshell_007d-248"></a>
+Set <code>explicit-shell-file-name</code> to the appropriate shell name
+when using <span class="sc">Tramp</span> between two hosts with different operating
+systems, such as &lsquo;<samp><span class="samp">windows-nt</span></samp>&rsquo; and &lsquo;<samp><span class="samp">gnu/linux</span></samp>&rsquo;.  This option
+ensures the correct name of the remote shell program.
+
+   <p>When <code>explicit-shell-file-name</code> is equal to <code>nil</code>, calling
+<code>shell</code> interactively will prompt for a shell name.
+
+   <p>Starting with Emacs 26, you could use connection-local variables for
+setting different values of <code>explicit-shell-file-name</code> for
+different remote hosts.
+
+<pre class="lisp">     (connection-local-set-profile-variables
+       'remote-bash
+       '((explicit-shell-file-name . "/bin/bash")
+         (explicit-bash-args . ("-i"))))
+     
+     (connection-local-set-profile-variables
+       'remote-ksh
+       '((explicit-shell-file-name . "/bin/ksh")
+         (explicit-ksh-args . ("-i"))))
+     
+     (connection-local-set-profiles
+       '(:application tramp :protocol "ssh" :machine "localhost")
+       'remote-bash)
+     
+     (connection-local-set-profiles
+       `(:application tramp :protocol "sudo"
+         :user "root" :machine ,(system-name))
+       'remote-ksh)
+</pre>
+   <h4 class="subsection">6.5.3 Running <code>shell-command</code> on a remote host</h4>
+
+<p><a name="index-g_t_0040code_007bshell_002dcommand_007d-249"></a>
+<code>shell-command</code> executes commands synchronously or asynchronously
+on remote hosts and displays output in buffers on the local
+host.  Example:
+
+<pre class="example">     <kbd>C-x C-f /sudo:: &lt;RET&gt;</kbd>
+     <kbd>M-&amp; tail -f /var/log/syslog.log &lt;RET&gt;</kbd>
+</pre>
+   <p><samp><span class="command">tail</span></samp> command outputs continuously to the local buffer,
+<samp><span class="file">*Async Shell Command*</span></samp>
+
+   <p><kbd>M-x auto-revert-tail-mode &lt;RET&gt;</kbd> runs similarly showing
+continuous output.
+
+<h4 class="subsection">6.5.4 Running <code>eshell</code> on a remote host</h4>
+
+<p><a name="index-g_t_0040code_007beshell_007d-250"></a>
+<span class="sc">Tramp</span> is integrated into <samp><span class="file">eshell.el</span></samp>, which enables
+interactive eshell sessions on remote hosts at the command prompt. 
+You must add the module <code>em-tramp</code> to <code>eshell-modules-list</code>. 
+Here's a sample interaction after opening <kbd>M-x eshell &lt;RET&gt;</kbd>
+on a remote host:
+
+<pre class="example">     <b>~ $</b> cd /sudo::/etc &lt;RET&gt;
+     <b>/sudo:root@host:/etc $</b> hostname &lt;RET&gt;
+     host
+     <b>/sudo:root@host:/etc $</b> id &lt;RET&gt;
+     uid=0(root) gid=0(root) groups=0(root)
+     <b>/sudo:root@host:/etc $</b> find-file shadow &lt;RET&gt;
+     #&lt;buffer shadow&gt;
+     <b>/sudo:root@host:/etc $</b>
+</pre>
+   <p><code>eshell</code> added custom <code>su</code> and <code>sudo</code> commands that set
+the default directory correctly for the <samp><span class="file">*eshell*</span></samp> buffer. 
+<span class="sc">Tramp</span> silently updates <code>tramp-default-proxies-alist</code>
+with an entry for this directory (see <a href="Multi_002dhops.html#Multi_002dhops">Multi-hops</a>):
+
+<pre class="example">     <b>~ $</b> cd /ssh:user@remotehost:/etc &lt;RET&gt;
+     <b>/ssh:user@remotehost:/etc $</b> find-file shadow &lt;RET&gt;
+     File is not readable: /ssh:user@remotehost:/etc/shadow
+     <b>/ssh:user@remotehost:/etc $</b> sudo find-file shadow &lt;RET&gt;
+     #&lt;buffer shadow&gt;
+     
+     <b>/ssh:user@remotehost:/etc $</b> su - &lt;RET&gt;
+     <b>/su:root@remotehost:/root $</b> id &lt;RET&gt;
+     uid=0(root) gid=0(root) groups=0(root)
+     <b>/su:root@remotehost:/root $</b>
+</pre>
+   <p><a name="Running-a-debugger-on-a-remote-host"></a>
+
+<h4 class="subsection">6.5.5 Running a debugger on a remote host</h4>
+
+<p><a name="index-g_t_0040code_007bgud_007d-251"></a><a name="index-g_t_0040code_007bgdb_007d-252"></a><a name="index-g_t_0040code_007bperldb_007d-253"></a>
+<samp><span class="file">gud.el</span></samp> provides a unified interface to symbolic debuggers
+<span class="sc">Tramp</span> can run debug on remote hosts by calling <code>gdb</code>
+with a remote file name:
+
+<pre class="example">     <kbd>M-x gdb &lt;RET&gt;</kbd>
+     <b>Run gdb (like this):</b> gdb -i=mi /ssh:host:~/myprog &lt;RET&gt;
+</pre>
+   <p>Since the remote <code>gdb</code> and <code>gdb-inferior</code> processes do not
+belong to the same process group on the remote host, there will be a
+warning, which can be ignored:
+
+<pre class="example">     &amp;"warning: GDB: Failed to set controlling terminal: Operation not permitted\n"
+</pre>
+   <p class="noindent">As consequence, there will be restrictions in I/O of the process to be
+debugged.
+
+   <p>Relative file names are based on the remote default directory.  When
+<samp><span class="file">myprog.pl</span></samp> exists in <samp><span class="file">/ssh:host:/home/user</span></samp>, valid
+calls include:
+
+<pre class="example">     <kbd>M-x perldb &lt;RET&gt;</kbd>
+     <b>Run perldb (like this):</b> perl -d myprog.pl &lt;RET&gt;
+</pre>
+   <p>Just the local part of a remote file name, such as <samp><span class="command">perl -d
+/home/user/myprog.pl</span></samp>, is not possible.
+
+   <p>Arguments of the program to be debugged must be literal, can take
+relative or absolute paths, but not remote paths.
+
+<h4 class="subsection">6.5.6 Running remote processes on MS Windows hosts</h4>
+
+<p><a name="index-g_t_0040command_007bwinexe_007d-254"></a><a name="index-g_t_0040command_007bpowershell_007d-255"></a>
+<samp><span class="command">winexe</span></samp> runs processes on a remote MS Windows host, and
+<span class="sc">Tramp</span> can use it for <code>process-file</code> and
+<code>start-file-process</code>.
+
+   <p><code>tramp-smb-winexe-program</code> specifies the local <samp><span class="command">winexe</span></samp>
+command.  Powershell V2.0 on the remote host is required to run
+processes triggered from <span class="sc">Tramp</span>.
+
+   <p><code>explicit-shell-file-name</code> and <code>explicit-*-args</code> have to
+be set properly so <kbd>M-x shell &lt;RET&gt;</kbd> can open a proper remote
+shell on a MS Windows host.  To open <samp><span class="command">cmd</span></samp>, set it as follows:
+
+<pre class="lisp">     (setq explicit-shell-file-name "cmd"
+           explicit-cmd-args '("/q"))
+</pre>
+   <p class="noindent">To open <samp><span class="command">powershell</span></samp> as a remote shell, use this:
+
+<pre class="lisp">     (setq explicit-shell-file-name "powershell"
+           explicit-powershell-args '("-file" "-"))
+</pre>
+   </body></html>
+

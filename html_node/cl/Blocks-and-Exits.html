@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Blocks and Exits - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Blocks-and-Exits"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Iteration.html#Iteration">Iteration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Conditionals.html#Conditionals">Conditionals</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Control-Structure.html#Control-Structure">Control Structure</a>
+
+</div>
+
+<h3 class="section">4.5 Blocks and Exits</h3>
+
+<p><a name="index-block-42"></a><a name="index-exit-43"></a>
+Common Lisp <dfn>blocks</dfn> provide a non-local exit mechanism very
+similar to <code>catch</code> and <code>throw</code>, with lexical scoping. 
+This package actually implements <code>cl-block</code>
+in terms of <code>catch</code>; however, the lexical scoping allows the
+byte-compiler to omit the costly <code>catch</code> step if the
+body of the block does not actually <code>cl-return-from</code> the block.
+
+<div class="defun">
+&mdash; Macro: <b>cl-block</b><var> name forms<small class="dots">...</small><a name="index-cl_002dblock-44"></a></var><br>
+<blockquote><p>The <var>forms</var> are evaluated as if by a <code>progn</code>.  However,
+if any of the <var>forms</var> execute <code>(cl-return-from </code><var>name</var><code>)</code>,
+they will jump out and return directly from the <code>cl-block</code> form. 
+The <code>cl-block</code> returns the result of the last <var>form</var> unless
+a <code>cl-return-from</code> occurs.
+
+        <p>The <code>cl-block</code>/<code>cl-return-from</code> mechanism is quite similar to
+the <code>catch</code>/<code>throw</code> mechanism.  The main differences are
+that block <var>name</var>s are unevaluated symbols, rather than forms
+(such as quoted symbols) that evaluate to a tag at run-time; and
+also that blocks are always lexically scoped. 
+In a dynamically scoped <code>catch</code>, functions called from the
+<code>catch</code> body can also <code>throw</code> to the <code>catch</code>.  This
+is not an option for <code>cl-block</code>, where
+the <code>cl-return-from</code> referring to a block name must appear
+physically within the <var>forms</var> that make up the body of the block. 
+They may not appear within other called functions, although they may
+appear within macro expansions or <code>lambda</code>s in the body.  Block
+names and <code>catch</code> names form independent name-spaces.
+
+        <p>In true Common Lisp, <code>defun</code> and <code>defmacro</code> surround
+the function or expander bodies with implicit blocks with the
+same name as the function or macro.  This does not occur in Emacs
+Lisp, but this package provides <code>cl-defun</code> and <code>cl-defmacro</code>
+forms, which do create the implicit block.
+
+        <p>The Common Lisp looping constructs defined by this package,
+such as <code>cl-loop</code> and <code>cl-dolist</code>, also create implicit blocks
+just as in Common Lisp.
+
+        <p>Because they are implemented in terms of Emacs Lisp's <code>catch</code>
+and <code>throw</code>, blocks have the same overhead as actual
+<code>catch</code> constructs (roughly two function calls).  However,
+the byte compiler will optimize away the <code>catch</code>
+if the block does
+not in fact contain any <code>cl-return</code> or <code>cl-return-from</code> calls
+that jump to it.  This means that <code>cl-do</code> loops and <code>cl-defun</code>
+functions that don't use <code>cl-return</code> don't pay the overhead to
+support it. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-return-from</b><var> name </var>[<var>result</var>]<var><a name="index-cl_002dreturn_002dfrom-45"></a></var><br>
+<blockquote><p>This macro returns from the block named <var>name</var>, which must be
+an (unevaluated) symbol.  If a <var>result</var> form is specified, it
+is evaluated to produce the result returned from the <code>block</code>. 
+Otherwise, <code>nil</code> is returned. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-return</b> [<var>result</var>]<var><a name="index-cl_002dreturn-46"></a></var><br>
+<blockquote><p>This macro is exactly like <code>(cl-return-from nil </code><var>result</var><code>)</code>. 
+Common Lisp loops like <code>cl-do</code> and <code>cl-dolist</code> implicitly enclose
+themselves in <code>nil</code> blocks. 
+</p></blockquote></div>
+
+<!-- FIXME?  Maybe this should be in a separate section? -->
+<div class="defun">
+&mdash; Macro: <b>cl-tagbody</b><var> &amp;rest labels-or-statements<a name="index-cl_002dtagbody-47"></a></var><br>
+<blockquote><p>This macro executes statements while allowing for control transfer to
+user-defined labels.  Each element of <var>labels-or-statements</var> can
+be either a label (an integer or a symbol), or a cons-cell
+(a statement).  This distinction is made before macroexpansion. 
+Statements are executed in sequence, discarding any return value. 
+Any statement can transfer control at any time to the statements that follow
+one of the labels with the special form <code>(go </code><var>label</var><code>)</code>. 
+Labels have lexical scope and dynamic extent. 
+</p></blockquote></div>
+
+   </body></html>
+

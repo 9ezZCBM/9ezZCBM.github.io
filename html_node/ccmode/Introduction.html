@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Introduction - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Introduction"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Overview.html#Overview">Overview</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="index.html#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h2 class="chapter">1 Introduction</h2>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a name="index-BOCM-1"></a><a name="index-history-2"></a><a name="index-g_t_0040file_007bawk_002dmode_002eel_007d-3"></a><a name="index-g_t_0040file_007bc_002dmode_002eel_007d-4"></a><a name="index-g_t_0040file_007bc_002b_002b_002dmode_002eel_007d-5"></a>
+Welcome to CC Mode, a GNU Emacs mode for editing files containing C,
+C++, Objective-C, Java, CORBA IDL (and the variants CORBA PSDL and
+CIDL), Pike and AWK code.  This incarnation of the mode is descended
+from <samp><span class="file">c-mode.el</span></samp> (also called &ldquo;Boring Old C Mode&rdquo; or BOCM
+<tt>:-)</tt>, <samp><span class="file">c++-mode.el</span></samp> version 2, which Barry Warsaw had been
+maintaining since 1992, and <samp><span class="file">awk-mode.el</span></samp>, a long neglected mode
+in the (X)Emacs base.
+
+   <p>Late in 1997, Martin Stjernholm joined Barry on the CC Mode
+Maintainers Team, and implemented the Pike support.  In 2000 Martin
+took over as the sole maintainer.  In 2001 Alan Mackenzie joined the
+team, implementing AWK support in version 5.30.  CC Mode did not
+originally contain the font lock support for its languages; that
+was added in version 5.30.
+
+   <p>This manual describes CC Mode
+<!-- The following line must appear on its own, so that the -->
+version 5.32. 
+<!-- Release.py script can update the version number automatically -->
+
+   <p>CC Mode supports the editing of C, C++, Objective-C,
+Java, CORBA's Interface Definition Language, Pike<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> and AWK files.  In this
+way, you can easily set up consistent font locking and coding styles for
+use in editing all of these languages, although AWK is not yet as
+uniformly integrated as the other languages.
+
+   <p><a name="index-c_002dmode-6"></a><a name="index-c_002b_002b_002dmode-7"></a><a name="index-objc_002dmode-8"></a><a name="index-java_002dmode-9"></a><a name="index-idl_002dmode-10"></a><a name="index-pike_002dmode-11"></a><a name="index-awk_002dmode-12"></a>Note that the name of this package is &ldquo;CC Mode&rdquo;, but there is no top
+level <code>cc-mode</code> entry point.  All of the variables, commands, and
+functions in CC Mode are prefixed with <code>c-</code><var>thing</var>, and
+<code>c-mode</code>, <code>c++-mode</code>, <code>objc-mode</code>, <code>java-mode</code>,
+<code>idl-mode</code>, <code>pike-mode</code>, and <code>awk-mode</code> entry points are
+provided.  This package is intended to be a replacement for
+<samp><span class="file">c-mode.el</span></samp>, <samp><span class="file">c++-mode.el</span></samp> and <samp><span class="file">awk-mode.el</span></samp>.
+
+   <p>A special word of thanks goes to Krishna Padmasola for his work in
+converting the original <samp><span class="file">README</span></samp> file to Texinfo format.  I'd
+also like to thank all the CC Mode victims who help enormously
+during the early beta stages of CC Mode's development.
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> A C-like
+scripting language with its roots in the LPC language used in some MUD
+engines.  See <a href="http://pike.ida.liu.se/">http://pike.ida.liu.se/</a>.</p>
+
+   <hr></div>
+
+   </body></html>
+

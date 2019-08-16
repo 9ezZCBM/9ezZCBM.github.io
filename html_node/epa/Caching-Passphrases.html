@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Caching Passphrases - EasyPG Assistant User's Manual</title>
+<!--
+This file describes EasyPG Assistant 1.0.0.
+
+Copyright (C) 2007--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Caching-Passphrases"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Bug-Reports.html#Bug-Reports">Bug Reports</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="GnuPG-version-compatibility.html#GnuPG-version-compatibility">GnuPG version compatibility</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 Caching Passphrases</h2>
+
+<p>Typing passphrases is a troublesome task if you frequently open and
+close the same file.  GnuPG and EasyPG Assistant provide mechanisms to
+remember your passphrases for a limited time.  Using these, you only
+need to re-enter the passphrase occasionally. 
+However, the configuration is a bit
+confusing since it depends on your GnuPG installationSee <a href="GnuPG-version-compatibility.html#GnuPG-version-compatibility">GnuPG version compatibility</a>, encryption method (symmetric or public key),
+and whether or not you want to use gpg-agent.  Here are some
+questions:
+
+     <ol type=1 start=1>
+<li>Do you use GnuPG version 2.1 or 2.0 instead of GnuPG version 1.4? 
+<li>Do you use symmetric encryption rather than public key encryption? 
+<li>Do you want to use gpg-agent?
+        </ol>
+
+   <p>Here are configurations depending on your answers:
+
+   <p><table summary=""><tr align="left"><td valign="top"><b>1</b> </td><td valign="top"><b>2</b> </td><td valign="top"><b>3</b> </td><td valign="top">Configuration
+<br></td></tr><tr align="left"><td valign="top">Yes </td><td valign="top">Yes </td><td valign="top">Yes </td><td valign="top">Set up gpg-agent. 
+<br></td></tr><tr align="left"><td valign="top">Yes </td><td valign="top">Yes </td><td valign="top">No </td><td valign="top">You can't, without gpg-agent. 
+<br></td></tr><tr align="left"><td valign="top">Yes </td><td valign="top">No </td><td valign="top">Yes </td><td valign="top">Set up gpg-agent. 
+<br></td></tr><tr align="left"><td valign="top">Yes </td><td valign="top">No </td><td valign="top">No </td><td valign="top">You can't, without gpg-agent. 
+<br></td></tr><tr align="left"><td valign="top">No </td><td valign="top">Yes </td><td valign="top">Yes </td><td valign="top">Set up elisp passphrase cache. 
+<br></td></tr><tr align="left"><td valign="top">No </td><td valign="top">Yes </td><td valign="top">No </td><td valign="top">Set up elisp passphrase cache. 
+<br></td></tr><tr align="left"><td valign="top">No </td><td valign="top">No </td><td valign="top">Yes </td><td valign="top">Set up gpg-agent. 
+<br></td></tr><tr align="left"><td valign="top">No </td><td valign="top">No </td><td valign="top">No </td><td valign="top">You can't, without gpg-agent.
+   <br></td></tr></table>
+
+   <p>To set up gpg-agent, follow the instruction in GnuPG manual. 
+see <a href="../gnupg/Invoking-GPG_002dAGENT.html#Invoking-GPG_002dAGENT">Invoking GPG-AGENT</a>.
+
+   <p>To set up elisp passphrase cache, set
+<code>epa-file-cache-passphrase-for-symmetric-encryption</code>. 
+See <a href="Encrypting_002fdecrypting-gpg-files.html#Encrypting_002fdecrypting-gpg-files">Encrypting/decrypting gpg files</a>.
+
+   </body></html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Summary Highlighting - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Summary-Highlighting"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Summary-Buffer-Mode-Line.html#Summary-Buffer-Mode-Line">Summary Buffer Mode Line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Summary-Buffer-Format.html#Summary-Buffer-Format">Summary Buffer Format</a>
+
+</div>
+
+<h4 class="subsection">3.1.4 Summary Highlighting</h4>
+
+     <dl>
+<dt><code>gnus-visual-mark-article-hook</code><dd><a name="index-gnus_002dvisual_002dmark_002darticle_002dhook-591"></a>This hook is run after selecting an article.  It is meant to be used for
+highlighting the article in some way.  It is not run if
+<code>gnus-visual</code> is <code>nil</code>.
+
+     <br><dt><code>gnus-summary-update-hook</code><dd><a name="index-gnus_002dsummary_002dupdate_002dhook-592"></a>This hook is called when a summary line is changed.  It is not run if
+<code>gnus-visual</code> is <code>nil</code>.
+
+     <br><dt><code>gnus-summary-selected-face</code><dd><a name="index-gnus_002dsummary_002dselected_002dface-593"></a>This is the face (or <dfn>font</dfn> as some people call it) used to
+highlight the current article in the summary buffer.
+
+     <br><dt><code>gnus-summary-highlight</code><dd><a name="index-gnus_002dsummary_002dhighlight-594"></a>Summary lines are highlighted according to this variable, which is a
+list where the elements are of the format <code>(</code><var>form</var><code>
+. </code><var>face</var><code>)</code>.  If you would, for instance, like ticked articles to be
+italic and high-scored articles to be bold, you could set this variable
+to something like
+     <pre class="lisp">          (((eq mark gnus-ticked-mark) . italic)
+           ((&gt; score default) . bold))
+</pre>
+     <p>As you may have guessed, if <var>form</var> returns a non-<code>nil</code> value,
+<var>face</var> will be applied to the line. 
+</dl>
+
+   </body></html>
+

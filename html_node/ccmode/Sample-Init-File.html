@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Sample Init File - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Sample-Init-File"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Performance-Issues.html#Performance-Issues">Performance Issues</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Odds-and-Ends.html#Odds-and-Ends">Odds and Ends</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h2 class="appendix">Appendix A Sample Init File</h2>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p>Here's a sample .emacs file fragment that might help you along the way. 
+Just copy this region and paste it into your .emacs file.  You might want
+to change some of the actual values.
+
+<pre class="verbatim">;; Make a non-standard key binding.  We can put this in
+;; c-mode-base-map because c-mode-map, c++-mode-map, and so on,
+;; inherit from it.
+(defun my-c-initialization-hook ()
+  (define-key c-mode-base-map "\C-m" 'c-context-line-break))
+(add-hook 'c-initialization-hook 'my-c-initialization-hook)
+
+;; offset customizations not in my-c-style
+;; This will take precedence over any setting of the syntactic symbol
+;; made by a style.
+(setq c-offsets-alist '((member-init-intro . ++)))
+
+;; Create my personal style.
+(defconst my-c-style
+  '((c-tab-always-indent        . t)
+    (c-comment-only-line-offset . 4)
+    (c-hanging-braces-alist     . ((substatement-open after)
+                                   (brace-list-open)))
+    (c-hanging-colons-alist     . ((member-init-intro before)
+                                   (inher-intro)
+                                   (case-label after)
+                                   (label after)
+                                   (access-label after)))
+    (c-cleanup-list             . (scope-operator
+                                   empty-defun-braces
+                                   defun-close-semi))
+    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
+                                   (substatement-open . 0)
+                                   (case-label        . 4)
+                                   (block-open        . 0)
+                                   (knr-argdecl-intro . -)))
+    (c-echo-syntactic-information-p . t))
+  "My C Programming Style")
+(c-add-style "PERSONAL" my-c-style)
+
+;; Customizations for all modes in CC Mode.
+(defun my-c-mode-common-hook ()
+  ;; set my personal style for the current buffer
+  (c-set-style "PERSONAL")
+  ;; other customizations
+  (setq tab-width 8
+        ;; this will make sure spaces are used instead of tabs
+        indent-tabs-mode nil)
+  ;; we like auto-newline, but not hungry-delete
+  (c-toggle-auto-newline 1))
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+</pre>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   </body></html>
+

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Pushing to the mobile application - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Pushing-to-the-mobile-application"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Pulling-from-the-mobile-application.html#Pulling-from-the-mobile-application">Pulling from the mobile application</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Setting-up-the-staging-area.html#Setting-up-the-staging-area">Setting up the staging area</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Org-Mobile.html#Org-Mobile">Org Mobile</a>
+
+</div>
+
+<h4 class="subsection">15.12.2 Pushing to the mobile application</h4>
+
+<p><a name="index-org_002dmobile_002dpush-2379"></a><a name="index-org_002dmobile_002dfiles-2380"></a>The command <code>org-mobile-push</code> copies files listed in
+<code>org-mobile-files</code> into the staging area.  Files include agenda files
+(as listed in <code>org-agenda-files</code>).  Customize <code>org-mobile-files</code> to
+add other files.  File names are staged with paths relative to
+<code>org-directory</code>, so all files should be inside this directory<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.
+
+   <p>Push creates a special Org file &lsquo;<samp><span class="samp">agendas.org</span></samp>&rsquo; with custom agenda views
+defined by the user<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.
+
+   <p>Finally, Org writes the file &lsquo;<samp><span class="samp">index.org</span></samp>&rsquo;, containing links to other
+files.  The mobile application reads this file first from the server
+to determine what other files to download for agendas.  For faster
+downloads, it is expected to only read files whose checksums<a rel="footnote" href="#fn-3" name="fnd-3"><sup>3</sup></a>
+have changed.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Symbolic links in <code>org-directory</code> need to have the same name
+as their targets.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> While creating the agendas, Org mode forces ID properties on
+all referenced entries, so that these entries can be uniquely
+identified if Org Mobile flags them for further action.  To avoid
+setting properties configure the variable
+<code>org-mobile-force-id-on-agenda-items</code> to <code>nil</code>.  Org mode then relies
+on outline paths, assuming they are unique.</p>
+
+   <p class="footnote"><small>[<a name="fn-3" href="#fnd-3">3</a>]</small> Checksums are stored automatically in the file
+&lsquo;<samp><span class="samp">checksums.dat</span></samp>&rsquo;.</p>
+
+   <hr></div>
+
+   </body></html>
+

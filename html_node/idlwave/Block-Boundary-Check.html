@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Block Boundary Check - IDLWAVE User Manual</title>
+<!--
+This file documents IDLWAVE, a major mode for editing IDL files with
+Emacs, and interacting with an IDL shell run as a subprocess.
+
+This is edition 6.1 of the IDLWAVE User Manual for IDLWAVE
+6.1.
+
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Block-Boundary-Check"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Padding-Operators.html#Padding-Operators">Padding Operators</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Actions.html#Actions">Actions</a>
+
+</div>
+
+<h4 class="subsection">4.9.1 Block Boundary Check</h4>
+
+<p><a name="index-Block-boundary-check-187"></a><a name="index-g_t_0040code_007bEND_007d-type-checking-188"></a><a name="index-g_t_0040code_007bEND_007d_002c-automatic-insertion-189"></a><a name="index-g_t_0040code_007bEND_007d_002c-expanding-190"></a><a name="index-Block_002c-closing-191"></a><a name="index-Closing-a-block-192"></a>
+Whenever you type an <code>END</code> statement, IDLWAVE finds the
+corresponding start of the block and the cursor blinks back to that
+location for a second.  If you have typed a specific <code>END</code>, like
+<code>ENDIF</code> or <code>ENDCASE</code>, you get a warning if that terminator
+does not match the type of block it terminates.
+
+   <p>Set the variable <code>idlwave-expand-generic-end</code> in order to have all
+generic <code>END</code> statements automatically expanded to the appropriate
+type.  You can also type <kbd>C-c ]</kbd> to close the current block by
+inserting the appropriate <code>END</code> statement.
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-show-block</b> (<code>t</code>)<var><a name="index-idlwave_002dshow_002dblock-193"></a></var><br>
+<blockquote><p>Non-<code>nil</code> means point blinks to block beginning for
+<code>idlwave-show-begin</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-expand-generic-end</b> (<code>t</code>)<var><a name="index-idlwave_002dexpand_002dgeneric_002dend-194"></a></var><br>
+<blockquote><p>Non-<code>nil</code> means expand generic END to ENDIF/ENDELSE/ENDWHILE etc. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>idlwave-reindent-end</b> (<code>t</code>)<var><a name="index-idlwave_002dreindent_002dend-195"></a></var><br>
+<blockquote><p>Non-<code>nil</code> means re-indent line after END was typed. 
+</p></blockquote></div>
+
+   </body></html>
+

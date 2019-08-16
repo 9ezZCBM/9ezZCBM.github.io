@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Recursive Example arg of 1 or 2 - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Recursive-Example-arg-of-1-or-2"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Recursive-Example-arg-of-3-or-4.html#Recursive-Example-arg-of-3-or-4">Recursive Example arg of 3 or 4</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Recursive-triangle-function.html#Recursive-triangle-function">Recursive triangle function</a>
+
+</div>
+
+<h5 class="unnumberedsubsubsec">An argument of 1 or 2</h5>
+
+   <p>First, what happens if the value of the argument is 1?
+
+   <p>The function has an <code>if</code> expression after the documentation
+string.  It tests whether the value of <code>number</code> is equal to 1; if
+so, Emacs evaluates the then-part of the <code>if</code> expression, which
+returns the number 1 as the value of the function.  (A triangle with
+one row has one pebble in it.)
+
+   <p>Suppose, however, that the value of the argument is 2.  In this case,
+Emacs evaluates the else-part of the <code>if</code> expression.
+
+   <p>The else-part consists of an addition, the recursive call to
+<code>triangle-recursively</code> and a decrementing action; and it looks like
+this:
+
+<pre class="smallexample">     (+ number (triangle-recursively (1- number)))
+</pre>
+   <p>When Emacs evaluates this expression, the innermost expression is
+evaluated first; then the other parts in sequence.  Here are the steps
+in detail:
+
+     <dl>
+<dt><i>Step 1 &nbsp;&nbsp;<!-- /@w --> Evaluate the innermost expression.</i><dd>
+The innermost expression is <code>(1- number)</code> so Emacs decrements the
+value of <code>number</code> from 2 to 1.
+
+     <br><dt><i>Step 2 &nbsp;&nbsp;<!-- /@w --> Evaluate the </i><code>triangle-recursively</code><i> function.</i><dd>
+The Lisp interpreter creates an individual instance of
+<code>triangle-recursively</code>.  It does not matter that this function is
+contained within itself.  Emacs passes the result Step 1 as the
+argument used by this instance of the <code>triangle-recursively</code>
+function
+
+     <p>In this case, Emacs evaluates <code>triangle-recursively</code> with an
+argument of 1.  This means that this evaluation of
+<code>triangle-recursively</code> returns 1.
+
+     <br><dt><i>Step 3 &nbsp;&nbsp;<!-- /@w --> Evaluate the value of </i><code>number</code><i>.</i><dd>
+The variable <code>number</code> is the second element of the list that
+starts with <code>+</code>; its value is 2.
+
+     <br><dt><i>Step 4 &nbsp;&nbsp;<!-- /@w --> Evaluate the </i><code>+</code><i> expression.</i><dd>
+The <code>+</code> expression receives two arguments, the first
+from the evaluation of <code>number</code> (Step 3) and the second from the
+evaluation of <code>triangle-recursively</code> (Step 2).
+
+     <p>The result of the addition is the sum of 2 plus 1, and the number 3 is
+returned, which is correct.  A triangle with two rows has three
+pebbles in it. 
+</dl>
+
+   </body></html>
+

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Kill Ring Overview - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Kill-Ring-Overview"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="kill_002dring_002dyank_002dpointer.html#kill_002dring_002dyank_002dpointer">kill-ring-yank-pointer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Yanking.html#Yanking">Yanking</a>
+
+</div>
+
+<h3 class="section">10.1 Kill Ring Overview</h3>
+
+<p><a name="index-Kill-ring-overview-224"></a>
+The kill ring is a list of textual strings.  This is what it looks like:
+
+<pre class="smallexample">     ("some text" "a different piece of text" "yet more text")
+</pre>
+   <p>If this were the contents of my kill ring and I pressed <kbd>C-y</kbd>, the
+string of characters saying &lsquo;<samp><span class="samp">some text</span></samp>&rsquo; would be inserted in this
+buffer where my cursor is located.
+
+   <p>The <code>yank</code> command is also used for duplicating text by copying it. 
+The copied text is not cut from the buffer, but a copy of it is put on the
+kill ring and is inserted by yanking it back.
+
+   <p>Three functions are used for bringing text back from the kill ring:
+<code>yank</code>, which is usually bound to <kbd>C-y</kbd>; <code>yank-pop</code>,
+which is usually bound to <kbd>M-y</kbd>; and <code>rotate-yank-pointer</code>,
+which is used by the two other functions.
+
+   <p>These functions refer to the kill ring through a variable called the
+<code>kill-ring-yank-pointer</code>.  Indeed, the insertion code for both the
+<code>yank</code> and <code>yank-pop</code> functions is:
+
+<pre class="smallexample">     (insert (car kill-ring-yank-pointer))
+</pre>
+   <p class="noindent">(Well, no more.  In GNU Emacs 22, the function has been replaced by
+<code>insert-for-yank</code> which calls <code>insert-for-yank-1</code>
+repetitively for each <code>yank-handler</code> segment.  In turn,
+<code>insert-for-yank-1</code> strips text properties from the inserted text
+according to <code>yank-excluded-properties</code>.  Otherwise, it is just
+like <code>insert</code>.  We will stick with plain <code>insert</code> since it
+is easier to understand.)
+
+   <p>To begin to understand how <code>yank</code> and <code>yank-pop</code> work, it is
+first necessary to look at the <code>kill-ring-yank-pointer</code> variable.
+
+   </body></html>
+

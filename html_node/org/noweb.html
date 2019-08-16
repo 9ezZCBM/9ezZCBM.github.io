@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>noweb - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="noweb"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="noweb_002dref.html#noweb_002dref">noweb-ref</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="session.html#session">session</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Specific-header-arguments.html#Specific-header-arguments">Specific header arguments</a>
+
+</div>
+
+<h5 class="subsubsection">14.8.2.15 <code>:noweb</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003anoweb_007d_002c-src-header-argument-2142"></a>
+The <code>:noweb</code> header argument controls expansion of Noweb syntax
+references (see <a href="Noweb-reference-syntax.html#Noweb-reference-syntax">Noweb reference syntax</a>).  Expansions occur when source
+code blocks are evaluated, tangled, or exported.
+
+     <ul>
+<li><code>no</code>
+Default.  No expansion of Noweb syntax references in the body of the code
+when evaluating, tangling, or exporting. 
+<li><code>yes</code>
+Expansion of Noweb syntax references in the body of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block
+when evaluating, tangling, or exporting. 
+<li><code>tangle</code>
+Expansion of Noweb syntax references in the body of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block
+when tangling.  No expansion when evaluating or exporting. 
+<li><code>no-export</code>
+Expansion of Noweb syntax references in the body of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block
+when evaluating or tangling.  No expansion when exporting. 
+<li><code>strip-export</code>
+Expansion of Noweb syntax references in the body of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block
+when expanding prior to evaluating or tangling.  Removes Noweb syntax
+references when exporting. 
+<li><code>eval</code>
+Expansion of Noweb syntax references in the body of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block
+only before evaluating. 
+</ul>
+
+<h5 class="subsubheading">Noweb prefix lines</h5>
+
+<p>Noweb insertions now honor prefix characters that appear before the Noweb
+syntax reference.
+
+   <p>This behavior is illustrated in the following example.  Because the
+<code>&lt;&lt;example&gt;&gt;</code> noweb reference appears behind the SQL comment syntax,
+each line of the expanded noweb reference will be commented.
+
+   <p>With:
+
+<pre class="example">     #+NAME: example
+     #+BEGIN_SRC text
+     this is the
+     multi-line body of example
+     #+END_SRC
+</pre>
+   <p>this &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block:
+
+<pre class="example">     #+BEGIN_SRC sql :noweb yes
+     -- &lt;&lt;example&gt;&gt;
+     #+END_SRC
+</pre>
+   <p>expands to:
+
+<pre class="example">     -- this is the
+     -- multi-line body of example
+</pre>
+   <p>Since this change will not affect noweb replacement text without newlines in
+them, inline noweb references are acceptable.
+
+   <p>This feature can also be used for management of indentation in exported code snippets.
+
+   <p>With:
+
+<pre class="example">     #+NAME: if-true
+     #+BEGIN_SRC python :exports none
+     print('Do things when True')
+     #+END_SRC
+     
+     #+NAME: if-false
+     #+BEGIN_SRC python :exports none
+     print('Do things when False')
+     #+END_SRC
+</pre>
+   <p>this &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block:
+
+<pre class="example">     #+BEGIN_SRC python :noweb yes :results output
+     if True:
+         &lt;&lt;if-true&gt;&gt;
+     else:
+         &lt;&lt;if-false&gt;&gt;
+     #+END_SRC
+</pre>
+   <p>expands to:
+
+<pre class="example">     if True:
+         print('Do things when True')
+     else:
+         print('Do things when False')
+</pre>
+   <p>and evaluates to:
+
+<pre class="example">     Do things when True
+</pre>
+   </body></html>
+

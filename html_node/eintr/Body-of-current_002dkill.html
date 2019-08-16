@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Body of current-kill - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Body-of-current-kill"></a>
+<a name="Body-of-current_002dkill"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Digression-concerning-error.html#Digression-concerning-error">Digression concerning error</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Understanding-current_002dkill.html#Understanding-current_002dkill">Understanding current-kill</a>
+
+</div>
+
+<h5 class="unnumberedsubsubsec">The Body of <code>current-kill</code></h5>
+
+   <p>The body of the function definition is a <code>let</code> expression, which
+itself has a body as well as a <var>varlist</var>.
+
+   <p>The <code>let</code> expression declares a variable that will be only usable
+within the bounds of this function.  This variable is called
+<code>interprogram-paste</code> and is for copying to another program.  It
+is not for copying within this instance of GNU Emacs.  Most window
+systems provide a facility for interprogram pasting.  Sadly, that
+facility usually provides only for the last element.  Most windowing
+systems have not adopted a ring of many possibilities, even though
+Emacs has provided it for decades.
+
+   <p>The <code>if</code> expression has two parts, one if there exists
+<code>interprogram-paste</code> and one if not.
+
+   <p>Let us consider the else-part of the <code>current-kill</code>
+function.  (The then-part uses the <code>kill-new</code> function, which
+we have already described.  See <a href="kill_002dnew-function.html#kill_002dnew-function">The <code>kill-new</code> function</a>.)
+
+<pre class="smallexample">     (or kill-ring (error "Kill ring is empty"))
+     (let ((ARGth-kill-element
+            (nthcdr (mod (- n (length kill-ring-yank-pointer))
+                         (length kill-ring))
+                    kill-ring)))
+       (or do-not-move
+           (setq kill-ring-yank-pointer ARGth-kill-element))
+       (car ARGth-kill-element))
+</pre>
+   <p class="noindent">The code first checks whether the kill ring has content; otherwise it
+signals an error.
+
+   <p>Note that the <code>or</code> expression is very similar to testing length
+with an <code>if</code>:
+
+   <p><a name="index-zerop-367"></a><a name="index-error-368"></a>
+<pre class="smallexample">     (if (zerop (length kill-ring))          ; <span class="roman">if-part</span>
+         (error "Kill ring is empty"))       ; <span class="roman">then-part</span>
+       ;; No else-part
+</pre>
+   <p class="noindent">If there is not anything in the kill ring, its length must be zero and
+an error message sent to the user: &lsquo;<samp><span class="samp">Kill ring is empty</span></samp>&rsquo;.  The
+<code>current-kill</code> function uses an <code>or</code> expression which is
+simpler.  But an <code>if</code> expression reminds us what goes on.
+
+   <p>This <code>if</code> expression uses the function <code>zerop</code> which returns
+true if the value it is testing is zero.  When <code>zerop</code> tests
+true, the then-part of the <code>if</code> is evaluated.  The then-part is a
+list starting with the function <code>error</code>, which is a function that
+is similar to the <code>message</code> function
+(see <a href="message.html#message">The <code>message</code> Function</a>) in that
+it prints a one-line message in the echo area.  However, in addition
+to printing a message, <code>error</code> also stops evaluation of the
+function within which it is embedded.  This means that the rest of the
+function will not be evaluated if the length of the kill ring is zero.
+
+   <p>Then the <code>current-kill</code> function selects the element to return. 
+The selection depends on the number of places that <code>current-kill</code>
+rotates and on where <code>kill-ring-yank-pointer</code> points.
+
+   <p>Next, either the optional <code>do-not-move</code> argument is true or the
+current value of <code>kill-ring-yank-pointer</code> is set to point to the
+list.  Finally, another expression returns the first element of the
+list even if the <code>do-not-move</code> argument is true.
+
+   </body></html>
+

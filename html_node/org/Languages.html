@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Languages - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Languages"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Header-arguments.html#Header-arguments">Header arguments</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Library-of-Babel.html#Library-of-Babel">Library of Babel</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Working-with-source-code.html#Working-with-source-code">Working with source code</a>
+
+</div>
+
+<h3 class="section">14.7 Languages</h3>
+
+<p><a name="index-babel_002c-languages-2113"></a><a name="index-source-code_002c-languages-2114"></a><a name="index-code-block_002c-languages-2115"></a>
+Org supports the following languages for the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks:
+
+   <p><table summary=""><tr align="left"><th valign="top" width="25%"><b>Language</b> </th><th valign="top" width="25%"><b>Identifier</b> </th><th valign="top" width="25%"><b>Language</b> </th><th valign="top" width="25%"><b>Identifier</b>
+<br></th></tr><tr align="left"><td valign="top" width="25%">Asymptote </td><td valign="top" width="25%">asymptote </td><td valign="top" width="25%">Awk </td><td valign="top" width="25%">awk
+<br></td></tr><tr align="left"><td valign="top" width="25%">C </td><td valign="top" width="25%">C </td><td valign="top" width="25%">C++ </td><td valign="top" width="25%">C++
+<br></td></tr><tr align="left"><td valign="top" width="25%">Clojure </td><td valign="top" width="25%">clojure </td><td valign="top" width="25%">CSS </td><td valign="top" width="25%">css
+<br></td></tr><tr align="left"><td valign="top" width="25%">D </td><td valign="top" width="25%">d </td><td valign="top" width="25%">ditaa </td><td valign="top" width="25%">ditaa
+<br></td></tr><tr align="left"><td valign="top" width="25%">Graphviz </td><td valign="top" width="25%">dot </td><td valign="top" width="25%">Emacs Calc </td><td valign="top" width="25%">calc
+<br></td></tr><tr align="left"><td valign="top" width="25%">Emacs Lisp </td><td valign="top" width="25%">emacs-lisp </td><td valign="top" width="25%">Fortran </td><td valign="top" width="25%">fortran
+<br></td></tr><tr align="left"><td valign="top" width="25%">gnuplot </td><td valign="top" width="25%">gnuplot </td><td valign="top" width="25%">Haskell </td><td valign="top" width="25%">haskell
+<br></td></tr><tr align="left"><td valign="top" width="25%">Java </td><td valign="top" width="25%">java </td><td valign="top" width="25%">Javascript </td><td valign="top" width="25%">js
+<br></td></tr><tr align="left"><td valign="top" width="25%">LaTeX </td><td valign="top" width="25%">latex </td><td valign="top" width="25%">Ledger </td><td valign="top" width="25%">ledger
+<br></td></tr><tr align="left"><td valign="top" width="25%">Lisp </td><td valign="top" width="25%">lisp </td><td valign="top" width="25%">Lilypond </td><td valign="top" width="25%">lilypond
+<br></td></tr><tr align="left"><td valign="top" width="25%">Lua </td><td valign="top" width="25%">lua </td><td valign="top" width="25%">MATLAB </td><td valign="top" width="25%">matlab
+<br></td></tr><tr align="left"><td valign="top" width="25%">Mscgen </td><td valign="top" width="25%">mscgen </td><td valign="top" width="25%">Objective Caml </td><td valign="top" width="25%">ocaml
+<br></td></tr><tr align="left"><td valign="top" width="25%">Octave </td><td valign="top" width="25%">octave </td><td valign="top" width="25%">Org mode </td><td valign="top" width="25%">org
+<br></td></tr><tr align="left"><td valign="top" width="25%">Oz </td><td valign="top" width="25%">oz </td><td valign="top" width="25%">Perl </td><td valign="top" width="25%">perl
+<br></td></tr><tr align="left"><td valign="top" width="25%">Plantuml </td><td valign="top" width="25%">plantuml </td><td valign="top" width="25%">Processing.js </td><td valign="top" width="25%">processing
+<br></td></tr><tr align="left"><td valign="top" width="25%">Python </td><td valign="top" width="25%">python </td><td valign="top" width="25%">R </td><td valign="top" width="25%">R
+<br></td></tr><tr align="left"><td valign="top" width="25%">Ruby </td><td valign="top" width="25%">ruby </td><td valign="top" width="25%">Sass </td><td valign="top" width="25%">sass
+<br></td></tr><tr align="left"><td valign="top" width="25%">Scheme </td><td valign="top" width="25%">scheme </td><td valign="top" width="25%">GNU Screen </td><td valign="top" width="25%">screen
+<br></td></tr><tr align="left"><td valign="top" width="25%">Sed </td><td valign="top" width="25%">sed </td><td valign="top" width="25%">shell </td><td valign="top" width="25%">sh
+<br></td></tr><tr align="left"><td valign="top" width="25%">SQL </td><td valign="top" width="25%">sql </td><td valign="top" width="25%">SQLite </td><td valign="top" width="25%">sqlite
+<br></td></tr><tr align="left"><td valign="top" width="25%">Vala </td><td valign="top" width="25%">vala
+   <br></td></tr></table>
+
+   <p>Additional documentation for some languages are at
+<a href="https://orgmode.org/worg/org-contrib/babel/languages.html">https://orgmode.org/worg/org-contrib/babel/languages.html</a>.
+
+   <p><a name="index-org_002dbabel_002dload_002dlanguages-2116"></a>By default, only <code>emacs-lisp</code> is enabled for evaluation.  To enable or
+disable other languages, customize the <code>org-babel-load-languages</code>
+variable either through the Emacs customization interface, or by adding code
+to the init file as shown next:
+
+   <p>In this example, evaluation is disabled for <code>emacs-lisp</code>, and enabled
+for <code>R</code>.
+
+<pre class="lisp">     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp . nil)
+        (R . t)))
+</pre>
+   <p>Note that this is not the only way to enable a language.  Org also enables
+languages when loaded with <code>require</code> statement.  For example, the
+following enables execution of <code>clojure</code> code blocks:
+
+<pre class="lisp">     (require 'ob-clojure)
+</pre>
+   </body></html>
+

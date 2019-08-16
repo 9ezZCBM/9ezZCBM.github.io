@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Capture templates - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Capture-templates"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Using-capture.html#Using-capture">Using capture</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Capture.html#Capture">Capture</a>
+
+</div>
+
+<h4 class="subsection">9.1.3 Capture templates</h4>
+
+<p><a name="index-templates_002c-for-Capture-989"></a>
+You can use templates for different types of capture items, and
+for different target locations.  The easiest way to create such templates is
+through the customize interface.
+
+     
+<a name="index-C_002dc-c-C-990"></a>
+<dl><dt><kbd>C-c c C</kbd><dd>
+<a name="index-org_002dcapture_002dtemplates-991"></a>Customize the variable <code>org-capture-templates</code>. 
+</dl>
+
+   <p>Before we give the formal description of template definitions, let's look at
+an example.  Say you would like to use one template to create general TODO
+entries, and you want to put these entries under the heading &lsquo;<samp><span class="samp">Tasks</span></samp>&rsquo; in
+your file <samp><span class="file">~/org/gtd.org</span></samp>.  Also, a date tree in the file
+<samp><span class="file">journal.org</span></samp> should capture journal entries.  A possible configuration
+would look like:
+
+<pre class="smalllisp">     (setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+             "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+             "* %?\nEntered on %U\n  %i\n  %a")))
+</pre>
+   <p class="noindent">If you then press <kbd>C-c c t</kbd>, Org will prepare the template
+for you like this:
+<pre class="example">     * TODO
+       [[file:<var>link to where you initiated capture</var>]]
+</pre>
+   <p class="noindent">During expansion of the template, <code>%a</code> has been replaced by a link to
+the location from where you called the capture command.  This can be
+extremely useful for deriving tasks from emails, for example.  You fill in
+the task definition, press <kbd>C-c C-c</kbd> and Org returns you to the same
+place where you started the capture process.
+
+   <p>To define special keys to capture to a particular template without going
+through the interactive template selection, you can create your key binding
+like this:
+
+<pre class="lisp">     (define-key global-map "\C-cx"
+        (lambda () (interactive) (org-capture nil "x")))
+</pre>
+   <ul class="menu">
+<li><a accesskey="1" href="Template-elements.html#Template-elements">Template elements</a>:            What is needed for a complete template entry
+<li><a accesskey="2" href="Template-expansion.html#Template-expansion">Template expansion</a>:           Filling in information about time and context
+<li><a accesskey="3" href="Templates-in-contexts.html#Templates-in-contexts">Templates in contexts</a>:        Only show a template in a specific context
+</ul>
+
+   </body></html>
+

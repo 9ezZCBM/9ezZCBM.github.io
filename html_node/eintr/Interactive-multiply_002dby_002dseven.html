@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Interactive multiply-by-seven - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Interactive-multiply-by-seven"></a>
+<a name="Interactive-multiply_002dby_002dseven"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="multiply_002dby_002dseven-in-detail.html#multiply_002dby_002dseven-in-detail">multiply-by-seven in detail</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Interactive.html#Interactive">Interactive</a>
+
+</div>
+
+<h4 class="unnumberedsubsec">An Interactive <code>multiply-by-seven</code>, An Overview</h4>
+
+   <p>Both the use of the special form <code>interactive</code> and one way to
+display a value in the echo area can be illustrated by creating an
+interactive version of <code>multiply-by-seven</code>.
+
+   <p>Here is the code:
+
+<pre class="smallexample">     (defun multiply-by-seven (number)       ; <span class="roman">Interactive version.</span>
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+</pre>
+   <p class="noindent">You can install this code by placing your cursor after it and typing
+<kbd>C-x C-e</kbd>.  The name of the function will appear in your echo area. 
+Then, you can use this code by typing <kbd>C-u</kbd> and a number and then
+typing <kbd>M-x multiply-by-seven</kbd> and pressing &lt;RET&gt;.  The phrase
+&lsquo;<samp><span class="samp">The result is ...</span></samp>&rsquo; followed by the product will appear in the
+echo area.
+
+   <p>Speaking more generally, you invoke a function like this in either of two
+ways:
+
+     <ol type=1 start=1>
+<li>By typing a prefix argument that contains the number to be passed, and
+then typing <kbd>M-x</kbd> and the name of the function, as with
+<kbd>C-u 3 M-x forward-sentence</kbd>; or,
+
+     <li>By typing whatever key or keychord the function is bound to, as with
+<kbd>C-u 3 M-e</kbd>.
+        </ol>
+
+<p class="noindent">Both the examples just mentioned work identically to move point forward
+three sentences.  (Since <code>multiply-by-seven</code> is not bound to a key,
+it could not be used as an example of key binding.)
+
+   <p>(See <a href="Keybindings.html#Keybindings">Some Keybindings</a>, to learn how to bind a command
+to a key.)
+
+   <p>A <dfn>prefix argument</dfn> is passed to an interactive function by typing the
+&lt;META&gt; key followed by a number, for example, <kbd>M-3 M-e</kbd>, or by
+typing <kbd>C-u</kbd> and then a number, for example, <kbd>C-u 3 M-e</kbd> (if you
+type <kbd>C-u</kbd> without a number, it defaults to 4).
+
+   </body></html>
+

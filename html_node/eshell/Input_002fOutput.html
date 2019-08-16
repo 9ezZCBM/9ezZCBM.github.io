@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Input/Output - Eshell: The Emacs Shell</title>
+<!--
+This manual is for Eshell, the Emacs shell.
+
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Input%2fOutput"></a>
+<a name="Input_002fOutput"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Extension-modules.html#Extension-modules">Extension modules</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Expansion.html#Expansion">Expansion</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Input/Output</h2>
+
+<p>Since Eshell does not communicate with a terminal like most command
+shells, IO is a little different.
+
+<h3 class="section">4.1 Visual Commands</h3>
+
+<p>If you try to run programs from within Eshell that are not
+line-oriented, such as programs that use ncurses, you will just get
+garbage output, since the Eshell buffer is not a terminal emulator. 
+Eshell solves this problem by running such programs in Emacs's
+terminal emulator.
+
+   <p>Programs that need a terminal to display output properly are referred
+to in this manual as &ldquo;visual commands,&rdquo; because they are not simply
+line-oriented.  You must tell Eshell which commands are visual, by
+adding them to <code>eshell-visual-commands</code>; for commands that are
+visual for only certain <em>sub</em>-commands &ndash; e.g., &lsquo;<samp><span class="samp">git log</span></samp>&rsquo; but
+not &lsquo;<samp><span class="samp">git status</span></samp>&rsquo; &ndash; use <code>eshell-visual-subcommands</code>; and for
+commands that are visual only when passed certain options, use
+<code>eshell-visual-options</code>.
+
+   <p>Caution: Some tools such as Git use the pager &lsquo;<samp><span class="samp">less</span></samp>&rsquo; by default
+to paginate their output but call it with its &lsquo;<samp><span class="samp">-F</span></samp>&rsquo; option.  This
+option causes &lsquo;<samp><span class="samp">less</span></samp>&rsquo; to echo the output instead of paginating it
+if the output is less than one page long.  This causes undesirable
+behavior if, e.g., &lsquo;<samp><span class="samp">git diff</span></samp>&rsquo;, is defined as a visual subcommand. 
+It'll work if the output is big enough and fail if it is less than one
+page long.  If that occurs to you, search for configuration options
+for calling &lsquo;<samp><span class="samp">less</span></samp>&rsquo; without the &lsquo;<samp><span class="samp">-F</span></samp>&rsquo; option.  For Git, you
+can do that using &lsquo;<samp><span class="samp">git config --global core.pager 'less -+F'</span></samp>&rsquo;.
+
+   <p><a name="index-eshell_002ddestroy_002dbuffer_002dwhen_002dprocess_002ddies-39"></a>If you want the buffers created by visual programs killed when the
+program exits, customize the variable
+<code>eshell-destroy-buffer-when-process-dies</code> to a non-<code>nil</code>
+value; the default is <code>nil</code>.
+
+<h3 class="section">4.2 Redirection</h3>
+
+<p>Redirection is mostly the same in Eshell as it is in other command
+shells.  The output redirection operators <code>&gt;</code> and <code>&gt;&gt;</code> as
+well as pipes are supported, but there is not yet any support for
+input redirection.  Output can also be redirected to buffers, using
+the <code>&gt;&gt;&gt;</code> redirection operator, and Elisp functions, using
+virtual devices.
+
+   <p>The buffer redirection operator, <code>&gt;&gt;&gt;</code>, expects a buffer object
+on the right-hand side, into which it inserts the output of the
+left-hand side.  e.g., &lsquo;<samp><span class="samp">echo hello &gt;&gt;&gt; #&lt;buffer *scratch*&gt;</span></samp>&rsquo;
+inserts the string <code>"hello"</code> into the <samp><span class="file">*scratch*</span></samp> buffer. 
+The convenience shorthand variant &lsquo;<samp><span class="samp">#&lt;</span><var>buffer-name</var><span class="samp">&gt;</span></samp>&rsquo;, as in
+&lsquo;<samp><span class="samp">#&lt;*scratch*&gt;</span></samp>&rsquo;, is also accepted.
+
+   <p><code>eshell-virtual-targets</code> is a list of mappings of virtual device
+names to functions.  Eshell comes with two virtual devices:
+<samp><span class="file">/dev/kill</span></samp>, which sends the text to the kill ring, and
+<samp><span class="file">/dev/clip</span></samp>, which sends text to the clipboard.
+
+   <p>You can, of course, define your own virtual targets.  They are defined
+by adding a list of the form &lsquo;<samp><span class="samp">("/dev/name" </span><var>function</var> <var>mode</var><span class="samp">)</span></samp>&rsquo; to
+<code>eshell-virtual-targets</code>.  The first element is the device name;
+<var>function</var> may be either a lambda or a function name.  If
+<var>mode</var> is <code>nil</code>, then the function is the output function; if it is
+non-<code>nil</code>, then the function is passed the redirection mode as a
+symbol&ndash;<code>overwrite</code> for <code>&gt;</code>, <code>append</code> for <code>&gt;&gt;</code>, or
+<code>insert</code> for <code>&gt;&gt;&gt;</code>&ndash;and the function is expected to return
+the output function.
+
+   <p>The output function is called once on each line of output until
+<code>nil</code> is passed, indicating end of output.
+
+   </body></html>
+

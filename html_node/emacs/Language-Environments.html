@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Language Environments - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Language-Environments"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Input-Methods.html#Input-Methods">Input Methods</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="International-Chars.html#International-Chars">International Chars</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="International.html#International">International</a>
+
+</div>
+
+<h3 class="section">22.2 Language Environments</h3>
+
+<p><a name="index-language-environments-1803"></a>
+  All supported character sets are supported in Emacs buffers whenever
+multibyte characters are enabled; there is no need to select a
+particular language in order to display its characters. 
+However, it is important to select a <dfn>language
+environment</dfn> in order to set various defaults.  Roughly speaking, the
+language environment represents a choice of preferred script rather
+than a choice of language.
+
+   <p>The language environment controls which coding systems to recognize
+when reading text (see <a href="Recognize-Coding.html#Recognize-Coding">Recognize Coding</a>).  This applies to files,
+incoming mail, and any other text you read into Emacs.  It may also
+specify the default coding system to use when you create a file.  Each
+language environment also specifies a default input method.
+
+   <p><a name="index-set_002dlanguage_002denvironment-1804"></a><a name="index-current_002dlanguage_002denvironment-1805"></a>  To select a language environment, customize
+<code>current-language-environment</code> or use the command <kbd>M-x
+set-language-environment</kbd>.  It makes no difference which buffer is
+current when you use this command, because the effects apply globally
+to the Emacs session.  See the variable <code>language-info-alist</code> for
+the list of supported language environments, and use the command
+<kbd>C-h L </kbd><var>lang-env</var><kbd> &lt;RET&gt;</kbd> (<code>describe-language-environment</code>)
+for more information about the language environment <var>lang-env</var>. 
+Supported language environments include:
+
+<!-- @cindex entries below are split between portions of the list to -->
+<!-- make them more accurate, i.e., land on the line that mentions the -->
+<!-- language.  However, makeinfo 4.x doesn't fill inside @quotation -->
+<!-- lines that follow a @cindex entry and whose text has no whitespace. -->
+<!-- To work around, we group the language environments together, so -->
+<!-- that the blank that separates them triggers refill. -->
+   <blockquote>
+<a name="index-ASCII-_0028language-environment_0029-1806"></a><a name="index-Arabic-1807"></a>ASCII, Arabic,
+<a name="index-Belarusian-1808"></a><a name="index-Bengali-1809"></a>Belarusian, Bengali,
+<a name="index-Brazilian-Portuguese-1810"></a><a name="index-Bulgarian-1811"></a>Brazilian Portuguese, Bulgarian,
+<a name="index-Burmese-1812"></a><a name="index-Cham-1813"></a>Burmese, Cham,
+<a name="index-Chinese-1814"></a>Chinese-BIG5, Chinese-CNS, Chinese-EUC-TW, Chinese-GB,
+Chinese-GB18030, Chinese-GBK,
+<a name="index-Croatian-1815"></a><a name="index-Cyrillic-1816"></a>Croatian, Cyrillic-ALT, Cyrillic-ISO, Cyrillic-KOI8,
+<a name="index-Czech-1817"></a><a name="index-Devanagari-1818"></a>Czech, Devanagari,
+<a name="index-Dutch-1819"></a><a name="index-English-1820"></a>Dutch, English,
+<a name="index-Esperanto-1821"></a><a name="index-Ethiopic-1822"></a>Esperanto, Ethiopic,
+<a name="index-French-1823"></a><a name="index-Georgian-1824"></a>French, Georgian,
+<a name="index-German-1825"></a><a name="index-Greek-1826"></a><a name="index-Gujarati-1827"></a>German, Greek, Gujarati,
+<a name="index-Hebrew-1828"></a><a name="index-IPA-1829"></a>Hebrew, IPA,
+<a name="index-Italian-1830"></a>Italian,
+<a name="index-Japanese-1831"></a><a name="index-Kannada-1832"></a>Japanese, Kannada,
+<a name="index-Khmer-1833"></a><a name="index-Korean-1834"></a><a name="index-Lao-1835"></a>Khmer, Korean, Lao,
+<a name="index-Latin-1836"></a>Latin-1, Latin-2, Latin-3, Latin-4, Latin-5, Latin-6, Latin-7,
+Latin-8, Latin-9,
+<a name="index-Latvian-1837"></a><a name="index-Lithuanian-1838"></a>Latvian, Lithuanian,
+<a name="index-Malayalam-1839"></a><a name="index-Oriya-1840"></a>Malayalam, Oriya,
+<a name="index-Persian-1841"></a><a name="index-Polish-1842"></a>Persian, Polish,
+<a name="index-Punjabi-1843"></a><a name="index-Romanian-1844"></a>Punjabi, Romanian,
+<a name="index-Russian-1845"></a><a name="index-Sinhala-1846"></a>Russian, Sinhala,
+<a name="index-Slovak-1847"></a><a name="index-Slovenian-1848"></a><a name="index-Spanish-1849"></a>Slovak, Slovenian, Spanish,
+<a name="index-Swedish-1850"></a><a name="index-TaiViet-1851"></a>Swedish, TaiViet,
+<a name="index-Tajik-1852"></a><a name="index-Tamil-1853"></a>Tajik, Tamil,
+<a name="index-Telugu-1854"></a><a name="index-Thai-1855"></a>Telugu, Thai,
+<a name="index-Tibetan-1856"></a><a name="index-Turkish-1857"></a>Tibetan, Turkish,
+<a name="index-UTF_002d8-1858"></a><a name="index-Ukrainian-1859"></a>UTF-8, Ukrainian,
+<a name="index-Vietnamese-1860"></a><a name="index-Welsh-1861"></a>Vietnamese, Welsh,
+<a name="index-Windows_002d1255-1862"></a>and Windows-1255. 
+</blockquote>
+
+   <p>To display the script(s) used by your language environment on a
+graphical display, you need to have suitable fonts. 
+See <a href="Fontsets.html#Fontsets">Fontsets</a>, for more details about setting up your fonts.
+
+   <p><a name="index-set_002dlocale_002denvironment-1863"></a><a name="index-locale_002dlanguage_002dnames-1864"></a><a name="index-locale_002dcharset_002dlanguage_002dnames-1865"></a><a name="index-locales-1866"></a>  Some operating systems let you specify the character-set locale you
+are using by setting the locale environment variables <samp><span class="env">LC_ALL</span></samp>,
+<samp><span class="env">LC_CTYPE</span></samp>, or <samp><span class="env">LANG</span></samp>.  (If more than one of these is
+set, the first one that is nonempty specifies your locale for this
+purpose.)  During startup, Emacs looks up your character-set locale's
+name in the system locale alias table, matches its canonical name
+against entries in the value of the variables
+<code>locale-charset-language-names</code> and <code>locale-language-names</code>
+(the former overrides the latter),
+and selects the corresponding language environment if a match is found. 
+It also adjusts the display
+table and terminal coding system, the locale coding system, the
+preferred coding system as needed for the locale, and&mdash;last but not
+least&mdash;the way Emacs decodes non-<acronym>ASCII</acronym> characters sent by your keyboard.
+
+<!-- This seems unlikely, doesn't it? -->
+   <p>If you modify the <samp><span class="env">LC_ALL</span></samp>, <samp><span class="env">LC_CTYPE</span></samp>, or <samp><span class="env">LANG</span></samp>
+environment variables while running Emacs (by using <kbd>M-x setenv</kbd>),
+you may want to invoke the <code>set-locale-environment</code>
+command afterwards to readjust the language environment from the new
+locale.
+
+   <p><a name="index-locale_002dpreferred_002dcoding_002dsystems-1867"></a>  The <code>set-locale-environment</code> function normally uses the preferred
+coding system established by the language environment to decode system
+messages.  But if your locale matches an entry in the variable
+<code>locale-preferred-coding-systems</code>, Emacs uses the corresponding
+coding system instead.  For example, if the locale &lsquo;<samp><span class="samp">ja_JP.PCK</span></samp>&rsquo;
+matches <code>japanese-shift-jis</code> in
+<code>locale-preferred-coding-systems</code>, Emacs uses that encoding even
+though it might normally use <code>japanese-iso-8bit</code>.
+
+   <p>You can override the language environment chosen at startup with
+explicit use of the command <code>set-language-environment</code>, or with
+customization of <code>current-language-environment</code> in your init
+file.
+
+   <p><a name="index-C_002dh-L-1868"></a><a name="index-describe_002dlanguage_002denvironment-1869"></a>  To display information about the effects of a certain language
+environment <var>lang-env</var>, use the command <kbd>C-h L </kbd><var>lang-env</var><kbd>
+&lt;RET&gt;</kbd> (<code>describe-language-environment</code>).  This tells you
+which languages this language environment is useful for, and lists the
+character sets, coding systems, and input methods that go with it.  It
+also shows some sample text to illustrate scripts used in this
+language environment.  If you give an empty input for <var>lang-env</var>,
+this command describes the chosen language environment.
+
+   <p><a name="index-set_002dlanguage_002denvironment_002dhook-1870"></a>  You can customize any language environment with the normal hook
+<code>set-language-environment-hook</code>.  The command
+<code>set-language-environment</code> runs that hook after setting up the new
+language environment.  The hook functions can test for a specific
+language environment by checking the variable
+<code>current-language-environment</code>.  This hook is where you should
+put non-default settings for specific language environments, such as
+coding systems for keyboard input and terminal output, the default
+input method, etc.
+
+   <p><a name="index-exit_002dlanguage_002denvironment_002dhook-1871"></a>  Before it starts to set up the new language environment,
+<code>set-language-environment</code> first runs the hook
+<code>exit-language-environment-hook</code>.  This hook is useful for undoing
+customizations that were made with <code>set-language-environment-hook</code>. 
+For instance, if you set up a special key binding in a specific language
+environment using <code>set-language-environment-hook</code>, you should set
+up <code>exit-language-environment-hook</code> to restore the normal binding
+for that key.
+
+   </body></html>
+

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Loop Examples - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Loop-Examples"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="For-Clauses.html#For-Clauses">For Clauses</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Loop-Basics.html#Loop-Basics">Loop Basics</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Loop-Facility.html#Loop-Facility">Loop Facility</a>
+
+</div>
+
+<h4 class="subsection">4.7.2 Loop Examples</h4>
+
+<p class="noindent">Before listing the full set of clauses that are allowed, let's
+look at a few example loops just to get a feel for the <code>cl-loop</code>
+language.
+
+<pre class="example">     (cl-loop for buf in (buffer-list)
+              collect (buffer-file-name buf))
+</pre>
+   <p class="noindent">This loop iterates over all Emacs buffers, using the list
+returned by <code>buffer-list</code>.  For each buffer <var>buf</var>,
+it calls <code>buffer-file-name</code> and collects the results into
+a list, which is then returned from the <code>cl-loop</code> construct. 
+The result is a list of the file names of all the buffers in
+Emacs's memory.  The words <code>for</code>, <code>in</code>, and <code>collect</code>
+are reserved words in the <code>cl-loop</code> language.
+
+<pre class="example">     (cl-loop repeat 20 do (insert "Yowsa\n"))
+</pre>
+   <p class="noindent">This loop inserts the phrase &ldquo;Yowsa&rdquo; twenty times in the
+current buffer.
+
+<pre class="example">     (cl-loop until (eobp) do (munch-line) (forward-line 1))
+</pre>
+   <p class="noindent">This loop calls <code>munch-line</code> on every line until the end
+of the buffer.  If point is already at the end of the buffer,
+the loop exits immediately.
+
+<pre class="example">     (cl-loop do (munch-line) until (eobp) do (forward-line 1))
+</pre>
+   <p class="noindent">This loop is similar to the above one, except that <code>munch-line</code>
+is always called at least once.
+
+<pre class="example">     (cl-loop for x from 1 to 100
+              for y = (* x x)
+              until (&gt;= y 729)
+              finally return (list x (= y 729)))
+</pre>
+   <p class="noindent">This more complicated loop searches for a number <code>x</code> whose
+square is 729.  For safety's sake it only examines <code>x</code>
+values up to 100; dropping the phrase &lsquo;<samp><span class="samp">to 100</span></samp>&rsquo; would
+cause the loop to count upwards with no limit.  The second
+<code>for</code> clause defines <code>y</code> to be the square of <code>x</code>
+within the loop; the expression after the <code>=</code> sign is
+reevaluated each time through the loop.  The <code>until</code>
+clause gives a condition for terminating the loop, and the
+<code>finally</code> clause says what to do when the loop finishes. 
+(This particular example was written less concisely than it
+could have been, just for the sake of illustration.)
+
+   <p>Note that even though this loop contains three clauses (two
+<code>for</code>s and an <code>until</code>) that would have been enough to
+define loops all by themselves, it still creates a single loop
+rather than some sort of triple-nested loop.  You must explicitly
+nest your <code>cl-loop</code> constructs if you want nested loops.
+
+   </body></html>
+

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Obtaining @value{tramp} - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Obtaining-%3cspan-class%3d%22sc%22%3eTramp%3c%2fspan%3e"></a>
+<a name="Obtaining-_003cspan-class_003d_0022sc_0022_003eTramp_003c_002fspan_003e"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="History.html#History">History</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Overview.html#Overview">Overview</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Obtaining <span class="sc">Tramp</span></h2>
+
+<p><a name="index-obtaining-_0040value_007btramp_007d-5"></a>
+<span class="sc">Tramp</span> is included as part of Emacs (since Emacs 22.1).
+
+   <p><span class="sc">Tramp</span> is also freely packaged for download on the Internet at
+<a href="https://ftp.gnu.org/gnu/tramp/">https://ftp.gnu.org/gnu/tramp/</a>.
+
+   <p><span class="sc">Tramp</span> development versions are available on Git servers. 
+Development versions contain new and incomplete features.
+
+   <p>One way to obtain from Git server is to visit the Savannah project
+page at the following URL and then clicking on the Git link in the
+navigation bar at the top.
+
+<p class="noindent"><a href="https://savannah.gnu.org/projects/tramp/">https://savannah.gnu.org/projects/tramp/</a>
+
+<p class="noindent">Another way is to follow the terminal session below:
+
+<pre class="example">     $ cd ~/emacs
+     $ git clone git://git.savannah.gnu.org/tramp.git
+</pre>
+   <p class="noindent">From behind a firewall:
+
+<pre class="example">     $ git config --global http.proxy http://user:pwd@proxy.server.com:8080
+     $ git clone https://git.savannah.gnu.org/r/tramp.git
+</pre>
+   <p class="noindent"><span class="sc">Tramp</span> developers:
+
+<pre class="example">     $ git clone login@git.sv.gnu.org:/srv/git/tramp.git
+</pre>
+   <p class="noindent">After one of the above commands, <samp><span class="file">~/emacs/tramp</span></samp> will
+containing the latest version of <span class="sc">Tramp</span>.
+
+<p class="noindent">To fetch updates from the repository, use git pull:
+
+<pre class="example">     $ cd ~/emacs/tramp
+     $ git pull
+</pre>
+   <p class="noindent">Run <samp><span class="command">autoconf</span></samp> as follows to generate an up-to-date
+<samp><span class="file">configure</span></samp> script:
+
+<pre class="example">     $ cd ~/emacs/tramp
+     $ autoconf
+</pre>
+   </body></html>
+

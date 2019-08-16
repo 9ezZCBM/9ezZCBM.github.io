@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Tables in ODT export - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Tables-in-ODT-export"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Images-in-ODT-export.html#Images-in-ODT-export">Images in ODT export</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Links-in-ODT-export.html#Links-in-ODT-export">Links in ODT export</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="OpenDocument-Text-export.html#OpenDocument-Text-export">OpenDocument Text export</a>
+
+</div>
+
+<h4 class="subsection">12.12.7 Tables in ODT export</h4>
+
+<p><a name="index-tables_002c-in-ODT-export-1919"></a>
+The ODT export back-end handles native Org mode tables (see <a href="Tables.html#Tables">Tables</a>) and
+simple <samp><span class="file">table.el</span></samp> tables.  Complex <samp><span class="file">table.el</span></samp> tables having column
+or row spans are not supported.  Such tables are stripped from the exported
+document.
+
+   <p>By default, the ODT export back-end exports a table with top and bottom
+frames and with ruled lines separating row and column groups (see <a href="Column-groups.html#Column-groups">Column groups</a>).  All tables are typeset to occupy the same width.  The ODT export
+back-end honors any table alignments and relative widths for columns
+(see <a href="Column-width-and-alignment.html#Column-width-and-alignment">Column width and alignment</a>).
+
+   <p>Note that the ODT export back-end interprets column widths as weighted
+ratios, the default weight being 1.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bATTR_005fODT_007d-1920"></a>
+Specifying <code>:rel-width</code> property on an <code>#+ATTR_ODT</code> line controls
+the width of the table.  For example:
+
+<pre class="example">     #+ATTR_ODT: :rel-width 50
+     | Area/Month    |   Jan |   Feb |   Mar |   Sum |
+     |---------------+-------+-------+-------+-------|
+     | /             |     &lt; |       |       |     &lt; |
+     | &lt;l13&gt;         |  &lt;r5&gt; |  &lt;r5&gt; |  &lt;r5&gt; |  &lt;r6&gt; |
+     | North America |     1 |    21 |   926 |   948 |
+     | Middle East   |     6 |    75 |   844 |   925 |
+     | Asia Pacific  |     9 |    27 |   790 |   826 |
+     |---------------+-------+-------+-------+-------|
+     | Sum           |    16 |   123 |  2560 |  2699 |
+</pre>
+   <p>On export, the above table takes 50% of text width area.  The exporter sizes
+the columns in the ratio: 13:5:5:5:6.  The first column is left-aligned and
+rest of the columns, right-aligned.  Vertical rules separate the header and
+the last column.  Horizontal rules separate the header and the last row.
+
+   <p>For even more customization, create custom table styles and associate them
+with a table using the <code>#+ATTR_ODT</code> line.  See <a href="Customizing-tables-in-ODT-export.html#Customizing-tables-in-ODT-export">Customizing tables in ODT export</a>.
+
+   </body></html>
+

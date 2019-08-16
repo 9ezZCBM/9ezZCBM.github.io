@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010-2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being "A GNU Manual," and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     "GNU Free Documentation License".
+
+     (a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+     modify this GNU manual."
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div id="content" class="inner">
+
+<h2 class="unnumbered">ERT: Emacs Lisp Regression Testing</h2>
+
+
+
+   <p>ERT is a tool for automated testing in Emacs Lisp.  Its main features
+are facilities for defining tests, running them and reporting the
+results, and for debugging test failures interactively.
+
+   <p>ERT is similar to tools for other environments such as JUnit, but has
+unique features that take advantage of the dynamic and interactive
+nature of Emacs.  Despite its name, it works well both for test-driven
+development (see
+<a href="http://en.wikipedia.org/wiki/Test-driven_development">http://en.wikipedia.org/wiki/Test-driven_development</a>) and for
+traditional software development methods.
+
+<table style="float:left" width="100%">
+  <tr>
+    <td><a accesskey="1" href="Introduction.html#Introduction">Introduction</a></td>
+    <td>A simple example of an ERT test.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="2" href="How-to-Run-Tests.html#How-to-Run-Tests">How to Run Tests</a></td>
+    <td>Run tests in Emacs or from the command line.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="3" href="How-to-Write-Tests.html#How-to-Write-Tests">How to Write Tests</a></td>
+    <td>How to add tests to your Emacs Lisp code.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="4" href="How-to-Debug-Tests.html#How-to-Debug-Tests">How to Debug Tests</a></td>
+    <td>What to do if a test fails.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="5" href="Extending-ERT.html#Extending-ERT">Extending ERT</a></td>
+    <td>ERT is extensible in several ways.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="6" href="Other-Testing-Concepts.html#Other-Testing-Concepts">Other Testing Concepts</a></td>
+    <td>Features not in ERT.</td>
+  </tr>
+  <tr>
+    <td><a accesskey="7" href="Index.html#Index">Index</a></td>
+    <td>Concept, Function and Variable Index</td>
+  </tr>
+  <tr>
+    <td><a accesskey="8" href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a></td>
+    <td>The license for this documentation.
+
+  </td></tr></table>
+
+<h3>Detailed Node Listing</h3></p>
+
+<table  style="float:left" width="100%">
+  <tr>
+    <th colspan="2" align="left" style="text-align:left">How to Run Tests
+
+  </th></tr>
+  <tr>
+    <td><a accesskey="9" href="Running-Tests-Interactively.html#Running-Tests-Interactively">Running Tests Interactively</a></td>
+    <td>Run tests in your current Emacs.</td>
+  </tr>
+  <tr>
+    <td><a href="Running-Tests-in-Batch-Mode.html#Running-Tests-in-Batch-Mode">Running Tests in Batch Mode</a></td>
+    <td>Run tests in emacs -Q.</td>
+  </tr>
+  <tr>
+    <td><a href="Test-Selectors.html#Test-Selectors">Test Selectors</a></td>
+    <td>Choose which tests to run.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">How to Write Tests
+
+  </th></tr>
+  <tr>
+    <td><a href="The-_003ccode_003eshould_003c_002fcode_003e-Macro.html#The-_003ccode_003eshould_003c_002fcode_003e-Macro">The <code>should</code> Macro</a></td>
+    <td>A powerful way to express assertions.</td>
+  </tr>
+  <tr>
+    <td><a href="Expected-Failures.html#Expected-Failures">Expected Failures</a></td>
+    <td>Tests for known bugs.</td>
+  </tr>
+  <tr>
+    <td><a href="Tests-and-Their-Environment.html#Tests-and-Their-Environment">Tests and Their Environment</a></td>
+    <td>Don't depend on customizations; no side effects.</td>
+  </tr>
+  <tr>
+    <td><a href="Useful-Techniques.html#Useful-Techniques">Useful Techniques</a></td>
+    <td>Some examples.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">How to Debug Tests
+
+  </th></tr>
+  <tr>
+    <td><a href="Understanding-Explanations.html#Understanding-Explanations">Understanding Explanations</a></td>
+    <td>How ERT gives details on why an assertion failed.</td>
+  </tr>
+  <tr>
+    <td><a href="Interactive-Debugging.html#Interactive-Debugging">Interactive Debugging</a></td>
+    <td>Tools available in the ERT results buffer.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Extending ERT
+
+  </th></tr>
+  <tr>
+    <td><a href="Defining-Explanation-Functions.html#Defining-Explanation-Functions">Defining Explanation Functions</a></td>
+    <td>Teach ERT about more predicates.</td>
+  </tr>
+  <tr>
+    <td><a href="Low_002dLevel-Functions-for-Working-with-Tests.html#Low_002dLevel-Functions-for-Working-with-Tests">Low-Level Functions for Working with Tests</a></td>
+    <td>Use ERT's data for your purposes.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Other Testing Concepts
+
+  </th></tr>
+  <tr>
+    <td><a href="Mocks-and-Stubs.html#Mocks-and-Stubs">Mocks and Stubs</a></td>
+    <td>Stubbing out code that is irrelevant to the test.</td>
+  </tr>
+  <tr>
+    <td><a href="Fixtures-and-Test-Suites.html#Fixtures-and-Test-Suites">Fixtures and Test Suites</a></td>
+    <td>How ERT differs from tools for other languages.
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Index
+
+  </th></tr>
+  <tr>
+    <td><a href="Index.html#Index">Index</a></td>
+    <td>Concept, Function and Variable Index
+
+  </td></tr>  <tr>
+    <th colspan="2" align="left" style="text-align:left">Appendix
+
+  </th></tr>
+  <tr>
+    <td><a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a></td>
+    <td>The license for this documentation.
+  </td></tr>
+</table>
+<p>Copyright &copy; 2008, 2010&ndash;2019 Free Software Foundation, Inc.
+
+   <blockquote>
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being &ldquo;A GNU Manual,&rdquo;
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled &ldquo;GNU Free Documentation License&rdquo;.
+
+   <p>(a) The FSF's Back-Cover Text is: &ldquo;You have the freedom to copy and
+modify this GNU manual.&rdquo;
+</blockquote>
+</div>
+
+   </body></html>
+
+<!--
+
+Local Variables:
+coding: utf-8
+End:
+
+-->

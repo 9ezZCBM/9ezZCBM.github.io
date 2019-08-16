@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Matching - GNU Emacs Manual</title>
+<!--
+This is the `GNU Emacs Manual',
+updated for Emacs version 26.2.
+
+Copyright (C) 1985--1987, 1993--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with the Invariant Sections being ``The GNU
+     Manifesto,'' ``Distribution'' and ``GNU GENERAL PUBLIC LICENSE,''
+     with the Front-Cover Texts being ``A GNU Manual,'' and with the
+     Back-Cover Texts as in (a) below.  A copy of the license is
+     included in the section entitled ``GNU Free Documentation
+     License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Matching"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Moving-by-Parens.html#Moving-by-Parens">Moving by Parens</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Parentheses.html#Parentheses">Parentheses</a>
+
+</div>
+
+<h4 class="subsection">26.4.3 Matching Parentheses</h4>
+
+<p><a name="index-matching-parentheses-2606"></a><a name="index-parentheses_002c-displaying-matches-2607"></a>
+  Emacs has a number of <dfn>parenthesis matching</dfn> features, which
+make it easy to see how and whether parentheses (or other delimiters)
+match up.
+
+   <p>Whenever you type a self-inserting character that is a closing
+delimiter, Emacs briefly indicates the location of the matching
+opening delimiter, provided that is on the screen.  If it is not on
+the screen, Emacs displays some of the text near it in the echo area. 
+Either way, you can tell which grouping you are closing off.  If the
+opening delimiter and closing delimiter are mismatched&mdash;such as in
+&lsquo;<samp><span class="samp">[x)</span></samp>&rsquo;&mdash;a warning message is displayed in the echo area.
+
+   <p><a name="index-blink_002dmatching_002dparen-2608"></a><a name="index-blink_002dmatching_002dparen_002ddistance-2609"></a><a name="index-blink_002dmatching_002ddelay-2610"></a>  Three variables control the display of matching parentheses:
+
+     <ul>
+<li><code>blink-matching-paren</code> turns the feature on or off: <code>nil</code>
+disables it, but the default is <code>t</code> to enable it.  Set it to
+<code>jump</code> to make indication work by momentarily moving the cursor
+to the matching opening delimiter.  Set it to <code>jump-offscreen</code> to
+make the cursor jump, even if the opening delimiter is off screen.
+
+     <li><code>blink-matching-delay</code> says how many seconds to keep indicating
+the matching opening delimiter.  This may be an integer or
+floating-point number; the default is 1.
+
+     <li><code>blink-matching-paren-distance</code> specifies how many characters
+back to search to find the matching opening delimiter.  If the match
+is not found in that distance, Emacs stops scanning and nothing is
+displayed.  The default is 102400. 
+</ul>
+
+   <p><a name="index-Show-Paren-mode-2611"></a><a name="index-highlighting-matching-parentheses-2612"></a><a name="index-show_002dparen_002dmode-2613"></a>  Show Paren mode, a global minor mode, provides a more powerful kind
+of automatic matching.  Whenever point is before an opening delimiter
+or after a closing delimiter, the delimiter, its matching delimiter,
+and optionally the text between them are highlighted.  To toggle Show
+Paren mode, type <kbd>M-x show-paren-mode</kbd>.  To customize it, type
+<kbd>M-x customize-group &lt;RET&gt; paren-showing</kbd>.  The customizable
+options which control the operation of this mode include:
+
+     <ul>
+<li><a name="index-show_002dparen_002dhighlight_002dopenparen-2614"></a><code>show-paren-highlight-openparen</code> controls whether to highlight
+an open paren when point stands just before it, and hence its position
+is marked by the cursor anyway.  The default is non-<code>nil</code> (yes).
+
+     <li><a name="index-show_002dparen_002dstyle-2615"></a><code>show-paren-style</code> controls whether just the two parens, or also
+the space between them get highlighted.  The valid options here are
+<code>parenthesis</code> (show the matching paren), <code>expression</code>
+(highlight the entire expression enclosed by the parens), and
+<code>mixed</code> (highlight the matching paren if it is visible, the
+expression otherwise).
+
+     <li><a name="index-show_002dparen_002dwhen_002dpoint_002dinside_002dparen-2616"></a><code>show-paren-when-point-inside-paren</code>, when non-<code>nil</code>, causes
+highlighting also when point is on the inside of a parenthesis.
+
+     <li><a name="index-show_002dparen_002dwhen_002dpoint_002din_002dperiphery-2617"></a><code>show-paren-when-point-in-periphery</code>, when non-<code>nil</code>, causes
+highlighting also when point is in whitespace at the beginning or end
+of a line, and there is a paren at, respectively, the first or last,
+or the last, non-whitespace position on the line. 
+</ul>
+
+   <p><a name="index-Electric-Pair-mode-2618"></a><a name="index-inserting-matching-parentheses-2619"></a><a name="index-electric_002dpair_002dmode-2620"></a>  Electric Pair mode, a global minor mode, provides a way to easily
+insert matching delimiters: parentheses, braces, brackets, etc. 
+Whenever you insert an opening delimiter, the matching closing
+delimiter is automatically inserted as well, leaving point between the
+two.  Conversely, when you insert a closing delimiter over an existing
+one, no insertion takes places, and that position is simply skipped
+over.  If the region is active (see <a href="Mark.html#Mark">Mark</a>), insertion of a
+delimiter operates on the region: the characters in the region are
+enclosed in a pair of matching delimiters, leaving point after the
+delimiter you typed.
+
+   <p>These variables control additional features of Electric Pair mode:
+
+     <ul>
+<li><a name="index-electric_002dpair_002dpreserve_002dbalance-2621"></a><code>electric-pair-preserve-balance</code>, when non-<code>nil</code>, makes the
+default pairing logic balance out the number of opening and closing
+delimiters.
+
+     <li><a name="index-electric_002dpair_002ddelete_002dadjacent_002dpairs-2622"></a><code>electric-pair-delete-adjacent-pairs</code>, when non-<code>nil</code>, makes
+backspacing between two adjacent delimiters also automatically delete
+the closing delimiter.
+
+     <li><a name="index-electric_002dpair_002dopen_002dnewline_002dbetween_002dpairs-2623"></a><code>electric-pair-open-newline-between-pairs</code>, when non-<code>nil</code>,
+makes inserting a newline between two adjacent pairs also
+automatically open an extra newline after point.
+
+     <li><a name="index-electric_002dpair_002dskip_002dwhitespace-2624"></a><code>electric-pair-skip-whitespace</code>, when non-<code>nil</code>, causes the minor
+mode to skip whitespace forward before deciding whether to skip over
+the closing delimiter. 
+</ul>
+
+   <p>To toggle Electric Pair mode, type <kbd>M-x electric-pair-mode</kbd>.  To
+toggle the mode in a single buffer, use <kbd>M-x
+electric-pair-local-mode</kbd>.
+
+   </body></html>
+

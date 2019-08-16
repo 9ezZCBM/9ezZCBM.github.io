@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Miscellaneous Commands - Dired Extra User's Manual</title>
+<!--
+Copyright (C) 1994--1995, 1999, 2001--2019
+Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Miscellaneous-Commands"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Bugs.html#Bugs">Bugs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Find-File-At-Point.html#Find-File-At-Point">Find File At Point</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">10 Miscellaneous Commands</h2>
+
+<p>Miscellaneous features not fitting anywhere else:
+
+     <dl>
+<dt><code>dired-find-subdir</code><dd><a name="index-dired_002dfind_002dsubdir-83"></a>Default: <code>nil</code>
+
+     <p>If non-<code>nil</code>, Dired does not make a new buffer for a directory if it can
+be found (perhaps as subdirectory) in some existing Dired buffer.
+
+     <p>If there are several Dired buffers for a directory, the most recently
+used is chosen.
+
+     <p>Dired avoids switching to the current buffer, so that if you have a
+normal and a wildcard buffer for the same directory, <kbd>C-x d &lt;RET&gt;</kbd>
+will toggle between those two. 
+</dl>
+
+     
+<a name="index-dired_002dgoto_002dsubdir-84"></a>
+<a name="index-M_002dG-85"></a>
+<dl><dt><kbd>M-G</kbd><dd>(<code>dired-goto-subdir</code>) Go to the header line of an inserted directory. 
+This command reads its argument, with completion derived from the names of the
+inserted subdirectories. 
+</dl>
+
+     <dl>
+<dt><code>dired-jump</code><dd><a name="index-dired_002djump-86"></a><a name="index-C_002dx-C_002dj-87"></a><a name="index-Jumping-to-Dired-listing-containing-file_002e-88"></a>Bound to <kbd>C-x C-j</kbd>.  Jump back to Dired: If in a file, edit the current
+directory and move to file's line.  If in Dired already, pop up a level and
+go to old directory's line.  In case the proper Dired file line cannot be
+found, refresh the Dired buffer and try again.
+
+     <br><dt><code>dired-jump-other-window</code><dd><a name="index-dired_002djump_002dother_002dwindow-89"></a><a name="index-C_002dx-4-C_002dj-90"></a>Bound to <kbd>C-x 4 C-j</kbd>. Like <code>dired-jump</code>, but to other window.
+
+     <p>These functions can be autoloaded so they work even though <samp><span class="file">dired-x.el</span></samp>
+has not been loaded yet (see <a href="Optional-Installation-Dired-Jump.html#Optional-Installation-Dired-Jump">Optional Installation Dired Jump</a>).
+
+     <p><a name="index-dired_002dbind_002djump-91"></a>If the variable <code>dired-bind-jump</code> is <code>nil</code>, <code>dired-jump</code> will not be
+bound to <kbd>C-x C-j</kbd> and <code>dired-jump-other-window</code> will not be bound to
+<kbd>C-x 4 C-j</kbd>.
+
+     <br><dt><code>dired-vm</code><dd><a name="index-Reading-mail_002e-92"></a><a name="index-V-93"></a><a name="index-dired_002dvm-94"></a>Bound to <kbd>V</kbd> if <code>dired-bind-vm</code> is <code>t</code>.  Run VM on this
+file (assumed to be a UNIX mail folder).
+
+     <p><a name="index-dired_002dvm_002dread_002donly_002dfolders-95"></a>If you give this command a prefix argument, it will visit the folder
+read-only.
+
+     <p>If the variable <code>dired-vm-read-only-folders</code> is <code>t</code>,
+<code>dired-vm</code> will visit all folders read-only.  If it is neither
+<code>nil</code> nor <code>t</code>, e.g., the symbol <code>if-file-read-only</code>, only
+files not writable by you are visited read-only.
+
+     <p><a name="index-dired_002dbind_002dvm-96"></a>If the variable <code>dired-bind-vm</code> is <code>t</code>, <code>dired-vm</code> will be bound
+to <kbd>V</kbd>.  Otherwise, <code>dired-bind-rmail</code> will be bound.
+
+     <br><dt><code>dired-rmail</code><dd><a name="index-Reading-mail_002e-97"></a><a name="index-dired_002drmail-98"></a>Bound to <kbd>V</kbd> if <code>dired-bind-vm</code> is <code>nil</code>.  Run Rmail on this
+file (assumed to be mail folder in Rmail format).
+
+     <br><dt><code>dired-info</code><dd><a name="index-I-99"></a><a name="index-Running-info_002e-100"></a><a name="index-dired_002dinfo-101"></a>Bound to <kbd>I</kbd>.  Run Info on this file (assumed to be a file in Info
+format).
+
+     <p><a name="index-dired_002dbind_002dinfo-102"></a>If the variable <code>dired-bind-info</code> is <code>nil</code>, <code>dired-info</code> will
+not be bound to <kbd>I</kbd>.
+
+     <br><dt><code>dired-man</code><dd><a name="index-Running-man_002e-103"></a><a name="index-N-104"></a><a name="index-dired_002dman-105"></a>Bound to <kbd>N</kbd>.  Run man on this file (assumed to be a file in <code>nroff</code>
+format).
+
+     <p><a name="index-dired_002dbind_002dman-106"></a>If the variable <code>dired-bind-man</code> is <code>nil</code>, <code>dired-man</code> will not
+be bound to <kbd>N</kbd>.
+
+     <br><dt><code>dired-do-relsymlink</code><dd><a name="index-Relative-symbolic-links_002e-107"></a><a name="index-Y-108"></a><a name="index-dired_002ddo_002drelsymlink-109"></a>Bound to <kbd>Y</kbd>.  Relative symlink all marked (or next ARG) files into a
+directory, or make a relative symbolic link to the current file.  This creates
+relative symbolic links like
+
+     <pre class="example">              foo -&gt; ../bar/foo
+</pre>
+     <p class="noindent">not absolute ones like
+
+     <pre class="example">              foo -&gt; /ugly/path/that/may/change/any/day/bar/foo
+</pre>
+     <br><dt><code>dired-do-relsymlink-regexp</code><dd><a name="index-g_t_0025Y-110"></a><a name="index-dired_002ddo_002drelsymlink_002dregexp-111"></a>Bound to <kbd>%Y</kbd>.  Relative symlink all marked files containing
+<var>regexp</var> to <var>newname</var>.  See functions
+<code>dired-do-rename-regexp</code> and <code>dired-do-relsymlink</code> for more
+info. 
+</dl>
+
+   </body></html>
+

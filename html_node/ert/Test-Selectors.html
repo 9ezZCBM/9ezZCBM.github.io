@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Test Selectors - Emacs Lisp Regression Testing</title>
+<!--
+Copyright (C) 2008, 2010--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Test-Selectors"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Running-Tests-in-Batch-Mode.html#Running-Tests-in-Batch-Mode">Running Tests in Batch Mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="How-to-Run-Tests.html#How-to-Run-Tests">How to Run Tests</a>
+
+</div>
+
+<h3 class="section">2.3 Test Selectors</h3>
+
+<p><a name="index-test-selector-21"></a><a name="index-selecting-tests-22"></a>
+Functions like <code>ert</code> accept a <em>test selector</em>, a Lisp
+expression specifying a set of tests.  Test selector syntax is similar
+to Common Lisp's type specifier syntax:
+
+     <ul>
+<li><code>nil</code> selects no tests. 
+<li><code>t</code> selects all tests. 
+<li><code>:new</code> selects all tests that have not been run yet. 
+<li><code>:failed</code> and <code>:passed</code> select tests according to their most recent result. 
+<li><code>:expected</code>, <code>:unexpected</code> select tests according to their most recent result. 
+<li>A string is a regular expression that selects all tests with matching names. 
+<li>A test (i.e., an object of <code>ert-test</code> data type) selects that test. 
+<li>A symbol selects the test that the symbol names. 
+<li><code>(member </code><var>tests</var><code>...)</code> selects the elements of
+<var>tests</var>, a list of tests or symbols naming tests. 
+<li><code>(eql </code><var>test</var><code>)</code> selects <var>test</var>, a test or a symbol
+naming a test. 
+<li><code>(and </code><var>selectors</var><code>...)</code> selects the tests that match
+all <var>selectors</var>. 
+<li><code>(or </code><var>selectors</var><code>...)</code> selects the tests that match
+any of the <var>selectors</var>. 
+<li><code>(not </code><var>selector</var><code>)</code> selects all tests that do not match
+<var>selector</var>. 
+<li><code>(tag </code><var>tag</var><code>)</code> selects all tests that have <var>tag</var> on
+their tags list. 
+(Tags are optional labels you can apply to tests when you define them.) 
+<li><code>(satisfies </code><var>predicate</var><code>)</code> selects all tests that
+satisfy <var>predicate</var>, a function that takes a test as argument and
+returns non-<code>nil</code> if it is selected. 
+</ul>
+
+   <p>Selectors that are frequently useful when selecting tests to run
+include <code>t</code> to run all tests that are currently defined in Emacs,
+<code>"^foo-"</code> to run all tests in package <code>foo</code> (this assumes
+that package <code>foo</code> uses the prefix <code>foo-</code> for its test names),
+result-based selectors such as <code>(or :new :unexpected)</code> to
+run all tests that have either not run yet or that had an unexpected
+result in the last run, and tag-based selectors such as <code>(not
+(tag :causes-redisplay))</code> to run all tests that are not tagged
+<code>:causes-redisplay</code>.
+
+   </body></html>
+

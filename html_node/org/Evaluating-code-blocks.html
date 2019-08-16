@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Evaluating code blocks - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Evaluating-code-blocks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Library-of-Babel.html#Library-of-Babel">Library of Babel</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Extracting-source-code.html#Extracting-source-code">Extracting source code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Working-with-source-code.html#Working-with-source-code">Working with source code</a>
+
+</div>
+
+<h3 class="section">14.5 Evaluating code blocks</h3>
+
+<p><a name="index-code-block_002c-evaluating-2104"></a><a name="index-source-code_002c-evaluating-2105"></a><a name="index-g_t_0040code_007b_0023_002bRESULTS_007d-2106"></a>
+A note about security: With code evaluation comes the risk of harm.  Org
+safeguards by prompting for user's permission before executing any code in
+the source block.  To customize this safeguard (or disable it) see <a href="Code-evaluation-security.html#Code-evaluation-security">Code evaluation security</a>.
+
+   <p>Org captures the results of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block evaluation and inserts
+them in the Org file, right after the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block.  The insertion
+point is after a newline and the <code>#+RESULTS</code> label.  Org creates the
+<code>#+RESULTS</code> label if one is not already there.
+
+   <p>By default, Org enables only <code>emacs-lisp</code> &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks for
+execution.  See <a href="Languages.html#Languages">Languages</a> for identifiers to enable other languages.
+
+   <p><a name="index-C_002dc-C_002dc-2107"></a>Org provides many ways to execute &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks.  <kbd>C-c C-c</kbd> or
+<kbd>C-c C-v e</kbd> with the point on a &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> calls the
+<code>org-babel-execute-src-block</code> function, which executes the code in the
+block, collects the results, and inserts them in the buffer.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bCALL_007d-2108"></a>By calling a named code block<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>
+from an Org mode buffer or a table.  Org can call the named &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code
+blocks from the current Org mode buffer or from the &ldquo;Library of Babel&rdquo;
+(see <a href="Library-of-Babel.html#Library-of-Babel">Library of Babel</a>).  Whether inline syntax or the <code>#+CALL:</code>
+syntax is used, the result is wrapped based on the variable
+<code>org-babel-inline-result-wrap</code>, which by default is set to <code>"=%s="</code>
+to produce verbatim text suitable for markup.
+
+   <p>The syntax for <code>#+CALL:</code> is
+
+<pre class="example">     #+CALL: &lt;name&gt;(&lt;arguments&gt;)
+     #+CALL: &lt;name&gt;[&lt;inside header arguments&gt;](&lt;arguments&gt;) &lt;end header arguments&gt;
+</pre>
+   <p>The syntax for inline named code block is
+
+<pre class="example">     ... call_&lt;name&gt;(&lt;arguments&gt;) ...
+     ... call_&lt;name&gt;[&lt;inside header arguments&gt;](&lt;arguments&gt;)[&lt;end header arguments&gt;] ...
+</pre>
+     <dl>
+<dt><code>&lt;name&gt;</code><dd>This is the name of the code block to be evaluated (see <a href="Structure-of-code-blocks.html#Structure-of-code-blocks">Structure of code blocks</a>). 
+<br><dt><code>&lt;arguments&gt;</code><dd>Org passes arguments to the code block using standard function call syntax. 
+For example, a <code>#+CALL:</code> line that passes &lsquo;<samp><span class="samp">4</span></samp>&rsquo; to a code block named
+<code>double</code>, which declares the header argument <code>:var n=2</code>, would be
+written as <code>#+CALL: double(n=4)</code>.  Note how this function call syntax is
+different from the header argument syntax. 
+<br><dt><code>&lt;inside header arguments&gt;</code><dd>Org passes inside header arguments to the named &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block using
+the header argument syntax.  Inside header arguments apply to code block
+evaluation.  For example, <code>[:results output]</code> collects results printed
+to <code>STDOUT</code> during code execution of that block.  Note how this header
+argument syntax is different from the function call syntax. 
+<br><dt><code>&lt;end header arguments&gt;</code><dd>End header arguments affect the results returned by the code block.  For
+example, <code>:results html</code> wraps the results in a <code>BEGIN_EXPORT html</code>
+block before inserting the results in the Org buffer.
+
+     <p>For more examples of header arguments for <code>#+CALL:</code> lines,
+see <a href="Arguments-in-function-calls.html#Arguments-in-function-calls">Arguments in function calls</a>. 
+</dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> The option
+<code>org-babel-no-eval-on-ctrl-c-ctrl-c</code> can be used to remove code
+evaluation from the <kbd>C-c C-c</kbd> key binding.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> Actually, the constructs call_&lt;name&gt;()
+and src_&lt;lang&gt;{} are not evaluated when they appear in a keyword line
+(i.e. lines starting with <code>#+KEYWORD:</code>, see <a href="In_002dbuffer-settings.html#In_002dbuffer-settings">In-buffer settings</a>).</p>
+
+   <hr></div>
+
+   </body></html>
+

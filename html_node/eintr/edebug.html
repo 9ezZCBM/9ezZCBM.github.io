@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>edebug - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="edebug"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Debugging-Exercises.html#Debugging-Exercises">Debugging Exercises</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="debug_002don_002dquit.html#debug_002don_002dquit">debug-on-quit</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debugging.html#Debugging">Debugging</a>
+
+</div>
+
+<h3 class="section">17.4 The <code>edebug</code> Source Level Debugger</h3>
+
+<p><a name="index-Source-level-debugger-358"></a><a name="index-edebug-359"></a>
+Edebug is a source level debugger.  Edebug normally displays the
+source of the code you are debugging, with an arrow at the left that
+shows which line you are currently executing.
+
+   <p>You can walk through the execution of a function, line by line, or run
+quickly until reaching a <dfn>breakpoint</dfn> where execution stops.
+
+   <p>Edebug is described in <a href="../elisp/Edebug.html#Edebug">Edebug</a>.
+
+   <p>Here is a bugged function definition for <code>triangle-recursively</code>. 
+See <a href="Recursive-triangle-function.html#Recursive-triangle-function">Recursion in place of a counter</a>,
+for a review of it.
+
+<pre class="smallexample">     (defun triangle-recursively-bugged (number)
+       "Return sum of numbers 1 through NUMBER inclusive.
+     Uses recursion."
+       (if (= number 1)
+           1
+         (+ number
+            (triangle-recursively-bugged
+             (1= number)))))               ; <span class="roman">Error here.</span>
+</pre>
+   <p class="noindent">Normally, you would install this definition by positioning your cursor
+after the function's closing parenthesis and typing <kbd>C-x C-e</kbd>
+(<code>eval-last-sexp</code>) or else by positioning your cursor within the
+definition and typing <kbd>C-M-x</kbd> (<code>eval-defun</code>).  (By default,
+the <code>eval-defun</code> command works only in Emacs Lisp mode or in Lisp
+Interaction mode.)
+
+   <p>However, to prepare this function definition for Edebug, you must
+first <dfn>instrument</dfn> the code using a different command.  You can do
+this by positioning your cursor within or just after the definition
+and typing
+
+<pre class="smallexample">     M-x edebug-defun &lt;RET&gt;
+</pre>
+   <p class="noindent">This will cause Emacs to load Edebug automatically if it is not
+already loaded, and properly instrument the function.
+
+   <p>After instrumenting the function, place your cursor after the
+following expression and type <kbd>C-x C-e</kbd> (<code>eval-last-sexp</code>):
+
+<pre class="smallexample">     (triangle-recursively-bugged 3)
+</pre>
+   <p class="noindent">You will be jumped back to the source for
+<code>triangle-recursively-bugged</code> and the cursor positioned at the
+beginning of the <code>if</code> line of the function.  Also, you will see
+an arrowhead at the left hand side of that line.  The arrowhead marks
+the line where the function is executing.  (In the following examples,
+we show the arrowhead with &lsquo;<samp><span class="samp">=&gt;</span></samp>&rsquo;; in a windowing system, you may
+see the arrowhead as a solid triangle in the window fringe.)
+
+<pre class="smallexample">     =&gt;-!-(if (= number 1)
+</pre>
+   <p class="noindent">In the example, the location of point is displayed as &lsquo;<samp><span class="samp">-!-</span></samp>&rsquo;
+(in a printed book, it is displayed with a five pointed star).
+
+   <p>If you now press &lt;SPC&gt;, point will move to the next expression to
+be executed; the line will look like this:
+
+<pre class="smallexample">     =&gt;(if -!-(= number 1)
+</pre>
+   <p class="noindent">As you continue to press &lt;SPC&gt;, point will move from expression to
+expression.  At the same time, whenever an expression returns a value,
+that value will be displayed in the echo area.  For example, after you
+move point past <code>number</code>, you will see the following:
+
+<pre class="smallexample">     Result: 3 (#o3, #x3, ?\C-c)
+</pre>
+   <p class="noindent">This means the value of <code>number</code> is 3, which is octal three,
+hexadecimal three, and <span class="sc">ascii</span> Control-C (the third letter of the
+alphabet, in case you need to know this information).
+
+   <p>You can continue moving through the code until you reach the line with
+the error.  Before evaluation, that line looks like this:
+
+<pre class="smallexample">     =&gt;        -!-(1= number)))))               ; <span class="roman">Error here.</span>
+</pre>
+   <p class="noindent">When you press &lt;SPC&gt; once again, you will produce an error message
+that says:
+
+<pre class="smallexample">     Symbol's function definition is void: 1=
+</pre>
+   <p class="noindent">This is the bug.
+
+   <p>Press <kbd>q</kbd> to quit Edebug.
+
+   <p>To remove instrumentation from a function definition, simply
+re-evaluate it with a command that does not instrument it. 
+For example, you could place your cursor after the definition's
+closing parenthesis and type <kbd>C-x C-e</kbd>.
+
+   <p>Edebug does a great deal more than walk with you through a function. 
+You can set it so it races through on its own, stopping only at an
+error or at specified stopping points; you can cause it to display the
+changing values of various expressions; you can find out how many
+times a function is called, and more.
+
+   <p>Edebug is described in <a href="../elisp/Edebug.html#Edebug">Edebug</a>.
+
+   </body></html>
+

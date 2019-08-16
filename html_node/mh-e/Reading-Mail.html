@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Reading Mail - The MH-E Manual</title>
+<!--
+This is version 8.6 of `The MH-E
+Manual', last updated 2016-04-29.
+
+Copyright (C) 1995, 2001--2003, 2005--2019 Free Software
+Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of either:
+
+       a. the GNU Free Documentation License, Version 1.3 or any later
+          version published by the Free Software Foundation; with no
+          Invariant Sections, with the Front-Cover Texts being ``A GNU
+          Manual,'' and with the Back-Cover Texts as in (a) below. A
+          copy of the license is included in the section entitled ``GNU
+          Free Documentation License.''
+
+          (a) The FSF's Back-Cover Text is: ``You have the freedom to
+          copy and modify this GNU manual.''
+
+       b. the GNU General Public License as published by the Free
+          Software Foundation; either version 3, or (at your option)
+          any later version. A copy of the license is included in the
+          section entitled ``GNU General Public License.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Reading-Mail"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Folders.html#Folders">Folders</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Incorporating-Mail.html#Incorporating-Mail">Incorporating Mail</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">6 Reading Your Mail</h2>
+
+<p><a name="index-g_t_0040samp_007b_002binbox_007d-300"></a><a name="index-MH_002dFolder-mode-301"></a><a name="index-MH_002dShow-mode-302"></a><a name="index-modes_002c-MH_002dFolder-303"></a><a name="index-modes_002c-MH_002dShow-304"></a><a name="index-reading-mail-305"></a><a name="index-mh_002drmail-306"></a><a name="index-F-r-307"></a><a name="index-F-v-308"></a>
+The MH-E entry point for reading mail is <kbd>M-x mh-rmail</kbd>. This
+command incorporates your mail and creates a buffer called
+&lsquo;<samp><span class="samp">+inbox</span></samp>&rsquo; in MH-Folder mode. The command <kbd>M-x mh-rmail</kbd> shows
+you only new mail, not mail you have already read<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.
+
+   <p><a name="index-display_002dtime-309"></a><a name="index-read_002dmail_002dcommand-310"></a>
+There are some commands that need to read mail, such as <kbd>mouse-2</kbd>
+over the &lsquo;<samp><span class="samp">Mail</span></samp>&rsquo; button that <code>display-time</code> adds to the mode
+line. You can configure Emacs to have these commands use MH-E by
+setting the option <code>read-mail-command</code> to &lsquo;<samp><span class="samp">mh-rmail</span></samp>&rsquo;.
+
+   <p><a name="index-g_t_0040command_007bscan_007d-311"></a><a name="index-g_t_0040samp_007bMessage_007d-menu-312"></a><a name="index-MH-commands_002c-_0040command_007bscan_007d-313"></a><a name="index-menu_002c-_0040samp_007bMessage_007d-314"></a><a name="index-scan-lines-315"></a>
+The &lsquo;<samp><span class="samp">+inbox</span></samp>&rsquo; buffer contains <dfn>scan lines</dfn>, which are one-line
+summaries of each incorporated message. You can perform most MH
+commands on these messages via one- or two-letter commands in either
+the MH-Folder or MH-Show buffers or by using the &lsquo;<samp><span class="samp">Message</span></samp>&rsquo; menu. 
+See <samp><span class="command">scan</span></samp>(1) for a description of the contents of the scan
+lines, and see the Figure in <a href="Reading-Mail-Tour.html#Reading-Mail-Tour">Reading Mail Tour</a>, for an example.
+
+     
+<a name="index-g_t_003f-316"></a>
+<a name="index-mh_002dhelp-317"></a>
+<dl><dt><kbd>?</kbd><dd>Display cheat sheet for the MH-E commands (<code>mh-help</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Show-Message_007d-menu-item-318"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Show-Message_007d-319"></a><a name="index-RET-320"></a><a name="index-mh_002dshow-321"></a><br><dt><kbd>&lt;RET&gt;</kbd><dd>Display message (<code>mh-show</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Show-Message-with-Header_007d-menu-item-322"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Show-Message-with-Header_007d-323"></a><a name="index-g_t_002c-_0040r_007b_0028comma_0029_007d-324"></a><a name="index-mh_002dheader_002ddisplay-325"></a><br><dt><kbd>, (comma)</kbd><dd>Display message with all header fields (<code>mh-header-display</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Show-Message-with-Preferred-Alternative_007d-menu-item-326"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Show-Message-with-Preferred-Alternative_007d-327"></a><a name="index-g_t_003a-_0040r_007b_0028colon_0029_007d-328"></a><a name="index-mh_002dshow_002dpreferred_002dalternative-329"></a><br><dt><kbd>: (colon)</kbd><dd>Display message with the default preferred alternative
+(<code>mh-show-preferred-alternative</code>). 
+<!--  -->
+<a name="index-g_t_003b-_0040r_007b_0028semicolon_0029_007d-330"></a><a name="index-mh_002dtoggle_002dmh_002ddecode_002dmime_002dflag-331"></a><br><dt><kbd>; (semicolon)</kbd><dd>Toggle the value of <code>mh-decode-mime-flag</code>
+(<code>mh-toggle-mh-decode-mime-flag</code>). 
+<!--  -->
+<a name="index-SPC-332"></a><a name="index-mh_002dpage_002dmsg-333"></a><br><dt><kbd>&lt;SPC&gt;</kbd><dd>Display next page in message (<code>mh-page-msg</code>). 
+<!--  -->
+<a name="index-BS-334"></a><a name="index-mh_002dprevious_002dpage-335"></a><br><dt><kbd>&lt;BS&gt;</kbd><dd>Display previous page in message (<code>mh-previous-page</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Write-Message-to-File_002e_002e_002e_007d-menu-item-336"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Write-Message-to-File_002e_002e_002e_007d-337"></a><a name="index-g_t_003e-338"></a><a name="index-mh_002dwrite_002dmsg_002dto_002dfile-339"></a><br><dt><kbd>&gt;</kbd><dd>Append message to end of file (<code>mh-write-msg-to-file</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Pipe-Message-to-Command_002e_002e_002e_007d-menu-item-340"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Pipe-Message-to-Command_002e_002e_002e_007d-341"></a><a name="index-g_t_007c-342"></a><a name="index-mh_002dpipe_002dmsg-343"></a><br><dt><kbd>|</kbd><dd>Pipe message through shell command (<code>mh-pipe-msg</code>). 
+<!--  -->
+<a name="index-C_002dd-344"></a><a name="index-mh_002ddelete_002dmsg_002dno_002dmotion-345"></a><br><dt><kbd>C-d</kbd><dd>Delete range, don't move to next message
+(<code>mh-delete-msg-no-motion</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Delete-Message_007d-menu-item-346"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Delete-Message_007d-347"></a><a name="index-d-348"></a><a name="index-mh_002ddelete_002dmsg-349"></a><br><dt><kbd>d</kbd><dd>Delete range (<code>mh-delete-msg</code>). 
+<!--  -->
+<a name="index-D-_003f-350"></a><a name="index-mh_002dprefix_002dhelp-351"></a><br><dt><kbd>D ?</kbd><dd>Display cheat sheet for the commands of the current prefix in
+minibuffer (<code>mh-prefix-help</code>). 
+<!--  -->
+<a name="index-D-SPC-352"></a><a name="index-mh_002dpage_002ddigest-353"></a><br><dt><kbd>D &lt;SPC&gt;</kbd><dd>Display next message in digest (<code>mh-page-digest</code>). 
+<!--  -->
+<a name="index-D-BS-354"></a><a name="index-mh_002dpage_002ddigest_002dbackwards-355"></a><br><dt><kbd>D &lt;BS&gt;</kbd><dd>Display previous message in digest (<code>mh-page-digest-backwards</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Burst-Digest-Message_007d-menu-item-356"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Burst-Digest-Message_007d-357"></a><a name="index-D-b-358"></a><a name="index-mh_002dburst_002ddigest-359"></a><br><dt><kbd>D b</kbd><dd>Break up digest into separate messages (<code>mh-burst-digest</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Go-to-Message-by-Number_002e_002e_002e_007d-menu-item-360"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Go-to-Message-by-Number_002e_002e_002e_007d-361"></a><a name="index-g-362"></a><a name="index-mh_002dgoto_002dmsg-363"></a><br><dt><kbd>g</kbd><dd>Go to a message (<code>mh-goto-msg</code>). 
+<!--  -->
+<a name="index-k-364"></a><a name="index-mh_002ddelete_002dsubject_002dor_002dthread-365"></a><br><dt><kbd>k</kbd><dd>Delete messages with same subject or thread
+(<code>mh-delete-subject-or-thread</code>). 
+<!--  -->
+<a name="index-K-_003f-366"></a><a name="index-mh_002dprefix_002dhelp-367"></a><br><dt><kbd>K ?</kbd><dd>Display cheat sheet for the commands of the current prefix in
+minibuffer (<code>mh-prefix-help</code>). 
+<!--  -->
+<a name="index-K-TAB-368"></a><a name="index-mh_002dnext_002dbutton-369"></a><br><dt><kbd>K &lt;TAB&gt;</kbd><dd>Go to the next button (<code>mh-next-button</code>). 
+<!--  -->
+<a name="index-K-S_002dTAB-370"></a><a name="index-mh_002dprev_002dbutton-371"></a><br><dt><kbd>K S-&lt;TAB&gt;</kbd><dd>Go to the previous button (<code>mh-prev-button</code>). 
+<!--  -->
+<a name="index-K-a-372"></a><a name="index-mh_002dmime_002dsave_002dparts-373"></a><br><dt><kbd>K a</kbd><dd>Save attachments (<code>mh-mime-save-parts</code>). 
+<!--  -->
+<a name="index-K-e-374"></a><a name="index-mh_002ddisplay_002dwith_002dexternal_002dviewer-375"></a><br><dt><kbd>K e</kbd><dd>View attachment externally (<code>mh-display-with-external-viewer</code>). 
+<!--  -->
+<a name="index-K-i-376"></a><a name="index-mh_002dfolder_002dinline_002dmime_002dpart-377"></a><br><dt><kbd>K i</kbd><dd>Show attachment verbatim (<code>mh-folder-inline-mime-part</code>). 
+<!--  -->
+<a name="index-K-o-378"></a><a name="index-mh_002dfolder_002dsave_002dmime_002dpart-379"></a><br><dt><kbd>K o</kbd><dd>Save (output) attachment (<code>mh-folder-save-mime-part</code>). 
+<!--  -->
+<a name="index-K-t-380"></a><a name="index-mh_002dtoggle_002dmime_002dbuttons-381"></a><br><dt><kbd>K t</kbd><dd>Toggle option <code>mh-display-buttons-for-inline-parts-flag</code>
+(<code>mh-toggle-mime-buttons</code>). 
+<!--  -->
+<a name="index-K-v-382"></a><a name="index-mh_002dfolder_002dtoggle_002dmime_002dpart-383"></a><br><dt><kbd>K v</kbd><dd>View attachment (<code>mh-folder-toggle-mime-part</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Modify-Message_007d-menu-item-384"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Modify-Message_007d-385"></a><a name="index-M-386"></a><a name="index-mh_002dmodify-387"></a><br><dt><kbd>M</kbd><dd>Edit message (<code>mh-modify</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Go-to-First-Message_007d-menu-item-388"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Go-to-First-Message_007d-389"></a><a name="index-M_002d_003c-390"></a><a name="index-mh_002dfirst_002dmsg-391"></a><br><dt><kbd>M-&lt;</kbd><dd>Display first message (<code>mh-first-msg</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Go-to-Last-Message_007d-menu-item-392"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Go-to-Last-Message_007d-393"></a><a name="index-M_002d_003e-394"></a><a name="index-mh_002dlast_002dmsg-395"></a><br><dt><kbd>M-&gt;</kbd><dd>Display last message (<code>mh-last-msg</code>). 
+<!--  -->
+<a name="index-M_002dn-396"></a><a name="index-mh_002dnext_002dunread_002dmsg-397"></a><br><dt><kbd>M-n</kbd><dd>Display next unread message (<code>mh-next-unread-msg</code>). 
+<!--  -->
+<a name="index-M_002dp-398"></a><a name="index-mh_002dprevious_002dunread_002dmsg-399"></a><br><dt><kbd>M-p</kbd><dd>Display previous unread message (<code>mh-previous-unread-msg</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Next-Message_007d-menu-item-400"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Next-Message_007d-401"></a><a name="index-n-402"></a><a name="index-mh_002dnext_002dundeleted_002dmsg-403"></a><br><dt><kbd>n</kbd><dd>Display next message (<code>mh-next-undeleted-msg</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Previous-Message_007d-menu-item-404"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Previous-Message_007d-405"></a><a name="index-p-406"></a><a name="index-mh_002dprevious_002dundeleted_002dmsg-407"></a><br><dt><kbd>p</kbd><dd>Display previous message (<code>mh-previous-undeleted-msg</code>). 
+<!--  -->
+<a name="index-P-_003f-408"></a><a name="index-mh_002dprefix_002dhelp-409"></a><br><dt><kbd>P ?</kbd><dd>Display cheat sheet for the commands of the current prefix in
+minibuffer (<code>mh-prefix-help</code>). 
+<!--  -->
+<a name="index-P-C-410"></a><a name="index-mh_002dps_002dprint_002dtoggle_002dcolor-411"></a><br><dt><kbd>P C</kbd><dd>Toggle whether color is used in printing messages
+(<code>mh-ps-print-toggle-color</code>). 
+<!--  -->
+<a name="index-P-F-412"></a><a name="index-mh_002dps_002dprint_002dtoggle_002dfaces-413"></a><br><dt><kbd>P F</kbd><dd>Toggle whether printing is done with faces or not
+(<code>mh-ps-print-toggle-faces</code>). 
+<!--  -->
+<a name="index-P-f-414"></a><a name="index-mh_002dps_002dprint_002dmsg_002dfile-415"></a><br><dt><kbd>P f</kbd><dd>Print range to file (<code>mh-ps-print-msg-file</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Print-Message_007d-menu-item-416"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Print-Message_007d-417"></a><a name="index-P-l-418"></a><a name="index-mh_002dprint_002dmsg-419"></a><br><dt><kbd>P l</kbd><dd>Print range the old fashioned way
+(<code>mh-print-msg</code>). 
+<!--  -->
+<a name="index-P-p-420"></a><a name="index-mh_002dps_002dprint_002dmsg-421"></a><br><dt><kbd>P p</kbd><dd>Print range (<code>mh-ps-print-msg</code>). 
+<!--  -->
+<a name="index-X-_003f-422"></a><a name="index-mh_002dprefix_002dhelp-423"></a><br><dt><kbd>X ?</kbd><dd>Display cheat sheet for the commands of the current prefix in
+minibuffer (<code>mh-prefix-help</code>). 
+<!--  -->
+<a name="index-g_t_0040samp_007bMessage-_003e-Unpack-Uuencoded-Message_002e_002e_002e_007d-menu-item-424"></a><a name="index-menu-item_002c-_0040samp_007bMessage-_003e-Unpack-Uuencoded-Message_002e_002e_002e_007d-425"></a><a name="index-X-s-426"></a><a name="index-X-u-427"></a><a name="index-mh_002dstore_002dmsg-428"></a><br><dt><kbd>X s</kbd><dt><kbd>X u</kbd><dd>Unpack message created with <samp><span class="command">uudecode</span></samp> or <samp><span class="command">shar</span></samp>
+(<code>mh-store-msg</code>). 
+<!--  -->
+<a name="index-mouse_002d2-429"></a><a name="index-mh_002dshow_002dmouse-430"></a><br><dt><kbd>mouse-2</kbd><dd>Move point to mouse event and show message (<code>mh-show-mouse</code>). 
+</dl>
+
+   <p>Within the MH-Show buffer, the following command is defined.
+
+     
+<a name="index-RET-431"></a>
+<a name="index-mouse_002d1-432"></a>
+<a name="index-mouse_002d2-433"></a>
+<a name="index-mh_002dpress_002dbutton-434"></a>
+<dl><dt><kbd>&lt;RET&gt;</kbd><dt><kbd>mouse-1</kbd><dt><kbd>mouse-2</kbd><dd>View contents of button (<code>mh-press-button</code>). 
+</dl>
+
+   <p><a name="index-g_t_0040samp_007bmh_002dshow_007d-customization-group-435"></a><a name="index-customization-group_002c-_0040samp_007bmh_002dshow_007d-436"></a>
+The following table lists options in the &lsquo;<samp><span class="samp">mh-show</span></samp>&rsquo; customization
+group that are used while reading mail.
+
+     <dl>
+<dt><code>mh-bury-show-buffer-flag</code><a name="index-mh_002dbury_002dshow_002dbuffer_002dflag-437"></a><dd>On means show buffer is buried (default: &lsquo;<samp><span class="samp">on</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-clean-message-header-flag</code><a name="index-mh_002dclean_002dmessage_002dheader_002dflag-438"></a><dd>On means remove extraneous header fields (default: &lsquo;<samp><span class="samp">on</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-decode-mime-flag</code><a name="index-mh_002ddecode_002dmime_002dflag-439"></a><dd>On means attachments are handled (default: &lsquo;<samp><span class="samp">on</span></samp>&rsquo; if the Gnus
+&lsquo;<samp><span class="samp">mm-decode</span></samp>&rsquo; package is present). 
+<!--  -->
+<br><dt><code>mh-display-buttons-for-alternatives-flag</code><a name="index-mh_002ddisplay_002dbuttons_002dfor_002dalternatives_002dflag-440"></a><dd>On means display buttons for all alternative attachments (default:
+&lsquo;<samp><span class="samp">off</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-display-buttons-for-inline-parts-flag</code><a name="index-mh_002ddisplay_002dbuttons_002dfor_002dinline_002dparts_002dflag-441"></a><dd>On means display buttons for all inline attachments (default:
+&lsquo;<samp><span class="samp">off</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-do-not-confirm-flag</code><a name="index-mh_002ddo_002dnot_002dconfirm_002dflag-442"></a><dd>On means non-reversible commands do not prompt for confirmation
+(default: &lsquo;<samp><span class="samp">off</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-fetch-x-image-url</code><a name="index-mh_002dfetch_002dx_002dimage_002durl-443"></a><dd>Control fetching of &lsquo;<samp><span class="samp">X-Image-URL:</span></samp>&rsquo; header field image (default:
+&lsquo;<samp><span class="samp">Never Fetch</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-graphical-smileys-flag</code><a name="index-mh_002dgraphical_002dsmileys_002dflag-444"></a><dd>On means graphical smileys are displayed (default: &lsquo;<samp><span class="samp">on</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-graphical-emphasis-flag</code><a name="index-mh_002dgraphical_002demphasis_002dflag-445"></a><dd>On means graphical emphasis is displayed (default: &lsquo;<samp><span class="samp">on</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-highlight-citation-style</code><a name="index-mh_002dhighlight_002dcitation_002dstyle-446"></a><dd>Style for highlighting citations (default: &lsquo;<samp><span class="samp">Multicolor</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-invisible-header-fields-default</code><a name="index-mh_002dinvisible_002dheader_002dfields_002ddefault-447"></a><dd>List of hidden header fields (default: a checklist too long to list
+here). 
+<!--  -->
+<br><dt><code>mh-invisible-header-fields</code><a name="index-mh_002dinvisible_002dheader_002dfields-448"></a><dd>Additional header fields to hide (default: <code>nil</code>). 
+<!--  -->
+<br><dt><code>mh-lpr-command-format</code><a name="index-mh_002dlpr_002dcommand_002dformat-449"></a><dd>Command used to print (default: <code>"lpr -J '%s'"</code>). 
+<!--  -->
+<br><dt><code>mh-max-inline-image-height</code><a name="index-mh_002dmax_002dinline_002dimage_002dheight-450"></a><dd>Maximum inline image height if &lsquo;<samp><span class="samp">Content-Disposition:</span></samp>&rsquo; is not
+present (default: 0). 
+<!--  -->
+<br><dt><code>mh-max-inline-image-width</code><a name="index-mh_002dmax_002dinline_002dimage_002dwidth-451"></a><dd>Maximum inline image width if &lsquo;<samp><span class="samp">Content-Disposition:</span></samp>&rsquo; is not
+present(default: 0). 
+<!--  -->
+<br><dt><code>mh-mhl-format-file</code><a name="index-mh_002dmhl_002dformat_002dfile-452"></a><dd>Specifies the format file to pass to the <samp><span class="command">mhl</span></samp> program
+(default: &lsquo;<samp><span class="samp">Use Default mhl Format (Printing Only)</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-mime-save-parts-default-directory</code><a name="index-mh_002dmime_002dsave_002dparts_002ddefault_002ddirectory-453"></a><dd>Default directory to use for <kbd>K a</kbd>. 
+<!--  -->
+<br><dt><code>mh-print-background-flag</code><a name="index-mh_002dprint_002dbackground_002dflag-454"></a><dd>On means messages should be printed in the background (default:
+&lsquo;<samp><span class="samp">off</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-show-buffer-mode-line-buffer-id</code><a name="index-mh_002dshow_002dbuffer_002dmode_002dline_002dbuffer_002did-455"></a><dd>Format string to produce <code>mode-line-buffer-identification</code> for
+show buffers (default: <code>"    {show-%s} %d"</code>). 
+<!--  -->
+<br><dt><code>mh-show-maximum-size</code><a name="index-mh_002dshow_002dmaximum_002dsize-456"></a><dd>Maximum size of message (in bytes) to display automatically (default:
+0). 
+<!--  -->
+<br><dt><code>mh-show-use-xface-flag</code><a name="index-mh_002dshow_002duse_002dxface_002dflag-457"></a><dd>On means display face images in MH-Show buffers (default: &lsquo;<samp><span class="samp">on</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-store-default-directory</code><a name="index-mh_002dstore_002ddefault_002ddirectory-458"></a><dd>Default directory for <kbd>X s</kbd> (default: &lsquo;<samp><span class="samp">Current</span></samp>&rsquo;). 
+<!--  -->
+<br><dt><code>mh-summary-height</code><a name="index-mh_002dsummary_002dheight-459"></a><dd>Number of lines in MH-Folder buffer (including the mode line)
+(default: depends on size of frame). 
+</dl>
+
+   <p>The following hooks are available.
+
+     <dl>
+<dt><code>mh-delete-msg-hook</code><a name="index-mh_002ddelete_002dmsg_002dhook-460"></a><dd>Hook run after marking each message for deletion (default: <code>nil</code>). 
+<!--  -->
+<br><dt><code>mh-show-hook</code><a name="index-mh_002dshow_002dhook-461"></a><dd>Hook run after &lt;RET&gt; shows a message (default: <code>nil</code>). 
+<!--  -->
+<br><dt><code>mh-show-mode-hook</code><a name="index-mh_002dshow_002dmode_002dhook-462"></a><dd>Hook run upon entry to <code>mh-show-mode</code> (default: <code>nil</code>). 
+</dl>
+
+   <p>The following faces are available.
+
+     <dl>
+<dt><code>mh-show-cc</code><a name="index-mh_002dshow_002dcc-463"></a><dd>Face used to highlight &lsquo;<samp><span class="samp">cc:</span></samp>&rsquo; header fields. 
+<!--  -->
+<br><dt><code>mh-show-date</code><a name="index-mh_002dshow_002ddate-464"></a><dd>Face used to highlight &lsquo;<samp><span class="samp">Date:</span></samp>&rsquo; header fields. 
+<!--  -->
+<br><dt><code>mh-show-from</code><a name="index-mh_002dshow_002dfrom-465"></a><dd>Face used to highlight &lsquo;<samp><span class="samp">From:</span></samp>&rsquo; header fields. 
+<!--  -->
+<br><dt><code>mh-show-header</code><a name="index-mh_002dshow_002dheader-466"></a><dd>Face used to deemphasize less interesting header fields. 
+<!--  -->
+<br><dt><code>mh-show-pgg-bad</code><a name="index-mh_002dshow_002dpgg_002dbad-467"></a><dd>Bad PGG signature face. 
+<!--  -->
+<br><dt><code>mh-show-pgg-good</code><a name="index-mh_002dshow_002dpgg_002dgood-468"></a><dd>Good PGG signature face. 
+<!--  -->
+<br><dt><code>mh-show-pgg-unknown</code><a name="index-mh_002dshow_002dpgg_002dunknown-469"></a><dd>Unknown or untrusted PGG signature face. 
+<!--  -->
+<br><dt><code>mh-show-signature</code><a name="index-mh_002dshow_002dsignature-470"></a><dd>Signature face. 
+<!--  -->
+<br><dt><code>mh-show-subject</code><a name="index-mh_002dshow_002dsubject-471"></a><dd>Face used to highlight &lsquo;<samp><span class="samp">Subject:</span></samp>&rsquo; header fields. 
+<!--  -->
+<br><dt><code>mh-show-to</code><a name="index-mh_002dshow_002dto-472"></a><dd>Face used to highlight &lsquo;<samp><span class="samp">To:</span></samp>&rsquo; header fields. 
+<!--  -->
+<br><dt><code>mh-show-xface</code><a name="index-mh_002dshow_002dxface-473"></a><dd>X-Face image face. 
+</dl>
+
+   <p>The functions and variables introduced here are explained in more
+detail in the following sections.
+
+<ul class="menu">
+<li><a accesskey="1" href="Viewing.html#Viewing">Viewing</a>
+<li><a accesskey="2" href="Viewing-Attachments.html#Viewing-Attachments">Viewing Attachments</a>
+<li><a accesskey="3" href="HTML.html#HTML">HTML</a>
+<li><a accesskey="4" href="Digests.html#Digests">Digests</a>
+<li><a accesskey="5" href="Reading-PGP.html#Reading-PGP">Reading PGP</a>
+<li><a accesskey="6" href="Printing.html#Printing">Printing</a>
+<li><a accesskey="7" href="Files-and-Pipes.html#Files-and-Pipes">Files and Pipes</a>
+<li><a accesskey="8" href="Navigating.html#Navigating">Navigating</a>
+<li><a accesskey="9" href="Miscellaneous-Commands-and-Options.html#Miscellaneous-Commands-and-Options">Miscellaneous Commands and Options</a>
+</ul>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> If you want
+to see your old mail as well, use <kbd>F r</kbd> to pull all your messages
+into MH-E. Or, give a prefix argument to <code>mh-rmail</code> so it will
+prompt you for folder to visit like <kbd>F v</kbd> (for example, <kbd>C-u
+M-x mh-rmail &lt;RET&gt; bob &lt;RET&gt;</kbd>). See <a href="Folders.html#Folders">Folders</a>.</p>
+
+   <hr></div>
+
+   </body></html>
+

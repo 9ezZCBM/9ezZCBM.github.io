@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Autoload - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Autoload"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Simple-Extension.html#Simple-Extension">Simple Extension</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Loading-Files.html#Loading-Files">Loading Files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a>
+
+</div>
+
+<h3 class="section">16.10 Autoloading</h3>
+
+<p><a name="index-autoload-340"></a>
+Instead of installing a function by loading the file that contains it,
+or by evaluating the function definition, you can make the function
+available but not actually install it until it is first called.  This
+is called <dfn>autoloading</dfn>.
+
+   <p>When you execute an autoloaded function, Emacs automatically evaluates
+the file that contains the definition, and then calls the function.
+
+   <p>Emacs starts quicker with autoloaded functions, since their libraries
+are not loaded right away; but you need to wait a moment when you
+first use such a function, while its containing file is evaluated.
+
+   <p>Rarely used functions are frequently autoloaded.  The
+<samp><span class="file">loaddefs.el</span></samp> library contains thousands of autoloaded functions,
+from <code>5x5</code> to <code>zone</code>.  Of course, you may
+come to use a rare function frequently.  When you do, you should
+load that function's file with a <code>load</code> expression in your
+<samp><span class="file">.emacs</span></samp> file.
+
+   <p>In my <samp><span class="file">.emacs</span></samp> file, I load 14 libraries that contain functions
+that would otherwise be autoloaded.  (Actually, it would have been
+better to include these files in my dumped Emacs, but I forgot. 
+See <a href="../elisp/Building-Emacs.html#Building-Emacs">Building Emacs</a>, and the <samp><span class="file">INSTALL</span></samp> file for more about
+dumping.)
+
+   <p>You may also want to include autoloaded expressions in your <samp><span class="file">.emacs</span></samp>
+file.  <code>autoload</code> is a built-in function that takes up to five
+arguments, the final three of which are optional.  The first argument
+is the name of the function to be autoloaded; the second is the name
+of the file to be loaded.  The third argument is documentation for the
+function, and the fourth tells whether the function can be called
+interactively.  The fifth argument tells what type of
+object&mdash;<code>autoload</code> can handle a keymap or macro as well as a
+function (the default is a function).
+
+   <p>Here is a typical example:
+
+<pre class="smallexample">     (autoload 'html-helper-mode
+       "html-helper-mode" "Edit HTML documents" t)
+</pre>
+   <p class="noindent">(<code>html-helper-mode</code> is an older alternative to <code>html-mode</code>,
+which is a standard part of the distribution.)
+
+<p class="noindent">This expression autoloads the <code>html-helper-mode</code> function.  It
+takes it from the <samp><span class="file">html-helper-mode.el</span></samp> file (or from the byte
+compiled version <samp><span class="file">html-helper-mode.elc</span></samp>, if that exists.)  The
+file must be located in a directory specified by <code>load-path</code>. 
+The documentation says that this is a mode to help you edit documents
+written in the HyperText Markup Language.  You can call this mode
+interactively by typing <kbd>M-x html-helper-mode</kbd>.  (You need to
+duplicate the function's regular documentation in the autoload
+expression because the regular function is not yet loaded, so its
+documentation is not available.)
+
+   <p>See <a href="../elisp/Autoload.html#Autoload">Autoload</a>, for more information.
+
+   </body></html>
+

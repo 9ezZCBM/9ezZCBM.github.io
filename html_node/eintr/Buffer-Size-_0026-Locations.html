@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Buffer Size &amp; Locations - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Buffer-Size-%26-Locations"></a>
+<a name="Buffer-Size-_0026-Locations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Evaluation-Exercise.html#Evaluation-Exercise">Evaluation Exercise</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Switching-Buffers.html#Switching-Buffers">Switching Buffers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Practicing-Evaluation.html#Practicing-Evaluation">Practicing Evaluation</a>
+
+</div>
+
+<h3 class="section">2.4 Buffer Size and the Location of Point</h3>
+
+<p><a name="index-Size-of-buffer-81"></a><a name="index-Buffer-size-82"></a><a name="index-Point-location-83"></a><a name="index-Location-of-point-84"></a>
+Finally, let's look at several rather simple functions,
+<code>buffer-size</code>, <code>point</code>, <code>point-min</code>, and
+<code>point-max</code>.  These give information about the size of a buffer and
+the location of point within it.
+
+   <p>The function <code>buffer-size</code> tells you the size of the current
+buffer; that is, the function returns a count of the number of
+characters in the buffer.
+
+<pre class="smallexample">     (buffer-size)
+</pre>
+   <p class="noindent">You can evaluate this in the usual way, by positioning the
+cursor after the expression and typing <kbd>C-x C-e</kbd>.
+
+   <p><a name="index-g_t_0040samp_007bpoint_007d-defined-85"></a>In Emacs, the current  position of the cursor is called <dfn>point</dfn>. 
+The expression <code>(point)</code> returns a number that tells you where the
+cursor is located as a count of the number of characters from the
+beginning of the buffer up to point.
+
+   <p>You can see the character count for point in this buffer by evaluating
+the following expression in the usual way:
+
+<pre class="smallexample">     (point)
+</pre>
+   <p class="noindent">As I write this, the value of point is 65724.  The <code>point</code>
+function is frequently used in some of the examples later in this
+book.
+
+   <p>The value of point depends, of course, on its location within the
+buffer.  If you evaluate point in this spot, the number will be larger:
+
+<pre class="smallexample">     (point)
+</pre>
+   <p class="noindent">For me, the value of point in this location is 66043, which means that
+there are 319 characters (including spaces) between the two
+expressions.  (Doubtless, you will see different numbers, since I will
+have edited this since I first evaluated point.)
+
+   <p><a name="index-g_t_0040samp_007bnarrowing_007d-defined-86"></a>The function <code>point-min</code> is somewhat similar to <code>point</code>, but
+it returns the value of the minimum permissible value of point in the
+current buffer.  This is the number 1 unless <dfn>narrowing</dfn> is in
+effect.  (Narrowing is a mechanism whereby you can restrict yourself,
+or a program, to operations on just a part of a buffer. 
+See <a href="Narrowing-_0026-Widening.html#Narrowing-_0026-Widening">Narrowing and Widening</a>.)  Likewise, the
+function <code>point-max</code> returns the value of the maximum permissible
+value of point in the current buffer.
+
+   </body></html>
+

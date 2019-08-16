@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>simplified-beginning-of-buffer - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="simplified-beginning-of-buffer"></a>
+<a name="simplified_002dbeginning_002dof_002dbuffer"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mark_002dwhole_002dbuffer.html#mark_002dwhole_002dbuffer">mark-whole-buffer</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Finding-More.html#Finding-More">Finding More</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Buffer-Walk-Through.html#Buffer-Walk-Through">Buffer Walk Through</a>
+
+</div>
+
+<h3 class="section">4.2 A Simplified <code>beginning-of-buffer</code> Definition</h3>
+
+<p><a name="index-simplified_002dbeginning_002dof_002dbuffer-145"></a>
+The <code>beginning-of-buffer</code> command is a good function to start with
+since you are likely to be familiar with it and it is easy to
+understand.  Used as an interactive command, <code>beginning-of-buffer</code>
+moves the cursor to the beginning of the buffer, leaving the mark at the
+previous position.  It is generally bound to <kbd>M-&lt;</kbd>.
+
+   <p>In this section, we will discuss a shortened version of the function
+that shows how it is most frequently used.  This shortened function
+works as written, but it does not contain the code for a complex option. 
+In another section, we will describe the entire function. 
+(See <a href="beginning_002dof_002dbuffer.html#beginning_002dof_002dbuffer">Complete Definition of <code>beginning-of-buffer</code></a>.)
+
+   <p>Before looking at the code, let's consider what the function
+definition has to contain: it must include an expression that makes
+the function interactive so it can be called by typing <kbd>M-x
+beginning-of-buffer</kbd> or by typing a keychord such as <kbd>M-&lt;</kbd>; it
+must include code to leave a mark at the original position in the
+buffer; and it must include code to move the cursor to the beginning
+of the buffer.
+
+   <p>Here is the complete text of the shortened version of the function:
+
+<pre class="smallexample">     (defun simplified-beginning-of-buffer ()
+       "Move point to the beginning of the buffer;
+     leave mark at previous position."
+       (interactive)
+       (push-mark)
+       (goto-char (point-min)))
+</pre>
+   <p>Like all function definitions, this definition has five parts following
+the macro <code>defun</code>:
+
+     <ol type=1 start=1>
+<li>The name: in this example, <code>simplified-beginning-of-buffer</code>.
+
+     <li>A list of the arguments: in this example, an empty list, <code>()</code>,
+
+     <li>The documentation string.
+
+     <li>The interactive expression.
+
+     <li>The body.
+        </ol>
+
+<p class="noindent">In this function definition, the argument list is empty; this means that
+this function does not require any arguments.  (When we look at the
+definition for the complete function, we will see that it may be passed
+an optional argument.)
+
+   <p>The interactive expression tells Emacs that the function is intended to
+be used interactively.  In this example, <code>interactive</code> does not have
+an argument because <code>simplified-beginning-of-buffer</code> does not
+require one.
+
+   <p>The body of the function consists of the two lines:
+
+<pre class="smallexample">     (push-mark)
+     (goto-char (point-min))
+</pre>
+   <p>The first of these lines is the expression, <code>(push-mark)</code>.  When
+this expression is evaluated by the Lisp interpreter, it sets a mark at
+the current position of the cursor, wherever that may be.  The position
+of this mark is saved in the mark ring.
+
+   <p>The next line is <code>(goto-char (point-min))</code>.  This expression
+jumps the cursor to the minimum point in the buffer, that is, to the
+beginning of the buffer (or to the beginning of the accessible portion
+of the buffer if it is narrowed.  See <a href="Narrowing-_0026-Widening.html#Narrowing-_0026-Widening">Narrowing and Widening</a>.)
+
+   <p>The <code>push-mark</code> command sets a mark at the place where the cursor
+was located before it was moved to the beginning of the buffer by the
+<code>(goto-char (point-min))</code> expression.  Consequently, you can, if
+you wish, go back to where you were originally by typing <kbd>C-x C-x</kbd>.
+
+   <p>That is all there is to the function definition!
+
+   <p><a name="index-describe_002dfunction-146"></a>When you are reading code such as this and come upon an unfamiliar
+function, such as <code>goto-char</code>, you can find out what it does by
+using the <code>describe-function</code> command.  To use this command, type
+<kbd>C-h f</kbd> and then type in the name of the function and press
+&lt;RET&gt;.  The <code>describe-function</code> command will print the
+function's documentation string in a <samp><span class="file">*Help*</span></samp> window.  For
+example, the documentation for <code>goto-char</code> is:
+
+<pre class="smallexample">     Set point to POSITION, a number or marker.
+     Beginning of buffer is position (point-min), end is (point-max).
+</pre>
+   <p class="noindent">The function's one argument is the desired position.
+
+<p class="noindent">(The prompt for <code>describe-function</code> will offer you the symbol
+under or preceding the cursor, so you can save typing by positioning
+the cursor right over or after the function and then typing <kbd>C-h f
+&lt;RET&gt;</kbd>.)
+
+   <p>The <code>end-of-buffer</code> function definition is written in the same way as
+the <code>beginning-of-buffer</code> definition except that the body of the
+function contains the expression <code>(goto-char (point-max))</code> in place
+of <code>(goto-char (point-min))</code>.
+
+   </body></html>
+

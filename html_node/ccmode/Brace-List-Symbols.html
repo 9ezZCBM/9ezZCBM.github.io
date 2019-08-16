@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Brace List Symbols - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Brace-List-Symbols"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="External-Scope-Symbols.html#External-Scope-Symbols">External Scope Symbols</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Switch-Statement-Symbols.html#Switch-Statement-Symbols">Switch Statement Symbols</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Syntactic-Symbols.html#Syntactic-Symbols">Syntactic Symbols</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h4 class="subsection">10.2.5 Brace List Symbols</h4>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a name="index-brace-lists-461"></a>There are a set of syntactic symbols that are used to recognize
+constructs inside of brace lists.  A brace list is defined as an
+<code>enum</code> or aggregate initializer list, such as might statically
+initialize an array of structs.  The three special aggregate constructs
+in Pike, <code>({ })</code>, <code>([ ])</code> and <code>(&lt; &gt;)</code>, are treated as
+brace lists too.  An example:
+
+<pre class="example">      1: static char* ingredients[] =
+      2: {
+      3:     "Ham",
+      4:     "Salt",
+      5:     NULL
+      6: };
+</pre>
+   <p><a name="index-brace_002dlist_002dopen-462"></a><a name="index-brace_002dlist_002dintro-463"></a><a name="index-brace_002dlist_002dclose-464"></a><a name="index-brace_002dlist_002dentry-465"></a>Following convention, line 2 in this example is assigned
+<code>brace-list-open</code> syntax, and line 3 is assigned
+<code>brace-list-intro</code> syntax.  Likewise, line 6 is assigned
+<code>brace-list-close</code> syntax.  Lines 4 and 5 however, are assigned
+<code>brace-list-entry</code> syntax, as would all subsequent lines in this
+initializer list.
+
+   <p><a name="index-brace_002dentry_002dopen-466"></a>Your static initializer might be initializing nested structures, for
+example:
+
+<pre class="example">      1: struct intpairs[] =
+      2: {
+      3:     { 1, 2 },
+      4:     {
+      5:         3,
+      6:         4
+      7:     }
+      8:     { 1,
+      9:       2 },
+     10:     { 3, 4 }
+     11: };
+</pre>
+   <p>Here, you've already seen the analysis of lines 1, 2, 3, and 11.  On
+line 4, things get interesting; this line is assigned
+<code>brace-entry-open</code> syntactic symbol because it's a bracelist
+entry line that starts with an open brace.  Lines 5 and 6 are pretty
+standard, and line 7 is a <code>brace-list-close</code> as you'd expect. 
+Once again, line 8 is assigned as <code>brace-entry-open</code> as is line
+10.  Line 9 is assigned two syntactic elements, <code>brace-list-intro</code>
+with anchor point at the &lsquo;<samp><span class="samp">{</span></samp>&rsquo; of line 8<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>, and
+<code>brace-list-entry</code> anchored on the &lsquo;<samp><span class="samp">1</span></samp>&rsquo; of line 8.
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> This extra
+syntactic element was introduced in CC Mode 5.33.1 to allow extra
+flexibility in indenting the second line of such a construct.  You can
+preserve the behavior resulting from the former syntactic analysis by
+giving <code>brace-list-entry</code> an offset of
+<code>c-lineup-under-anchor</code> (see <a href="Misc-Line_002dUp.html#Misc-Line_002dUp">Misc Line-Up</a>).</p>
+
+   <hr></div>
+
+   </body></html>
+

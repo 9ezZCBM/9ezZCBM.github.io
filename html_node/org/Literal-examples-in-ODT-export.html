@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Literal examples in ODT export - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Literal-examples-in-ODT-export"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Advanced-topics-in-ODT-export.html#Advanced-topics-in-ODT-export">Advanced topics in ODT export</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Labels-and-captions-in-ODT-export.html#Labels-and-captions-in-ODT-export">Labels and captions in ODT export</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="OpenDocument-Text-export.html#OpenDocument-Text-export">OpenDocument Text export</a>
+
+</div>
+
+<h4 class="subsection">12.12.11 Literal examples in ODT export</h4>
+
+<p>The ODT export back-end supports literal examples (see <a href="Literal-examples.html#Literal-examples">Literal examples</a>)
+with full fontification.  Internally, the ODT export back-end relies on
+<samp><span class="file">htmlfontify.el</span></samp> to generate the style definitions needed for fancy
+listings.  The auto-generated styles get &lsquo;<samp><span class="samp">OrgSrc</span></samp>&rsquo; prefix and inherit
+colors from the faces used by Emacs <code>font-lock</code> library for that source
+language.
+
+   <p><a name="index-org_002dodt_002dfontify_002dsrcblocks-1934"></a>For custom fontification styles, customize the
+<code>org-odt-create-custom-styles-for-srcblocks</code> option.
+
+   <p><a name="index-org_002dodt_002dcreate_002dcustom_002dstyles_002dfor_002dsrcblocks-1935"></a>To turn off fontification of literal examples, customize the
+<code>org-odt-fontify-srcblocks</code> option.
+
+   </body></html>
+

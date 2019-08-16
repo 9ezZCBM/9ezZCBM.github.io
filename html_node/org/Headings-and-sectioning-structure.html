@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Headings and sectioning structure - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Headings-and-sectioning-structure"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Indices.html#Indices">Indices</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Info-directory-file.html#Info-directory-file">Info directory file</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Texinfo-export.html#Texinfo-export">Texinfo export</a>
+
+</div>
+
+<h4 class="subsection">12.14.6 Headings and sectioning structure</h4>
+
+<p><a name="index-org_002dtexinfo_002dclasses-1988"></a><a name="index-org_002dtexinfo_002ddefault_002dclass-1989"></a><a name="index-g_t_0040code_007b_0023_002bTEXINFO_005fCLASS_007d-1990"></a>The Texinfo export back-end uses a pre-defined scheme to convert Org
+headlines to an equivalent Texinfo structuring commands.  A scheme like this
+maps top-level headlines to numbered chapters tagged as <code>@chapter</code> and
+lower-level headlines to unnumbered chapters tagged as <code>@unnumbered</code>. 
+To override such mappings to introduce <code>@part</code> or other Texinfo
+structuring commands, define a new class in <code>org-texinfo-classes</code>. 
+Activate the new class with the <code>#+TEXINFO_CLASS</code> keyword.  When no new
+class is defined and activated, the Texinfo export back-end defaults to the
+<code>org-texinfo-default-class</code>.
+
+   <p>If an Org headline's level has no associated Texinfo structuring command, or
+is below a certain threshold (see <a href="Export-settings.html#Export-settings">Export settings</a>), then the Texinfo
+export back-end makes it into a list item.
+
+   <p><a name="index-property_002c-_0040code_007bAPPENDIX_007d-1991"></a>The Texinfo export back-end makes any headline with a non-<code>nil</code>
+<code>:APPENDIX:</code> property into an appendix.  This happens independent of the
+Org headline level or the <code>#+TEXINFO_CLASS</code>.
+
+   <p><a name="index-property_002c-_0040code_007bDESCRIPTION_007d-1992"></a>The Texinfo export back-end creates a menu entry after the Org headline for
+each regular sectioning structure.  To override this with a shorter menu
+entry, use the <code>:ALT_TITLE:</code> property (see <a href="Table-of-contents.html#Table-of-contents">Table of contents</a>). 
+Texinfo menu entries also have an option for a longer <code>:DESCRIPTION:</code>
+property.  Here's an example that uses both to override the default menu
+entry:
+
+<pre class="example">     * Controlling Screen Display
+       :PROPERTIES:
+       :ALT_TITLE: Display
+       :DESCRIPTION: Controlling Screen Display
+       :END:
+</pre>
+   <p><a name="index-The-Top-node_002c-in-Texinfo-export-1993"></a><a name="index-Texinfo-export_002c-Top-node-1994"></a>The text before the first headline belongs to the &lsquo;<samp><span class="samp">Top</span></samp>&rsquo; node, i.e., the
+node in which a reader enters an Info manual.  As such, it is expected not to
+appear in printed output generated from the <samp><span class="file">.texi</span></samp> file.  see <a href="../texinfo/The-Top-Node.html#The-Top-Node">The Top Node</a>, for more information.
+
+   </body></html>
+

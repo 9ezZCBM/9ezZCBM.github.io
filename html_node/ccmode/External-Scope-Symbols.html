@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>External Scope Symbols - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="External-Scope-Symbols"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Paren-List-Symbols.html#Paren-List-Symbols">Paren List Symbols</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Brace-List-Symbols.html#Brace-List-Symbols">Brace List Symbols</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Syntactic-Symbols.html#Syntactic-Symbols">Syntactic Symbols</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h4 class="subsection">10.2.6 External Scope Symbols</h4>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p>External language definition blocks also have their own syntactic
+symbols.  In this example:
+
+<pre class="example">      1: extern "C"
+      2: {
+      3:     int thing_one( int );
+      4:     int thing_two( double );
+      5: }
+</pre>
+   <p><a name="index-extern_002dlang_002dopen-467"></a><a name="index-extern_002dlang_002dclose-468"></a><a name="index-inextern_002dlang-469"></a><a name="index-inclass-470"></a>line 2 is given the <code>extern-lang-open</code> syntax, while line 5 is given
+the <code>extern-lang-close</code> syntax.  The analysis for line 3 yields:
+
+<pre class="example">     ((inextern-lang) (topmost-intro 14))
+</pre>
+   <p class="noindent">where <code>inextern-lang</code> is a modifier similar in purpose to
+<code>inclass</code>.
+
+   <p>There are various other top level blocks like <code>extern</code>, and they
+are all treated in the same way except that the symbols are named after
+the keyword that introduces the block.  E.g., C++ namespace blocks get
+the three symbols <code>namespace-open</code>, <code>namespace-close</code> and
+<code>innamespace</code>.  The currently recognized top level blocks are:
+
+     <dl>
+<dt><code>extern-lang-open</code>, <code>extern-lang-close</code>, <code>inextern-lang</code><dd><code>extern</code> blocks in C and C++.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+     <br><dt><code>namespace-open</code>, <code>namespace-close</code>, <code>innamespace</code><dd><a name="index-namespace_002dopen-471"></a><a name="index-namespace_002dclose-472"></a><a name="index-innamespace-473"></a><code>namespace</code> blocks in C++.
+
+     <br><dt><code>module-open</code>, <code>module-close</code>, <code>inmodule</code><dd><a name="index-module_002dopen-474"></a><a name="index-module_002dclose-475"></a><a name="index-inmodule-476"></a><code>module</code> blocks in CORBA IDL.
+
+     <br><dt><code>composition-open</code>, <code>composition-close</code>, <code>incomposition</code><dd><a name="index-composition_002dopen-477"></a><a name="index-composition_002dclose-478"></a><a name="index-incomposition-479"></a><code>composition</code> blocks in CORBA CIDL. 
+</dl>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> These should logically be
+named <code>extern-open</code>, <code>extern-close</code> and <code>inextern</code>, but
+that isn't the case for historical reasons.</p>
+
+   <hr></div>
+
+   </body></html>
+

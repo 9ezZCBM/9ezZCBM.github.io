@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Text and Auto-fill - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Text-and-Auto-fill"></a>
+<a name="Text-and-Auto_002dfill"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Mail-Aliases.html#Mail-Aliases">Mail Aliases</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Beginning-init-File.html#Beginning-init-File">Beginning init File</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Initialization.html#Emacs-Initialization">Emacs Initialization</a>
+
+</div>
+
+<h3 class="section">16.4 Text and Auto Fill Mode</h3>
+
+<p>Now we come to the part that turns on Text mode and
+Auto Fill mode.
+
+<pre class="smallexample">     ;;; Text mode and Auto Fill mode
+     ;; The next two lines put Emacs into Text mode
+     ;; and Auto Fill mode, and are for writers who
+     ;; want to start writing prose rather than code.
+     (setq-default major-mode 'text-mode)
+     (add-hook 'text-mode-hook 'turn-on-auto-fill)
+</pre>
+   <p>Here is the first part of this <samp><span class="file">.emacs</span></samp> file that does something
+besides remind a forgetful human!
+
+   <p>The first of the two lines in parentheses tells Emacs to turn on Text
+mode when you find a file, <em>unless</em> that file should go into some
+other mode, such as C mode.
+
+   <p><a name="index-Per_002dbuffer_002c-local-variables-list-314"></a><a name="index-Local-variables-list_002c-per_002dbuffer_002c-315"></a><a name="index-Automatic-mode-selection-316"></a><a name="index-Mode-selection_002c-automatic-317"></a>When Emacs reads a file, it looks at the extension to the file name,
+if any.  (The extension is the part that comes after a &lsquo;<samp><span class="samp">.</span></samp>&rsquo;.)  If
+the file ends with a &lsquo;<samp><span class="samp">.c</span></samp>&rsquo; or &lsquo;<samp><span class="samp">.h</span></samp>&rsquo; extension then Emacs turns
+on C mode.  Also, Emacs looks at first nonblank line of the file; if
+the line says &lsquo;<samp><span class="samp">-*-&nbsp;C&nbsp;-*-</span></samp>&rsquo;<!-- /@w -->, Emacs turns on C mode.  Emacs
+possesses a list of extensions and specifications that it uses
+automatically.  In addition, Emacs looks near the last page for a
+per-buffer, local variables list, if any.
+
+   <p>Now, back to the <samp><span class="file">.emacs</span></samp> file.
+
+   <p>Here is the line again; how does it work?
+
+   <p><a name="index-Text-Mode-turned-on-318"></a>
+<pre class="smallexample">     (setq major-mode 'text-mode)
+</pre>
+   <p class="noindent">This line is a short, but complete Emacs Lisp expression.
+
+   <p>We are already familiar with <code>setq</code>.  It sets the following variable,
+<code>major-mode</code>, to the subsequent value, which is <code>text-mode</code>. 
+The single-quote before <code>text-mode</code> tells Emacs to deal directly
+with the <code>text-mode</code> symbol, not with whatever it might stand for. 
+See <a href="set-_0026-setq.html#set-_0026-setq">Setting the Value of a Variable</a>,
+for a reminder of how <code>setq</code> works. 
+The main point is that there is no difference between the procedure you
+use to set a value in your <samp><span class="file">.emacs</span></samp> file and the procedure you use
+anywhere else in Emacs.
+
+   <p>Here is the next line:
+
+   <p><a name="index-Auto-Fill-mode-turned-on-319"></a><a name="index-add_002dhook-320"></a>
+<pre class="smallexample">     (add-hook 'text-mode-hook 'turn-on-auto-fill)
+</pre>
+   <p class="noindent">In this line, the <code>add-hook</code> command adds
+<code>turn-on-auto-fill</code> to the variable.
+
+   <p><code>turn-on-auto-fill</code> is the name of a program, that, you guessed
+it!, turns on Auto Fill mode.
+
+   <p>Every time Emacs turns on Text mode, Emacs runs the commands hooked
+onto Text mode.  So every time Emacs turns on Text mode, Emacs also
+turns on Auto Fill mode.
+
+   <p>In brief, the first line causes Emacs to enter Text mode when you edit a
+file, unless the file name extension, a first non-blank line, or local
+variables to tell Emacs otherwise.
+
+   <p>Text mode among other actions, sets the syntax table to work
+conveniently for writers.  In Text mode, Emacs considers an apostrophe
+as part of a word like a letter; but Emacs does not consider a period
+or a space as part of a word.  Thus, <kbd>M-f</kbd> moves you over
+&lsquo;<samp><span class="samp">it's</span></samp>&rsquo;.  On the other hand, in C mode, <kbd>M-f</kbd> stops just after
+the &lsquo;<samp><span class="samp">t</span></samp>&rsquo; of &lsquo;<samp><span class="samp">it's</span></samp>&rsquo;.
+
+   <p>The second line causes Emacs to turn on Auto Fill mode when it turns
+on Text mode.  In Auto Fill mode, Emacs automatically breaks a line
+that is too wide and brings the excessively wide part of the line down
+to the next line.  Emacs breaks lines between words, not within them.
+
+   <p>When Auto Fill mode is turned off, lines continue to the right as you
+type them.  Depending on how you set the value of
+<code>truncate-lines</code>, the words you type either disappear off the
+right side of the screen, or else are shown, in a rather ugly and
+unreadable manner, as a continuation line on the screen.
+
+   <p>In addition, in this part of my <samp><span class="file">.emacs</span></samp> file, I tell the Emacs
+fill commands to insert two spaces after a colon:
+
+<pre class="smallexample">     (setq colon-double-space t)
+</pre>
+   </body></html>
+

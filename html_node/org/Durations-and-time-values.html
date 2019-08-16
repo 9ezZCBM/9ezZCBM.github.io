@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Durations and time values - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Durations-and-time-values"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Field-and-range-formulas.html#Field-and-range-formulas">Field and range formulas</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Formula-syntax-for-Lisp.html#Formula-syntax-for-Lisp">Formula syntax for Lisp</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-spreadsheet.html#The-spreadsheet">The spreadsheet</a>
+
+</div>
+
+<h4 class="subsection">3.5.4 Durations and time values</h4>
+
+<p><a name="index-Duration_002c-computing-365"></a><a name="index-Time_002c-computing-366"></a><a name="index-org_002dtable_002dduration_002dcustom_002dformat-367"></a>
+If you want to compute time values use the <code>T</code>, <code>t</code>, or <code>U</code>
+flag, either in Calc formulas or Elisp formulas:
+
+<pre class="example">       |  Task 1 |   Task 2 |    Total |
+       |---------+----------+----------|
+       |    2:12 |     1:47 | 03:59:00 |
+       |    2:12 |     1:47 |    03:59 |
+       | 3:02:20 | -2:07:00 |     0.92 |
+       #+TBLFM: @2$3=$1+$2;T::@3$3=$1+$2;U::@4$3=$1+$2;t
+</pre>
+   <p>Input duration values must be of the form <code>HH:MM[:SS]</code>, where seconds
+are optional.  With the <code>T</code> flag, computed durations will be displayed
+as <code>HH:MM:SS</code> (see the first formula above).  With the <code>U</code> flag,
+seconds will be omitted so that the result will be only <code>HH:MM</code> (see
+second formula above).  Zero-padding of the hours field will depend upon the
+value of the variable <code>org-table-duration-hour-zero-padding</code>.
+
+   <p>With the <code>t</code> flag, computed durations will be displayed according to the
+value of the option <code>org-table-duration-custom-format</code>, which defaults
+to <code>'hours</code> and will display the result as a fraction of hours (see the
+third formula in the example above).
+
+   <p>Negative duration values can be manipulated as well, and integers will be
+considered as seconds in addition and subtraction.
+
+   </body></html>
+

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>@LaTeX{} specific export settings - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="LaTeX-specific-export-settings"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="LaTeX-header-and-sectioning.html#LaTeX-header-and-sectioning">LaTeX header and sectioning</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="LaTeX-export-commands.html#LaTeX-export-commands">LaTeX export commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="LaTeX-export.html#LaTeX-export">LaTeX export</a>
+
+</div>
+
+<h4 class="subsection">12.10.2 LaTeX specific export settings</h4>
+
+<p>The LaTeX export back-end has several additional keywords for customizing
+LaTeX output.  Setting these keywords works similar to the general options
+(see <a href="Export-settings.html#Export-settings">Export settings</a>).
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">DESCRIPTION</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bDESCRIPTION_007d-_0028_0040LaTeX_007b_007d_0029-1826"></a>The document's description.  The description along with author name,
+keywords, and related file metadata are inserted in the output file by the
+&lsquo;<samp><span class="samp">hyperref</span></samp>&rsquo; package.  See <code>org-latex-hyperref-template</code> for
+customizing metadata items.  See <code>org-latex-title-command</code> for
+typesetting description into the document's front matter.  Use multiple
+<code>#+DESCRIPTION</code> lines for long descriptions.
+
+     <br><dt>&lsquo;<samp><span class="samp">LATEX_CLASS</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bLATEX_005fCLASS_007d-1827"></a><a name="index-org_002dlatex_002ddefault_002dclass-1828"></a><a name="index-org_002dlatex_002dclasses-1829"></a>This is LaTeX document class, such as <code>article</code>, <code>report</code>,
+<code>book</code>, and so on, which contain predefined preamble and headline level
+mapping that the LaTeX export back-end needs.  The back-end reads the
+default class name from the <code>org-latex-default-class</code> variable.  Org has
+<code>article</code> as the default class.  A valid default class must be an
+element of <code>org-latex-classes</code>.
+
+     <br><dt>&lsquo;<samp><span class="samp">LATEX_CLASS_OPTIONS</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bLATEX_005fCLASS_005fOPTIONS_007d-1830"></a>Options the LaTeX export back-end uses when calling the LaTeX document
+class.
+
+     <br><dt>&lsquo;<samp><span class="samp">LATEX_COMPILER</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bLATEX_005fCOMPILER_007d-1831"></a><a name="index-org_002dlatex_002dcompiler-1832"></a>The compiler, such as &lsquo;<samp><span class="samp">pdflatex</span></samp>&rsquo;, &lsquo;<samp><span class="samp">xelatex</span></samp>&rsquo;, &lsquo;<samp><span class="samp">lualatex</span></samp>&rsquo;, for
+producing the PDF (<code>org-latex-compiler</code>).
+
+     <br><dt>&lsquo;<samp><span class="samp">LATEX_HEADER</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bLATEX_005fHEADER_007d-1833"></a><a name="index-org_002dlatex_002dclasses-1834"></a>Arbitrary lines to add to the document's preamble, before the &lsquo;<samp><span class="samp">hyperref</span></samp>&rsquo;
+settings.  See <code>org-latex-classes</code> for adjusting the structure and order
+of the LaTeX headers.
+
+     <br><dt>&lsquo;<samp><span class="samp">LATEX_HEADER_EXTRA</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bLATEX_005fHEADER_005fEXTRA_007d-1835"></a><a name="index-org_002dlatex_002dclasses-1836"></a>Arbitrary lines to add to the document's preamble, before the &lsquo;<samp><span class="samp">hyperref</span></samp>&rsquo;
+settings.  See <code>org-latex-classes</code> for adjusting the structure and order
+of the LaTeX headers.
+
+     <br><dt>&lsquo;<samp><span class="samp">KEYWORDS</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bKEYWORDS_007d-_0028_0040LaTeX_007b_007d_0029-1837"></a>The keywords for the document.  The description along with author name,
+keywords, and related file metadata are inserted in the output file by the
+&lsquo;<samp><span class="samp">hyperref</span></samp>&rsquo; package.  See <code>org-latex-hyperref-template</code> for
+customizing metadata items.  See <code>org-latex-title-command</code> for
+typesetting description into the document's front matter.  Use multiple
+<code>#+KEYWORDS</code> lines if necessary.
+
+     <br><dt>&lsquo;<samp><span class="samp">SUBTITLE</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bSUBTITLE_007d-_0028_0040LaTeX_007b_007d_0029-1838"></a><a name="index-org_002dlatex_002dsubtitle_002dseparate-1839"></a><a name="index-org_002dlatex_002dsubtitle_002dformat-1840"></a>The document's subtitle.  It is typeset as per
+<code>org-latex-subtitle-format</code>.  If <code>org-latex-subtitle-separate</code> is
+non-<code>nil</code>, it is typed as part of the &lsquo;<samp><span class="samp">\title</span></samp>&rsquo;-macro.  See
+<code>org-latex-hyperref-template</code> for customizing metadata items.  See
+<code>org-latex-title-command</code> for typesetting description into the
+document's front matter. 
+</dl>
+
+   <p>The following sections have further details.
+
+   </body></html>
+

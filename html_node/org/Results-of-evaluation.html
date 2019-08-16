@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Results of evaluation - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Results-of-evaluation"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Noweb-reference-syntax.html#Noweb-reference-syntax">Noweb reference syntax</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Header-arguments.html#Header-arguments">Header arguments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Working-with-source-code.html#Working-with-source-code">Working with source code</a>
+
+</div>
+
+<h3 class="section">14.9 Results of evaluation</h3>
+
+<p><a name="index-code-block_002c-results-of-evaluation-2157"></a><a name="index-source-code_002c-results-of-evaluation-2158"></a>
+How Org handles results of a code block execution depends on many header
+arguments working together.  Here is only a summary of these.  For an
+enumeration of all the header arguments that affect results, see
+<a href="results.html#results">results</a>.
+
+   <p>The primary determinant is the execution context.  Is it in a <code>:session</code>
+or not?  Orthogonal to that is if the expected result is a <code>:results
+value</code> or <code>:results output</code>, which is a concatenation of output from
+start to finish of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code block's evaluation.
+
+   <p><table summary=""><tr align="left"><td valign="top" width="26%"></td><td valign="top" width="33%"><b>Non-session</b> </td><td valign="top" width="41%"><b>Session</b>
+<br></td></tr><tr align="left"><td valign="top" width="26%"><code>:results value</code> </td><td valign="top" width="33%">value of last expression </td><td valign="top" width="41%">value of last expression
+<br></td></tr><tr align="left"><td valign="top" width="26%"><code>:results output</code> </td><td valign="top" width="33%">contents of STDOUT </td><td valign="top" width="41%">concatenation of interpreter output
+   <br></td></tr></table>
+
+   <p>For <code>:session</code> and non-session, the <code>:results value</code> turns the
+results into an Org mode table format.  Single values are wrapped in a one
+dimensional vector.  Rows and columns of a table are wrapped in a
+two-dimensional vector.
+
+<h4 class="subsection">14.9.1 Non-session</h4>
+
+<h5 class="subsubsection">14.9.1.1 <code>:results value</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003aresults_007d_002c-src-header-argument-2159"></a>Default.  Org gets the value by wrapping the code in a function definition in
+the language of the &lsquo;<samp><span class="samp">src</span></samp>&rsquo; block.  That is why when using <code>:results
+value</code>, code should execute like a function and return a value.  For
+languages like Python, an explicit <code>return</code> statement is mandatory when
+using <code>:results value</code>.
+
+   <p>This is one of four evaluation contexts where Org automatically wraps the
+code in a function definition.
+
+<h5 class="subsubsection">14.9.1.2 <code>:results output</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003aresults_007d_002c-src-header-argument-2160"></a>For <code>:results output</code>, the code is passed to an external process running
+the interpreter.  Org returns the contents of the standard output stream as
+as text results.
+
+<h4 class="subsection">14.9.2 Session</h4>
+
+<h5 class="subsubsection">14.9.2.1 <code>:results value</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003aresults_007d_002c-src-header-argument-2161"></a>For <code>:results value</code> from a <code>:session</code>, Org passes the code to an
+interpreter running as an interactive Emacs inferior process.  So only
+languages that provide interactive evaluation can have session support.  Not
+all languages provide this support, such as &lsquo;<samp><span class="samp">C</span></samp>&rsquo; and &lsquo;<samp><span class="samp">ditaa</span></samp>&rsquo;.  Even
+those that do support, such as &lsquo;<samp><span class="samp">Python</span></samp>&rsquo; and &lsquo;<samp><span class="samp">Haskell</span></samp>&rsquo;, they impose
+limitations on allowable language constructs that can run interactively.  Org
+inherits those limitations for those &lsquo;<samp><span class="samp">src</span></samp>&rsquo; code blocks running in a
+<code>:session</code>.
+
+   <p>Org gets the value from the source code interpreter's last statement
+output.  Org has to use language-specific methods to obtain the value.  For
+example, from the variable <code>_</code> in &lsquo;<samp><span class="samp">Python</span></samp>&rsquo; and &lsquo;<samp><span class="samp">Ruby</span></samp>&rsquo;, and the
+value of <code>.Last.value</code> in &lsquo;<samp><span class="samp">R</span></samp>&rsquo;).
+
+<h5 class="subsubsection">14.9.2.2 <code>:results output</code></h5>
+
+<p><a name="index-g_t_0040code_007b_003aresults_007d_002c-src-header-argument-2162"></a>For <code>:results output</code>, Org passes the code to the interpreter running as
+an interactive Emacs inferior process.  Org concatenates whatever text output
+emitted by the interpreter to return the collection as a result.  Note that
+this collection is not the same as collected from <code>STDOUT</code> of a
+non-interactive interpreter running as an external process.  Compare for
+example these two blocks:
+
+<pre class="example">     #+BEGIN_SRC python :results output
+      print "hello"
+      2
+      print "bye"
+     #+END_SRC
+     
+     #+RESULTS:
+     : hello
+     : bye
+</pre>
+   <p>In the above non-session mode, the &ldquo;2&rdquo; is not printed; so does not appear
+in results.
+
+<pre class="example">     #+BEGIN_SRC python :results output :session
+      print "hello"
+      2
+      print "bye"
+     #+END_SRC
+     
+     #+RESULTS:
+     : hello
+     : 2
+     : bye
+</pre>
+   <p>In the above <code>:session</code> mode, the interactive interpreter receives and
+prints &ldquo;2&rdquo;.  Results show that.
+
+   </body></html>
+

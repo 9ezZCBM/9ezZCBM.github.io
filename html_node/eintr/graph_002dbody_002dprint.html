@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>graph-body-print - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="graph-body-print"></a>
+<a name="graph_002dbody_002dprint"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="recursive_002dgraph_002dbody_002dprint.html#recursive_002dgraph_002dbody_002dprint">recursive-graph-body-print</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Columns-of-a-graph.html#Columns-of-a-graph">Columns of a graph</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Readying-a-Graph.html#Readying-a-Graph">Readying a Graph</a>
+
+</div>
+
+<h3 class="section">15.1 The <code>graph-body-print</code> Function</h3>
+
+<p><a name="index-graph_002dbody_002dprint-302"></a>
+After our preparation in the preceding section, the
+<code>graph-body-print</code> function is straightforward.  The function
+will print column after column of asterisks and blanks, using the
+elements of a numbers' list to specify the number of asterisks in each
+column.  This is a repetitive act, which means we can use a
+decrementing <code>while</code> loop or recursive function for the job.  In
+this section, we will write the definition using a <code>while</code> loop.
+
+   <p>The <code>column-of-graph</code> function requires the height of the graph
+as an argument, so we should determine and record that as a local variable.
+
+   <p>This leads us to the following template for the <code>while</code> loop
+version of this function:
+
+<pre class="smallexample">     (defun graph-body-print (numbers-list)
+       "<var>documentation</var>..."
+       (let ((height  ...
+              ...))
+     
+         (while numbers-list
+           <var>insert-columns-and-reposition-point</var>
+           (setq numbers-list (cdr numbers-list)))))
+</pre>
+   <p class="noindent">We need to fill in the slots of the template.
+
+   <p>Clearly, we can use the <code>(apply 'max numbers-list)</code> expression to
+determine the height of the graph.
+
+   <p>The <code>while</code> loop will cycle through the <code>numbers-list</code> one
+element at a time.  As it is shortened by the <code>(setq numbers-list
+(cdr numbers-list))</code> expression, the <span class="sc">car</span> of each instance of the
+list is the value of the argument for <code>column-of-graph</code>.
+
+   <p>At each cycle of the <code>while</code> loop, the <code>insert-rectangle</code>
+function inserts the list returned by <code>column-of-graph</code>.  Since
+the <code>insert-rectangle</code> function moves point to the lower right of
+the inserted rectangle, we need to save the location of point at the
+time the rectangle is inserted, move back to that position after the
+rectangle is inserted, and then move horizontally to the next place
+from which <code>insert-rectangle</code> is called.
+
+   <p>If the inserted columns are one character wide, as they will be if
+single blanks and asterisks are used, the repositioning command is
+simply <code>(forward-char 1)</code>; however, the width of a column may be
+greater than one.  This means that the repositioning command should be
+written <code>(forward-char symbol-width)</code>.  The <code>symbol-width</code>
+itself is the length of a <code>graph-blank</code> and can be found using
+the expression <code>(length graph-blank)</code>.  The best place to bind
+the <code>symbol-width</code> variable to the value of the width of graph
+column is in the varlist of the <code>let</code> expression.
+
+   <p>These considerations lead to the following function definition:
+
+<pre class="smallexample">     (defun graph-body-print (numbers-list)
+       "Print a bar graph of the NUMBERS-LIST.
+     The numbers-list consists of the Y-axis values."
+     
+       (let ((height (apply 'max numbers-list))
+             (symbol-width (length graph-blank))
+             from-position)
+     
+         (while numbers-list
+           (setq from-position (point))
+           (insert-rectangle
+            (column-of-graph height (car numbers-list)))
+           (goto-char from-position)
+           (forward-char symbol-width)
+           ;; <span class="roman">Draw graph column by column.</span>
+           (sit-for 0)
+           (setq numbers-list (cdr numbers-list)))
+         ;; <span class="roman">Place point for X axis labels.</span>
+         (forward-line height)
+         (insert "\n")
+     ))
+</pre>
+   <p class="noindent">The one unexpected expression in this function is the
+<code>(sit-for&nbsp;0)</code><!-- /@w --> expression in the <code>while</code> loop.  This
+expression makes the graph printing operation more interesting to
+watch than it would be otherwise.  The expression causes Emacs to
+<dfn>sit</dfn> or do nothing for a zero length of time and then redraw the
+screen.  Placed here, it causes Emacs to redraw the screen column by
+column.  Without it, Emacs would not redraw the screen until the
+function exits.
+
+   <p>We can test <code>graph-body-print</code> with a short list of numbers.
+
+     <ol type=1 start=1>
+<li>Install <code>graph-symbol</code>, <code>graph-blank</code>,
+<code>column-of-graph</code>, which are in
+<a href="Columns-of-a-graph.html#Columns-of-a-graph">Columns of a graph</a>,
+and <code>graph-body-print</code>.
+
+     <li>Copy the following expression:
+
+     <pre class="smallexample">          (graph-body-print '(1 2 3 4 6 4 3 5 7 6 5 2 3))
+</pre>
+     <li>Switch to the <samp><span class="file">*scratch*</span></samp> buffer and place the cursor where you
+want the graph to start.
+
+     <li>Type <kbd>M-:</kbd> (<code>eval-expression</code>).
+
+     <li>Yank the <code>graph-body-print</code> expression into the minibuffer
+with <kbd>C-y</kbd> (<code>yank)</code>.
+
+     <li>Press &lt;RET&gt; to evaluate the <code>graph-body-print</code> expression.
+        </ol>
+
+   <p>Emacs will print a graph like this:
+
+<pre class="smallexample">                         *
+                     *   **
+                     *  ****
+                    *** ****
+                   ********* *
+                  ************
+                 *************
+</pre>
+   </body></html>
+

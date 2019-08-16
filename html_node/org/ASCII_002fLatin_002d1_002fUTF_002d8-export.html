@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>ASCII/Latin-1/UTF-8 export - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="ASCII%2fLatin-1%2fUTF-8-export"></a>
+<a name="ASCII_002fLatin_002d1_002fUTF_002d8-export"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Beamer-export.html#Beamer-export">Beamer export</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Comment-lines.html#Comment-lines">Comment lines</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Exporting.html#Exporting">Exporting</a>
+
+</div>
+
+<h3 class="section">12.7 ASCII/Latin-1/UTF-8 export</h3>
+
+<p><a name="index-ASCII-export-1690"></a><a name="index-Latin_002d1-export-1691"></a><a name="index-UTF_002d8-export-1692"></a>
+ASCII export produces an output file containing only plain ASCII characters. 
+This is the most simplest and direct text output.  It does not contain any
+Org markup either.  Latin-1 and UTF-8 export use additional characters and
+symbols available in these encoding standards.  All three of these export
+formats offer the most basic of text output for maximum portability.
+
+   <p><a name="index-org_002dascii_002dtext_002dwidth-1693"></a>On export, Org fills and justifies text according to the text width set in
+<code>org-ascii-text-width</code>.
+
+   <p><a name="index-org_002dascii_002dlinks_002dto_002dnotes-1694"></a>Org exports links using a footnote-like style where the descriptive part is
+in the text and the link is in a note before the next heading.  See the
+variable <code>org-ascii-links-to-notes</code> for details.
+
+<h4 class="subheading">ASCII export commands</h4>
+
+     
+<a name="index-C_002dc-C_002de-t-a_002fl_002fu-1695"></a>
+<a name="index-org_002dascii_002dexport_002dto_002dascii-1696"></a>
+<dl><dt><kbd>C-c C-e t a/l/u &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-ascii-export-to-ascii</code><kbd>)</kbd><dd>
+Export as an ASCII file with a <samp><span class="file">.txt</span></samp> extension.  For <samp><span class="file">myfile.org</span></samp>,
+Org exports to <samp><span class="file">myfile.txt</span></samp>, overwriting without warning.  For
+<samp><span class="file">myfile.txt</span></samp>, Org exports to <samp><span class="file">myfile.txt.txt</span></samp> in order to prevent
+data loss. 
+<a name="index-C_002dc-C_002de-t-A_002fL_002fU-1697"></a><a name="index-org_002dascii_002dexport_002das_002dascii-1698"></a><br><dt><kbd>C-c C-e t A/L/U &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-ascii-export-as-ascii</code><kbd>)</kbd><dd>
+Export to a temporary buffer.  Does not create a file. 
+</dl>
+
+<h4 class="subheading">ASCII specific export settings</h4>
+
+<p>The ASCII export back-end has one extra keyword for customizing ASCII output. 
+Setting this keyword works similar to the general options (see <a href="Export-settings.html#Export-settings">Export settings</a>).
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">SUBTITLE</span></samp>&rsquo;<dd><a name="index-g_t_0040code_007b_0023_002bSUBTITLE_007d-_0028ASCII_0029-1699"></a>The document subtitle.  For long subtitles, use multiple <code>#+SUBTITLE</code>
+lines in the Org file.  Org prints them on one continuous line, wrapping into
+multiple lines if necessary. 
+</dl>
+
+<h4 class="subheading">Header and sectioning structure</h4>
+
+<p>Org converts the first three outline levels into headlines for ASCII export. 
+The remaining levels are turned into lists.  To change this cut-off point
+where levels become lists, see <a href="Export-settings.html#Export-settings">Export settings</a>.
+
+<h4 class="subheading">Quoting ASCII text</h4>
+
+<p>To insert text within the Org file by the ASCII back-end, use one the
+following constructs, inline, keyword, or export block:
+
+   <p><a name="index-g_t_0040code_007b_0023_002bASCII_007d-1700"></a><a name="index-g_t_0040code_007b_0023_002bBEGIN_005fEXPORT-ascii_007d-1701"></a>
+<pre class="example">     Inline text @@ascii:and additional text@@ within a paragraph.
+     
+     #+ASCII: Some text
+     
+     #+BEGIN_EXPORT ascii
+     Org exports text in this block only when using ASCII back-end.
+     #+END_EXPORT
+</pre>
+   <h4 class="subheading">ASCII specific attributes</h4>
+
+<p><a name="index-g_t_0040code_007b_0023_002bATTR_005fASCII_007d-1702"></a><a name="index-horizontal-rules_002c-in-ASCII-export-1703"></a>
+ASCII back-end recognizes only one attribute, <code>:width</code>, which specifies
+the width of a horizontal rule in number of characters.  The keyword and
+syntax for specifying widths is:
+
+<pre class="example">     #+ATTR_ASCII: :width 10
+     -----
+</pre>
+   <h4 class="subheading">ASCII special blocks</h4>
+
+<p><a name="index-special-blocks_002c-in-ASCII-export-1704"></a><a name="index-g_t_0040code_007b_0023_002bBEGIN_005fJUSTIFYLEFT_007d-1705"></a><a name="index-g_t_0040code_007b_0023_002bBEGIN_005fJUSTIFYRIGHT_007d-1706"></a>
+Besides <code>#+BEGIN_CENTER</code> blocks (see <a href="Paragraphs.html#Paragraphs">Paragraphs</a>), ASCII back-end has
+these two left and right justification blocks:
+
+<pre class="example">     #+BEGIN_JUSTIFYLEFT
+     It's just a jump to the left...
+     #+END_JUSTIFYLEFT
+     
+     #+BEGIN_JUSTIFYRIGHT
+     ...and then a step to the right.
+     #+END_JUSTIFYRIGHT
+</pre>
+   </body></html>
+

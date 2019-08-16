@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Noise Macros - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Noise-Macros"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Macros-with-_003b.html#Macros-with-_003b">Macros with ;</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Custom-Macros.html#Custom-Macros">Custom Macros</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h3 class="section">12.3 Noise Macros</h3>
+
+<p><a name="index-noise-macros-630"></a><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+   <p>In CC Mode, <dfn>noise macros</dfn> are macros which expand to nothing,
+or compiler directives (such as GCC's <code>__attribute__</code>) which play
+no part in the syntax of the C (etc.) language.  Some noise macros are
+followed by arguments in parentheses (possibly optionally), others
+are not.
+
+   <p>Noise macros can easily confuse CC Mode's analysis of function
+headers, causing them to be mis-fontified, or even mis-indented.  You
+can prevent this confusion by specifying the identifiers which
+constitute noise macros.
+
+<div class="defun">
+&mdash; User Option: <b>c-noise-macro-names</b><var><a name="index-c_002dnoise_002dmacro_002dnames-631"></a></var><br>
+<blockquote><p><a name="index-noise_002dmacro_002dnames-_0040r_007b_0028c_002d_0029_007d-632"></a>This variable is a list of names of noise macros which never have
+parenthesized arguments.  Each element is a string, and must be a
+valid identifier.  An element in <code>c-noise-macro-names</code> must not
+also be in <code>c-noise-macro-with-parens-names</code>.  Such an element is
+treated as whitespace by CC Mode. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>c-noise-macro-with-parens-names</b><var><a name="index-c_002dnoise_002dmacro_002dwith_002dparens_002dnames-633"></a></var><br>
+<blockquote><p><a name="index-noise_002dmacro_002dwith_002dparens_002dnames-_0040r_007b_0028c_002d_0029_007d-634"></a>This variable is a list of names of noise macros which optionally have
+arguments in parentheses.  Each element of the list is a string, and
+must be a valid identifier.  An element in
+<code>c-noise-macro-with-parens-names</code> must not also be in
+<code>c-noise-macro-names</code>.  For performance reasons, such an element,
+together with the optional parenthesized arguments, is specially
+handled, but it is only handled when used in declaration
+contexts<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.
+
+        <p>The two compiler directives <code>__attribute__</code> and <code>__declspec</code>
+have traditionally been handled specially in CC Mode; for example
+they are fontified with font-lock-keyword-face.  You don't need to
+include these directives in <code>c-noise-macro-with-parens-names</code>,
+but doing so is OK. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: <b>c-make-noise-macro-regexps</b><var><a name="index-c_002dmake_002dnoise_002dmacro_002dregexps-635"></a></var><br>
+<blockquote><p><a name="index-make_002dnoise_002dmacro_002dregexps-_0040r_007b_0028c_002d_0029_007d-636"></a>Call this (non-interactive) function, which sets internal variables,
+on changing the value of <code>c-noise-macro-names</code> or
+<code>c-noise-macro-with-parens-names</code> after the major mode's function
+has run.  This function is called by CC Mode's initialization code,
+after the mode hooks have run. 
+</p></blockquote></div>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> If this restriction causes your project
+difficulties, please get in touch with <a href="mailto:bug-cc-mode@gnu.org">bug-cc-mode@gnu.org</a>.</p>
+
+   <hr></div>
+
+   </body></html>
+

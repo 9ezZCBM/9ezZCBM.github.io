@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Generating an index - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Generating-an-index"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Sitemap.html#Sitemap">Sitemap</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h4 class="subsection">13.1.8 Generating an index</h4>
+
+<p><a name="index-index_002c-in-a-publishing-project-2064"></a>
+Org mode can generate an index across the files of a publishing project.
+
+   <p><table summary=""><tr align="left"><td valign="top" width="25%"><code>:makeindex</code>
+</td><td valign="top" width="75%">When non-<code>nil</code>, generate in index in the file <samp><span class="file">theindex.org</span></samp> and
+publish it as <samp><span class="file">theindex.html</span></samp>.
+   <br></td></tr></table>
+
+   <p>The file will be created when first publishing a project with the
+<code>:makeindex</code> set.  The file only contains a statement <code>#+INCLUDE:
+"theindex.inc"</code>.  You can then build around this include statement by adding
+a title, style information, etc.
+
+   <p><a name="index-g_t_0040code_007b_0023_002bINDEX_007d-2065"></a>Index entries are specified with <code>#+INDEX</code> keyword.  An entry that
+contains an exclamation mark will create a sub item.
+
+<pre class="example">     * Curriculum Vitae
+     #+INDEX: CV
+     #+INDEX: Application!CV
+</pre>
+   </body></html>
+

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Modify Macros - Common Lisp Extensions</title>
+<!--
+This file documents the GNU Emacs Common Lisp emulation package.
+
+Copyright (C) 1993, 2001--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Modify-Macros"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Setf-Extensions.html#Setf-Extensions">Setf Extensions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Generalized-Variables.html#Generalized-Variables">Generalized Variables</a>
+
+</div>
+
+<h4 class="subsection">4.2.2 Modify Macros</h4>
+
+<p class="noindent">This package defines a number of macros that operate on generalized
+variables.  Many are interesting and useful even when the <var>place</var>
+is just a variable name.
+
+<div class="defun">
+&mdash; Macro: <b>cl-psetf</b> [<var>place form</var>]<var><small class="dots">...</small><a name="index-cl_002dpsetf-18"></a></var><br>
+<blockquote><p>This macro is to <code>setf</code> what <code>cl-psetq</code> is to <code>setq</code>:
+When several <var>place</var>s and <var>form</var>s are involved, the
+assignments take place in parallel rather than sequentially. 
+Specifically, all subforms are evaluated from left to right, then
+all the assignments are done (in an undefined order). 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-incf</b><var> place &amp;optional x<a name="index-cl_002dincf-19"></a></var><br>
+<blockquote><p>This macro increments the number stored in <var>place</var> by one, or
+by <var>x</var> if specified.  The incremented value is returned.  For
+example, <code>(cl-incf i)</code> is equivalent to <code>(setq i (1+ i))</code>, and
+<code>(cl-incf (car x) 2)</code> is equivalent to <code>(setcar x (+ (car x) 2))</code>.
+
+        <p>As with <code>setf</code>, care is taken to preserve the &ldquo;apparent&rdquo; order
+of evaluation.  For example,
+
+     <pre class="example">          (cl-incf (aref vec (cl-incf i)))
+</pre>
+        <p class="noindent">appears to increment <code>i</code> once, then increment the element of
+<code>vec</code> addressed by <code>i</code>; this is indeed exactly what it
+does, which means the above form is <em>not</em> equivalent to the
+&ldquo;obvious&rdquo; expansion,
+
+     <pre class="example">          (setf (aref vec (cl-incf i))
+                (1+ (aref vec (cl-incf i))))   ; wrong!
+</pre>
+        <p class="noindent">but rather to something more like
+
+     <pre class="example">          (let ((temp (cl-incf i)))
+            (setf (aref vec temp) (1+ (aref vec temp))))
+</pre>
+        <p class="noindent">Again, all of this is taken care of automatically by <code>cl-incf</code> and
+the other generalized-variable macros.
+
+        <p>As a more Emacs-specific example of <code>cl-incf</code>, the expression
+<code>(cl-incf (point) </code><var>n</var><code>)</code> is essentially equivalent to
+<code>(forward-char </code><var>n</var><code>)</code>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-decf</b><var> place &amp;optional x<a name="index-cl_002ddecf-20"></a></var><br>
+<blockquote><p>This macro decrements the number stored in <var>place</var> by one, or
+by <var>x</var> if specified. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-pushnew</b><var> x place </var><tt>&amp;key :test :test-not :key</tt><var><a name="index-cl_002dpushnew-21"></a></var><br>
+<blockquote><p>This macro inserts <var>x</var> at the front of the list stored in
+<var>place</var>, but only if <var>x</var> was not <code>eql</code> to any
+existing element of the list.  The optional keyword arguments
+are interpreted in the same way as for <code>cl-adjoin</code>. 
+See <a href="Lists-as-Sets.html#Lists-as-Sets">Lists as Sets</a>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-shiftf</b><var> place<small class="dots">...</small> newvalue<a name="index-cl_002dshiftf-22"></a></var><br>
+<blockquote><p>This macro shifts the <var>place</var>s left by one, shifting in the
+value of <var>newvalue</var> (which may be any Lisp expression, not just
+a generalized variable), and returning the value shifted out of
+the first <var>place</var>.  Thus, <code>(cl-shiftf </code><var>a</var> <var>b</var> <var>c</var>
+<var>d</var><code>)</code> is equivalent to
+
+     <pre class="example">          (prog1
+              <var>a</var>
+            (cl-psetf <var>a</var> <var>b</var>
+                      <var>b</var> <var>c</var>
+                      <var>c</var> <var>d</var>))
+</pre>
+        <p class="noindent">except that the subforms of <var>a</var>, <var>b</var>, and <var>c</var> are actually
+evaluated only once each and in the apparent order. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-rotatef</b><var> place<small class="dots">...</small><a name="index-cl_002drotatef-23"></a></var><br>
+<blockquote><p>This macro rotates the <var>place</var>s left by one in circular fashion. 
+Thus, <code>(cl-rotatef </code><var>a</var> <var>b</var> <var>c</var> <var>d</var><code>)</code> is equivalent to
+
+     <pre class="example">          (cl-psetf <var>a</var> <var>b</var>
+                    <var>b</var> <var>c</var>
+                    <var>c</var> <var>d</var>
+                    <var>d</var> <var>a</var>)
+</pre>
+        <p class="noindent">except for the evaluation of subforms.  <code>cl-rotatef</code> always
+returns <code>nil</code>.  Note that <code>(cl-rotatef </code><var>a</var> <var>b</var><code>)</code>
+conveniently exchanges <var>a</var> and <var>b</var>. 
+</p></blockquote></div>
+
+   <p>The following macros were invented for this package; they have no
+analogues in Common Lisp.
+
+<div class="defun">
+&mdash; Macro: <b>cl-letf</b> (<var>bindings<small class="dots">...</small></var>)<var> forms<small class="dots">...</small><a name="index-cl_002dletf-24"></a></var><br>
+<blockquote><p>This macro is analogous to <code>let</code>, but for generalized variables
+rather than just symbols.  Each <var>binding</var> should be of the form
+<code>(</code><var>place</var> <var>value</var><code>)</code>; the original contents of the
+<var>place</var>s are saved, the <var>value</var>s are stored in them, and
+then the body <var>form</var>s are executed.  Afterwards, the <var>places</var>
+are set back to their original saved contents.  This cleanup happens
+even if the <var>form</var>s exit irregularly due to a <code>throw</code> or an
+error.
+
+        <p>For example,
+
+     <pre class="example">          (cl-letf (((point) (point-min))
+                    (a 17))
+               ...)
+</pre>
+        <p class="noindent">moves point in the current buffer to the beginning of the buffer,
+and also binds <code>a</code> to 17 (as if by a normal <code>let</code>, since
+<code>a</code> is just a regular variable).  After the body exits, <code>a</code>
+is set back to its original value and point is moved back to its
+original position.
+
+        <p>Note that <code>cl-letf</code> on <code>(point)</code> is not quite like a
+<code>save-excursion</code>, as the latter effectively saves a marker
+which tracks insertions and deletions in the buffer.  Actually,
+a <code>cl-letf</code> of <code>(point-marker)</code> is much closer to this
+behavior.  (<code>point</code> and <code>point-marker</code> are equivalent
+as <code>setf</code> places; each will accept either an integer or a
+marker as the stored value.)
+
+        <p>Like in the case of <code>let</code>, the <var>value</var> forms are evaluated in
+the order they appear, but the order of bindings is unspecified. 
+Therefore, avoid binding the same <var>place</var> more than once in a
+single <code>cl-letf</code> form.
+
+        <p>Since generalized variables look like lists, <code>let</code>'s shorthand
+of using &lsquo;<samp><span class="samp">foo</span></samp>&rsquo; for &lsquo;<samp><span class="samp">(foo nil)</span></samp>&rsquo; as a <var>binding</var> would
+be ambiguous in <code>cl-letf</code> and is not allowed.
+
+        <p>However, a <var>binding</var> specifier may be a one-element list
+&lsquo;<samp><span class="samp">(</span><var>place</var><span class="samp">)</span></samp>&rsquo;, which is similar to &lsquo;<samp><span class="samp">(</span><var>place</var>
+<var>place</var><span class="samp">)</span></samp>&rsquo;.  In other words, the <var>place</var> is not disturbed
+on entry to the body, and the only effect of the <code>cl-letf</code> is
+to restore the original value of <var>place</var> afterwards. 
+<!-- I suspect this may no longer be true; either way it's -->
+<!-- implementation detail and so not essential to document. -->
+
+        <p>Note that in this case, and in fact almost every case, <var>place</var>
+must have a well-defined value outside the <code>cl-letf</code> body. 
+There is essentially only one exception to this, which is <var>place</var>
+a plain variable with a specified <var>value</var> (such as <code>(a 17)</code>
+in the above example). 
+<!-- See https://debbugs.gnu.org/12758 -->
+<!-- Some or all of this was true for cl.el, but not for cl-lib.el. -->
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-letf*</b> (<var>bindings<small class="dots">...</small></var>)<var> forms<small class="dots">...</small><a name="index-cl_002dletf_002a-25"></a></var><br>
+<blockquote><p>This macro is to <code>cl-letf</code> what <code>let*</code> is to <code>let</code>:
+It does the bindings in sequential rather than parallel order. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-callf</b><var> function place args<small class="dots">...</small><a name="index-cl_002dcallf-26"></a></var><br>
+<blockquote><p>This is the &ldquo;generic&rdquo; modify macro.  It calls <var>function</var>,
+which should be an unquoted function name, macro name, or lambda. 
+It passes <var>place</var> and <var>args</var> as arguments, and assigns the
+result back to <var>place</var>.  For example, <code>(cl-incf </code><var>place</var>
+<var>n</var><code>)</code> is the same as <code>(cl-callf + </code><var>place</var> <var>n</var><code>)</code>. 
+Some more examples:
+
+     <pre class="example">          (cl-callf abs my-number)
+          (cl-callf concat (buffer-name) "&lt;" (number-to-string n) "&gt;")
+          (cl-callf cl-union happy-people (list joe bob) :test 'same-person)
+</pre>
+        <p>Note again that <code>cl-callf</code> is an extension to standard Common Lisp. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Macro: <b>cl-callf2</b><var> function arg1 place args<small class="dots">...</small><a name="index-cl_002dcallf2-27"></a></var><br>
+<blockquote><p>This macro is like <code>cl-callf</code>, except that <var>place</var> is
+the <em>second</em> argument of <var>function</var> rather than the
+first.  For example, <code>(push </code><var>x</var> <var>place</var><code>)</code> is
+equivalent to <code>(cl-callf2 cons </code><var>x</var> <var>place</var><code>)</code>. 
+</p></blockquote></div>
+
+   <p>The <code>cl-callf</code> and <code>cl-callf2</code> macros serve as building
+blocks for other macros like <code>cl-incf</code>, and <code>cl-pushnew</code>. 
+The <code>cl-letf</code> and <code>cl-letf*</code> macros are used in the processing
+of symbol macros; see <a href="Macro-Bindings.html#Macro-Bindings">Macro Bindings</a>.
+
+   </body></html>
+

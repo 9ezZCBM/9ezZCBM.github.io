@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Debugging Exercises - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Debugging-Exercises"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="edebug.html#edebug">edebug</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debugging.html#Debugging">Debugging</a>
+
+</div>
+
+<h3 class="section">17.5 Debugging Exercises</h3>
+
+     <ul>
+<li>Install the <code>count-words-example</code> function and then cause it to
+enter the built-in debugger when you call it.  Run the command on a
+region containing two words.  You will need to press <kbd>d</kbd> a
+remarkable number of times.  On your system, is a hook called after
+the command finishes?  (For information on hooks, see <a href="../elisp/Command-Overview.html#Command-Overview">Command Loop Overview</a>.)
+
+     <li>Copy <code>count-words-example</code> into the <samp><span class="file">*scratch*</span></samp> buffer,
+instrument the function for Edebug, and walk through its execution. 
+The function does not need to have a bug, although you can introduce
+one if you wish.  If the function lacks a bug, the walk-through
+completes without problems.
+
+     <li>While running Edebug, type <kbd>?</kbd> to see a list of all the Edebug commands. 
+(The <code>global-edebug-prefix</code> is usually <kbd>C-x X</kbd>, i.e.,
+<kbd>&lt;CTRL&gt;-x</kbd> followed by an upper case <kbd>X</kbd>; use this prefix
+for commands made outside of the Edebug debugging buffer.)
+
+     <li>In the Edebug debugging buffer, use the <kbd>p</kbd>
+(<code>edebug-bounce-point</code>) command to see where in the region the
+<code>count-words-example</code> is working.
+
+     <li>Move point to some spot further down the function and then type the
+<kbd>h</kbd> (<code>edebug-goto-here</code>) command to jump to that location.
+
+     <li>Use the <kbd>t</kbd> (<code>edebug-trace-mode</code>) command to cause Edebug to
+walk through the function on its own; use an upper case <kbd>T</kbd> for
+<code>edebug-Trace-fast-mode</code>.
+
+     <li>Set a breakpoint, then run Edebug in Trace mode until it reaches the
+stopping point. 
+</ul>
+
+   </body></html>
+

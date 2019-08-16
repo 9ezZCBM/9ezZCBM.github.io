@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>RSS feeds - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="RSS-feeds"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Protocols.html#Protocols">Protocols</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Attachments.html#Attachments">Attachments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Capture-_002d-Refile-_002d-Archive.html#Capture-_002d-Refile-_002d-Archive">Capture - Refile - Archive</a>
+
+</div>
+
+<h3 class="section">9.3 RSS feeds</h3>
+
+<p><a name="index-RSS-feeds-1030"></a><a name="index-Atom-feeds-1031"></a>
+Org can add and change entries based on information found in RSS feeds and
+Atom feeds.  You could use this to make a task out of each new podcast in a
+podcast feed.  Or you could use a phone-based note-creating service on the
+web to import tasks into Org.  To access feeds, configure the variable
+<code>org-feed-alist</code>.  The docstring of this variable has detailed
+information.  Here is just an example:
+
+<pre class="smalllisp">     (setq org-feed-alist
+          '(("Slashdot"
+              "http://rss.slashdot.org/Slashdot/slashdot"
+              "~/txt/org/feeds.org" "Slashdot Entries")))
+</pre>
+   <p class="noindent">will configure that new items from the feed provided by
+<code>rss.slashdot.org</code> will result in new entries in the file
+<samp><span class="file">~/org/feeds.org</span></samp> under the heading &lsquo;<samp><span class="samp">Slashdot Entries</span></samp>&rsquo;, whenever
+the following command is used:
+
+     
+<a name="index-C_002dc-C_002dx-g-1032"></a>
+<a name="index-org_002dfeed_002dupdate_002dall-1033"></a>
+<dl><dt><kbd>C-c C-x g &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-feed-update-all</code><kbd>)</kbd>
+<br><dt><kbd>C-c C-x g</kbd><dd>Collect items from the feeds configured in <code>org-feed-alist</code> and act upon
+them. 
+<a name="index-C_002dc-C_002dx-G-1034"></a><a name="index-org_002dfeed_002dgoto_002dinbox-1035"></a><br><dt><kbd>C-c C-x G &nbsp;&nbsp;&nbsp;&nbsp;(</kbd><code>org-feed-goto-inbox</code><kbd>)</kbd><dd>
+Prompt for a feed name and go to the inbox configured for this feed. 
+</dl>
+
+   <p>Under the same headline, Org will create a drawer &lsquo;<samp><span class="samp">FEEDSTATUS</span></samp>&rsquo; in which
+it will store information about the status of items in the feed, to avoid
+adding the same item several times.
+
+   <p>For more information, including how to read atom feeds, see
+<samp><span class="file">org-feed.el</span></samp> and the docstring of <code>org-feed-alist</code>.
+
+   </body></html>
+

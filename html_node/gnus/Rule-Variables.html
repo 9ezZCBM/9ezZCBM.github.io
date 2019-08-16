@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Rule Variables - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Rule-Variables"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Other-Decode-Variables.html#Other-Decode-Variables">Other Decode Variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Decoding-Variables.html#Decoding-Variables">Decoding Variables</a>
+
+</div>
+
+<h5 class="subsubsection">3.17.5.1 Rule Variables</h5>
+
+<p><a name="index-rule-variables-1173"></a>
+Gnus uses <dfn>rule variables</dfn> to decide how to view a file.  All these
+variables are of the form
+
+<pre class="lisp">           (list '(regexp1 command2)
+                 '(regexp2 command2)
+                 ...)
+</pre>
+     <dl>
+<dt><code>gnus-uu-user-view-rules</code><dd><a name="index-gnus_002duu_002duser_002dview_002drules-1174"></a><a name="index-sox-1175"></a>This variable is consulted first when viewing files.  If you wish to use,
+for instance, <code>sox</code> to convert an <samp><span class="file">.au</span></samp> sound file, you could
+say something like:
+     <pre class="lisp">          (setq gnus-uu-user-view-rules
+                (list '("\\\\.au$" "sox %s -t .aiff &gt; /dev/audio")))
+</pre>
+     <br><dt><code>gnus-uu-user-view-rules-end</code><dd><a name="index-gnus_002duu_002duser_002dview_002drules_002dend-1176"></a>This variable is consulted if Gnus couldn't make any matches from the
+user and default view rules.
+
+     <br><dt><code>gnus-uu-user-archive-rules</code><dd><a name="index-gnus_002duu_002duser_002darchive_002drules-1177"></a>This variable can be used to say what commands should be used to unpack
+archives. 
+</dl>
+
+   </body></html>
+

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Dec Example parts - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Dec-Example-parts"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Dec-Example-altogether.html#Dec-Example-altogether">Dec Example altogether</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Decrementing-Example.html#Decrementing-Example">Decrementing Example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Decrementing-Loop.html#Decrementing-Loop">Decrementing Loop</a>
+
+</div>
+
+<h5 class="unnumberedsubsubsec">The parts of the function definition</h5>
+
+<p>We start with three variables: the total number of rows in the
+triangle; the number of pebbles in a row; and the total number of
+pebbles, which is what we want to calculate.  These variables can be
+named <code>number-of-rows</code>, <code>number-of-pebbles-in-row</code>, and
+<code>total</code>, respectively.
+
+   <p>Both <code>total</code> and <code>number-of-pebbles-in-row</code> are used only
+inside the function and are declared with <code>let</code>.  The initial
+value of <code>total</code> should, of course, be zero.  However, the
+initial value of <code>number-of-pebbles-in-row</code> should be equal to
+the number of rows in the triangle, since the addition will start with
+the longest row.
+
+   <p>This means that the beginning of the <code>let</code> expression will look
+like this:
+
+<pre class="smallexample">     (let ((total 0)
+           (number-of-pebbles-in-row number-of-rows))
+       <var>body</var>...)
+</pre>
+   <p>The total number of pebbles can be found by repeatedly adding the number
+of pebbles in a row to the total already found, that is, by repeatedly
+evaluating the following expression:
+
+<pre class="smallexample">     (setq total (+ total number-of-pebbles-in-row))
+</pre>
+   <p class="noindent">After the <code>number-of-pebbles-in-row</code> is added to the <code>total</code>,
+the <code>number-of-pebbles-in-row</code> should be decremented by one, since
+the next time the loop repeats, the preceding row will be
+added to the total.
+
+   <p>The number of pebbles in a preceding row is one less than the number of
+pebbles in a row, so the built-in Emacs Lisp function <code>1-</code> can be
+used to compute the number of pebbles in the preceding row.  This can be
+done with the following expression:
+
+<pre class="smallexample">     (setq number-of-pebbles-in-row
+           (1- number-of-pebbles-in-row))
+</pre>
+   <p>Finally, we know that the <code>while</code> loop should stop making repeated
+additions when there are no pebbles in a row.  So the test for
+the <code>while</code> loop is simply:
+
+<pre class="smallexample">     (while (&gt; number-of-pebbles-in-row 0)
+</pre>
+   </body></html>
+

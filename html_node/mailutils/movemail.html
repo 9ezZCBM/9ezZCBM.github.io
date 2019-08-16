@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Published by the Free Software Foundation,
+51 Franklin Street, Fifth Floor
+Boston, MA 02110-1301, USA
+
+Copyright (C) 1999-2019 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover, and no Back-Cover texts.
+A copy of the license is included in the section entitled "GNU Free
+Documentation License". -->
+<!-- Created by GNU Texinfo 5.9.93, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>GNU Mailutils Manual: movemail</title>
+
+<meta name="description" content="GNU Mailutils Manual: movemail">
+<meta name="keywords" content="GNU Mailutils Manual: movemail">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Function-Index.html#Function-Index" rel="index" title="Function Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Programs.html#Programs" rel="up" title="Programs">
+<link href="Movemail-Configuration.html#Movemail-Configuration" rel="next" title="Movemail Configuration">
+<link href="messages.html#messages" rel="prev" title="messages">
+
+
+  <link rev="made" href="mailto:gray@gnu.org.ua">
+  <link rel="stylesheet" type="text/css" href="/gray.css">
+  <link rel="stylesheet" type="text/css" href="/texi.css">
+  <link rel="icon" type="image/png" href="/graphics/mustamp.png">
+</head>
+
+<body >
+
+<table id="header">
+  <tr>
+    <td class="logo" rowspan="3">
+       <img src="/graphics/mustamp.png"
+            alt=" [MU Poststamp] " width="252" height="196" />
+    </td>
+    <td class="main">
+      <h1><a href="/">GNU Mailutils</a></h1>
+    </td>
+  </tr>
+  <tr>
+    <td class="sub">
+      <h2>General-Purpose Mail Package</h2>
+    </td>
+    <td class='sub right'>
+      <a href="http://www.gnu.org">Official GNU Software</a>
+    </td>
+  </tr>
+</table>
+
+<ul class='tabs'>
+  <li><a href="/">Main</a></li>
+  <li><a href="/download.html">Downloads</a></li>
+  <li><a class="active" href="/manual">Documentation</a></li>
+  <li><a href="/wiki">Wiki</a></li>
+</ul>
+<a name="movemail"></a>
+<div class="header">
+<p>
+<span class="title">GNU Mailutils Manual</span> <span class="splitstatus">(split by node)</span><span class="title">:</span> &nbsp; <span class="navtext">Section:</span><a href="messages.html#messages" title="Previous section in reading order" accesskey="p" rel="prev"><img src="/graphics/left.png" border="0" alt="Back: messages" align="middle"></a><a href="Movemail-Configuration.html#Movemail-Configuration" title="Next section in reading order" accesskey="n" rel="next"><img src="/graphics/right.png" border="0" alt="Forward: Movemail Configuration" align="middle"></a> &nbsp; <span class="navtext">Chapter:</span><a href="Programs.html#Programs" title="Beginning of this chapter or previous chapter"><img src="/graphics/bwd.png" border="0" alt="FastBack: Programs" align="middle"></a> &nbsp; <a href="Programs.html#Programs" title="Up section" accesskey="u" rel="up"><img src="/graphics/up.png" border="0" alt="Up: Programs" align="middle"></a> &nbsp; <a href="Libraries.html#Libraries" title="Next chapter"><img src="/graphics/fwd.png" border="0" alt="FastForward: Libraries" align="middle"></a> &nbsp; <a href="index.html#SEC_Contents" title="Table of contents" rel="contents"><img src="/graphics/ctx.png" border="0" alt="Contents: Table of Contents" align="middle"></a><a href="Function-Index.html#Function-Index" title="Index" rel="index"><img src="/graphics/idx.png" border="0" alt="Index: Function Index" align="middle"></a></p>
+</div>
+
+<a name="movemail-_002d_002d_002d-Moves-Mail-from-the-User-Maildrop-to-the-Local-File"></a>
+<h3 class="section">3.7 <code>movemail</code> &mdash; Moves Mail from the User Maildrop to the Local File</h3>
+<a name="index-movemail"></a>
+<p>The purpose of <code>movemail</code>, as its name implies, is to move mail
+from one location to another.  For example, the following invocation:
+</p>
+<div class="example">
+<pre class="example">movemail /var/mail/smith INBOX
+</pre></div>
+
+<p>moves messages from file <samp>/var/mail/smith</samp> to file <samp>INBOX</samp>.
+</p>
+<p>The program was initially intended as a replacement for
+<code>movemail</code> from GNU Emacs.  The <code>movemail</code> program is
+run by Emacs <code>Rmail</code> module.  See <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Rmail.html#Rmail">Rmail</a> in <cite>Reading Mail
+with Rmail</cite>, for detailed description of <code>Rmail</code> interface.
+</p>
+<p>Mailutils version of <code>movemail</code> is fully
+backward-compatible with its Emacs predecessor, so it should run
+flawlessly with older versions of Emacs.  Emacs versions
+starting from 22.1 contain improved <code>Rmail</code> interface and
+are able to take advantage of all new features mailutils
+<code>movemail</code> provides.
+</p>
+<p>Apart from that use, <code>movemail</code> proved to be a useful tool for
+incorporating mail from remote mailboxes into the local one.  See
+<a href="http://mailutils.org/wiki/Fetching_Mail_with_Movemail">Fetching
+Mail with Movemail</a>, for a detailed discussion with usage recipes.
+</p>
+
+</div>
+<div class="copyright">
+<p>
+  This document was generated on <em>February 23, 2019</em> using <a href="http://www.gnu.org/software/texinfo/"><em>makeinfo</em></a>.
+</p>
+
+Verbatim copying and distribution of this entire article is permitted in any medium, provided this notice is preserved.
+</div>
+</div>
+</body>
+</html>

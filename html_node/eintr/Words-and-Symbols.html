@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Words and Symbols - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Words-and-Symbols"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Syntax.html#Syntax">Syntax</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Divide-and-Conquer.html#Divide-and-Conquer">Divide and Conquer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Words-in-a-defun.html#Words-in-a-defun">Words in a defun</a>
+
+</div>
+
+<h3 class="section">14.1 What to Count?</h3>
+
+<p><a name="index-Words-and-symbols-in-defun-280"></a>
+When we first start thinking about how to count the words in a
+function definition, the first question is (or ought to be) what are
+we going to count?  When we speak of &ldquo;words&rdquo; with respect to a Lisp
+function definition, we are actually speaking, in large part, of
+symbols.  For example, the following <code>multiply-by-seven</code>
+function contains the five symbols <code>defun</code>,
+<code>multiply-by-seven</code>, <code>number</code>, <code>*</code>, and <code>7</code>.  In
+addition, in the documentation string, it contains the four words
+&lsquo;<samp><span class="samp">Multiply</span></samp>&rsquo;, &lsquo;<samp><span class="samp">NUMBER</span></samp>&rsquo;, &lsquo;<samp><span class="samp">by</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">seven</span></samp>&rsquo;.  The
+symbol &lsquo;<samp><span class="samp">number</span></samp>&rsquo; is repeated, so the definition contains a total
+of ten words and symbols.
+
+<pre class="smallexample">     (defun multiply-by-seven (number)
+       "Multiply NUMBER by seven."
+       (* 7 number))
+</pre>
+   <p class="noindent">However, if we mark the <code>multiply-by-seven</code> definition with
+<kbd>C-M-h</kbd> (<code>mark-defun</code>), and then call
+<code>count-words-example</code> on it, we will find that
+<code>count-words-example</code> claims the definition has eleven words, not
+ten!  Something is wrong!
+
+   <p>The problem is twofold: <code>count-words-example</code> does not count the
+&lsquo;<samp><span class="samp">*</span></samp>&rsquo; as a word, and it counts the single symbol,
+<code>multiply-by-seven</code>, as containing three words.  The hyphens are
+treated as if they were interword spaces rather than intraword
+connectors: &lsquo;<samp><span class="samp">multiply-by-seven</span></samp>&rsquo; is counted as if it were written
+&lsquo;<samp><span class="samp">multiply by seven</span></samp>&rsquo;.
+
+   <p>The cause of this confusion is the regular expression search within
+the <code>count-words-example</code> definition that moves point forward word
+by word.  In the canonical version of <code>count-words-example</code>, the
+regexp is:
+
+<pre class="smallexample">     "\\w+\\W*"
+</pre>
+   <p class="noindent">This regular expression is a pattern defining one or more word
+constituent characters possibly followed by one or more characters
+that are not word constituents.  What is meant by &ldquo;word constituent
+characters&rdquo; brings us to the issue of syntax, which is worth a section
+of its own.
+
+   </body></html>
+

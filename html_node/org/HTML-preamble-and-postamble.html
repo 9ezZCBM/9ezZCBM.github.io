@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>HTML preamble and postamble - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="HTML-preamble-and-postamble"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Quoting-HTML-tags.html#Quoting-HTML-tags">Quoting HTML tags</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="HTML-doctypes.html#HTML-doctypes">HTML doctypes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="HTML-export.html#HTML-export">HTML export</a>
+
+</div>
+
+<h4 class="subsection">12.9.4 HTML preamble and postamble</h4>
+
+<p><a name="index-org_002dhtml_002dpreamble-1765"></a><a name="index-org_002dhtml_002dpostamble-1766"></a><a name="index-org_002dhtml_002dpreamble_002dformat-1767"></a><a name="index-org_002dhtml_002dpostamble_002dformat-1768"></a><a name="index-org_002dhtml_002dvalidation_002dlink-1769"></a><a name="index-org_002dexport_002dcreator_002dstring-1770"></a><a name="index-org_002dexport_002dtime_002dstamp_002dfile-1771"></a>
+The HTML exporter has delineations for preamble and postamble.  The default
+value for <code>org-html-preamble</code> is <code>t</code>, which makes the HTML exporter
+insert the preamble.  See the variable <code>org-html-preamble-format</code> for
+the format string.
+
+   <p>Set <code>org-html-preamble</code> to a string to override the default format
+string.  If the string is a function, the HTML exporter expects the function
+to return a string upon execution.  The HTML exporter inserts this string in
+the preamble.  The HTML exporter will not insert a preamble if
+<code>org-html-preamble</code> is set <code>nil</code>.
+
+   <p>The default value for <code>org-html-postamble</code> is <code>auto</code>, which makes
+the HTML exporter build a postamble from looking up author's name, email
+address, creator's name, and date.  Set <code>org-html-postamble</code> to <code>t</code>
+to insert the postamble in the format specified in the
+<code>org-html-postamble-format</code> variable.  The HTML exporter will not insert
+a postamble if <code>org-html-postamble</code> is set to <code>nil</code>.
+
+   </body></html>
+

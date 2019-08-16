@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Overview - Ada Mode</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Overview"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Installation.html#Installation">Installation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="index.html#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">1 Overview</h2>
+
+<p>The Emacs mode for programming in Ada helps the user in understanding
+existing code and facilitates writing new code.
+
+   <p>When the GNU Ada compiler GNAT is used, the cross-reference
+information output by the compiler is used to provide powerful code
+navigation (jump to definition, find all uses, etc.).
+
+   <p>When you open a file with a file extension of <samp><span class="file">.ads</span></samp> or
+<samp><span class="file">.adb</span></samp>, Emacs will automatically load and activate Ada mode.
+
+   <p>Ada mode works without any customization, if you are using the GNAT
+compiler (<a href="https://libre2.adacore.com/">https://libre2.adacore.com/</a>) and the GNAT default
+naming convention.
+
+   <p>You must customize a few things if you are using a different compiler
+or file naming convention; See <a href="Other-compiler.html#Other-compiler">Other compiler</a>, See <a href="Non_002dstandard-file-names.html#Non_002dstandard-file-names">Non-standard file names</a>.
+
+   <p>In addition, you may want to customize the indentation,
+capitalization, and other things; See <a href="Other-customization.html#Other-customization">Other customization</a>.
+
+   <p>Finally, for large Ada projects, you will want to set up an Emacs
+Ada mode project file for each project; See <a href="Project-files.html#Project-files">Project files</a>. Note
+that these are different from the GNAT project files used by gnatmake
+and other GNAT commands.
+
+   <p>See the Emacs info manual, section 'Running Debuggers Under Emacs',
+for general information on debugging.
+
+   </body></html>
+

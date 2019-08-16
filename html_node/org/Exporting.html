@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Exporting - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Exporting"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Publishing.html#Publishing">Publishing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Markup.html#Markup">Markup</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">12 Exporting</h2>
+
+<p><a name="index-exporting-1599"></a>
+Sometimes, you may want to pretty print your notes, publish them on the web
+or even share them with people not using Org.  In these cases, the Org export
+facilities can be used to convert your documents to a variety of other
+formats, while retaining as much structure (see <a href="Document-structure.html#Document-structure">Document structure</a>) and
+markup (see <a href="Markup.html#Markup">Markup</a>) as possible.
+
+   <p><a name="index-export-back_002dend-1600"></a>Libraries responsible for such translation are called back-ends.  Org ships
+with the following ones
+
+     <ul>
+<li>ascii (ASCII format)
+<li>beamer (LaTeX Beamer format)
+<li>html (HTML format)
+<li>icalendar (iCalendar format)
+<li>latex (LaTeX format)
+<li>md (Markdown format)
+<li>odt (OpenDocument Text format)
+<li>org (Org format)
+<li>texinfo (Texinfo format)
+<li>man (Man page format)
+</ul>
+
+<p class="noindent">Org also uses additional libraries located in <code>contrib/</code>
+directory (see <a href="Installation.html#Installation">Installation</a>).  Users can install additional export
+libraries for additional formats from the Emacs packaging system.  For easy
+discovery, these packages have a common naming scheme: <samp><span class="file">ox-NAME</span></samp>, where
+NAME is one of the formats.  For example, <samp><span class="file">ox-koma-letter</span></samp> for
+<code>koma-letter</code> back-end.
+
+   <p><a name="index-org_002dexport_002dbackends-1601"></a>Org loads back-ends for the following formats by default: <code>ascii</code>,
+<code>html</code>, <code>icalendar</code>, <code>latex</code> and <code>odt</code>.
+
+   <p>Org can load additional back-ends either of two ways: through the
+<code>org-export-backends</code> variable configuration; or, by requiring the
+library in the Emacs init file like this:
+
+<pre class="lisp">     (require 'ox-md)
+</pre>
+   <ul class="menu">
+<li><a accesskey="1" href="The-export-dispatcher.html#The-export-dispatcher">The export dispatcher</a>:        The main interface
+<li><a accesskey="2" href="Export-settings.html#Export-settings">Export settings</a>:              Common export settings
+<li><a accesskey="3" href="Table-of-contents.html#Table-of-contents">Table of contents</a>:            The if and where of the table of contents
+<li><a accesskey="4" href="Include-files.html#Include-files">Include files</a>:                Include additional files into a document
+<li><a accesskey="5" href="Macro-replacement.html#Macro-replacement">Macro replacement</a>:            Use macros to create templates
+<li><a accesskey="6" href="Comment-lines.html#Comment-lines">Comment lines</a>:                What will not be exported
+<li><a accesskey="7" href="ASCII_002fLatin_002d1_002fUTF_002d8-export.html#ASCII_002fLatin_002d1_002fUTF_002d8-export">ASCII/Latin-1/UTF-8 export</a>:   Exporting to flat files with encoding
+<li><a accesskey="8" href="Beamer-export.html#Beamer-export">Beamer export</a>:                Exporting as a Beamer presentation
+<li><a accesskey="9" href="HTML-export.html#HTML-export">HTML export</a>:                  Exporting to HTML
+<li><a href="LaTeX-export.html#LaTeX-export">LaTeX export</a>:              Exporting to LaTeX, and processing to PDF
+<li><a href="Markdown-export.html#Markdown-export">Markdown export</a>:              Exporting to Markdown
+<li><a href="OpenDocument-Text-export.html#OpenDocument-Text-export">OpenDocument Text export</a>:     Exporting to OpenDocument Text
+<li><a href="Org-export.html#Org-export">Org export</a>:                   Exporting to Org
+<li><a href="Texinfo-export.html#Texinfo-export">Texinfo export</a>:               Exporting to Texinfo
+<li><a href="iCalendar-export.html#iCalendar-export">iCalendar export</a>:             Exporting to iCalendar
+<li><a href="Other-built_002din-back_002dends.html#Other-built_002din-back_002dends">Other built-in back-ends</a>:     Exporting to a man page
+<li><a href="Advanced-configuration.html#Advanced-configuration">Advanced configuration</a>:       Fine-tuning the export output
+<li><a href="Export-in-foreign-buffers.html#Export-in-foreign-buffers">Export in foreign buffers</a>:    Author tables and lists in Org syntax
+</ul>
+
+   </body></html>
+

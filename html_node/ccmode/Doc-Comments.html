@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Doc Comments - CC Mode Manual</title>
+<!--
+This manual is for CC Mode in Emacs.
+
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Doc-Comments"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Misc-Font-Locking.html#Misc-Font-Locking">Misc Font Locking</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Faces.html#Faces">Faces</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Font-Locking.html#Font-Locking">Font Locking</a>
+
+</div>
+
+<!-- node-name, next, previous, up -->
+<h3 class="section">5.3 Documentation Comments</h3>
+
+<p><a name="index-documentation-comments-262"></a><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+   <p>There are various tools to supply documentation in the source as
+specially structured comments, e.g., the standard Javadoc tool in Java. 
+CC Mode provides an extensible mechanism to fontify such comments and
+the special markup inside them.
+
+<div class="defun">
+&mdash; User Option: <b>c-doc-comment-style</b><var><a name="index-c_002ddoc_002dcomment_002dstyle-263"></a></var><br>
+<blockquote><p><a name="index-doc_002dcomment_002dstyle-_0040r_007b_0028c_002d_0029_007d-264"></a>This is a style variable that specifies which documentation comment
+style to recognize, e.g., <code>javadoc</code> for Javadoc comments.
+
+        <p>The value may also be a list of styles, in which case all of them are
+recognized simultaneously (presumably with markup cues that don't
+conflict).
+
+        <p>The value may also be an association list to specify different comment
+styles for different languages.  The symbol for the major mode is then
+looked up in the alist, and the value of that element is interpreted as
+above if found.  If it isn't found then the symbol <code>other</code> is looked up
+and its value is used instead.
+
+        <p>The default value for <code>c-doc-comment-style</code> is
+<code>((java-mode&nbsp;.&nbsp;javadoc)&nbsp;(pike-mode&nbsp;.&nbsp;autodoc)&nbsp;(c-mode&nbsp;.&nbsp;gtkdoc))</code><!-- /@w -->.
+
+        <p>Note that CC Mode uses this variable to set other variables that
+handle fontification etc.  That's done at mode initialization or when
+you switch to a style which sets this variable.  Thus, if you change it
+in some other way, e.g., interactively in a CC Mode buffer, you will need
+to do <kbd>M-x java-mode</kbd> (or whatever mode you're currently using) to
+reinitialize.
+
+        <p><a name="index-c_002dsetup_002ddoc_002dcomment_002dstyle-265"></a><a name="index-setup_002ddoc_002dcomment_002dstyle-_0040r_007b_0028c_002d_0029_007d-266"></a>Note also that when CC Mode starts up, the other variables are
+modified before the mode hooks are run.  If you change this variable in
+a mode hook, you'll have to call <code>c-setup-doc-comment-style</code>
+afterwards to redo that work. 
+</p></blockquote></div>
+
+   <p>CC Mode currently provides handing of the following doc comment
+styles:
+
+     <dl>
+<dt><code>javadoc</code><dd><a name="index-Javadoc-markup-267"></a>Javadoc comments, the standard tool in Java.
+
+     <br><dt><code>autodoc</code><dd><a name="index-Pike-autodoc-markup-268"></a>For Pike autodoc markup, the standard in Pike.
+
+     <br><dt><code>gtkdoc</code><dd><a name="index-GtkDoc-markup-269"></a>For GtkDoc markup, widely used in the Gnome community. 
+</dl>
+
+   <p>The above is by no means complete.  If you'd like to see support for
+other doc comment styles, please let us know (see <a href="Mailing-Lists-and-Bug-Reports.html#Mailing-Lists-and-Bug-Reports">Mailing Lists and Bug Reports</a>).
+
+   <p>You can also write your own doc comment fontification support to use
+with <code>c-doc-comment-style</code>: Supply a variable or function
+<code>*-font-lock-keywords</code> where &lsquo;<samp><span class="samp">*</span></samp>&rsquo; is the name you want to use
+in <code>c-doc-comment-style</code>.  If it's a variable, it's prepended to
+<code>font-lock-keywords</code>.  If it's a function, it's called at mode
+initialization and the result is prepended.  For an example, see
+<code>javadoc-font-lock-keywords</code> in <samp><span class="file">cc-fonts.el</span></samp>.
+
+   <p>If you add support for another doc comment style, please consider
+contributing it: send a note to <a href="mailto:bug-cc-mode@gnu.org">bug-cc-mode@gnu.org</a>.
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   </body></html>
+

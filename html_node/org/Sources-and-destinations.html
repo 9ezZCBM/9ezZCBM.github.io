@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Sources and destinations - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Sources-and-destinations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Selecting-files.html#Selecting-files">Selecting files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Project-alist.html#Project-alist">Project alist</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h4 class="subsection">13.1.2 Sources and destinations for files</h4>
+
+<p><a name="index-directories_002c-for-publishing-2057"></a>
+Most properties are optional, but some should always be set.  In
+particular, Org needs to know where to look for source files,
+and where to put published files.
+
+   <p><table summary=""><tr align="left"><td valign="top" width="30%"><code>:base-directory</code>
+</td><td valign="top" width="70%">Directory containing publishing source files
+<br></td></tr><tr align="left"><td valign="top" width="30%"><code>:publishing-directory</code>
+</td><td valign="top" width="70%">Directory where output files will be published.  You can directly
+publish to a web server using a file name syntax appropriate for
+the Emacs <samp><span class="file">tramp</span></samp> package.  Or you can publish to a local directory and
+use external tools to upload your website (see <a href="Uploading-files.html#Uploading-files">Uploading files</a>). 
+<br></td></tr><tr align="left"><td valign="top" width="30%"><code>:preparation-function</code>
+</td><td valign="top" width="70%">Function or list of functions to be called before starting the
+publishing process, for example, to run <code>make</code> for updating files to be
+published.  Each preparation function is called with a single argument, the
+project property list. 
+<br></td></tr><tr align="left"><td valign="top" width="30%"><code>:completion-function</code>
+</td><td valign="top" width="70%">Function or list of functions called after finishing the publishing
+process, for example, to change permissions of the resulting files.  Each
+completion function is called with a single argument, the project property
+list.
+   <br></td></tr></table>
+
+   </body></html>
+

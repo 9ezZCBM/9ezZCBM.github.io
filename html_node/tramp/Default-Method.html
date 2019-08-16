@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Default Method - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Default-Method"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Default-User.html#Default-User">Default User</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="GVFS-based-methods.html#GVFS-based-methods">GVFS based methods</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.5 Selecting a default method</h3>
+
+<p><a name="index-default-method-144"></a>
+In a remote file name, the use of a default method is indicated by the
+pseudo method <samp><span class="option">-</span></samp>, <a href="File-name-syntax.html#File-name-syntax">File name syntax</a>.
+
+<div class="defun">
+&mdash; User Option: <b>tramp-default-method</b><var><a name="index-tramp_002ddefault_002dmethod-145"></a></var><br>
+<blockquote><p>Default method is for transferring files.  The user option
+<code>tramp-default-method</code> sets it.  <span class="sc">Tramp</span> uses this user
+option to determine the default method for remote file names that do
+not have one specified.
+
+     <pre class="lisp">          (customize-set-variable 'tramp-default-method "ssh")
+</pre>
+        </blockquote></div>
+
+<div class="defun">
+&mdash; User Option: <b>tramp-default-method-alist</b><var><a name="index-tramp_002ddefault_002dmethod_002dalist-146"></a></var><br>
+<blockquote><p>Default methods for transferring files can be customized for specific
+user and host combinations through the user option
+<code>tramp-default-method-alist</code>.
+
+        <p>For example, the following two lines specify to use the <samp><span class="option">ssh</span></samp>
+method for all user names matching &lsquo;<samp><span class="samp">john</span></samp>&rsquo; and the <samp><span class="option">rsync</span></samp>
+method for all host names matching &lsquo;<samp><span class="samp">lily</span></samp>&rsquo;.  The third line
+specifies to use the <samp><span class="option">su</span></samp> method for the user &lsquo;<samp><span class="samp">root</span></samp>&rsquo; on
+the host &lsquo;<samp><span class="samp">localhost</span></samp>&rsquo;.
+
+     <pre class="lisp">          (add-to-list 'tramp-default-method-alist '("" "john" "ssh"))
+          (add-to-list 'tramp-default-method-alist '("lily" "" "rsync"))
+          (add-to-list 'tramp-default-method-alist
+                       '("\\`localhost\\'" "\\`root\\'" "su"))
+</pre>
+        </blockquote></div>
+
+<p class="noindent">External methods performance faster for large files.  see <a href="Inline-methods.html#Inline-methods">Inline methods</a>.  see <a href="External-methods.html#External-methods">External methods</a>.
+
+   <p>Choosing the access method also depends on the security environment. 
+For example, <samp><span class="option">rsh</span></samp> and <samp><span class="option">telnet</span></samp> methods that use clear
+text password transfers are inappropriate for over the Internet
+connections.  Secure remote connections should use <samp><span class="option">ssh</span></samp> that
+provide encryption.
+
+<h4 class="subsection">5.5.1 Which method to use?</h4>
+
+<p><a name="index-choosing-the-right-method-147"></a>
+<span class="sc">Tramp</span> provides maximum number of choices for maximum
+flexibility.  Choosing which method depends on the hosts, clients,
+network speeds, and the security context.
+
+   <p>Start by using an inline method.
+
+   <p>External methods might be more efficient for large files, but most
+<span class="sc">Tramp</span> users edit small files more often than large files.
+
+   <p>Enable compression, <code>tramp-inline-compress-start-size</code>, for a
+performance boost for large files.
+
+   <p>Since <samp><span class="command">ssh</span></samp> has become the most common method of remote host
+access and it has the most reasonable security protocols, use
+<samp><span class="option">ssh</span></samp> method.  Typical <samp><span class="option">ssh</span></samp> usage to edit the
+<samp><span class="file">/etc/motd</span></samp> file on the otherhost:
+
+<pre class="example">     <kbd>C-x C-f /ssh:root@otherhost:/etc/motd &lt;RET&gt;</kbd>
+</pre>
+   <p>If <samp><span class="option">ssh</span></samp> is unavailable for whatever reason, look for other
+obvious options.  For MS Windows, try the <samp><span class="option">plink</span></samp> method.  For
+Kerberos, try <samp><span class="option">krlogin</span></samp>.
+
+   <p>For editing local files as <samp><span class="option">su</span></samp> or <samp><span class="option">sudo</span></samp> methods, try
+the shortened syntax of &lsquo;<samp><span class="samp">root</span></samp>&rsquo;:
+
+<pre class="example">     <kbd>C-x C-f /su::/etc/motd &lt;RET&gt;</kbd>
+</pre>
+   <p>For editing large files, <samp><span class="option">scp</span></samp> is faster than <samp><span class="option">ssh</span></samp>. 
+<samp><span class="option">pscp</span></samp> is faster than <samp><span class="option">plink</span></samp>.  But this speed
+improvement is not always true.
+
+   </body></html>
+

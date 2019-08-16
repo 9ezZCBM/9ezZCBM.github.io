@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Buffer Walk Through - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Buffer-Walk-Through"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="More-Complex.html#More-Complex">More Complex</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Writing-Defuns.html#Writing-Defuns">Writing Defuns</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 A Few Buffer-Related Functions</h2>
+
+<p>In this chapter we study in detail several of the functions used in GNU
+Emacs.  This is called a &ldquo;walk-through&rdquo;.  These functions are used as
+examples of Lisp code, but are not imaginary examples; with the
+exception of the first, simplified function definition, these functions
+show the actual code used in GNU Emacs.  You can learn a great deal from
+these definitions.  The functions described here are all related to
+buffers.  Later, we will study other functions.
+
+<ul class="menu">
+<li><a accesskey="1" href="Finding-More.html#Finding-More">Finding More</a>:                 How to find more information. 
+<li><a accesskey="2" href="simplified_002dbeginning_002dof_002dbuffer.html#simplified_002dbeginning_002dof_002dbuffer">simplified-beginning-of-buffer</a>:   Shows <code>goto-char</code>,
+                                <code>point-min</code>, and <code>push-mark</code>. 
+<li><a accesskey="3" href="mark_002dwhole_002dbuffer.html#mark_002dwhole_002dbuffer">mark-whole-buffer</a>:            Almost the same as <code>beginning-of-buffer</code>. 
+<li><a accesskey="4" href="append_002dto_002dbuffer.html#append_002dto_002dbuffer">append-to-buffer</a>:             Uses <code>save-excursion</code> and
+                                <code>insert-buffer-substring</code>. 
+<li><a accesskey="5" href="Buffer-Related-Review.html#Buffer-Related-Review">Buffer Related Review</a>:        Review. 
+<li><a accesskey="6" href="Buffer-Exercises.html#Buffer-Exercises">Buffer Exercises</a>
+</ul>
+
+   </body></html>
+

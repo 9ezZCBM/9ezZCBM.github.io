@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>External methods - TRAMP 2.3.4.26.2 User Manual</title>
+<!--
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="External-methods"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="GVFS-based-methods.html#GVFS-based-methods">GVFS based methods</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Inline-methods.html#Inline-methods">Inline methods</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Configuration.html#Configuration">Configuration</a>
+
+</div>
+
+<h3 class="section">5.3 External methods</h3>
+
+<p><a name="index-methods_002c-external-75"></a><a name="index-external-methods-76"></a>
+External methods operate over multiple channels, using the remote
+shell connection for some actions while delegating file transfers to
+an external transfer program.
+
+   <p>External methods save on the overhead of encoding and decoding of
+inline methods.
+
+   <p>Since external methods have the overhead of opening a new channel,
+files smaller than <code>tramp-copy-size-limit</code> still use inline
+methods.
+
+     <dl>
+<dt><samp><span class="option">rcp</span></samp><dd><a name="index-method-rcp-77"></a><a name="index-rcp-method-78"></a><a name="index-rcp-_0028with-rcp-method_0029-79"></a><a name="index-rsh-_0028with-rcp-method_0029-80"></a>
+This method uses the <samp><span class="command">rsh</span></samp> and <samp><span class="command">rcp</span></samp> commands to
+connect to the remote host and transfer files.  This is the fastest
+access method available.
+
+     <p>The alternative method <samp><span class="option">remcp</span></samp> uses the <samp><span class="command">remsh</span></samp> and
+<samp><span class="command">rcp</span></samp> commands.
+
+     <br><dt><samp><span class="option">scp</span></samp><dd><a name="index-method-scp-81"></a><a name="index-scp-method-82"></a><a name="index-scp-_0028with-scp-method_0029-83"></a><a name="index-ssh-_0028with-scp-method_0029-84"></a>
+Using a combination of <samp><span class="command">ssh</span></samp> to connect and <samp><span class="command">scp</span></samp> to
+transfer is the most secure.  While the performance is good, it is
+slower than the inline methods for smaller files.  Though there is no
+overhead of encoding and decoding of the inline methods,
+<samp><span class="command">scp</span></samp>'s cryptographic handshake negates those speed gains.
+
+     <p><samp><span class="option">ssh</span></samp>-based methods support &lsquo;<samp><span class="samp">-p</span></samp>&rsquo; feature for specifying
+port numbers.  For example, <samp><span class="file">host#42</span></samp> passes &lsquo;<samp><span class="samp">-p 42</span></samp>&rsquo; in the
+argument list to <samp><span class="command">ssh</span></samp>, and &lsquo;<samp><span class="samp">-P 42</span></samp>&rsquo; in the argument list
+to <samp><span class="command">scp</span></samp>.
+
+     <br><dt><samp><span class="option">rsync</span></samp><dd><a name="index-method-rsync-85"></a><a name="index-rsync-method-86"></a><a name="index-rsync-_0028with-rsync-method_0029-87"></a><a name="index-ssh-_0028with-rsync-method_0029-88"></a>
+<samp><span class="command">ssh</span></samp> command to connect in combination with <samp><span class="command">rsync</span></samp>
+command to transfer is similar to the <samp><span class="option">scp</span></samp> method.
+
+     <p><samp><span class="command">rsync</span></samp> performs much better than <samp><span class="command">scp</span></samp> when
+transferring files that exist on both hosts.  However, this advantage
+is lost if the file exists only on one side of the connection.
+
+     <p>This method supports the &lsquo;<samp><span class="samp">-p</span></samp>&rsquo; argument.
+
+     <br><dt><samp><span class="option">scpx</span></samp><dd><a name="index-method-scpx-89"></a><a name="index-scpx-method-90"></a><a name="index-scp-_0028with-scpx-method_0029-91"></a><a name="index-ssh-_0028with-scpx-method_0029-92"></a>
+<samp><span class="option">scpx</span></samp> is useful to avoid login shell questions.  It is similar
+in performance to <samp><span class="option">scp</span></samp>.  <samp><span class="option">scpx</span></samp> uses &lsquo;<samp><span class="samp">ssh -t -t
+</span><var>host</var><span class="samp"> -l </span><var>user</var><span class="samp"> /bin/sh</span></samp>&rsquo; to open a connection.
+
+     <p><samp><span class="option">scpx</span></samp> is useful for MS Windows users when <samp><span class="command">ssh</span></samp>
+triggers an error about allocating a pseudo tty.  This happens due to
+missing shell prompts that confuses <span class="sc">Tramp</span>.
+
+     <p>This method supports the &lsquo;<samp><span class="samp">-p</span></samp>&rsquo; argument.
+
+     <br><dt><samp><span class="option">pscp</span></samp><br><dt><samp><span class="option">psftp</span></samp><dd><a name="index-method-pscp-93"></a><a name="index-pscp-method-94"></a><a name="index-pscp-_0028with-pscp-method_0029-95"></a><a name="index-plink-_0028with-pscp-method_0029-96"></a><a name="index-putty-_0028with-pscp-method_0029-97"></a><a name="index-method-psftp-98"></a><a name="index-psftp-method-99"></a><a name="index-pscp-_0028with-psftp-method_0029-100"></a><a name="index-plink-_0028with-psftp-method_0029-101"></a><a name="index-putty-_0028with-psftp-method_0029-102"></a>
+These methods are similar to <samp><span class="option">scp</span></samp> or <samp><span class="option">sftp</span></samp>, but they
+use the <samp><span class="command">plink</span></samp> command to connect to the remote host, and
+they use <samp><span class="command">pscp</span></samp> or <samp><span class="command">psftp</span></samp> for transferring the files. 
+These programs are part of PuTTY, an SSH implementation for MS Windows.
+
+     <p>Check the &lsquo;<samp><span class="samp">Share SSH connections if possible</span></samp>&rsquo; control for that
+session.
+
+     <p>These methods support the &lsquo;<samp><span class="samp">-P</span></samp>&rsquo; argument.
+
+     <br><dt><samp><span class="option">fcp</span></samp><dd><a name="index-method-fcp-103"></a><a name="index-fcp-method-104"></a><a name="index-fsh-_0028with-fcp-method_0029-105"></a><a name="index-fcp-_0028with-fcp-method_0029-106"></a>
+This method is similar to <samp><span class="option">scp</span></samp>, but uses <samp><span class="command">fsh</span></samp> to
+connect and <samp><span class="command">fcp</span></samp> to transfer files.  <samp><span class="command">fsh/fcp</span></samp>, a
+front-end for <samp><span class="command">ssh</span></samp>, reuse <samp><span class="command">ssh</span></samp> session by
+submitting several commands.  This avoids the startup overhead due to
+<samp><span class="command">scp</span></samp>'s secure connection.  Inline methods have similar
+benefits.
+
+     <p>The command used for this connection is: &lsquo;<samp><span class="samp">fsh </span><var>host</var><span class="samp"> -l
+</span><var>user</var><span class="samp"> /bin/sh -i</span></samp>&rsquo;
+
+     <p><a name="index-method-fsh-107"></a><a name="index-fsh-method-108"></a>
+<samp><span class="option">fsh</span></samp> has no inline method since the multiplexing it offers is
+not useful for <span class="sc">Tramp</span>.  <samp><span class="command">fsh</span></samp> connects to remote host
+and <span class="sc">Tramp</span> keeps that one connection open.
+
+     <br><dt><samp><span class="option">nc</span></samp><dd><a name="index-method-nc-109"></a><a name="index-nc-method-110"></a><a name="index-nc-_0028with-nc-method_0029-111"></a><a name="index-telnet-_0028with-nc-method_0029-112"></a>
+Using <samp><span class="command">telnet</span></samp> to connect and <samp><span class="command">nc</span></samp> to transfer files
+is sometimes the only combination suitable for accessing routers or
+NAS hosts.  These dumb devices have severely restricted local shells,
+such as the <samp><span class="command">busybox</span></samp> and do not host any other encode or
+decode programs.
+
+     <br><dt><samp><span class="option">ftp</span></samp><dd><a name="index-method-ftp-113"></a><a name="index-ftp-method-114"></a>
+When <span class="sc">Tramp</span> uses <samp><span class="option">ftp</span></samp>, it forwards requests to whatever
+ftp program is specified by Ange FTP.  This external program must be
+capable of servicing requests from <span class="sc">Tramp</span>.
+
+     <br><dt><samp><span class="option">smb</span></samp><dd><a name="index-method-smb-115"></a><a name="index-smb-method-116"></a><a name="index-ms-windows-_0028with-smb-method_0029-117"></a><a name="index-smbclient-118"></a>
+This non-native <span class="sc">Tramp</span> method connects via the Server Message
+Block (SMB) networking protocol to hosts running file servers that are
+typically based on <a href="https://www.samba.org/">Samba</a> or MS Windows.
+
+     <p>Using <samp><span class="command">smbclient</span></samp> requires a few tweaks when working with
+<span class="sc">Tramp</span>:
+
+     <p>The first directory in the localname must be a share name on the
+remote host.
+
+     <p>Since some SMB share names end in the <code>$</code> character,
+<span class="sc">Tramp</span> must use <code>$$</code> when specifying those shares to avoid
+environment variable substitutions.
+
+     <p>When <span class="sc">Tramp</span> is not specific about the share name or uses the
+generic remote directory <samp><span class="file">/</span></samp>, <samp><span class="command">smbclient</span></samp> returns all
+available shares.
+
+     <p>Since SMB authentication is based on each SMB share, <span class="sc">Tramp</span>
+prompts for a password even when accessing a different share on the
+same SMB host.  This prompting can be suppressed by <a href="Password-handling.html#Password-handling">Password handling</a>.
+
+     <p>To accommodate user name/domain name syntax required by MS Windows
+authorization, <span class="sc">Tramp</span> provides for an extended syntax in
+<code>user%domain</code> format (where <code>user</code> is the user name,
+<code>%</code> is the percent symbol, and <code>domain</code> is the MS Windows
+domain name).  An example:
+
+     <pre class="example">          /smb:daniel%BIZARRE@melancholia:/daniel$$/.emacs
+</pre>
+     <p>where user <code>daniel</code> connects as a domain user to the SMB host
+<code>melancholia</code> in the MS Windows domain <code>BIZARRE</code> to edit
+<samp><span class="file">.emacs</span></samp> located in the home directory (share <code>daniel$</code>).
+
+     <p>Alternatively, for local WINS users (as opposed to domain users),
+substitute the domain name with the name of the local host in
+UPPERCASE as shown here:
+
+     <pre class="example">          /smb:daniel%MELANCHOLIA@melancholia:/daniel$$/.emacs
+</pre>
+     <p>where user <code>daniel</code> connects as local user to the SMB host
+<code>melancholia</code> in the local domain <code>MELANCHOLIA</code> to edit
+<samp><span class="file">.emacs</span></samp> located in the home directory (share <code>daniel$</code>).
+
+     <p>The domain name and user name are optional for <samp><span class="command">smbclient</span></samp>
+authentication.  When user name is not specified, <samp><span class="command">smbclient</span></samp>
+uses the anonymous user (without prompting for password).  This
+behavior is unlike other <span class="sc">Tramp</span> methods, where local user name
+is substituted.
+
+     <p>The <samp><span class="option">smb</span></samp> method is unavailable if Emacs is run under a local
+user authentication context in MS Windows.  However such users can
+still access remote files using UNC file names instead of <span class="sc">Tramp</span>:
+
+     <pre class="example">          //melancholia/daniel$$/.emacs
+</pre>
+     <p>UNC file name specification does not allow the specification of a
+different user name for authentication like the <samp><span class="command">smbclient</span></samp>
+can.
+
+     <br><dt><samp><span class="option">adb</span></samp><dd><a name="index-method-adb-119"></a><a name="index-adb-method-120"></a><a name="index-android-_0028with-adb-method_0029-121"></a>
+<a name="index-tramp_002dadb_002dprogram-122"></a><a name="index-PATH_0040r_007b_002c-environment-variable_007d-123"></a>This method uses Android Debug Bridge program for accessing Android
+devices.  The Android Debug Bridge must be installed locally for
+<span class="sc">Tramp</span> to work.  Some GNU/Linux distributions provide Android
+Debug Bridge as an installation package.  Alternatively, the program
+is installed as part of the Android SDK.  <span class="sc">Tramp</span> finds the
+<samp><span class="command">adb</span></samp> program either via the <samp><span class="env">PATH</span></samp> environment variable
+or the absolute path set in the user option <code>tramp-adb-program</code>.
+
+     <p><a name="index-tramp_002dadb_002dconnect_002dif_002dnot_002dconnected-124"></a><span class="sc">Tramp</span> connects to Android devices with <samp><span class="option">adb</span></samp> only when
+the user option <code>tramp-adb-connect-if-not-connected</code> is not
+<code>nil</code>.  Otherwise, the connection must be established outside
+Emacs.
+
+     <p><span class="sc">Tramp</span> does not require a host name part of the remote file
+name when a single Android device is connected to <samp><span class="command">adb</span></samp>. 
+<span class="sc">Tramp</span> instead uses <samp><span class="file">/adb::</span></samp> as the default name. 
+<samp><span class="command">adb devices</span></samp> shows available host names.
+
+     <p><samp><span class="option">adb</span></samp> method normally does not need user name to authenticate
+on the Android device because it runs under the <samp><span class="command">adbd</span></samp>
+process.  But when a user name is specified, however, <span class="sc">Tramp</span>
+applies an <samp><span class="command">su</span></samp> in the syntax.  When authentication does not
+succeed, especially on un-rooted Android devices, <span class="sc">Tramp</span>
+displays login errors.
+
+     <p>For Android devices connected through TCP/IP, a port number can be
+specified using <samp><span class="file">device#42</span></samp> host name syntax or <span class="sc">Tramp</span> can
+use the default value as declared in <samp><span class="command">adb</span></samp> command.  Port
+numbers are not applicable to Android devices connected through USB.
+
+   </dl>
+
+   </body></html>
+

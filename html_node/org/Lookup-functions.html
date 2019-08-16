@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Lookup functions - The Org Manual</title>
+<!--
+This manual is for Org version 9.1.9.
+
+Copyright (C) 2004--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual,'' and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License.''
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Lookup-functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Editing-and-debugging-formulas.html#Editing-and-debugging-formulas">Editing and debugging formulas</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Column-formulas.html#Column-formulas">Column formulas</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-spreadsheet.html#The-spreadsheet">The spreadsheet</a>
+
+</div>
+
+<h4 class="subsection">3.5.7 Lookup functions</h4>
+
+<p><a name="index-lookup-functions-in-tables-379"></a><a name="index-table-lookup-functions-380"></a>
+Org has three predefined Emacs Lisp functions for lookups in tables.
+     <dl>
+<dt><code>(org-lookup-first VAL S-LIST R-LIST &amp;optional PREDICATE)</code><dd><a name="index-org_002dlookup_002dfirst-381"></a>Searches for the first element <code>S</code> in list <code>S-LIST</code> for which
+     <pre class="lisp">          (PREDICATE VAL S)
+</pre>
+     <p>is <code>t</code>; returns the value from the corresponding position in list
+<code>R-LIST</code>.  The default <code>PREDICATE</code> is <code>equal</code>.  Note that the
+parameters <code>VAL</code> and <code>S</code> are passed to <code>PREDICATE</code> in the same
+order as the corresponding parameters are in the call to
+<code>org-lookup-first</code>, where <code>VAL</code> precedes <code>S-LIST</code>.  If
+<code>R-LIST</code> is <code>nil</code>, the matching element <code>S</code> of <code>S-LIST</code>
+is returned. 
+<br><dt><code>(org-lookup-last VAL S-LIST R-LIST &amp;optional PREDICATE)</code><dd><a name="index-org_002dlookup_002dlast-382"></a>Similar to <code>org-lookup-first</code> above, but searches for the <i>last</i>
+element for which <code>PREDICATE</code> is <code>t</code>. 
+<br><dt><code>(org-lookup-all VAL S-LIST R-LIST &amp;optional PREDICATE)</code><dd><a name="index-org_002dlookup_002dall-383"></a>Similar to <code>org-lookup-first</code>, but searches for <i>all</i> elements for
+which <code>PREDICATE</code> is <code>t</code>, and returns <i>all</i> corresponding
+values.  This function can not be used by itself in a formula, because it
+returns a list of values.  However, powerful lookups can be built when this
+function is combined with other Emacs Lisp functions. 
+</dl>
+
+   <p>If the ranges used in these functions contain empty fields, the <code>E</code> mode
+for the formula should usually be specified: otherwise empty fields will not be
+included in <code>S-LIST</code> and/or <code>R-LIST</code> which can, for example, result
+in an incorrect mapping from an element of <code>S-LIST</code> to the corresponding
+element of <code>R-LIST</code>.
+
+   <p>These three functions can be used to implement associative arrays, count
+matching cells, rank results, group data etc.  For practical examples
+see <a href="https://orgmode.org/worg/org-tutorials/org-lookups.html">this tutorial on Worg</a>.
+
+   </body></html>
+

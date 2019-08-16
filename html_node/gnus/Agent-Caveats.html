@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Agent Caveats - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Agent-Caveats"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Batching-Agents.html#Batching-Agents">Batching Agents</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Gnus-Unplugged.html#Gnus-Unplugged">Gnus Unplugged</a>
+
+</div>
+
+<h4 class="subsection">6.9.14 Agent Caveats</h4>
+
+<p>The Gnus Agent doesn't seem to work like most other offline
+newsreaders.  Here are some common questions that some imaginary people
+may ask:
+
+     <dl>
+<dt><dfn>If I read an article while plugged, do they get entered into the Agent?</dfn><dd>
+<strong>No</strong>.  If you want this behavior, add
+<code>gnus-agent-fetch-selected-article</code> to
+<code>gnus-select-article-hook</code>.
+
+     <br><dt><dfn>If I read an article while plugged, and the article already exists in</dfn><dd>the Agent, will it get downloaded once more?
+
+     <p><strong>No</strong>, unless <code>gnus-agent-cache</code> is <code>nil</code>.
+
+   </dl>
+
+   <p>In short, when Gnus is unplugged, it only looks into the locally stored
+articles; when it's plugged, it talks to your ISP and may also use the
+locally stored articles.
+
+   </body></html>
+

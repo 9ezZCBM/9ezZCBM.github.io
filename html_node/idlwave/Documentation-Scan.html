@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Documentation Scan - IDLWAVE User Manual</title>
+<!--
+This file documents IDLWAVE, a major mode for editing IDL files with
+Emacs, and interacting with an IDL shell run as a subprocess.
+
+This is edition 6.1 of the IDLWAVE User Manual for IDLWAVE
+6.1.
+
+Copyright (C) 1999--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Documentation-Scan"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Load_002dPath-Shadows.html#Load_002dPath-Shadows">Load-Path Shadows</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Sources-of-Routine-Info.html#Sources-of-Routine-Info">Sources of Routine Info</a>
+
+</div>
+
+<h3 class="appendixsec">A.5 Documentation Scan</h3>
+
+<p><a name="index-g_t_0040file_007bget_005fhtml_005frinfo_007d-384"></a><a name="index-g_t_0040file_007bidlw_002drinfo_002eel_007d-385"></a><a name="index-Scanning-the-documentation-386"></a><a name="index-Perl-program_002c-to-create-_0040file_007bidlw_002drinfo_002eel_007d-387"></a>
+<strong>Starting with version 6.2, IDL is distributed directly with HTML
+online help, and an XML-based catalog of routine information</strong>.  This
+makes scanning the manuals with the tool <samp><span class="file">get_html_rinfo</span></samp>, and the
+<samp><span class="file">idlw-rinfo.el</span></samp> file it produced, as described here, entirely
+unnecessary.  The information is left here for users wishing to produce
+a catalog of older IDL versions' help.
+
+   <p>IDLWAVE derives its knowledge about system routines from the IDL
+manuals.  The file <samp><span class="file">idlw-rinfo.el</span></samp> contains the routine information
+for the IDL system routines, and links to relevant sections of the HTML
+documentation.  The Online Help feature of IDLWAVE requires HTML
+versions of the IDL manuals to be available; the HTML documentation is
+not distributed with IDLWAVE by default, but must be downloaded
+separately.
+
+   <p>The HTML files and related images can be produced from the
+<samp><span class="file">idl.chm</span></samp> HTMLHelp file distributed with IDL using the free
+Microsoft HTML Help Workshop.  If you are lucky, the maintainer of
+IDLWAVE will always have access to the newest version of IDL and provide
+updates.  The IDLWAVE distribution also contains the Perl program
+<samp><span class="file">get_html_rinfo</span></samp> which constructs the <samp><span class="file">idlw-rinfo.el</span></samp> file by
+scanning the HTML documents produced from the IDL documentation. 
+Instructions on how to use <samp><span class="file">get_html_rinfo</span></samp> are in the program
+itself.
+
+   </body></html>
+

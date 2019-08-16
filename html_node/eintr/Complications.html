@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Complications - Programming in Emacs Lisp</title>
+<!--
+This is an `Introduction to Programming in Emacs Lisp', for
+people who are not programmers.
+
+   Distributed with Emacs version 26.2.
+
+   Copyright (C) 1990--1995, 1997, 2001--2019 Free Software
+Foundation, Inc.
+
+
+
+   Printed copies available from `https://shop.fsf.org/'. Published by:
+     GNU Press,                        https://www.fsf.org/licensing/gnu-press/
+     a division of the                 email: sales@fsf.org
+     Free Software Foundation, Inc.    Tel: +1 (617) 542-5942
+     51 Franklin Street, Fifth Floor   Fax: +1 (617) 542-2652
+     Boston, MA 02110-1301 USA
+
+   ISBN 1-882114-43-4
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; there being no Invariant Section, with the Front-Cover
+     Texts being ``A GNU Manual'', and with the Back-Cover Texts as in
+     (a) below.  A copy of the license is included in the section
+     entitled ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.  Buying copies from the FSF supports
+     it in developing GNU and promoting software freedom.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Complications"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Byte-Compiling.html#Byte-Compiling">Byte Compiling</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Lisp-Interpreter.html#Lisp-Interpreter">Lisp Interpreter</a>
+
+</div>
+
+<h4 class="unnumberedsubsec">Complications</h4>
+
+   <p>Now, for the first complication.  In addition to lists, the Lisp
+interpreter can evaluate a symbol that is not quoted and does not have
+parentheses around it.  The Lisp interpreter will attempt to determine
+the symbol's value as a <dfn>variable</dfn>.  This situation is described
+in the section on variables.  (See <a href="Variables.html#Variables">Variables</a>.)
+
+   <p><a name="index-Special-form-32"></a>The second complication occurs because some functions are unusual and
+do not work in the usual manner.  Those that don't are called
+<dfn>special forms</dfn>.  They are used for special jobs, like defining a
+function, and there are not many of them.  In the next few chapters,
+you will be introduced to several of the more important special forms.
+
+   <p>As well as special forms, there are also <dfn>macros</dfn>.  A macro
+is a construct defined in Lisp, which differs from a function in that it
+translates a Lisp expression into another expression that is to be
+evaluated in place of the original expression.  (See <a href="Lisp-macro.html#Lisp-macro">Lisp macro</a>.)
+
+   <p>For the purposes of this introduction, you do not need to worry too much
+about whether something is a special form, macro, or ordinary function. 
+For example, <code>if</code> is a special form (see <a href="if.html#if">if</a>), but <code>when</code>
+is a macro (see <a href="Lisp-macro.html#Lisp-macro">Lisp macro</a>).  In earlier versions of Emacs,
+<code>defun</code> was a special form, but now it is a macro (see <a href="defun.html#defun">defun</a>). 
+It still behaves in the same way.
+
+   <p>The final complication is this: if the function that the
+Lisp interpreter is looking at is not a special form, and if it is part
+of a list, the Lisp interpreter looks to see whether the list has a list
+inside of it.  If there is an inner list, the Lisp interpreter first
+figures out what it should do with the inside list, and then it works on
+the outside list.  If there is yet another list embedded inside the
+inner list, it works on that one first, and so on.  It always works on
+the innermost list first.  The interpreter works on the innermost list
+first, to evaluate the result of that list.  The result may be
+used by the enclosing expression.
+
+   <p>Otherwise, the interpreter works left to right, from one expression to
+the next.
+
+   </body></html>
+

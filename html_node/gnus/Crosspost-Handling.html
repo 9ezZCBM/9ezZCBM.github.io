@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rev="made" href="mailto:bug-gnu-emacs@gnu.org">
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png">
+<meta name="ICBM" content="42.256233,-71.006581">
+<meta name="DC.title" content="gnu.org">
+
+<title>Crosspost Handling - Gnus Manual</title>
+<!--
+Copyright (C) 1995--2019 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with the Front-Cover Texts
+     being ``A GNU Manual'', and with the Back-Cover Texts as in (a)
+     below.  A copy of the license is included in the section entitled
+     ``GNU Free Documentation License''.
+
+     (a) The FSF's Back-Cover Text is: ``You have the freedom to copy
+     and modify this GNU manual.''
+   -->
+<style type="text/css">
+@import url('/software/emacs/manual.css');
+</style>
+</head>
+<body>
+<div class="node" style="background-color:#DDDDFF">
+<a name="Crosspost-Handling"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Duplicate-Suppression.html#Duplicate-Suppression">Duplicate Suppression</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Exiting-the-Summary-Buffer.html#Exiting-the-Summary-Buffer">Exiting the Summary Buffer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Summary-Buffer.html#Summary-Buffer">Summary Buffer</a>
+
+</div>
+
+<h3 class="section">3.29 Crosspost Handling</h3>
+
+<p><a name="index-velveeta-1708"></a><a name="index-spamming-1709"></a>Marking cross-posted articles as read ensures that you'll never have to
+read the same article more than once.  Unless, of course, somebody has
+posted it to several groups separately.  Posting the same article to
+several groups (not cross-posting) is called <dfn>spamming</dfn>, and you are
+by law required to send nasty-grams to anyone who perpetrates such a
+heinous crime.
+
+   <p>Remember: Cross-posting is kinda ok, but posting the same article
+separately to several groups is not.  Massive cross-posting (aka. 
+<dfn>velveeta</dfn>) is to be avoided at all costs, and you can even use the
+<code>gnus-summary-mail-crosspost-complaint</code> command to complain about
+excessive crossposting (see <a href="Summary-Mail-Commands.html#Summary-Mail-Commands">Summary Mail Commands</a>).
+
+   <p><a name="index-cross_002dposting-1710"></a><a name="index-Xref-1711"></a><a name="index-g_t_0040acronym_007bNOV_007d-1712"></a>One thing that may cause Gnus to not do the cross-posting thing
+correctly is if you use an <acronym>NNTP</acronym> server that supports <span class="sc">xover</span>
+(which is very nice, because it speeds things up considerably) which
+does not include the <code>Xref</code> header in its <acronym>NOV</acronym> lines.  This is
+Evil, but all too common, alas, alack.  Gnus tries to Do The Right Thing
+even with <span class="sc">xover</span> by registering the <code>Xref</code> lines of all
+articles you actually read, but if you kill the articles, or just mark
+them as read without reading them, Gnus will not get a chance to snoop
+the <code>Xref</code> lines out of these articles, and will be unable to use
+the cross reference mechanism.
+
+   <p><a name="index-LIST-overview_002efmt-1713"></a><a name="index-overview_002efmt-1714"></a>To check whether your <acronym>NNTP</acronym> server includes the <code>Xref</code> header
+in its overview files, try &lsquo;<samp><span class="samp">telnet your.nntp.server nntp</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">MODE READER</span></samp>&rsquo; on <code>inn</code> servers, and then say &lsquo;<samp><span class="samp">LIST
+overview.fmt</span></samp>&rsquo;.  This may not work, but if it does, and the last line you
+get does not read &lsquo;<samp><span class="samp">Xref:full</span></samp>&rsquo;, then you should shout and whine at
+your news admin until she includes the <code>Xref</code> header in the
+overview files.
+
+   <p>If you want Gnus to get the <code>Xref</code>s right all the time, you have to
+set <code>nntp-nov-is-evil</code> to <code>t</code>, which slows things down
+considerably.  Also see <a href="Slow_002fExpensive-Connection.html#Slow_002fExpensive-Connection">Slow/Expensive Connection</a>.
+
+   <p>C'est la vie.
+
+   <p>For an alternative approach, see <a href="Duplicate-Suppression.html#Duplicate-Suppression">Duplicate Suppression</a>.
+
+   </body></html>
+
